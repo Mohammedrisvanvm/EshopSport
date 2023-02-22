@@ -1,34 +1,66 @@
 import createDocument from "../helpers/insertToDb.js";
 import { users } from "../models/userSchema.js";
+import sentOTP from "../helpers/emailSend.js";
+import otpGenerator from "otp-generator";
 
 let passworderr = null;
 let emailerr = null;
-export function userGetLogin(req, res) {
-  res.render("login");
-}
-export function userPostLogin(req, res) {
-  console.log(req.body);
+let value = null;
 
-  res.redirect("/signup");
+let otp = otpGenerator.generate(6, {
+  upperCaseAlphabets: false,
+  specialChars: false,
+});
+
+export function guestpage(req, res) {
+  res.render("guest");
+}
+export function userGetLogin(req, res) {
+  console.log("login");
+  res.render("login", { emailerr });
+  emailerr = null;
+}
+export async function userPostLogin(req, res) {
+  console.log(req.body);
+  const { email, password } = req.body;
+
+  const userinfo = await users.findOne({ email });
+  console.log(userinfo);
+  if (!userinfo) {
+    emailerr = "not found email";
+    res.redirect("/login");
+  } else {
+    res.render("home");
+  }
+  console.log("postlogin");
+
   passworderr = null;
 }
 export function userGetSignup(req, res) {
+  console.log("getsignup");
   console.log(passworderr);
   res.render("signup", { passworderr, emailerr });
   passworderr = null;
   emailerr = null;
 }
 export async function userPostSignup(req, res) {
+  console.log("postsignup");
   console.log(req.body);
+  console.log(otp);
+
   const { password, conpassword, email } = req.body;
   if (password == conpassword) {
     console.log(password, conpassword);
+    console.log(email);
 
     const userinfo = await users.findOne({ email });
     console.log(userinfo);
     if (!userinfo) {
-      createDocument(req.body);
-      res.redirect("/");
+      value = req.body;
+      sentOTP(email, otp);
+      req.session.otp = otp;
+
+      res.redirect("/signUpOtp");
     } else {
       console.log("l");
       emailerr = "email is already exist";
@@ -41,15 +73,59 @@ export async function userPostSignup(req, res) {
   }
 }
 export function forgottenPassword(req, res) {
-  res.render("otp");
+  console.log("hai");
+  res.render("otp", { emailerr });
+  emailerr = null;
 }
-export function postForgottenPassword(req, res) {
-  console.log(req.body);
+export async function postForgottenPassword(req, res) {
+  console.log(req.body.email);
+  const email = req.body.email;
+
+  const userinfo = await users.findOne({ email });
+  if (!userinfo) {
+    emailerr = "not found please signup";
+    res.redirect("/forgottenpassword");
+  } else {
+    sentOTP(email, otp);
+    console.log(otp);
+    req.session.otp = otp;
+    res.redirect("/otpValidate")
+  }
+}
+export function getOtpValidate(req, res) {
+  console.log("5");
 
   res.render("otpValidation");
+}
+export function postOtpValidate(req, res) {
+  console.log("postvalidate");
+
+  console.log(req.body);
+  if( req.session.otp ==req.body.otp){
+    res.redirect("/forget3");
+  }else{
+    res.redirect("/otpValidate")
+  }
+ 
 }
 export function forget3(req, res) {
   console.log(req.body);
 
   res.render("newPassword");
+}
+export function getsignUpOtp(req, res) {
+  console.log(req.body);
+
+  res.render("signUpOtp");
+}
+export function postsignUpOtp(req, res) {
+  console.log("postotp");
+  console.log(value);
+  if (req.body.otp == req.session.otp) {
+    console.log(200, "success");
+    createDocument(value);
+    res.redirect("/login");
+  } else {
+    res.redirect("/signUpOtp");
+  }
 }
