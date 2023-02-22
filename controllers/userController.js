@@ -4,7 +4,7 @@ import { users } from "../models/userSchema.js";
 let passworderr = null;
 let emailerr=null;
 export function userGetLogin(req, res) {
-  res.render("home");
+  res.render("login");
 }
 export function userPostLogin(req, res) {
   console.log(req.body);
