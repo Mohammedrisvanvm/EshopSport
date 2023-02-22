@@ -1,11 +1,13 @@
 
 import express ,{ Router} from "express";
+import { userGetLogin, userGetSignup, userPostLogin, userPostSignup } from "../controllers/userController.js";
 
 var router=express.Router()
 
-router.get('/',(req,res)=>{
+router.get('/',userGetLogin)
+router.post('/',userPostLogin)
+router.get('/signup',userGetSignup)
+router.post('/signup',userPostSignup)
 
-    res.render("home")
-})
 
 export default router
