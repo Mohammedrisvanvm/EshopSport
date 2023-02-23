@@ -6,7 +6,7 @@ import otpGenerator from "otp-generator";
 let passworderr = null;
 let emailerr = null;
 let value = null;
-let loginvalue=null
+let loginvalue = null;
 
 let otp = otpGenerator.generate(6, {
   upperCaseAlphabets: false,
@@ -31,11 +31,14 @@ export async function userPostLogin(req, res) {
     emailerr = "not found email";
     res.redirect("/login");
   } else {
-    res.render("home");
+    if (email == userinfo.email && password == userinfo.password) {
+      res.render("home");
+      console.log("postlogin");
+    } else {
+      emailerr = "password error";
+      res.redirect("/login");
+    }
   }
-  console.log("postlogin");
-
-  passworderr = null;
 }
 export function userGetSignup(req, res) {
   console.log("getsignup");
@@ -85,7 +88,7 @@ export function postsignUpOtp(req, res) {
     console.log(200, "success");
     createDocument(value);
     res.redirect("/login");
-    value=null
+    value = null;
   } else {
     res.redirect("/signUpOtp");
   }
@@ -108,10 +111,10 @@ export async function postForgottenPassword(req, res) {
   } else {
     sentOTP(email, otp);
     console.log(otp);
-    req.session.email=email
+    req.session.email = email;
     req.session.otp = otp;
-    loginvalue=req.body
-    res.redirect("/otpValidate")
+    loginvalue = req.body;
+    res.redirect("/otpValidate");
   }
 }
 export function getOtpValidate(req, res) {
@@ -121,37 +124,36 @@ export function getOtpValidate(req, res) {
 }
 export function postOtpValidate(req, res) {
   console.log("postvalidate");
-  console.log("loginvalue",loginvalue);
-  console.log("req",req.body);
-  if( req.session.otp ==req.body.otp){
+  console.log("loginvalue", loginvalue);
+  console.log("req", req.body);
+  if (req.session.otp == req.body.otp) {
     res.redirect("/forget3");
-  }else{
-    res.redirect("/otpValidate")
+  } else {
+    res.redirect("/otpValidate");
   }
- 
 }
 export function getforget3(req, res) {
   console.log(req.body);
 
-  res.render("newPassword",{passworderr});
-  passworderr=null
+  res.render("newPassword", { passworderr });
+  passworderr = null;
 }
 export async function postforget3(req, res) {
-  console.log(req.body)
-  let email=req.session.email
-  const userinfo= await users.findOne({email})
-console.log(userinfo.id);
-if(req.body.password==req.body.repassword){
-console.log("success");
-const update=await users.updateOne({_id:userinfo._id},{$set:{password:req.body.password}});
-res.redirect("/login");
-loginvalue=null
-}else{
-  passworderr="not matching"
-  res.redirect("/forget3")
-  console.log("forget",loginvalue);
+  console.log(req.body);
+  let email = req.session.email;
+  const userinfo = await users.findOne({ email });
+  console.log(userinfo.id);
+  if (req.body.password == req.body.repassword) {
+    console.log("success");
+    const update = await users.updateOne(
+      { _id: userinfo._id },
+      { $set: { password: req.body.password } }
+    );
+    res.redirect("/login");
+    loginvalue = null;
+  } else {
+    passworderr = "not matching";
+    res.redirect("/forget3");
+    console.log("forget", loginvalue);
+  }
 }
- 
- 
-}
-

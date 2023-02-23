@@ -1,5 +1,6 @@
 import express  from "express";
 import userRouter from './routes/user.js'
+import adminRouter from './routes/admin.js'
 import path from "path";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
@@ -17,6 +18,7 @@ const __dirname=path.resolve()
 
 //ejs engine
 app.set('view engine','ejs')
+app.set('views',[path.join(__dirname,'views/userPages'),path.join(__dirname,'views/adminPages')])
 
 app.use(logger('dev'))
 app.use(express.static(__dirname+"/public"))
@@ -46,6 +48,7 @@ app.use((req,res,next) =>{
   })
 
   app.use('/',userRouter)
+  app.use('/admin',adminRouter)
 
 
 
