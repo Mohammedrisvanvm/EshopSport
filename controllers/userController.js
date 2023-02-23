@@ -108,6 +108,7 @@ export async function postForgottenPassword(req, res) {
   } else {
     sentOTP(email, otp);
     console.log(otp);
+    req.session.email=email
     req.session.otp = otp;
     loginvalue=req.body
     res.redirect("/otpValidate")
@@ -137,10 +138,12 @@ export function getforget3(req, res) {
 }
 export async function postforget3(req, res) {
   console.log(req.body)
-  const userinfo= await users.findOne({loginvalue})
-console.log(userinfo);
+  let email=req.session.email
+  const userinfo= await users.findOne({email})
+console.log(userinfo.id);
 if(req.body.password==req.body.repassword){
 console.log("success");
+const update=await users.updateOne({_id:userinfo._id},{$set:{password:req.body.password}});
 res.redirect("/login");
 loginvalue=null
 }else{
