@@ -6,6 +6,7 @@ import otpGenerator from "otp-generator";
 let passworderr = null;
 let emailerr = null;
 let value = null;
+let loginvalue=null
 
 let otp = otpGenerator.generate(6, {
   upperCaseAlphabets: false,
@@ -72,47 +73,6 @@ export async function userPostSignup(req, res) {
     res.redirect("/signup");
   }
 }
-export function forgottenPassword(req, res) {
-  console.log("hai");
-  res.render("otp", { emailerr });
-  emailerr = null;
-}
-export async function postForgottenPassword(req, res) {
-  console.log(req.body.email);
-  const email = req.body.email;
-
-  const userinfo = await users.findOne({ email });
-  if (!userinfo) {
-    emailerr = "not found please signup";
-    res.redirect("/forgottenpassword");
-  } else {
-    sentOTP(email, otp);
-    console.log(otp);
-    req.session.otp = otp;
-    res.redirect("/otpValidate")
-  }
-}
-export function getOtpValidate(req, res) {
-  console.log("5");
-
-  res.render("otpValidation");
-}
-export function postOtpValidate(req, res) {
-  console.log("postvalidate");
-
-  console.log(req.body);
-  if( req.session.otp ==req.body.otp){
-    res.redirect("/forget3");
-  }else{
-    res.redirect("/otpValidate")
-  }
- 
-}
-export function forget3(req, res) {
-  console.log(req.body);
-
-  res.render("newPassword");
-}
 export function getsignUpOtp(req, res) {
   console.log(req.body);
 
@@ -125,7 +85,70 @@ export function postsignUpOtp(req, res) {
     console.log(200, "success");
     createDocument(value);
     res.redirect("/login");
+    value=null
   } else {
     res.redirect("/signUpOtp");
   }
 }
+//signup closed
+
+export function forgottenPassword(req, res) {
+  console.log("hai");
+  res.render("otp", { emailerr });
+  emailerr = null;
+}
+export async function postForgottenPassword(req, res) {
+  console.log(req.body.email);
+  const email = req.body.email;
+
+  const userinfo = await users.findOne({ email });
+  if (!userinfo) {
+    emailerr = "not found please signup";
+    res.redirect("/otp");
+  } else {
+    sentOTP(email, otp);
+    console.log(otp);
+    req.session.otp = otp;
+    loginvalue=req.body
+    res.redirect("/otpValidate")
+  }
+}
+export function getOtpValidate(req, res) {
+  console.log(req.body);
+
+  res.render("otpValidation");
+}
+export function postOtpValidate(req, res) {
+  console.log("postvalidate");
+  console.log("loginvalue",loginvalue);
+  console.log("req",req.body);
+  if( req.session.otp ==req.body.otp){
+    res.redirect("/forget3");
+  }else{
+    res.redirect("/otpValidate")
+  }
+ 
+}
+export function getforget3(req, res) {
+  console.log(req.body);
+
+  res.render("newPassword",{passworderr});
+  passworderr=null
+}
+export async function postforget3(req, res) {
+  console.log(req.body)
+  const userinfo= await users.findOne({loginvalue})
+console.log(userinfo);
+if(req.body.password==req.body.repassword){
+console.log("success");
+res.redirect("/login");
+loginvalue=null
+}else{
+  passworderr="not matching"
+  res.redirect("/forget3")
+  console.log("forget",loginvalue);
+}
+ 
+ 
+}
+
