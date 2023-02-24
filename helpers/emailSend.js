@@ -1,6 +1,4 @@
-import nodemailer from "nodemailer"
-
-
+import nodemailer from "nodemailer";
 
 const sentOTP = (email, otp) => {
   return new Promise((resolve, reject) => {
@@ -9,16 +7,12 @@ const sentOTP = (email, otp) => {
       port: 465, // Port for SMTP (usually 465)
       secure: true, // Usually true if connecting to port 465
       auth: {
-        // user: process.env.SITE_EMAIL,
-        // pass: process.env.SITE_PASSWORD,
-        user: "risvanguest0000@gmail.com",
-        pass: "bkmuzrcdvzsewwxu",
-     },
-
+        user: process.env.SITE_EMAIL,
+        pass: process.env.SITE_PASSWORD,
+      },
     });
     var mailOptions = {
-      // from: process.env.SITE_EMAIL,
-      from: "risvanguest0000@gmail.com",
+      from: process.env.SITE_EMAIL,
       to: email,
       subject: " Email verification",
       html: `
@@ -26,16 +20,16 @@ const sentOTP = (email, otp) => {
                 <h3>use this code to verify your email</h3>
                 <h2>${otp}</h2>
               `,
-    }
+    };
 
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
-        reject(error)
+        reject(error);
       } else {
-        resolve(info)
+        resolve(info);
       }
     });
-  })
-}
+  });
+};
 
 export default sentOTP;
