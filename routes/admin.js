@@ -7,6 +7,9 @@ var router=Express.Router()
 
 router.get("/",getAdminPage)
 router.post("/",postAdminPage)
+// router.get("/test",(req,res)=>{
+//     res.render("index")
+// })
 
 
 

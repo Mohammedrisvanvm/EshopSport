@@ -18,5 +18,5 @@ router.post('/signUpOtp',postsignUpOtp)
 router.get('/forget3',getforget3)
 router.post('/forget3',postforget3)
 
-
+ 
 export default router

@@ -37,7 +37,7 @@
                       action="/admin"
                       role="form"
                     >
-                    <p class="text-danger"><%-emailerr %></p>
+                    
                     <div class="d-flex flex-row align-items-center mb-4">
                         <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
@@ -86,12 +86,15 @@
                           />
                         </div>
                       </div>
-
+                      <% if(error){ %> 
+                        <b class="text-danger"><%= error  %> </b>
+                      <% } %>
+                      
                       <div
                         class="d-flex justify-content-center mx-4 mb-3 mb-lg-4"
                       >
                         <button
-                          type="submit"
+                          type="submit" 
                           class="btn btn-primary btn-lg mx-3"
                         >
                           LOGIN

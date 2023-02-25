@@ -2,7 +2,7 @@ import createDocument from "../helpers/insertToDb.js";
 import { users } from "../models/userSchema.js";
 import sentOTP from "../helpers/emailSend.js";
 import otpGenerator from "otp-generator";
-import bcrypt from "bcrypt"
+import bcrypt from "bcrypt";
 
 let passworderr = null;
 let emailerr = null;
@@ -32,15 +32,17 @@ export async function userPostLogin(req, res) {
     emailerr = "not found email";
     res.redirect("/login");
   } else {
-    bcrypt.compare(password,userinfo.password).then((result)=>{console.log(result);
+    bcrypt.compare(password, userinfo.password).then((result) => {
       console.log(result);
-    if (email == userinfo.email && result==true) {
-      res.render("home");
-      console.log("postlogin");
-    } else {
-      emailerr = "password error";
-      res.redirect("/login");
-    }})
+      console.log(result);
+      if (email == userinfo.email && result == true) {
+        res.render("home");
+        console.log("postlogin");
+      } else {
+        emailerr = "password error";
+        res.redirect("/login");
+      }
+    });
   }
 }
 export function userGetSignup(req, res) {
@@ -148,7 +150,7 @@ export async function postforget3(req, res) {
   console.log(userinfo.id);
   if (req.body.password == req.body.repassword) {
     console.log("success");
-    req.body.password= await bcrypt.hash(req.body.password,10)
+    req.body.password = await bcrypt.hash(req.body.password, 10);
     const update = await users.updateOne(
       { _id: userinfo._id },
       { $set: { password: req.body.password } }
