@@ -155,15 +155,15 @@
         <!-- ============================================================== -->
         <!-- Page wrapper  -->
         <!-- ============================================================== -->
-        <div class="page-wrapper">
+        <div class="page-wrapper ">
             <!-- ============================================================== -->
             <!-- Container fluid  -->
             <!-- ============================================================== -->
-            <div class="container-fluid">
+            <div class="container-fluid bg-white fw-bold">
                 <!-- ============================================================== -->
                 <!-- Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
-                <div class="row page-titles">
+                <div class="row page-titles ">
                     <div class="col-md-5 align-self-center">
                         <h3 class="text-themecolor">User Management</h3>
                         <ol class="breadcrumb">
@@ -174,7 +174,7 @@
                   
                 </div>
 
-                <div><table class="table table-dark table-hover">
+                <div><table class="table  table-hover">
                     <thead >
                       <tr>
                         <th scope="col">number</th>
@@ -193,7 +193,7 @@
                         <th scope="row"><%- index+1 %></th>
                         <td><%-i.name %></td>
                         <td><%- i.email %></td>
-                        <td><%- i.ban %></td>
+                        <td><button class="btn btn-success" onclick=""><%- i.ban %></button> </td>
                         <td><%- i.password %></td>
                         <td><%- i.date %></td>
                       </tr>
