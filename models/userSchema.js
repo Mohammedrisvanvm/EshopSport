@@ -13,10 +13,13 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-
+  ban:{
+    type: Boolean,
+    default:false
+  },
   date: {
     type: Date,
-    default:Date.new,
+    default: Date.now,
   },
 });
 export const users=new mongoose.model("user",userSchema)
