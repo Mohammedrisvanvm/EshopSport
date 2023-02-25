@@ -51,7 +51,11 @@ console.log("admin");
 export async function userManagement(req,res){
   console.log("usermanage");
   const userinfo=await users.find().lean()
-  console.log(userinfo);
 
   res.render("userManagement",{userinfo})
+}
+export async function getgategories(req,res){
+
+const userinfo=await users.find().lean()
+  res.render("categories",{userinfo})
 }

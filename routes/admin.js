@@ -1,5 +1,5 @@
 import Express,{Router}  from "express";
-import { getAdminPage, getdashboard, postAdminPage, userManagement } from "../controllers/admincontroller.js";
+import { getAdminPage, getdashboard, getgategories, postAdminPage, userManagement } from "../controllers/admincontroller.js";
 
 
 
@@ -9,6 +9,7 @@ router.get("/",getAdminPage)
 router.post("/",postAdminPage)
 router.get("/dashboard",getdashboard)
 router.get('/userManagement',userManagement)
+router.get('/categories',getgategories)
 
 
 
