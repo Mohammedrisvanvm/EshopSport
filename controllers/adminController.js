@@ -63,3 +63,7 @@ export function getProductManagement(req,res) {
   console.log("admin profile");
   res.render('ProductManagement')
 }
+export function getaddcategories(req,res){
+console.log("add categories");
+res.render("addcategory")
+}

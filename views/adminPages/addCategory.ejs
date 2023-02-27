@@ -41,12 +41,7 @@
     <!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
     <!-- ============================================================== -->
-    <div class="preloader">
-        <div class="loader">
-            <div class="loader__figure"></div>
-            <p class="loader__label">eshopsport</p>
-        </div>
-    </div>
+   
     <!-- ============================================================== -->
     <!-- Main wrapper - style you can find in pages.scss -->
     <!-- ============================================================== -->
@@ -127,16 +122,16 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                        <li> <a class="waves-effect waves-dark" href="admin/dashboard" aria-expanded="false"><i
+                        <li> <a class="waves-effect waves-dark" href="/admin" aria-expanded="false"><i
                                     class="fa fa-home"></i><span class="hide-menu">Dashboard</span></a>
                         </li>
-                        <li> <a class="waves-effect waves-dark" href="admin/userManagement" aria-expanded="false"><i class="fa fa-users"></i
+                        <li> <a class="waves-effect waves-dark" href="/admin/userManagement" aria-expanded="false"><i class="fa fa-users"></i
                             ><span class="hide-menu">user management</span></a>
                         </li>
-                        <li> <a class="waves-effect waves-dark" href="admin/categoriesManagement" aria-expanded="false"><i class="fa fa-list"></i
+                        <li> <a class="waves-effect waves-dark" href="/admin/categoriesManagement" aria-expanded="false"><i class="fa fa-list"></i
                             ><span class="hide-menu">categories</span></a>
                         </li>
-                        <li> <a class="waves-effect waves-dark" href="admin/productManagement" aria-expanded="false"><i
+                        <li> <a class="waves-effect waves-dark" href="/admin/productManagement" aria-expanded="false"><i
                             class="fa fa-shopping-cart"></i><span class="hide-menu">Product</span></a>
                 </li>
                         <!-- <li> <a class="waves-effect waves-dark" href="map-google.ejs" aria-expanded="false"><i
@@ -171,10 +166,10 @@
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-5 align-self-center">
-                        <h3 class="text-themecolor">Dashboard</h3>
+                        <h3 class="text-themecolor">categories</h3>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                            <li class="breadcrumb-item active">Dashboard</li>
+                            <li class="breadcrumb-item active">category</li>
                         </ol>
                     </div>
                   
@@ -182,56 +177,15 @@
                 <!-- ============================================================== -->
                 <!-- End Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- Sales Chart and browser state-->
-                <!-- ============================================================== -->
-                <div class="row">
-                    <!-- Column -->
-                    <div class="col-lg-8">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex no-block">
-                                    <div>
-                                        <h5 class="card-title mb-0">Sales Chart</h5>
-                                    </div>
-                                    <div class="ms-auto">
-                                        <ul class="list-inline text-center font-12">
-                                            <li><i class="fa fa-circle text-success"></i> SITE A</li>
-                                            <li><i class="fa fa-circle text-info"></i> SITE B</li>
-                                            <li><i class="fa fa-circle text-primary"></i> SITE C</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="" id="sales-chart" style="height: 355px;"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Column -->
-                    <div class="col-lg-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex mb-4 no-block">
-                                    <h5 class="card-title mb-0 align-self-center">sales</h5>
-                                    <div class="ms-auto">
-                                        <select class="form-select b-0">
-                                            <option selected="">Today</option>
-                                            <option value="1">last year</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div id="visitor" style="height:260px; width:100%;"></div>
-                                <ul class="list-inline mt-4 text-center font-12">
-                                    <li><i class="fa fa-circle text-purple"></i> saled</li>
-                                    <li><i class="fa fa-circle text-success"></i> orders</li>
-                                    <li><i class="fa fa-circle text-info"></i> returns</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- ============================================================== -->
-                <!-- End Sales Chart -->
-                <!-- ============================================================== -->
+             <section>
+                <form action="/admin/addcategories" method="post">
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">add categories</label>
+                        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="brand/category">
+                      </div>
+                      <button class="btn btn-primary" type="submit">add</button>
+                </form>
+             </section>
        
             <!-- footer -->
             <!-- ============================================================== -->

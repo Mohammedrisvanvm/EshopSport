@@ -180,7 +180,7 @@
               <li>
                 <a
                   class="waves-effect waves-dark"
-                  href="admin/userManagement"
+                  href="/admin/userManagement"
                   aria-expanded="false"
                   ><i class="fa fa-users"></i
                   ><span class="hide-menu">user management</span></a
@@ -189,7 +189,7 @@
               <li>
                 <a
                   class="waves-effect waves-dark"
-                  href="admin/categoriesManagement"
+                  href="/admin/categoriesManagement"
                   aria-expanded="false"
                   ><i class="fa fa-list"></i><span class="hide-menu">categories</span></a
                 >
@@ -197,7 +197,7 @@
               <li>
                 <a
                   class="waves-effect waves-dark"
-                  href="/productManagement"
+                  href="/admin/productManagement"
                   aria-expanded="false"
                   ><i class="fa fa-user-circle-o"></i
                   ><span class="hide-menu">Product</span></a
@@ -250,57 +250,14 @@
           <!-- ============================================================== -->
           <!-- Bread crumb and right sidebar toggle -->
           <!-- ============================================================== -->
-          <div class="row page-titles">
-            <div class="col-md-5 align-self-center">
-              <h3 class="text-themecolor">User Management</h3>
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                  <a href="javascript:void(0)">Home</a>
-                </li>
-                <li class="breadcrumb-item active">User Management</li>
-              </ol>
-            </div>
-          </div>
 
-          <div>
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">number</th>
-                  <th scope="col">name</th>
-                  <th scope="col">email</th>
-                  <th scope="col">ban</th>
-                  <th scope="col">password</th>
-                  <th scope="col">date</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <% userinfo.forEach((i,index) => { %>
-
-                  <th scope="row"><%- index+1 %></th>
-                  <td><%-i.name %></td>
-                  <td><%- i.email %></td>
-                  <td>
-                    <button class="btn btn-success" onclick="">
-                      <%- i.ban %>
-                    </button>
-                  </td>
-                  <td><%- i.password %></td>
-                  <td><%- i.date %></td>
-                </tr>
-                <% }) %>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
+<a href="/admin/addcategories"><button class="btn btn-primary">add  categories</button></a>
         <!-- ============================================================== -->
         <!-- footer -->
         <!-- ============================================================== -->
         <footer class="footer">
           © 2023 eshop sport by
-          <a href="https://www.wrappixel.com/">eshop sport.com</a>
+          <a href="#">eshop sport.com</a>
         </footer>
         <!-- ============================================================== -->
         <!-- End footer -->
