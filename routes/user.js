@@ -1,6 +1,6 @@
 
 import express ,{ Router} from "express";
-import { forgottenPassword, getforget3, getOtpValidate, getsignUpOtp, guestpage, postforget3, postForgottenPassword, postOtpValidate, postsignUpOtp, userGetLogin, userGetSignup, userPostLogin, userPostSignup } from "../controllers/userController.js";
+import { forgottenPassword, getforget3, getOtpValidate, getsignUpOtp, guestpage, postforget3, postForgottenPassword, postOtpValidate, postsignUpOtp, resendOTP, userGetLogin, userGetSignup, userPostLogin, userPostSignup } from "../controllers/userController.js";
 
 var router=express.Router()
 
@@ -17,6 +17,6 @@ router.get('/signUpOtp',getsignUpOtp)
 router.post('/signUpOtp',postsignUpOtp)
 router.get('/forget3',getforget3)
 router.post('/forget3',postforget3)
-
+router.get('/resendotp',resendOTP)
  
 export default router

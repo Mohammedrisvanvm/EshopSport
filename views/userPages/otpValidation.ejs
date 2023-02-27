@@ -49,14 +49,17 @@
                           />
                         </div>
                       </div>
+                     <p><%- otperr %></p>
 
                       <div
                         class="d-flex justify-content-center mx-4 mb-3 mb-lg-4"
                       >
                         <button type="submit" class="btn btn-primary btn-lg">
-                          submit
+                          verify
                         </button>
                       </div>
+
+                      <div class="d-flex justify-content-center text-center" style="font-weight: 500; cursor: pointer;" id="countdown"></div>
                     </form>
                   </div>
                   <div
@@ -75,5 +78,24 @@
         </div>
       </div>
     </section>
+    <script>
+      let countdown=document.getElementById('countdown')
+      let count=10
+      const countdownintervel=setInterval(()=>{
+        count--
+        countdown.innerHTML="resend otp in "+count
+        checkover()
+      },1000)
+
+      function checkover() {
+        if(count==0){
+          clearInterval(countdownintervel)
+          countdown.innerHTML=`
+          <span onclick="window.location.href='/resendotp'">resend otp</span>
+          `
+        }
+        
+      }
+    </script>
   </body>
 </html>

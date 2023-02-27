@@ -48,14 +48,18 @@ export function getdashboard(req,res){
 console.log("admin");
   res.redirect("/admin")
 }
-export async function userManagement(req,res){
+export async function getuserManagement(req,res){
   console.log("usermanage");
   const userinfo=await users.find().lean()
 
   res.render("userManagement",{userinfo})
 }
-export async function getgategories(req,res){
+export async function getgategoriesManagemenet(req,res){
 
 const userinfo=await users.find().lean()
-  res.render("categories",{userinfo})
+  res.render("categoriesManagement",{userinfo})
+}
+export function getProductManagement(req,res) {
+  console.log("admin profile");
+  res.render('ProductManagement')
 }

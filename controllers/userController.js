@@ -8,6 +8,7 @@ let passworderr = null;
 let emailerr = null;
 let value = null;
 let loginvalue = null;
+let otperr=null
 
 let otp = otpGenerator.generate(6, {
   upperCaseAlphabets: false,
@@ -122,10 +123,22 @@ export async function postForgottenPassword(req, res) {
     res.redirect("/otpValidate");
   }
 }
+export async function resendOTP(req, res) {
+  let otp = otpGenerator.generate(6, {
+    upperCaseAlphabets: false,
+    specialChars: false,
+  });
+    sentOTP(req.session.email, otp);
+    req.session.otp = otp;
+    
+    res.redirect("/otpValidate");
+
+}
 export function getOtpValidate(req, res) {
   console.log(req.body);
 
-  res.render("otpValidation");
+  res.render("otpValidation",{otperr});
+  otperr=null
 }
 export function postOtpValidate(req, res) {
   console.log("postvalidate");
@@ -134,6 +147,7 @@ export function postOtpValidate(req, res) {
   if (req.session.otp == req.body.otp) {
     res.redirect("/forget3");
   } else {
+    otperr="otp invalid"
     res.redirect("/otpValidate");
   }
 }
