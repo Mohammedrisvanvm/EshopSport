@@ -11,7 +11,7 @@
     <meta name="description"
         content="AdminWrap Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
-    <title>userManagement</title>
+    <title>add categories</title>
     <link rel="canonical" href="https://www.wrappixel.com/templates/adminwrap-lite/" />
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon.png">
@@ -181,11 +181,40 @@
                 <form action="/admin/addcategories" method="post">
                     <div class="form-group">
                         <label for="formGroupExampleInput">add categories</label>
-                        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="brand/category">
+                        <input type="text" class="form-control" name="name" placeholder="brand/category">
                       </div>
+                      <label class="text-danger"><%-categorieserr  %></label>
                       <button class="btn btn-primary" type="submit">add</button>
                 </form>
              </section>
+             <section>
+                <div style="margin-top: 50px;">
+                    
+                    <h1 class="my-5">categories</h1>
+
+                <table class="table table-condensed">
+                    <thead>
+                      <tr>
+                        <th>sl</th>
+                        <th>category name</th>
+                        <th>list</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <% categoryinfo.forEach((i,index) => { %>
+                         
+                       
+                        <td><%-index+1 %></td>
+                        <td><%-i.name %></td>
+                        <td><button class="btn btn-success"> <%-i.list %></button></td>
+                     
+                      </tr>
+                      <% }) %>
+                    </tbody>
+                  </table>
+             </section>
+            </div>
        
             <!-- footer -->
             <!-- ============================================================== -->

@@ -1,8 +1,10 @@
 import { admins } from "../models/adminSchema.js";
+import {categories} from "../models/categorySchema.js";
 import { users } from "../models/userSchema.js";
 
 
 let emailerr = null;
+let categorieserr=null
 
 export function getAdminPage(req, res) {
   if(req.session.admin)
@@ -63,7 +65,35 @@ export function getProductManagement(req,res) {
   console.log("admin profile");
   res.render('ProductManagement')
 }
-export function getaddcategories(req,res){
-console.log("add categories");
-res.render("addcategory")
+export async function getaddcategories(req,res){
+console.log("get add categories");
+const categoryinfo=await categories.find()
+res.render("addcategory",{categorieserr,categoryinfo})
+categorieserr=null
+}
+export async function postaddcategories(req,res){
+  console.log("post addcategory");
+  const categoryinfo=await categories.findOne({name:req.body.name})
+  console.log(categoryinfo);
+  if(!categoryinfo){
+    try{
+     
+      
+      const categoriesadd=new categories({
+         
+          name:req.body.name,
+          
+      })
+      await categoriesadd.save();
+      console.log("no");
+      res.redirect("/admin/addcategories")
+  }catch(err){
+      console.log(err);
+
+  }}
+  else{
+    categorieserr="already exist"
+    res.redirect("/admin/addcategories")
+  }
+  
 }
