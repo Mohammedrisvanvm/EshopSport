@@ -67,6 +67,7 @@ export async function userPostSignup(req, res) {
     console.log(userinfo);
     if (!userinfo) {
       value = req.body;
+      req.session.email=email
       sentOTP(email, otp);
       req.session.otp = otp;
 
@@ -85,7 +86,8 @@ export async function userPostSignup(req, res) {
 export function getsignUpOtp(req, res) {
   console.log(req.body);
 
-  res.render("signUpOtp");
+  res.render("signUpOtp",{otperr});
+  otperr=null
 }
 export function postsignUpOtp(req, res) {
   console.log("postotp");
@@ -96,8 +98,21 @@ export function postsignUpOtp(req, res) {
     res.redirect("/login");
     value = null;
   } else {
+    otperr="wrong otp"
     res.redirect("/signUpOtp");
   }
+}
+export function signupresendOTP(req, res) {
+  let otp = otpGenerator.generate(6, {
+    upperCaseAlphabets: false,
+    specialChars: false,
+  });
+  console.log(req.session.email);
+    sentOTP(req.session.email, otp);
+    req.session.otp = otp;
+    
+    res.redirect("/signupotp");
+
 }
 //signup closed
 
@@ -123,12 +138,15 @@ export async function postForgottenPassword(req, res) {
     res.redirect("/otpValidate");
   }
 }
-export async function resendOTP(req, res) {
+export function resendOTP(req, res) {
   let otp = otpGenerator.generate(6, {
     upperCaseAlphabets: false,
     specialChars: false,
   });
+  
+  console.log(req.session.email);
     sentOTP(req.session.email, otp);
+    req.session.email=req.session.email
     req.session.otp = otp;
     
     res.redirect("/otpValidate");
