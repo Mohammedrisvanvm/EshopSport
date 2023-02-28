@@ -8,7 +8,7 @@ let passworderr = null;
 let emailerr = null;
 let value = null;
 let loginvalue = null;
-let otperr=null
+let otperr = null;
 
 let otp = otpGenerator.generate(6, {
   upperCaseAlphabets: false,
@@ -67,7 +67,7 @@ export async function userPostSignup(req, res) {
     console.log(userinfo);
     if (!userinfo) {
       value = req.body;
-      req.session.email=email
+      req.session.email = email;
       sentOTP(email, otp);
       req.session.otp = otp;
 
@@ -84,10 +84,8 @@ export async function userPostSignup(req, res) {
   }
 }
 export function getsignUpOtp(req, res) {
-  console.log(req.body);
-
-  res.render("signUpOtp",{otperr});
-  otperr=null
+  res.render("signUpOtp", { otperr });
+  otperr = null;
 }
 export function postsignUpOtp(req, res) {
   console.log("postotp");
@@ -98,7 +96,7 @@ export function postsignUpOtp(req, res) {
     res.redirect("/login");
     value = null;
   } else {
-    otperr="wrong otp"
+    otperr = "wrong otp";
     res.redirect("/signUpOtp");
   }
 }
@@ -108,11 +106,10 @@ export function signupresendOTP(req, res) {
     specialChars: false,
   });
   console.log(req.session.email);
-    sentOTP(req.session.email, otp);
-    req.session.otp = otp;
-    
-    res.redirect("/signupotp");
+  sentOTP(req.session.email, otp);
+  req.session.otp = otp;
 
+  res.redirect("/signupotp");
 }
 //signup closed
 
@@ -143,20 +140,19 @@ export function resendOTP(req, res) {
     upperCaseAlphabets: false,
     specialChars: false,
   });
-  
-  console.log(req.session.email);
-    sentOTP(req.session.email, otp);
-    req.session.email=req.session.email
-    req.session.otp = otp;
-    
-    res.redirect("/otpValidate");
 
+  console.log(req.session.email);
+  sentOTP(req.session.email, otp);
+  req.session.email = req.session.email;
+  req.session.otp = otp;
+
+  res.redirect("/otpValidate");
 }
 export function getOtpValidate(req, res) {
   console.log(req.body);
 
-  res.render("otpValidation",{otperr});
-  otperr=null
+  res.render("otpValidation", { otperr });
+  otperr = null;
 }
 export function postOtpValidate(req, res) {
   console.log("postvalidate");
@@ -165,7 +161,7 @@ export function postOtpValidate(req, res) {
   if (req.session.otp == req.body.otp) {
     res.redirect("/forget3");
   } else {
-    otperr="otp invalid"
+    otperr = "otp invalid";
     res.redirect("/otpValidate");
   }
 }
