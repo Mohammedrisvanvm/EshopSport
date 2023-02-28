@@ -25,7 +25,7 @@ const productSchema = new mongoose.Schema({
     type: Object,
     required: true,
   },
-  sideImages: {
+  subImages: {
     type: Array,
     required: true,
   },
@@ -36,10 +36,6 @@ const productSchema = new mongoose.Schema({
   uploadedAt: {
     type: Date,
     default: new Date(),
-  },
-  Image: {
-    type: String,
-    required: true,
   },
   description: {
     type: String,
