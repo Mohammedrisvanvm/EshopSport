@@ -21,9 +21,21 @@ const productSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  mainImage: {
+    type: Object,
+    required: true,
+  },
+  sideImages: {
+    type: Array,
+    required: true,
+  },
   list: {
     type: Boolean,
     default: true,
+  },
+  uploadedAt: {
+    type: Date,
+    default: new Date(),
   },
   Image: {
     type: String,
