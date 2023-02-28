@@ -191,3 +191,7 @@ export async function postforget3(req, res) {
     console.log("forget", loginvalue);
   }
 }
+export function userlogout(req, res) {
+  req.session.destroy();
+  res.redirect("/");
+}
