@@ -178,62 +178,8 @@
                 <!-- ============================================================== -->
                 <!-- End Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
-<section class="Container">
-    
-                <form class="fs-5" action="/admin/productManagement" method="post" enctype="multipart/form-data">
-                    
-                        <div class="form-group">
-                          <label for="exampleFormControlInput1">product name</label>
-                          <input name="productName" class="form-control" id="exampleFormControlInput1" placeholder="eg:full sleeve jersey">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">category</label>
-                            <input name="category" class="form-control" id="exampleFormControlInput1" placeholder="eg:jersey">
-                          </div>
-                          <div class="form-group">
-                            <label for="exampleFormControlInput1">quantity</label>
-                            <input type="number" name="quantity" class="form-control" id="exampleFormControlInput1" placeholder="eg:1">
-                          </div>
-                          <div class="form-group">
-                            <label for="exampleFormControlInput1">MRP</label>
-                            <input type="number" name="MRP" class="form-control" id="exampleFormControlInput1" placeholder="eg:₹1000">
-                          </div>
-                          <div class="form-group">
-                            <label for="exampleFormControlInput1">price</label>
-                            <input type="number" name="price" class="form-control" id="exampleFormControlInput1" placeholder="eg:₹780">
-                          </div>
-                          <div class="form-group">
-                            <label for="exampleFormControlFile1">main image</label>
-                            <input type="file" name="mainImage" class="form-control-file" id="exampleFormControlFile1">
-                          </div>
-                          <div class="form-group">
-                            <label for="exampleFormControlFile1">sub images</label>
-                            <input type="file" name="subImages" multiple class="form-control-file" max="2" id="exampleFormControlFile1">
-                          </div>
-                          <div class="form-group">
-                            <label for="exampleFormControlTextarea1">description</label>
-                            <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3" placeholder="eg:write something about product........"></textarea>
-                          </div>
-                          <p class="text-danger"><%-producterr %></p>
-                     
-                        <div
-                        
-                      >
-                        <button
-                          type="submit" 
-                          class="btn btn-primary btn-lg"
-                        >
-                          submit
-                        </button>
-                      </div>
-
-
-                      
-                </form>
-
-            
-        </div>
-    </section>
+<a href="/admin/addProduct"><button class="btn btn-primary"> add product</button></a>
+               
        
             <!-- footer -->
             <!-- ============================================================== -->

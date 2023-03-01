@@ -69,10 +69,16 @@ export function getProductManagement(req,res) {
   res.render('ProductManagement',{producterr})
    producterr = null;
 }
-export async function postProductManagement(req,res) {
+export function getaddProduct(req,res) {
+  res.render("addproduct",{producterr})
+  producterr=null
+  
+}
+export async function postaddProduct(req,res) {
   console.log("hi");
-  console.log(req.files,'**************************');
-  const productinfo=await products.findOne({name:req.body.productName})
+  console.log(req.body)
+  console.log(req.files);
+  const productinfo=await products.findOne({productName:req.body.productName})
   console.log(productinfo);
   if(!productinfo){
     try{
@@ -102,7 +108,7 @@ export async function postProductManagement(req,res) {
   }}
   else{
     producterr="already exist"
-    res.redirect("/admin/ProductManagement")
+    res.redirect("/admin/addproduct")
   }
   
 }

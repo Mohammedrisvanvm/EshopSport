@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +13,7 @@
     <meta name="description"
         content="AdminWrap Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
-    <title>add categories</title>
+    <title>add product</title>
     <link rel="canonical" href="https://www.wrappixel.com/templates/adminwrap-lite/" />
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon.png">
@@ -35,6 +37,7 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
+
 </head>
 
 <body class="fix-header fix-sidebar card-no-border">
@@ -103,7 +106,7 @@
                             <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="#"
                                 id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
                                     src="../assets/images/users/1.jpg" alt="user" class="" /> <span
-                                    class="hidden-md-down">Mark Sanders &nbsp;</span> </a>
+                                    class="hidden-md-down"> Mohammed Risvan&nbsp;</span> </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown"></ul>
                         </li>
                     </ul>
@@ -166,10 +169,10 @@
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-5 align-self-center">
-                        <h3 class="text-themecolor">categories</h3>
+                        <h3 class="text-themecolor">product</h3>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                            <li class="breadcrumb-item active">category</li>
+                            <li class="breadcrumb-item active">product</li>
                         </ol>
                     </div>
                   
@@ -177,44 +180,63 @@
                 <!-- ============================================================== -->
                 <!-- End Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
-             <section>
-                <form action="/admin/addcategories" method="post">
-                    <div class="form-group">
-                        <label for="formGroupExampleInput">add categories</label>
-                        <input type="text" class="form-control" name="name" placeholder="brand/category">
-                      </div>
-                      <label class="text-danger"><%-categorieserr  %></label>
-                      <button class="btn btn-primary" type="submit">add</button>
-                </form>
-             </section>
-             <section>
-                <div style="margin-top: 50px;">
-                    
-                    <h1 class="my-5">categories</h1>
-
-                <table class="table table-condensed">
-                    <thead>
-                      <tr>
-                        <th>sl</th>
-                        <th>category name</th>
-                        <th>list</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <% categoryinfo.forEach((i,index) => { %>
+                <section class="Container">
+    
+                    <form class="fs-5" action="/admin/addProduct" method="post" enctype="multipart/form-data">
+                        
+                            <div class="form-group">
+                              <label for="exampleFormControlInput1">product name</label>
+                              <input name="productName" required class="form-control" id="exampleFormControlInput1" placeholder="eg:full sleeve jersey">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">category</label>
+                                <input name="category" required class="form-control" id="exampleFormControlInput1" placeholder="eg:jersey">
+                              </div>
+                              <div class="form-group">
+                                <label for="exampleFormControlInput1">quantity</label>
+                                <input type="number" required name="quantity" class="form-control" id="exampleFormControlInput1" placeholder="eg:1">
+                              </div>
+                              <div class="form-group">
+                                <label for="exampleFormControlInput1">MRP</label>
+                                <input type="number" required name="MRP" class="form-control" id="exampleFormControlInput1" placeholder="eg:₹1000">
+                              </div>
+                              <div class="form-group">
+                                <label for="exampleFormControlInput1">price</label>
+                                <input type="number" required name="price" class="form-control" id="exampleFormControlInput1" placeholder="eg:₹780">
+                              </div>
+                              <div class="form-group">
+                                <label for="exampleFormControlFile1">main image</label>
+                                <input type="file" required name="mainImage" class="form-control-file" id="exampleFormControlFile1">
+                              </div>
+                              <div class="form-group">
+                                <label for="exampleFormControlFile1">sub images</label>
+                                <input type="file" required name="subImages" multiple class="form-control-file" max="2" id="exampleFormControlFile1">
+                              </div>
+                              <div class="form-group">
+                                <label for="exampleFormControlTextarea1">description</label>
+                                <textarea class="form-control" required name="description" id="exampleFormControlTextarea1" rows="3" placeholder="eg:write something about product........"></textarea>
+                              </div>
+                              <p class="text-danger"><%-producterr %></p>
                          
-                       
-                        <td><%-index+1 %></td>
-                        <td><%-i.name %></td>
-                        <td><button class="btn btn-success"> <%-i.list %></button></td>
-                     
-                      </tr>
-                      <% }) %>
-                    </tbody>
-                  </table>
-             </section>
-            </div>
+                            <div
+                            
+                          >
+                            <button
+                              type="submit" 
+                              class="btn btn-primary btn-lg"
+                            >
+                              submit
+                            </button>
+                          </div>
+                
+                
+                          
+                    </form>
+                
+                
+                </div>
+                </section>
+               
        
             <!-- footer -->
             <!-- ============================================================== -->
@@ -258,3 +280,4 @@
 </body>
 
 </html>
+

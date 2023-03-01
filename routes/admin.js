@@ -1,14 +1,16 @@
 import Express, { Router } from "express";
 import {
   getaddcategories,
+  getaddProduct,
   getAdminPage,
   getdashboard,
   getgategoriesManagemenet,
   getProductManagement,
   getuserManagement,
   postaddcategories,
+  postaddProduct,
   postAdminPage,
-  postProductManagement,
+  
 } from "../controllers/admincontroller.js";
 import { multiupload } from "../helpers/multer.js";
 
@@ -20,7 +22,8 @@ router.get("/dashboard", getdashboard);
 router.get("/userManagement", getuserManagement);
 router.get("/categoriesManagement", getgategoriesManagemenet);
 router.get("/productManagement", getProductManagement);
-router.post("/productManagement",multiupload,postProductManagement)
+router.get("/addProduct",getaddProduct)
+router.post("/addProduct",multiupload,postaddProduct)
 router.get("/addcategories", getaddcategories);
 router.post("/addcategories", postaddcategories);
 
