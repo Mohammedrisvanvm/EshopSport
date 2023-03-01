@@ -65,6 +65,15 @@ export function getProductManagement(req,res) {
   console.log("admin profile");
   res.render('ProductManagement')
 }
+export function postProductManagement(req,res) {
+  console.log(req.body);
+  res.redirect("/admin/productManagement")
+  
+}
+
+
+
+
 export async function getaddcategories(req,res){
 console.log("get add categories");
 const categoryinfo=await categories.find()

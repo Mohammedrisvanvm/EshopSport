@@ -11,7 +11,7 @@
     <meta name="description"
         content="AdminWrap Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
-    <title>userManagement</title>
+    <title>dashboard</title>
     <link rel="canonical" href="https://www.wrappixel.com/templates/adminwrap-lite/" />
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon.png">
@@ -108,7 +108,7 @@
                             <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="#"
                                 id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
                                     src="../assets/images/users/1.jpg" alt="user" class="" /> <span
-                                    class="hidden-md-down">Mark Sanders &nbsp;</span> </a>
+                                    class="hidden-md-down">Mohammed Risvan &nbsp;</span> </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown"></ul>
                         </li>
                     </ul>
@@ -206,33 +206,20 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Column -->
-                    <div class="col-lg-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex mb-4 no-block">
-                                    <h5 class="card-title mb-0 align-self-center">sales</h5>
-                                    <div class="ms-auto">
-                                        <select class="form-select b-0">
-                                            <option selected="">Today</option>
-                                            <option value="1">last year</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div id="visitor" style="height:260px; width:100%;"></div>
-                                <ul class="list-inline mt-4 text-center font-12">
-                                    <li><i class="fa fa-circle text-purple"></i> saled</li>
-                                    <li><i class="fa fa-circle text-success"></i> orders</li>
-                                    <li><i class="fa fa-circle text-info"></i> returns</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                   
                 </div>
                 <!-- ============================================================== -->
                 <!-- End Sales Chart -->
                 <!-- ============================================================== -->
        
+
+                <!-- new -->
+                
+
+                <div id="piechart"></div>
+
+
+                
             <!-- footer -->
             <!-- ============================================================== -->
             <footer class="footer"> © 2023 eshopsport by <a href="/views/adminPages/adminHome.ejs">eshopsport.com</a> </footer>
@@ -272,6 +259,33 @@
     <script src="/assets/node_modules/c3-master/c3.min.js"></script>
     <!-- Chart JS -->
     <script src="js/dashboard1.js"></script>
+    
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script type="text/javascript">
+// Load google charts
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+// Draw the chart and set the chart values
+function drawChart() {
+  var data = google.visualization.arrayToDataTable([
+  ['profit', 'Hours per Day'],
+  ['revenue', 8],
+  ['netprofit', 2],
+  ['expense', 4],
+  ['ongoing', 2],
+  ['non', 8]
+]);
+
+  // Optional; add a title and set the width and height of the chart
+  var options = {'title':'My Average Day', 'width':550, 'height':400};
+
+  // Display the chart inside the <div> element with id="piechart"
+  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+  chart.draw(data, options);
+}
+</script>
 </body>
 
 </html>
