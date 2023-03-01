@@ -252,6 +252,35 @@
           <!-- ============================================================== -->
 
 <a href="/admin/addcategories"><button class="btn btn-primary">add  categories</button></a>
+
+<section>
+  <div style="margin-top: 50px;">
+      
+      <h1 class="my-5">categories</h1>
+
+  <table class="table table-condensed">
+      <thead>
+        <tr>
+          <th>sl</th>
+          <th>category name</th>
+          <th>list</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <% categoryinfo.forEach((i,index) => { %>
+           
+         
+          <td><%-index+1 %></td>
+          <td><%-i.name %></td>
+          <td><button class="btn btn-success"> <%-i.list %></button></td>
+       
+        </tr>
+        <% }) %>
+      </tbody>
+  </div>
+    </table>
+</section>
         <!-- ============================================================== -->
         <!-- footer -->
         <!-- ============================================================== -->

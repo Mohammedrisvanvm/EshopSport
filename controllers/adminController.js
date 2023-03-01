@@ -1,9 +1,12 @@
 import { admins } from "../models/adminSchema.js";
 import {categories} from "../models/categorySchema.js";
+import { products } from "../models/productSchema.js";
 import { users } from "../models/userSchema.js";
 
 
+
 let emailerr = null;
+let producterr = null;
 let categorieserr=null
 
 export function getAdminPage(req, res) {
@@ -58,16 +61,49 @@ export async function getuserManagement(req,res){
 }
 export async function getgategoriesManagemenet(req,res){
 
-const userinfo=await users.find().lean()
-  res.render("categoriesManagement",{userinfo})
+  const categoryinfo=await categories.find()
+  res.render("categoriesManagement",{categoryinfo})
 }
 export function getProductManagement(req,res) {
   console.log("admin profile");
-  res.render('ProductManagement')
+  res.render('ProductManagement',{producterr})
+   producterr = null;
 }
-export function postProductManagement(req,res) {
-  console.log(req.body);
-  res.redirect("/admin/productManagement")
+export async function postProductManagement(req,res) {
+  console.log("hi");
+  console.log(req.files,'**************************');
+  const productinfo=await products.findOne({name:req.body.productName})
+  console.log(productinfo);
+  if(!productinfo){
+    try{
+     
+      
+      const productadd=new products({
+        productName:req.body.productName,
+        category:req.body.category,
+        quantity:req.body.quantity,
+        MRP:req.body.MRP,
+       price:req.body.price,
+        mainImage:req.files.mainImage,
+        subImages:req.files.subImages,
+        description:req.body.description
+       
+
+         
+          
+          
+      })
+      await productadd.save();
+      console.log("no");
+      res.redirect("/admin/productManagement")
+  }catch(err){
+      console.log(err);
+
+  }}
+  else{
+    producterr="already exist"
+    res.redirect("/admin/ProductManagement")
+  }
   
 }
 
@@ -76,8 +112,8 @@ export function postProductManagement(req,res) {
 
 export async function getaddcategories(req,res){
 console.log("get add categories");
-const categoryinfo=await categories.find()
-res.render("addcategory",{categorieserr,categoryinfo})
+
+res.render("addcategory",{categorieserr})
 categorieserr=null
 }
 export async function postaddcategories(req,res){
@@ -95,7 +131,7 @@ export async function postaddcategories(req,res){
       })
       await categoriesadd.save();
       console.log("no");
-      res.redirect("/admin/addcategories")
+      res.redirect("/admin/categoriesManagement")
   }catch(err){
       console.log(err);
 

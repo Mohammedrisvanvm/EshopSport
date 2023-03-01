@@ -10,6 +10,7 @@ import {
   postAdminPage,
   postProductManagement,
 } from "../controllers/admincontroller.js";
+import { multiupload } from "../helpers/multer.js";
 
 var router = Express.Router();
 
@@ -19,7 +20,7 @@ router.get("/dashboard", getdashboard);
 router.get("/userManagement", getuserManagement);
 router.get("/categoriesManagement", getgategoriesManagemenet);
 router.get("/productManagement", getProductManagement);
-router.post("/productManagement",postProductManagement)
+router.post("/productManagement",multiupload,postProductManagement)
 router.get("/addcategories", getaddcategories);
 router.post("/addcategories", postaddcategories);
 

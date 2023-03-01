@@ -66,7 +66,7 @@ export async function userPostSignup(req, res) {
     const userinfo = await users.findOne({ email });
     console.log(userinfo);
     if (!userinfo) {
-      value = req.body;
+    req.session.value= req.body;
       req.session.email = email;
       sentOTP(email, otp);
       req.session.otp = otp;
@@ -89,12 +89,12 @@ export function getsignUpOtp(req, res) {
 }
 export function postsignUpOtp(req, res) {
   console.log("postotp");
-  console.log(value);
+  console.log();
   if (req.body.otp == req.session.otp) {
     console.log(200, "success");
-    createDocument(value);
+    createDocument(req.session.value);
     res.redirect("/login");
-    value = null;
+    req.session.value= null;
   } else {
     otperr = "wrong otp";
     res.redirect("/signUpOtp");

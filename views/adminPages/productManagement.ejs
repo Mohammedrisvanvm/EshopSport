@@ -180,7 +180,7 @@
                 <!-- ============================================================== -->
 <section class="Container">
     
-                <form class="fs-5" action="/admin/productManagement" method="post">
+                <form class="fs-5" action="/admin/productManagement" method="post" enctype="multipart/form-data">
                     
                         <div class="form-group">
                           <label for="exampleFormControlInput1">product name</label>
@@ -204,16 +204,17 @@
                           </div>
                           <div class="form-group">
                             <label for="exampleFormControlFile1">main image</label>
-                            <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                            <input type="file" name="mainImage" class="form-control-file" id="exampleFormControlFile1">
                           </div>
                           <div class="form-group">
                             <label for="exampleFormControlFile1">sub images</label>
-                            <input type="file" multiple class="form-control-file" max="2" id="exampleFormControlFile1">
+                            <input type="file" name="subImages" multiple class="form-control-file" max="2" id="exampleFormControlFile1">
                           </div>
                           <div class="form-group">
                             <label for="exampleFormControlTextarea1">description</label>
                             <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3" placeholder="eg:write something about product........"></textarea>
                           </div>
+                          <p class="text-danger"><%-producterr %></p>
                      
                         <div
                         
