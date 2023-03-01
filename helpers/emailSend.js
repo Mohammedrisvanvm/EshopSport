@@ -19,6 +19,8 @@ const sentOTP = (email, otp) => {
               <h1>Verify Your Email For Ecart Sport</h1>
                 <h3>use this code to verify your email</h3>
                 <h2>${otp}</h2>
+                <h3>expire in 1 min</h3>
+                
               `,
     };
 

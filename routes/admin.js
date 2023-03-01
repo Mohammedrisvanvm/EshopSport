@@ -1,5 +1,6 @@
 import Express, { Router } from "express";
 import {
+  adminlogout,
   getaddcategories,
   getaddProduct,
   getAdminPage,
@@ -26,5 +27,6 @@ router.get("/addProduct",getaddProduct)
 router.post("/addProduct",multiupload,postaddProduct)
 router.get("/addcategories", getaddcategories);
 router.post("/addcategories", postaddcategories);
+router.get("/logout", adminlogout  );
 
 export default router;

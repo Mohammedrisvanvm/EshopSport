@@ -6,7 +6,7 @@ import bcrypt from "bcrypt";
 
 let passworderr = null;
 let emailerr = null;
-let value = null;
+
 let loginvalue = null;
 let otperr = null;
 
@@ -16,12 +16,36 @@ let otp = otpGenerator.generate(6, {
 });
 
 export function guestpage(req, res) {
-  res.render("guest");
+  if(req.session.user){
+    res.redirect("/home")
+  }else{
+    res.render("guest");
+  }
+
 }
 export function userGetLogin(req, res) {
   console.log("login");
-  res.render("login", { emailerr });
-  emailerr = null;
+  console.log(req.session.user);
+  if(!req.session.user){
+    res.render("login", { emailerr });
+    emailerr = null;
+  }
+  else{
+    res.redirect("/home")
+ 
+}
+}
+
+export function gethome(req,res){
+  if(req.session.user){
+    res.render("home")
+  }else{
+    res.redirect("/login")
+  }
+  
+  
+
+
 }
 export async function userPostLogin(req, res) {
   console.log(req.body);
@@ -37,7 +61,9 @@ export async function userPostLogin(req, res) {
       console.log(result);
       console.log(result);
       if (email == userinfo.email && result == true) {
-        res.render("home");
+        req.session.user=userinfo.email
+        console.log(req.session.user)
+        res.redirect("/home");
         console.log("postlogin");
       } else {
         emailerr = "password error";
@@ -89,7 +115,7 @@ export function getsignUpOtp(req, res) {
 }
 export function postsignUpOtp(req, res) {
   console.log("postotp");
-  console.log();
+
   if (req.body.otp == req.session.otp) {
     console.log(200, "success");
     createDocument(req.session.value);
@@ -192,6 +218,7 @@ export async function postforget3(req, res) {
   }
 }
 export function userlogout(req, res) {
+  console.log("logout");
   req.session.destroy();
   res.redirect("/");
 }

@@ -81,10 +81,10 @@
     </section>
     <script>
       let countdown=document.getElementById('countdown')
-      let count=10
+      let count=60
       const countdownintervel=setInterval(()=>{
         count--
-        countdown.innerHTML="resend otp in "+count
+        countdown.innerHTML="expire otp in "+count
         checkover()
       },1000)
 
@@ -92,7 +92,7 @@
         if(count==0){
           clearInterval(countdownintervel)
           countdown.innerHTML=`
-          <span onclick="window.location.href='/signupResendOtp'">resend otp</span>
+          <span class="text-primary" onclick="window.location.href='/signupResendOtp'">resend otp</span>
           `
         }
         

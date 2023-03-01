@@ -43,7 +43,7 @@ app.use(
 );
 app.use((req, res, next) => {
   res.set("cache-control", "no-cache,private,no-store,must-revalidate");
-  next();
+  next()
 });
 
 app.use("/", userRouter);
