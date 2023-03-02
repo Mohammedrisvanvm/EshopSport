@@ -176,7 +176,7 @@
                   ><span class="hide-menu">Dashboard</span></a
                 >
               </li>
-             
+
               <li>
                 <a
                   class="waves-effect waves-dark"
@@ -271,14 +271,12 @@
                   <th scope="col">name</th>
                   <th scope="col">email</th>
                   <th scope="col">ban</th>
-                  <th scope="col">password</th>
                   <th scope="col">account created date</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <% userinfo.forEach((i,index) => { %>
-
                   <th scope="row"><%- index+1 %></th>
                   <td><%-i.name %></td>
                   <td><%- i.email %></td>
@@ -287,7 +285,7 @@
                       <%- i.ban %>
                     </button>
                   </td>
-                  <td><%- i.password %></td>
+
                   <td><%- i.date.toLocaleString() %></td>
                 </tr>
                 <% }) %>
@@ -295,7 +293,11 @@
             </table>
           </div>
         </div>
-        <div class="d-flex justify-content-center"><a href="/admin/logout"><button class="btn btn-primary ">LOGOUT</button></a></div>
+        <div class="d-flex justify-content-center">
+          <a href="/admin/logout"
+            ><button class="btn btn-primary">LOGOUT</button></a
+          >
+        </div>
         <!-- ============================================================== -->
         <!-- footer -->
         <!-- ============================================================== -->

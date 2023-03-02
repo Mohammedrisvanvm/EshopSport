@@ -72,23 +72,32 @@ export async function getuserManagement(req, res) {
   }
  
 }
-export async function getgategoriesManagemenet(req, res) {
+
+export async function getProductManagement(req, res) {
   try {
-    const categoryinfo = await categories.find();
-    res.render("categoriesManagement", { categoryinfo });
+    const productinfo=await products.find().lean()
+
+    console.log("admin profile");
+    console.log(productinfo);
+    res.render("ProductManagement", { producterr,productinfo });
+    producterr = null;
   } catch (error) {
-    console.log(error);
+    console.log(err);
   }
+
 }
-export function getProductManagement(req, res) {
-  console.log("admin profile");
-  res.render("ProductManagement", { producterr });
-  producterr = null;
-}
-export function getaddProduct(req, res) {
-  res.render("addproduct", { producterr,imageerr });
+export async function getaddProduct(req, res) {
+try {
+  const categoryinfo=await categories.find()
+  res.render("addproduct", { producterr,imageerr,categoryinfo });
   producterr = null;
   imageerr=null
+} catch (error) {
+  console.log(error);
+  res.redirect("/admin/addproduct")
+}
+
+
 }
 export async function postaddProduct(req, res) {
   try {
@@ -102,7 +111,7 @@ export async function postaddProduct(req, res) {
   })
   console.log(productinfo);
   if (!productinfo) {
-    try {
+
       
       const productadd = new products({
         productName: req.body.productName,
@@ -117,22 +126,27 @@ export async function postaddProduct(req, res) {
       await productadd.save();
       console.log("no");
       res.redirect("/admin/productManagement");
-    } catch (err) {
-      imageerr="not a image"
-      console.log("not a image");
-      res.redirect("/admin/addproduct")
-      
-    }
-  } else {
+    
+    }else {
     producterr = "already exist";
     res.redirect("/admin/addproduct");
+    }
+} catch (err) {
+  imageerr="not a image"
+  console.log("not a image");
+  console.log(err);
+  res.redirect("/admin/addproduct")
+  
+}
+}
+export async function getgategoriesManagemenet(req, res) {
+  try {
+    const categoryinfo = await categories.find();
+    res.render("categoriesManagement", { categoryinfo });
+  } catch (error) {
+    console.log(error);
   }
 }
-  catch (Error) {
-    console.log(Error);
-  }
-}
-
 export async function getaddcategories(req, res) {
   console.log("get add categories");
 

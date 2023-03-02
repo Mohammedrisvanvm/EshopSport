@@ -179,6 +179,42 @@
                 <!-- End Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
 <a href="/admin/addProduct"><button class="btn btn-primary"> add product</button></a>
+
+<section>
+    <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">number</th>
+            <th scope="col">name</th>
+            <th scope="col">category</th>
+            <th scope="col">quantity</th>
+            <th scope="col">MRP</th>
+            <th scope="col">price</th>
+            <th scope="col">mainImage</th>
+            <th scope="col">list</th>
+            <th scope="col">account created date</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% productinfo.forEach((i,index) => { %>
+          <tr>
+            <td scope="row"><%- index+1 %></td>
+            <td><%-i.productName %></td>
+            <td><%- i.category %></td>
+            <td><%- i.quantity %></td>
+            <td><%- i.MRP %></td>
+            <td><%- i.price %></td>
+            <td>
+                <img src="/image/productImage/<%- i.mainImage[0].filename %>" width="60" height="40">
+            </td>
+         
+            <td><%- i.list %></td>
+            <td><%- i.uploadedAt.toLocaleString() %></td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+</section>
                
 <div class="d-flex justify-content-center"><a href="/admin/logout"><button class="btn btn-primary ">LOGOUT</button></a></div>
             <!-- footer -->
