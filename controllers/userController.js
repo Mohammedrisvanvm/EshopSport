@@ -241,6 +241,21 @@ export async function postforget3(req, res) {
   console.log(error)
 }
 }
+
+//product page
+
+
+export function productPage(req,res){
+  res.render("productPage")
+}
+
+
+
+
+
+
+
+
 export function userlogout(req, res) {
   console.log("logout");
   delete req.session.user;

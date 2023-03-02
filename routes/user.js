@@ -10,6 +10,7 @@ import {
   postForgottenPassword,
   postOtpValidate,
   postsignUpOtp,
+  productPage,
   resendOTP,
   signupresendOTP,
   userGetLogin,
@@ -38,5 +39,6 @@ router.get("/resendotp", resendOTP);
 router.get("/signupResendOtp", signupresendOTP);
 router.get("/logout", userlogout);
 router.get('/home',gethome)
+router.get('/productpage',productPage)
 
 export default router;
