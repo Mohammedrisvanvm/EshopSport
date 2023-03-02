@@ -6,6 +6,7 @@ import { users } from "../models/userSchema.js";
 let emailerr = null;
 let producterr = null;
 let categorieserr = null;
+let imageerr=null
 
 export function getAdminPage(req, res) {
   try {
@@ -78,7 +79,6 @@ export async function getgategoriesManagemenet(req, res) {
   } catch (error) {
     console.log(error);
   }
-
 }
 export function getProductManagement(req, res) {
   console.log("admin profile");
@@ -86,8 +86,9 @@ export function getProductManagement(req, res) {
   producterr = null;
 }
 export function getaddProduct(req, res) {
-  res.render("addproduct", { producterr });
+  res.render("addproduct", { producterr,imageerr });
   producterr = null;
+  imageerr=null
 }
 export async function postaddProduct(req, res) {
   try {
@@ -98,10 +99,11 @@ export async function postaddProduct(req, res) {
   console.log(req.files);
   const productinfo = await products.findOne({
     productName: req.body.productName,
-  });
+  })
   console.log(productinfo);
   if (!productinfo) {
     try {
+      
       const productadd = new products({
         productName: req.body.productName,
         category: req.body.category,
@@ -116,15 +118,18 @@ export async function postaddProduct(req, res) {
       console.log("no");
       res.redirect("/admin/productManagement");
     } catch (err) {
-      console.log(err);
+      imageerr="not a image"
+      console.log("not a image");
+      res.redirect("/admin/addproduct")
+      
     }
   } else {
     producterr = "already exist";
     res.redirect("/admin/addproduct");
   }
 }
-  catch (error) {
-    console.log(error);
+  catch (Error) {
+    console.log(Error);
   }
 }
 
@@ -157,11 +162,11 @@ export async function postaddcategories(req, res) {
   }
       
 } catch (error) {
-    
+    console.log(error);
 }
 }
 export function adminlogout(req, res) {
   console.log("logout");
-  req.session.admin.destroy();
+  delete req.session.admin;
   res.redirect("/admin");
 }

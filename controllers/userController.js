@@ -243,6 +243,6 @@ export async function postforget3(req, res) {
 }
 export function userlogout(req, res) {
   console.log("logout");
-  req.session.user.destroy();
+  delete req.session.user;
   res.redirect("/");
 }
