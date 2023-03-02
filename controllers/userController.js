@@ -48,6 +48,9 @@ export function gethome(req,res){
 
 }
 export async function userPostLogin(req, res) {
+  try {
+    
+ 
   console.log(req.body);
   const { email, password } = req.body;
 
@@ -71,6 +74,9 @@ export async function userPostLogin(req, res) {
       }
     });
   }
+} catch (error) {
+    console.log(error);
+}
 }
 export function userGetSignup(req, res) {
   console.log("getsignup");
@@ -83,6 +89,9 @@ export async function userPostSignup(req, res) {
   console.log("postsignup");
   console.log(req.body);
   console.log(otp);
+  try {
+    
+ 
 
   const { password, conpassword, email } = req.body;
   if (password == conpassword) {
@@ -108,6 +117,9 @@ export async function userPostSignup(req, res) {
     console.log("p");
     res.redirect("/signup");
   }
+} catch (error) {
+   console.log(error); 
+}
 }
 export function getsignUpOtp(req, res) {
   res.render("signUpOtp", { otperr });
@@ -146,6 +158,9 @@ export function forgottenPassword(req, res) {
 }
 export async function postForgottenPassword(req, res) {
   console.log(req.body.email);
+  try {
+    
+
   const email = req.body.email;
 
   const userinfo = await users.findOne({ email });
@@ -160,6 +175,9 @@ export async function postForgottenPassword(req, res) {
     loginvalue = req.body;
     res.redirect("/otpValidate");
   }
+} catch (error) {
+   console.log(error); 
+}
 }
 export function resendOTP(req, res) {
   let otp = otpGenerator.generate(6, {
@@ -199,6 +217,9 @@ export function getforget3(req, res) {
 }
 export async function postforget3(req, res) {
   console.log(req.body);
+  try {
+    
+  
   let email = req.session.email;
   const userinfo = await users.findOne({ email });
   console.log(userinfo.id);
@@ -216,9 +237,12 @@ export async function postforget3(req, res) {
     res.redirect("/forget3");
     console.log("forget", loginvalue);
   }
+} catch (error) {
+  console.log(error)
+}
 }
 export function userlogout(req, res) {
   console.log("logout");
-  req.session.destroy();
+  req.session.user.destroy();
   res.redirect("/");
 }

@@ -8,57 +8,77 @@ let producterr = null;
 let categorieserr = null;
 
 export function getAdminPage(req, res) {
-  console.log(req.session.admin);
-  if (req.session.admin) {
-    console.log("getdash");
-    res.render("index");
-  } else {
-    console.log("getlogin");
-    res.render("adminLogin", { error: emailerr });
-    console.log(emailerr);
-    emailerr = null;
+  try {
+    console.log(req.session.admin);
+    if (req.session.admin) {
+      console.log("getdash");
+      res.render("index");
+    } else {
+      console.log("getlogin");
+      res.render("adminLogin", { error: emailerr });
+      console.log(emailerr);
+      emailerr = null;
+    }
+  } catch (error) {
+    console.log(error);
   }
+ 
 }
 
 export async function postAdminPage(req, res) {
-  console.log(req.body);
-  const { name, email, password } = req.body;
-  const userinfo = await admins.findOne({ email });
-  console.log(userinfo);
-  if (!userinfo) {
-    emailerr = "admin is not found";
-    res.redirect("/admin");
-  } else {
-    if (
-      name === userinfo.name &&
-      email === userinfo.email &&
-      password === userinfo.password
-    ) {
-      console.log(200, "success");
-      req.session.admin = {
-        id: userinfo._id,
-      };
-      console.log(req.session.admin);
+  try {
+    console.log(req.body);
+    const { name, email, password } = req.body;
+    const userinfo = await admins.findOne({ email });
+    console.log(userinfo);
+    if (!userinfo) {
+      emailerr = "admin is not found";
       res.redirect("/admin");
     } else {
-      emailerr = "password error";
-      res.redirect("/admin");
+      if (
+        name === userinfo.name &&
+        email === userinfo.email &&
+        password === userinfo.password
+      ) {
+        console.log(200, "success");
+        req.session.admin = {
+          id: userinfo._id,
+        };
+        console.log(req.session.admin);
+        res.redirect("/admin");
+      } else {
+        emailerr = "password error";
+        res.redirect("/admin");
+      }
     }
+  } catch (error) {
+    console.log(error);
   }
+ 
 }
 export function getdashboard(req, res) {
   console.log("admin");
   res.redirect("/admin");
 }
 export async function getuserManagement(req, res) {
-  console.log("usermanage");
-  const userinfo = await users.find().lean();
-
-  res.render("userManagement", { userinfo });
+  try {
+    console.log("usermanage");
+    const userinfo = await users.find().lean();
+  
+    res.render("userManagement", { userinfo });
+  } catch (error) {
+    console.log(error);
+  }
+ 
 }
 export async function getgategoriesManagemenet(req, res) {
-  const categoryinfo = await categories.find();
-  res.render("categoriesManagement", { categoryinfo });
+  try {
+    const categoryinfo = await categories.find();
+    res.render("categoriesManagement", { categoryinfo });
+  } catch (error) {
+    console.log(error);
+  }
+
 }
 export function getProductManagement(req, res) {
   console.log("admin profile");
@@ -70,6 +90,9 @@ export function getaddProduct(req, res) {
   producterr = null;
 }
 export async function postaddProduct(req, res) {
+  try {
+    
+ 
   console.log("hi");
   console.log(req.body);
   console.log(req.files);
@@ -100,6 +123,10 @@ export async function postaddProduct(req, res) {
     res.redirect("/admin/addproduct");
   }
 }
+  catch (error) {
+    console.log(error);
+  }
+}
 
 export async function getaddcategories(req, res) {
   console.log("get add categories");
@@ -108,6 +135,8 @@ export async function getaddcategories(req, res) {
   categorieserr = null;
 }
 export async function postaddcategories(req, res) {
+  try {
+
   console.log("post addcategory");
   const categoryinfo = await categories.findOne({ name: req.body.name });
   console.log(categoryinfo);
@@ -126,9 +155,13 @@ export async function postaddcategories(req, res) {
     categorieserr = "already exist";
     res.redirect("/admin/addcategories");
   }
+      
+} catch (error) {
+    
+}
 }
 export function adminlogout(req, res) {
   console.log("logout");
-  req.session.destroy();
+  req.session.admin.destroy();
   res.redirect("/admin");
 }
