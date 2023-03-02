@@ -3,6 +3,7 @@ import { users } from "../models/userSchema.js";
 import sentOTP from "../helpers/emailSend.js";
 import otpGenerator from "otp-generator";
 import bcrypt from "bcrypt";
+import { products } from "../models/productSchema.js";
 
 let passworderr = null;
 let emailerr = null;
@@ -15,11 +16,12 @@ let otp = otpGenerator.generate(6, {
   specialChars: false,
 });
 
-export function guestpage(req, res) {
+export async function guestpage(req, res) {
   if(req.session.user){
     res.redirect("/home")
   }else{
-    res.render("guest");
+    const productinfo=await products.find() 
+    res.render("guest",{productinfo});
   }
 
 }
