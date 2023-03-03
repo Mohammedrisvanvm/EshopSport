@@ -66,7 +66,7 @@
                 <ul class="navbar-nav mx-5 me-auto mb-2 mb-lg-0">
                   <!-- Link -->
                   <li class="nav-item acitve">
-                    <a class="nav-link mx-2" href="#"><h5>HOME</H5></a>
+                    <a class="nav-link mx-2" href="#"><h5>HOME</h5></a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link mx-2" href="#"><h5>MENS</h5></a>
@@ -429,19 +429,21 @@
                 </div>
               </div>
             </div>
-            <% productinfo.forEach(i => { %>
+
             <div class="row">
+              <% productinfo.forEach(i => { %>
               <div class="col-lg-3 col-md-6 mb-4">
                 <div class="card">
                   <div
                     class="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
+                    style="height: 300px"
                     data-mdb-ripple-color="light"
                   >
                     <img
                       src="/image/productImage/<%-i.mainImage[0].filename %>"
-                      class="w-100 h-200"
+                      class="w-100 h-100"
                     />
-                    <a href="#!">
+                    <a href="/productPage/<%-i._id %>">
                       <div class="hover-overlay">
                         <div
                           class="mask"
@@ -452,23 +454,24 @@
                   </div>
                   <div class="card-body">
                     <a href="" class="text-reset">
-                      
-                       
-                      
                       <h5 class="card-title mb-2"><%-i.productName %></h5>
                     </a>
                     <a href="" class="text-reset">
                       <p><%-i.category %></p>
                     </a>
-                    <h6 class="mb-3 price"> <s>Rs.<%-i.MRP %></s><strong class="ms-2 sale">Rs.<%-i.price %></strong></h6>
-                    <div class="d-flex bg-image hover-zoom ripple ripple-surface ripple-surface-light"><button class="btn btn-primary mx-3">wishlist</button><button  class="btn btn-primary mx-3 ">cart</button></div>
+                    <h6 class="mb-3 price">
+                      <s>Rs.<%-i.MRP %></s
+                      ><strong class="ms-2 sale">Rs.<%-i.price %></strong>
+                    </h6>
+                    <div class="d-flex">
+                      <button class="btn btn-primary mx-3">wishlist</button
+                      ><button class="btn btn-primary mx-3">cart</button>
+                    </div>
                   </div>
-                  
                 </div>
-                
+             
               </div>
               <% }) %>
-
               <div class="col-lg-3 col-md-6 mb-4">
                 <div class="card">
                   <div
@@ -479,7 +482,7 @@
                       src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/14.jpg"
                       class="w-100"
                     />
-                    <a href="#!">
+                    <a href="#">
                       <div class="hover-overlay">
                         <div
                           class="mask"
@@ -487,7 +490,6 @@
                         ></div>
                       </div>
                     </a>
-                  
                   </div>
                   <div class="card-body">
                     <a href="" class="text-reset">

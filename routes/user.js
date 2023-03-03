@@ -39,6 +39,6 @@ router.get("/resendotp", resendOTP);
 router.get("/signupResendOtp", signupresendOTP);
 router.get("/logout", userlogout);
 router.get('/home',gethome)
-router.get('/productpage',productPage)
+router.get('/productpage/:id',productPage)
 
 export default router;

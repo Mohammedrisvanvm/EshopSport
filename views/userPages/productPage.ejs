@@ -109,15 +109,18 @@
 </header>
 <!--Main layout-->
 <main class="mt-5 pt-4">
+  
+
   <div class="container mt-5">
     <!--Grid row-->
     <div class="row">
+      
       <!--Grid column-->
       <div
         class="col-md-6 mb-4 bg-image hover-zoom ripple ripple-surface ripple-surface-light"
       >
         <img
-          src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/14.jpg"
+          src="/image/productImage/<%-productinfo.mainImage[0].filename %>"
           class="img-fluid"
           alt=""
         />
@@ -126,11 +129,12 @@
 
       <!--Grid column-->
       <div class="col-md-6 mb-4">
+        <strong><p style="font-size: 20px"><%-productinfo.productName %></p></strong>
         <!--Content-->
         <div class="p-4">
           <div class="mb-3">
             <a href="">
-              <span class="badge bg-dark me-1">Category 2</span>
+              <span class="badge bg-dark me-1"><%-productinfo.category %></span>
             </a>
             <a href="">
               <span class="badge bg-info me-1">New</span>
@@ -142,25 +146,18 @@
 
           <p class="lead">
             <span class="me-1">
-              <del>$200</del>
+              <del>Rs.<%-productinfo.MRP %></del>
             </span>
-            <span>$100</span>
+            <span>Rs.<%-productinfo.price %></span>
           </p>
 
-          <strong><p style="font-size: 20px">Description</p></strong>
+          <strong><p style="font-size: 20px">description</p></strong>
 
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Et dolor
-            suscipit libero eos atque quia ipsa sint voluptatibus! Beatae sit
-            assumenda asperiores iure at maxime atque repellendus maiores quia
-            sapiente.
-          </p>
+          <p><%-productinfo.description %></p>
 
           <form class="d-flex justify-content-left">
             <!-- Default input -->
-            <div class="form-outline me-1" style="width: 100px">
-              <input type="number" value="1" class="form-control" />
-            </div>
+           
             <button class="btn btn-primary ms-1" type="submit">
               Add to cart
               <i class="fas fa-shopping-cart ms-1"></i>
@@ -181,12 +178,7 @@
       <div class="col-md-6 text-center">
         <h4 class="my-4 h4">Additional information</h4>
 
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus
-          suscipit modi sapiente illo soluta odit voluptates, quibusdam officia.
-          Neque quibusdam quas a quis porro? Molestias illo neque eum in
-          laborum.
-        </p>
+        <p><%-productinfo.description %></p>
       </div>
       <!--Grid column-->
     </div>
@@ -195,53 +187,35 @@
     <!--Grid row-->
     <div class="row">
       <!--Grid column-->
+      <% productinfo.subImages.forEach(i => { %>
+       
+   
       <div
         class="col-lg-4 col-md-12 mb-4 bg-image hover-zoom ripple ripple-surface ripple-surface-light"
       >
         <img
-          src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/11.jpg"
+          src="/image/productImage/<%-i.filename %>"
           class="img-fluid"
           alt=""
         />
       </div>
       <!--Grid column-->
-
-      <!--Grid column-->
-      <div
-        class="col-lg-4 col-md-6 mb-4 bg-image hover-zoom ripple ripple-surface ripple-surface-light"
-      >
-        <img
-          src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/12.jpg"
-          class="img-fluid"
-          alt=""
-        />
-      </div>
-      <!--Grid column-->
-
-      <!--Grid column-->
-      <div
-        class="col-lg-4 col-md-6 mb-4 bg-image hover-zoom ripple ripple-surface ripple-surface-light"
-      >
-        <img
-          src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/13.jpg"
-          class="img-fluid"
-          alt=""
-        />
-      </div>
-      <!--Grid column-->
-    </div>
+      <% }) %>
+      
     <!--Grid row-->
   </div>
+  
 </main>
+
 <!--Main layout-->
 
 <!-- footer -->
-<footer class="text-center text-white mt-4 " style="background-color: #607d8b">
+<footer class="text-center text-white mt-4" style="background-color: #607d8b">
   <hr class="text-dark" />
 
-  <div class="container ">
+  <div class="container">
     <!-- Section: Social media -->
-    <section class="mb-3 ">
+    <section class="mb-3">
       <!-- Facebook -->
       <a
         class="btn-link btn-floating btn-lg text-white"

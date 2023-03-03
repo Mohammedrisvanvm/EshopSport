@@ -247,10 +247,18 @@ export async function postforget3(req, res) {
 //product page
 
 
-export function productPage(req,res){
-  res.render("productPage")
-}
+export async function productPage(req,res){
+ console.log(req.params.id);
+ try {
+  const productinfo=await products.findById(req.params.id).lean()
+  console.log(productinfo);
+   res.render("productPage",{ productinfo })
+ }
+  catch (error) {
+  console.log(error)
+ }
 
+}
 
 
 
