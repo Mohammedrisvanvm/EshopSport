@@ -128,11 +128,12 @@
       <!--Grid column-->
 
       <!--Grid column-->
-      <div class="col-md-6 mb-4">
-        <strong><p style="font-size: 20px"><%-productinfo.productName %></p></strong>
+      <div class="col-md-6 mb-4 d-flex align-items-center">
+        
         <!--Content-->
-        <div class="p-4">
-          <div class="mb-3">
+        <div class="p-4 ">
+          <strong><p style="font-size: 20px"><%-productinfo.productName %></p></strong>
+          <div class="mb-3 ">
             <a href="">
               <span class="badge bg-dark me-1"><%-productinfo.category %></span>
             </a>
@@ -155,14 +156,13 @@
 
           <p><%-productinfo.description %></p>
 
-          <form class="d-flex justify-content-left">
+          
             <!-- Default input -->
+            <div class="d-flex">
+              <button class="btn btn-outline-primary ">wishlist <i class="fas fa-heart"></i></button
+              ><button class="btn btn-outline-primary mx-3">add to cart  <i class="fas fa-shopping-cart ms-1"></i></button>
+            </div>
            
-            <button class="btn btn-primary ms-1" type="submit">
-              Add to cart
-              <i class="fas fa-shopping-cart ms-1"></i>
-            </button>
-          </form>
         </div>
         <!--Content-->
       </div>

@@ -193,6 +193,8 @@
             <th scope="col">mainImage</th>
             <th scope="col">list</th>
             <th scope="col">account created date</th>
+            <th scope="col">edit/delete</th>
+
           </tr>
         </thead>
         <tbody>
@@ -205,18 +207,19 @@
             <td><%- i.MRP %></td>
             <td><%- i.price %></td>
             <td>
-                <img src="/image/productImage/<%- i.mainImage[0].filename %>" width="60" height="40">
+                <img src="/image/productImage/<%- i.mainImage[0].filename %>" width="40" height="26">
             </td>
          
-            <td><%- i.list %></td>
+            <td><button class="btn btn-success btn-sm"> <%-i.list %></button></td>
             <td><%- i.uploadedAt.toLocaleString() %></td>
+            <td class="d-flex"><button class="btn btn-outline-primary btn-sm mx-1">edit</button><button class="btn btn-outline-danger btn-sm mx-1">delete</button></td>
           </tr>
           <% }) %>
         </tbody>
       </table>
 </section>
                
-<div class="d-flex justify-content-center"><a href="/admin/logout"><button class="btn btn-primary ">LOGOUT</button></a></div>
+<div class="d-flex justify-content-center"><a href="/admin/logout"><button class="btn btn-sm btn-primary ">LOGOUT</button></a></div>
             <!-- footer -->
             <!-- ============================================================== -->
             <footer class="footer"> © 2023 eshopsport by <a href="/views/adminPages/adminHome.ejs">eshopsport.com</a> </footer>
