@@ -105,5 +105,20 @@
         </div>
       </div>
     </section>
+    <script>
+
+      var result=/\s/;
+      var alert=document.getElementById('alert-caps')
+      function space(data){
+        var isspace=result.test(data)
+        if (isspace) {
+          alert.innerText="space is not allowed"
+          
+        }else{
+          alert.innerText=""
+
+        }
+      }
+    </script>
   </body>
 </html>

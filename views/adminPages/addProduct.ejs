@@ -257,11 +257,12 @@
           <!-- ============================================================== -->
           <section class="Container">
             <form
-              class="fs-5"
+              class=""
               action="/admin/addProduct"
               method="post"
               enctype="multipart/form-data"
             >
+            <p><error class="text-danger" id="alert-caps"> </error></p>
               <div class="form-group">
                 <label for="exampleFormControlInput1">product name</label>
                 <input
@@ -270,8 +271,10 @@
                   class="form-control"
                   id="exampleFormControlInput1"
                   placeholder="eg:full sleeve jersey"
+                  onkeyup="space(this.value)"
                 />
               </div>
+              
               <div class="form-group">
                 <label>categories</label>
                 <select class="btn btn-primary" name="category">
@@ -402,5 +405,20 @@
     <script src="/assets/node_modules/c3-master/c3.min.js"></script>
     <!-- Chart JS -->
     <script src="js/dashboard1.js"></script>
+    <script>
+
+      var result=/\s/;
+      var alert=document.getElementById('alert-caps')
+      function space(data){
+        var isspace=result.test(data)
+        if (isspace) {
+          alert.innerText="space is not allowed"
+          
+        }else{
+          alert.innerText=""
+
+        }
+      }
+    </script>
   </body>
 </html>
