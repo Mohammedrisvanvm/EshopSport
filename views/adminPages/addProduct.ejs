@@ -262,7 +262,7 @@
               method="post"
               enctype="multipart/form-data"
             >
-            <p><error class="text-danger" id="alert-caps"> </error></p>
+              <p><error class="text-danger" id="alert-caps"> </error></p>
               <div class="form-group">
                 <label for="exampleFormControlInput1">product name</label>
                 <input
@@ -274,13 +274,15 @@
                   onkeyup="space(this.value)"
                 />
               </div>
-              
+
               <div class="form-group">
                 <label>categories</label>
                 <select class="btn btn-primary" name="category">
                   <% categoryinfo.forEach((i) => { %>
-                  
-                  <option  value="<%-i.name %>" name="category"><%- i.name %></option>
+
+                  <option value="<%-i.name %>" name="category">
+                    <%- i.name %>
+                  </option>
 
                   <% }) %>
                 </select>
@@ -295,6 +297,7 @@
                   class="form-control"
                   id="exampleFormControlInput1"
                   placeholder="eg:1"
+                  onkeyup="space(this.value)"
                 />
               </div>
               <div class="form-group">
@@ -306,6 +309,7 @@
                   class="form-control"
                   id="exampleFormControlInput1"
                   placeholder="eg:₹1000"
+                  onkeyup="space(this.value)"
                 />
               </div>
               <div class="form-group">
@@ -317,6 +321,7 @@
                   class="form-control"
                   id="exampleFormControlInput1"
                   placeholder="eg:₹780"
+                  onkeyup="space(this.value)"
                 />
               </div>
               <div class="form-group">
@@ -406,19 +411,20 @@
     <!-- Chart JS -->
     <script src="js/dashboard1.js"></script>
     <script>
-
-      var result=/\s/;
-      var alert=document.getElementById('alert-caps')
+    
       function space(data){
-        var isspace=result.test(data)
-        if (isspace) {
-          alert.innerText="space is not allowed"
-          
-        }else{
-          alert.innerText=""
+  var startsWithSpace = /^\s/.test(data);
+  var isNegativeNumber = /^-\d/.test(data);
+  var alert = document.getElementById('alert-caps');
+  if (startsWithSpace) {
+    alert.innerText = "space is not allowed";
+  } else if (isNegativeNumber) {
+    alert.innerText = "negative numberis not allowed";
+  } else {
+    alert.innerText = "";
+  }
+}
 
-        }
-      }
     </script>
   </body>
 </html>
