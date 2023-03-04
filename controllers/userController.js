@@ -38,9 +38,10 @@ export function userGetLogin(req, res) {
 }
 }
 
-export function gethome(req,res){
+export async function gethome(req,res){
   if(req.session.user){
-    res.render("home")
+    const productinfo=await products.find() 
+    res.render("home",{productinfo})
   }else{
     res.redirect("/login")
   }

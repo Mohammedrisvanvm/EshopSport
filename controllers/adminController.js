@@ -78,7 +78,7 @@ export async function getProductManagement(req, res) {
     const productinfo=await products.find().lean()
 
     console.log("admin profile");
-    console.log(productinfo);
+    
     res.render("ProductManagement", { producterr,productinfo });
     producterr = null;
   } catch (error) {
@@ -193,7 +193,39 @@ export async function getEditProduct(req,res) {
   }
 
 }
-export async function postEditProduct
+export async function postEditProduct(req,res){
+  try {
+    console.log(req.body);
+    res.redirect("/admin/productManagement")
+  } catch (error) {
+    
+  }
+
+
+
+}
+export async function deleteProduct(req,res) {
+  try {
+    console.log(req.params);
+  
+    
+    console.log("success");
+    products.findByIdAndDelete({ _id: req.params.id }, req.body, (err, data) => {
+      if (err) {
+        console.log("not get");
+        next(err);
+      } else {
+        console.log("deleted successfullyyy");
+        res.redirect("/admin/productManagement")
+      }
+    });
+  } catch (error) {
+    res.redirect("/admin/productManagement")
+    alert("not success")
+    
+  }
+  
+}
 
 
 
