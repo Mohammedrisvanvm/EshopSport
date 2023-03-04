@@ -179,6 +179,32 @@ export async function postaddcategories(req, res) {
     console.log(error);
 }
 }
+export async function getEditProduct(req,res) {
+  try {
+    const categoryinfo=await categories.find()
+    console.log(req.params)
+    const productinfo=await products.findById(req.params.id)
+    console.log(productinfo.description);
+    res.render("productedit",{categoryinfo,imageerr,productinfo})
+    
+  } catch (error) {
+    console.log(error)
+    imageerr="not a image"
+  }
+
+}
+export async function postEditProduct
+
+
+
+
+
+
+
+
+
+
+
 export function adminlogout(req, res) {
   console.log("logout");
   delete req.session.admin;

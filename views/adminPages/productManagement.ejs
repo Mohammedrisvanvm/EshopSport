@@ -212,7 +212,7 @@
          
             <td><button class="btn btn-success btn-sm"> <%-i.list %></button></td>
             <td><%- i.uploadedAt.toLocaleString() %></td>
-            <td class="d-flex"><button class="btn btn-outline-primary btn-sm mx-1">edit</button><button class="btn btn-outline-danger btn-sm mx-1">delete</button></td>
+            <td class="d-flex"><a href="/admin/editproduct/<%-i._id %>"><button class="btn btn-outline-primary btn-sm mx-1">edit</button></a><a href="#"><button class="btn btn-outline-danger btn-sm mx-1">delete</button></a></td>
           </tr>
           <% }) %>
         </tbody>

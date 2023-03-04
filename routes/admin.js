@@ -5,6 +5,7 @@ import {
   getaddProduct,
   getAdminPage,
   getdashboard,
+  geteditproduct,
   getgategoriesManagemenet,
   getProductManagement,
   getuserManagement,
@@ -27,6 +28,12 @@ router.get("/addProduct",getaddProduct)
 router.post("/addProduct",multiupload,postaddProduct)
 router.get("/addcategories", getaddcategories);
 router.post("/addcategories", postaddcategories);
+router.get("/editproduct/:id",multiupload,geteditproduct)
+
+
+
+
+
 router.get("/logout", adminlogout  );
 
 export default router;
