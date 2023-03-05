@@ -13,13 +13,22 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  ban:{
+  ban: {
     type: Boolean,
-    default:false
+    default: false,
+  },
+  cart: {
+    type: Array,
+  },
+  wishlist: {
+    type: Array,
+  },
+  address: {
+    type: Object,
   },
   date: {
     type: Date,
     default: Date.now(),
   },
 });
-export const users=new mongoose.model("user",userSchema)
+export const users = new mongoose.model("user", userSchema);
