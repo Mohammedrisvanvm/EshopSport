@@ -1,5 +1,6 @@
 import express, { Router } from "express";
 import {
+  cart,
   forgottenPassword,
   getforget3,
   gethome,
@@ -42,5 +43,6 @@ router.get("/logout", userlogout);
 router.get('/home',gethome)
 router.get('/productpage/:id',productPage)
 router.get('/wishlist',wishlist)
+router.get('/cart',cart)
 
 export default router;

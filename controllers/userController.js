@@ -278,6 +278,18 @@ export async function wishlist(req,res){
   }
  
  }
+ export async function cart(req,res){
+  
+  try {
+
+   
+    res.render("cart")
+  }
+   catch (error) {
+   console.log(error)
+  }
+ 
+ }
 
 
 
