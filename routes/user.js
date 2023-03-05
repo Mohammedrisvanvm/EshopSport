@@ -18,6 +18,7 @@ import {
   userlogout,
   userPostLogin,
   userPostSignup,
+  wishlist,
 } from "../controllers/userController.js";
 
 var router = express.Router();
@@ -40,5 +41,6 @@ router.get("/signupResendOtp", signupresendOTP);
 router.get("/logout", userlogout);
 router.get('/home',gethome)
 router.get('/productpage/:id',productPage)
+router.get('/wishlist',wishlist)
 
 export default router;

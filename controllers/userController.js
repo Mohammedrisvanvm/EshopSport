@@ -266,6 +266,24 @@ export async function productPage(req,res){
 
 
 
+export async function wishlist(req,res){
+  
+  try {
+   const productinfo=await products.find()
+   console.log(productinfo);
+    res.render("wishlist",{ productinfo })
+  }
+   catch (error) {
+   console.log(error)
+  }
+ 
+ }
+
+
+
+
+
+
 
 export function userlogout(req, res) {
   console.log("logout");
