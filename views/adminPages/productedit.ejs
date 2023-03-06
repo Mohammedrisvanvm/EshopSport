@@ -258,7 +258,7 @@
           <section class="Container">
             <form
               class=""
-              action="/admin/editproduct"
+              action="/admin/editproduct/<%-productinfo._id %>"
               method="post"
               enctype="multipart/form-data"
             >
@@ -330,26 +330,56 @@
               </div>
               <div class="form-group">
                 <label for="exampleFormControlFile1">main image</label>
+                <br>
                 <input
                   type="file" 
-                  
                   name="mainImage"
                   class="form-control-file"
                   id="exampleFormControlFile1"
+                  
                 />
+                <div>
+                  <img
+                  src="/image/productImage/<%-productinfo.mainImage[0].filename %>"
+                  class="img-fluid"
+                  alt=""
+                style="height: 40px
+                ;width: 40px;"
+                />
+                </div>
+              
                 <p class="text-danger"><%-imageerr %></p>
               </div>
               <div class="form-group">
                 <label for="exampleFormControlFile1">sub images</label>
+                <br>
                 <input
                   type="file"
-                  
                   name="subImages"
                   multiple
                   class="form-control-file"
                   max="2"
                   id="exampleFormControlFile1"
                 />
+                <div class="row">
+                  <!--Grid column-->
+                  <% productinfo.subImages.forEach(i => { %>
+                   
+               
+                  <div
+                    class="col-lg-4 col-md-12 mb-4 bg-image hover-zoom ripple ripple-surface ripple-surface-light"
+                  >
+                    <img
+                      src="/image/productImage/<%-i.filename %>"
+                      class="img-fluid"
+                      alt=""
+                      style="height: 40px
+                      ;width: 40px;"
+                    />
+                  </div>
+                  <!--Grid column-->
+                  <% }) %>
+                  
               </div>
               <div class="form-group">
                 <label for="exampleFormControlTextarea1">Description</label>
