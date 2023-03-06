@@ -161,12 +161,13 @@ export async function getaddcategories(req, res) {
 export async function postaddcategories(req, res) {
   try {
     console.log("post addcategory");
-    const categoryinfo = await categories.findOne({ name: req.body.name });
+    const categoryname = req.body.name.toLowerCase();
+    const categoryinfo = await categories.findOne({ name: categoryname });
     console.log(categoryinfo);
     if (!categoryinfo) {
       try {
         const categoriesadd = new categories({
-          name: req.body.name,
+          name: categoryname,
         });
         await categoriesadd.save();
         console.log("no");
