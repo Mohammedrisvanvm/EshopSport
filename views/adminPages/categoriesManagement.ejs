@@ -52,6 +52,7 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
   </head>
 
   <body class="fix-header fix-sidebar card-no-border">
@@ -264,6 +265,7 @@
           <th>sl</th>
           <th>category name</th>
           <th>list</th>
+          <th>edit/delete</th>
         </tr>
       </thead>
       <tbody>
@@ -274,6 +276,7 @@
           <td><%-index+1 %></td>
           <td><%-i.name %></td>
           <td><button class="btn btn-success"> <%-i.list %></button></td>
+          <td class="d-flex"><a href="/admin/editcategory/<%-i._id %>"> <i class="ri-pencil-line mx-2 fs-4 text-dark"></i></a><a href="/admin/deletecategory/<%-i._id %>"><i class="ri-delete-bin-6-fill fs-4 mx-3 text-danger" onclick="return confirm('are you sure you want to delete?')"></i></a></td>
        
         </tr>
         <% }) %>

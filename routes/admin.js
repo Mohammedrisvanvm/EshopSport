@@ -2,6 +2,7 @@ import Express, { Router } from "express";
 import {
   adminlogout,
   deleteProduct,
+  editcategory,
   getaddcategories,
   getaddProduct,
   getAdminPage,
@@ -29,6 +30,7 @@ router.get("/addProduct", getaddProduct);
 router.post("/addProduct", multiupload, postaddProduct);
 router.get("/addcategories", getaddcategories);
 router.post("/addcategories", postaddcategories);
+router.get("/editcategory/:id",editcategory)
 router.get("/editproduct/:id", multiupload, getEditProduct);
 router.post("/editproduct/:id",multiupload, postEditProduct);
 router.get("/deleteproduct/:id", deleteProduct);

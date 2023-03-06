@@ -165,6 +165,16 @@ export async function postaddcategories(req, res) {
     console.log(error);
   }
 }
+export async function editcategory(req,res) {
+  try {
+    const categoryinfo=await categories.findById(req.params)
+    res.render("editcategory",categoryinfo)
+  } catch (error) {
+    res.send(500,"error")
+  }
+  
+}
+
 export async function getEditProduct(req, res) {
   try {
     const categoryinfo = await categories.find();
