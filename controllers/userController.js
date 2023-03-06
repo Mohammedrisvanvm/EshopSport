@@ -255,6 +255,14 @@ export async function cart(req, res) {
   }
 }
 
+
+export function userprofile(req,res){
+
+res.render("profile")
+
+
+}
+
 export function userlogout(req, res) {
   console.log("logout");
   delete req.session.user;

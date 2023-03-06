@@ -18,6 +18,7 @@ import {
   userlogout,
   userPostLogin,
   userPostSignup,
+  userprofile,
   wishlist,
 } from "../controllers/userController.js";
 
@@ -42,5 +43,6 @@ router.get("/logout", userlogout);
 router.get('/productpage/:id',productPage)
 router.get('/wishlist',wishlist)
 router.get('/cart',cart)
+router.get('/profile',userprofile)
 
 export default router;
