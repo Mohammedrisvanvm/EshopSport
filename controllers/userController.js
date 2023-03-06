@@ -244,15 +244,15 @@ export async function wishlist(req, res) {
   try {
     const {wishlist}= await users.findOne({_id:_id},{wishlist:1});
 
-    console.log("sadfdsafds",wishlist);
-    const productid=wishlist.map((item)=>{
-      return item
-    })
-    console.log(productid,"wishlist");
-    const wishitem=await products.find({_id:{$in:productid}})
+    // console.log("sadfdsafds",wishlist);
+    // const productid=wishlist.map((item)=>{
+    //   return item
+    // })
+    // console.log(productid,"wishlist");
+    const wishitem=await products.find(wishlist)
     console.log(wishitem);
 
-    res.render("wishlist", { wishlist });
+    res.render("wishlist", { wishitem });
   } catch (error) {
     console.log(error);
   }

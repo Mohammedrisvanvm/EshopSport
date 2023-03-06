@@ -310,6 +310,46 @@ export async function deleteProduct(req, res) {
     alert("not success");
   }
 }
+export function unlistcategory(req, res) {
+  console.log(req.params);
+
+  return new Promise(async (resolve, reject) => {
+    try {
+      console.log(req.params._id);
+      console.log(req.body);
+
+      await categories.updateOne(
+        { _id: req.params.id },
+        { $set: { list: "false" } }
+      );
+
+      // Log a success message
+      console.log("Category unlisted successfully.");
+      res.send("Category unlisted successfully.");
+    } catch (error) {
+      console.log(error);
+      // Log an error message
+      console.log("Failed to unlist category.");
+      res.send("Failed to unlist category.");
+    }
+  });
+}
+
+
+// export  function unlistcategory(req,res) {
+//   console.log(req.params);
+//   return new Promise(async(resolve, reject) => {
+//     try {
+//       console.log(req.params._id);
+//       console.log(req.body);
+//       await categories.updateOne({_id:req.params.id},{$set:{list:false}})
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   })
+  
+// }
+
 
 export function adminlogout(req, res) {
   console.log("logout");
