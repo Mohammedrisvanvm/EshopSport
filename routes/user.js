@@ -1,5 +1,6 @@
 import express, { Router } from "express";
 import {
+  addtowishlist,
   cart,
   forgottenPassword,
   getforget3,
@@ -44,5 +45,6 @@ router.get('/productpage/:id',productPage)
 router.get('/wishlist',wishlist)
 router.get('/cart',cart)
 router.get('/profile',userprofile)
+router.get('/addtowishlist/:data',addtowishlist)
 
 export default router;

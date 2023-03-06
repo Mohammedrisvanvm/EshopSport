@@ -335,7 +335,7 @@
                         ><strong class="ms-2 sale">Rs.<%-i.price %></strong>
                       </h6>
                       <div class="d-flex">
-                        <button class="btn btn-primary mx-2">wishlist</button
+                        <button class="btn btn-primary mx-2" onclick="addtowishlist(`<%-i._id %>`)">wishlist</button
                         ><button class="btn btn-primary mx-2">buy now</button>
                       </div>
                     </div>
@@ -460,6 +460,15 @@
       </div>
       <!-- Copyright -->
     </footer>
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+    <script>
+     function addtowishlist(data){
+      console.log("hi")
+      axios.get('/addtowishlist/'+data)
+
+
+     }
+    </script>
 
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"

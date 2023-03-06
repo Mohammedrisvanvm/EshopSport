@@ -38,7 +38,6 @@ export function userGetLogin(req, res) {
   }
 }
 
-
 export async function userPostLogin(req, res) {
   try {
     console.log(req.body);
@@ -54,7 +53,7 @@ export async function userPostLogin(req, res) {
         console.log(result);
         console.log(result);
         if (email == userinfo.email && result == true) {
-          req.session.user = userinfo.email;
+          req.session.user = userinfo;
           console.log(req.session.user);
           res.redirect("/");
           console.log("postlogin");
@@ -240,7 +239,7 @@ export async function productPage(req, res) {
 
 export async function wishlist(req, res) {
   try {
-    const productinfo = await products.find();
+    const productinfo = await users.findOne({_id:req.session.user.id});
     console.log(productinfo);
     res.render("wishlist", { productinfo });
   } catch (error) {
@@ -255,12 +254,29 @@ export async function cart(req, res) {
   }
 }
 
-
-export function userprofile(req,res){
-
-res.render("profile")
-
-
+export async function userprofile(req, res) {
+  try {
+    console.log(req.session.user);
+    const userinfo = await users.findOne({ email: req.session.user });
+    console.log(userinfo);
+    res.render("profile", { userinfo });
+    console.log(userinfo.name);
+  } catch (error) {
+    res.send(500, error);
+  }
+}
+export async function addtowishlist(req,res){
+  return new Promise((resolve, reject) => {
+    try {
+      console.log(req.session.user,"session");
+       users.updateOne({_id:req.session.user._id},{$push:{wishlist:{product_id:req.params.data}}}).then((result)=>{
+        console.log(result);
+       })
+    } catch (error) {
+      console.log(error);
+    }
+    
+  })
 }
 
 export function userlogout(req, res) {
