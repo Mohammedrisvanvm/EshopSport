@@ -334,6 +334,36 @@ export function unlistcategory(req, res) {
     }
   });
 }
+export function unlistproduct(req, res) {
+  console.log(req.params);
+
+  return new Promise(async (resolve, reject) => {
+    try {
+      console.log(req.params.id, "id");
+      const productinfo = await products.findById({ _id: req.params.id });
+      console.log(productinfo);
+      const { list, name } = productinfo;
+      if (list == false) {
+        await products.updateOne(
+          { _id: req.params.id },
+          { $set: { list: "true" } }
+        );
+        console.log("value true");
+      } else {
+        await products.updateOne(
+          { _id: req.params.id },
+          { $set: { list: "false" } }
+        );
+        console.log("value false");
+      }
+    } catch (error) {
+      console.log(error);
+      // Log an error message
+      console.log("Failed to unlist category.");
+      res.send("Failed to unlist category.");
+    }
+  });
+}
 
 export function adminlogout(req, res) {
   console.log("logout");

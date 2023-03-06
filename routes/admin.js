@@ -18,6 +18,7 @@ import {
   posteditcategory,
   postEditProduct,
   unlistcategory,
+  unlistproduct,
 } from "../controllers/admincontroller.js";
 import { multiupload } from "../helpers/multer.js";
 
@@ -40,6 +41,8 @@ router.get("/editproduct/:id", multiupload, getEditProduct);
 router.post("/editproduct/:id",multiupload, postEditProduct);
 router.get("/deleteproduct/:id", deleteProduct);
 router.get('/categoryunlist/:id',unlistcategory)
+router.get('/productunlist/:id',unlistproduct)
+
 
 router.get("/logout", adminlogout);
 
