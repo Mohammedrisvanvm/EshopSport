@@ -94,8 +94,8 @@ export async function getaddProduct(req, res) {
     res.redirect("/admin/addproduct");
   }
 }
-export  function postaddProduct(req, res) {
-  return new Promise(async(resolve, reject) => {
+export function postaddProduct(req, res) {
+  return new Promise(async (resolve, reject) => {
     try {
       console.log("hi");
       console.log(req.body);
@@ -106,18 +106,19 @@ export  function postaddProduct(req, res) {
       console.log(productinfo);
       if (!productinfo) {
         sharp(req.files.mainImage[0].path)
-        .png()
-        .resize(300, 300, {
+          .png()
+          .resize(300, 300, {
             kernel: sharp.kernel.nearest,
-            fit: 'contain',
-            position: 'center',
-            background: { r: 255, g: 255, b: 255, alpha: 0 }
-        })
-        .toFile(req.files.mainImage[0].path+".png")
-        .then(() => {
-          req.files.mainImage[0].filename=req.files.mainImage[0].filename+".png"
-            req.files.mainImage[0].path=req.files.mainImage[0].path+".png"
-        })
+            fit: "contain",
+            position: "center",
+            background: { r: 255, g: 255, b: 255, alpha: 0 },
+          })
+          .toFile(req.files.mainImage[0].path + ".png")
+          .then(() => {
+            req.files.mainImage[0].filename =
+              req.files.mainImage[0].filename + ".png";
+            req.files.mainImage[0].path = req.files.mainImage[0].path + ".png";
+          });
         const productadd = new products({
           productName: req.body.productName,
           category: req.body.category,
@@ -141,8 +142,7 @@ export  function postaddProduct(req, res) {
       console.log(err);
       res.redirect("/admin/addproduct");
     }
-  })
- 
+  });
 }
 export async function getgategoriesManagemenet(req, res) {
   try {
@@ -182,40 +182,38 @@ export async function postaddcategories(req, res) {
     console.log(error);
   }
 }
-export async function editcategory(req,res) {
+export async function editcategory(req, res) {
   try {
-    const categoryinfo=await categories.findById(req.params.id)
+    const categoryinfo = await categories.findById(req.params.id);
     console.log(categoryinfo);
-    res.render("editcategory",{categoryinfo})
+    res.render("editcategory", { categoryinfo });
   } catch (error) {
-    res.send(error)
-
+    res.send(error);
   }
-  
 }
-export async function posteditcategory(req,res) {
+export async function posteditcategory(req, res) {
   try {
-    let category
-    const categoryinfo=await categories.findOne({name:req.body.name})
-    if(!categoryinfo){
-category=await categories.updateOne({_id:req.params.id},{$set:{
-  name:req.body.name
-}})
-res.redirect('/admin/categoriesManagement')
-
-
-
-    }else{
-      res.redirect("/admin/editcategory/")
+    let category;
+    const categoryinfo = await categories.findOne({ name: req.body.name });
+    if (!categoryinfo) {
+      category = await categories.updateOne(
+        { _id: req.params.id },
+        {
+          $set: {
+            name: req.body.name,
+          },
+        }
+      );
+      res.redirect("/admin/categoriesManagement");
+    } else {
+      res.redirect("/admin/editcategory/");
     }
-    
   } catch (error) {
-    res.send(error)
+    res.send(error);
   }
-  
 }
 
-export async function deletecategory(req,res) {
+export async function deletecategory(req, res) {
   try {
     console.log(req.params);
 
@@ -239,9 +237,6 @@ export async function deletecategory(req,res) {
   }
 }
 
-  
-
-
 export async function getEditProduct(req, res) {
   try {
     const categoryinfo = await categories.find();
@@ -257,35 +252,34 @@ export async function getEditProduct(req, res) {
 export async function postEditProduct(req, res) {
   console.log(req.body);
   console.log(req.files);
- const id=req.params.id
-  const{productName,category,quantity,price,MRP,description}=req.body
+  const id = req.params.id;
+  const { productName, category, quantity, price, MRP, description } = req.body;
   try {
     let product;
     console.log(id);
 
-      product = await products.updateOne(
-        { _id:id },
-        {
-          $set: {
-            productName:productName,
-            category:category,
-            quantity:quantity,
-            price:price,
-            MRP:MRP,
-            description:description,
-            mainImage: req.files.mainImage,
-            subImages: req.files.subImages,
-          },
-        }
-      );
-   
-     res.redirect("/admin/productManagement");
+    product = await products.updateOne(
+      { _id: id },
+      {
+        $set: {
+          productName: productName,
+          category: category,
+          quantity: quantity,
+          price: price,
+          MRP: MRP,
+          description: description,
+          mainImage: req.files.mainImage,
+          subImages: req.files.subImages,
+        },
+      }
+    );
+
+    res.redirect("/admin/productManagement");
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal Server Error");
   }
-};
-
+}
 
 export async function deleteProduct(req, res) {
   try {
@@ -315,17 +309,23 @@ export function unlistcategory(req, res) {
 
   return new Promise(async (resolve, reject) => {
     try {
-      console.log(req.params._id);
-      console.log(req.body);
-
-      await categories.updateOne(
-        { _id: req.params.id },
-        { $set: { list: "false" } }
-      );
-
-      // Log a success message
-      console.log("Category unlisted successfully.");
-      res.send("Category unlisted successfully.");
+      console.log(req.params.id, "id");
+      const categoryinfo = await categories.findById({ _id: req.params.id });
+      console.log(categoryinfo);
+      const { list, name } = categoryinfo;
+      if (list == false) {
+        await categories.updateOne(
+          { _id: req.params.id },
+          { $set: { list: "true" } }
+        );
+        console.log("value true");
+      } else {
+        await categories.updateOne(
+          { _id: req.params.id },
+          { $set: { list: "false" } }
+        );
+        console.log("value false");
+      }
     } catch (error) {
       console.log(error);
       // Log an error message
@@ -334,22 +334,6 @@ export function unlistcategory(req, res) {
     }
   });
 }
-
-
-// export  function unlistcategory(req,res) {
-//   console.log(req.params);
-//   return new Promise(async(resolve, reject) => {
-//     try {
-//       console.log(req.params._id);
-//       console.log(req.body);
-//       await categories.updateOne({_id:req.params.id},{$set:{list:false}})
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   })
-  
-// }
-
 
 export function adminlogout(req, res) {
   console.log("logout");

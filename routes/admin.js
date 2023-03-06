@@ -39,7 +39,7 @@ router.get("/deletecategory/:id",deletecategory)
 router.get("/editproduct/:id", multiupload, getEditProduct);
 router.post("/editproduct/:id",multiupload, postEditProduct);
 router.get("/deleteproduct/:id", deleteProduct);
-router.get('/unlist/:id',unlistcategory)
+router.get('/categoryunlist/:id',unlistcategory)
 
 router.get("/logout", adminlogout);
 
