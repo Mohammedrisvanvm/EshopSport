@@ -239,74 +239,29 @@ export async function getEditProduct(req, res) {
 }
 export async function postEditProduct(req, res) {
   console.log(req.body);
+  console.log(req.files);
  const id=req.params.id
   const{productName,category,quantity,price,MRP,description}=req.body
   try {
     let product;
     console.log(id);
-    if (req.files?.mainImage && req.files?.subImages) {
+
       product = await products.updateOne(
         { _id:id },
         {
           $set: {
-            productName,
-            category,
-            
-            quantity,
-            price,
-            MRP,
-            description,
-            mainImage: req.files.mainImage[0],
-            subImages: req.files.subimage,
-          },
-        }
-      );
-    } else if (!req.files?.mainImage && req.files?.subImages) {
-      product = await products.updateOne(
-        {_id: id },
-        {
-          $set: {
-            productName,
-            category,
-            quantity,
-            price,
-            MRP,
-            description,
+            productName:productName,
+            category:category,
+            quantity:quantity,
+            price:price,
+            MRP:MRP,
+            description:description,
+            mainImage: req.files.mainImage,
             subImages: req.files.subImages,
           },
         }
       );
-    } else if (!req.files?.mainImage && !req.files?.subImages) {
-      product = await products.updateOne(
-        { _id:id },
-        {
-          $set: {
-            productName,
-            category,
-            quantity,
-            price,
-            MRP,
-            description,
-          },
-
-        }
-      );
-    } else if (req.files?.mainImage && !req.files?.subImages) {
-      product = await products.updateOne(
-        { _id:id },
-        {
-          $set: {
-            productName,
-            category,
-            quantity,
-            price,
-            MRP,
-            description,
-            MainImage: req.files.mainImage[0],
-          },
-        }
-      );
-    }
+   
      res.redirect("/admin/productManagement");
   } catch (error) {
     console.error(error);
