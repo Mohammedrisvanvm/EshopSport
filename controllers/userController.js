@@ -238,10 +238,21 @@ export async function productPage(req, res) {
 }
 
 export async function wishlist(req, res) {
+  const{_id}=req.session.user
+
+  console.log(_id,"id");
   try {
-    const productinfo = await users.findOne({_id:req.session.user.id});
-    console.log(productinfo);
-    res.render("wishlist", { productinfo });
+    const {wishlist}= await users.findOne({_id:_id},{wishlist:1});
+
+    console.log("sadfdsafds",wishlist);
+    const productid=wishlist.map((item)=>{
+      return item
+    })
+    console.log(productid,"wishlist");
+    const wishitem=await products.find({_id:{$in:productid}})
+    console.log(wishitem);
+
+    res.render("wishlist", { wishlist });
   } catch (error) {
     console.log(error);
   }
