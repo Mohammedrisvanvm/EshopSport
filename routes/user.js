@@ -3,7 +3,6 @@ import {
   cart,
   forgottenPassword,
   getforget3,
-  gethome,
   getOtpValidate,
   getsignUpOtp,
   guestpage,
@@ -40,7 +39,7 @@ router.post("/forget3", postforget3);
 router.get("/resendotp", resendOTP);
 router.get("/signupResendOtp", signupresendOTP);
 router.get("/logout", userlogout);
-router.get('/home',gethome)
+// router.get('/home',gethome)
 router.get('/productpage/:id',productPage)
 router.get('/wishlist',wishlist)
 router.get('/cart',cart)

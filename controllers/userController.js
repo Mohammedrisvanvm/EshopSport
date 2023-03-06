@@ -7,7 +7,7 @@ import { products } from "../models/productSchema.js";
 
 let passworderr = null;
 let emailerr = null;
-
+let isloggedin=false
 let loginvalue = null;
 let otperr = null;
 
@@ -18,11 +18,15 @@ let otp = otpGenerator.generate(6, {
 
 export async function guestpage(req, res) {
   if(req.session.user){
-    res.redirect("/home")
+isloggedin=true
+const productinfo=await products.find() 
+res.render("guest",{productinfo,isloggedin})
   }else{
+    isloggedin=false
     const productinfo=await products.find() 
-    res.render("guest",{productinfo});
+    res.render("guest",{productinfo,isloggedin})
   }
+
 
 }
 export function userGetLogin(req, res) {
@@ -33,23 +37,23 @@ export function userGetLogin(req, res) {
     emailerr = null;
   }
   else{
-    res.redirect("/home")
+    res.redirect("/")
  
 }
 }
 
-export async function gethome(req,res){
-  if(req.session.user){
-    const productinfo=await products.find() 
-    res.render("home",{productinfo})
-  }else{
-    res.redirect("/login")
-  }
+// export async function gethome(req,res){
+//   if(req.session.user){
+//     const productinfo=await products.find() 
+//     res.render("home",{productinfo,isloggedin})
+//   }else{
+//     res.redirect("/login")
+//   }
   
   
 
 
-}
+// }
 export async function userPostLogin(req, res) {
   try {
     
@@ -69,7 +73,7 @@ export async function userPostLogin(req, res) {
       if (email == userinfo.email && result == true) {
         req.session.user=userinfo.email
         console.log(req.session.user)
-        res.redirect("/home");
+        res.redirect("/");
         console.log("postlogin");
       } else {
         emailerr = "password error";
@@ -280,9 +284,7 @@ export async function wishlist(req,res){
  }
  export async function cart(req,res){
   
-  try {
-
-   
+  try {  
     res.render("cart")
   }
    catch (error) {
@@ -290,12 +292,6 @@ export async function wishlist(req,res){
   }
  
  }
-
-
-
-
-
-
 
 export function userlogout(req, res) {
   console.log("logout");
