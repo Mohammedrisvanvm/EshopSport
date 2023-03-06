@@ -1,6 +1,7 @@
 import Express, { Router } from "express";
 import {
   adminlogout,
+  deletecategory,
   deleteProduct,
   editcategory,
   getaddcategories,
@@ -14,6 +15,7 @@ import {
   postaddcategories,
   postaddProduct,
   postAdminPage,
+  posteditcategory,
   postEditProduct,
 } from "../controllers/admincontroller.js";
 import { multiupload } from "../helpers/multer.js";
@@ -31,6 +33,8 @@ router.post("/addProduct", multiupload, postaddProduct);
 router.get("/addcategories", getaddcategories);
 router.post("/addcategories", postaddcategories);
 router.get("/editcategory/:id",editcategory)
+router.post("/editcategory/:id",posteditcategory)
+router.get("/deletecategory/:id",deletecategory)
 router.get("/editproduct/:id", multiupload, getEditProduct);
 router.post("/editproduct/:id",multiupload, postEditProduct);
 router.get("/deleteproduct/:id", deleteProduct);

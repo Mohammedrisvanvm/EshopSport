@@ -167,13 +167,63 @@ export async function postaddcategories(req, res) {
 }
 export async function editcategory(req,res) {
   try {
-    const categoryinfo=await categories.findById(req.params)
-    res.render("editcategory",categoryinfo)
+    const categoryinfo=await categories.findById(req.params.id)
+    console.log(categoryinfo);
+    res.render("editcategory",{categoryinfo})
   } catch (error) {
-    res.send(500,"error")
+    res.send(error)
+
   }
   
 }
+export async function posteditcategory(req,res) {
+  try {
+    let category
+    const categoryinfo=await categories.findOne({name:req.body.name})
+    if(!categoryinfo){
+category=await categories.updateOne({_id:req.params.id},{$set:{
+  name:req.body.name
+}})
+res.redirect('/admin/categoriesManagement')
+
+
+
+    }else{
+      res.redirect("/admin/editcategory/")
+    }
+    
+  } catch (error) {
+    res.send(error)
+  }
+  
+}
+
+export async function deletecategory(req,res) {
+  try {
+    console.log(req.params);
+
+    console.log("success");
+    categories.findByIdAndDelete(
+      { _id: req.params.id },
+      req.body,
+      (err, data) => {
+        if (err) {
+          console.log("not get");
+          next(err);
+        } else {
+          console.log("deleted successfullyyy");
+          res.redirect("/admin/categoriesManagement");
+        }
+      }
+    );
+  } catch (error) {
+    res.redirect("/admin/categoriesManagement");
+    alert("not success");
+  }
+}
+
+  
+
 
 export async function getEditProduct(req, res) {
   try {
