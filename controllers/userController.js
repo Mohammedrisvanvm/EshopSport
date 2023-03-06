@@ -7,7 +7,7 @@ import { products } from "../models/productSchema.js";
 
 let passworderr = null;
 let emailerr = null;
-let isloggedin=false
+let isloggedin = false;
 let loginvalue = null;
 let otperr = null;
 
@@ -17,73 +17,56 @@ let otp = otpGenerator.generate(6, {
 });
 
 export async function guestpage(req, res) {
-  if(req.session.user){
-isloggedin=true
-const productinfo=await products.find() 
-res.render("guest",{productinfo,isloggedin})
-  }else{
-    isloggedin=false
-    const productinfo=await products.find() 
-    res.render("guest",{productinfo,isloggedin})
+  if (req.session.user) {
+    isloggedin = true;
+    const productinfo = await products.find();
+    res.render("guest", { productinfo, isloggedin });
+  } else {
+    isloggedin = false;
+    const productinfo = await products.find();
+    res.render("guest", { productinfo, isloggedin });
   }
-
-
 }
 export function userGetLogin(req, res) {
   console.log("login");
   console.log(req.session.user);
-  if(!req.session.user){
+  if (!req.session.user) {
     res.render("login", { emailerr });
     emailerr = null;
+  } else {
+    res.redirect("/");
   }
-  else{
-    res.redirect("/")
- 
-}
 }
 
-// export async function gethome(req,res){
-//   if(req.session.user){
-//     const productinfo=await products.find() 
-//     res.render("home",{productinfo,isloggedin})
-//   }else{
-//     res.redirect("/login")
-//   }
-  
-  
 
-
-// }
 export async function userPostLogin(req, res) {
   try {
-    
- 
-  console.log(req.body);
-  const { email, password } = req.body;
+    console.log(req.body);
+    const { email, password } = req.body;
 
-  const userinfo = await users.findOne({ email });
-  console.log(userinfo);
-  if (!userinfo) {
-    emailerr = "not found email";
-    res.redirect("/login");
-  } else {
-    bcrypt.compare(password, userinfo.password).then((result) => {
-      console.log(result);
-      console.log(result);
-      if (email == userinfo.email && result == true) {
-        req.session.user=userinfo.email
-        console.log(req.session.user)
-        res.redirect("/");
-        console.log("postlogin");
-      } else {
-        emailerr = "password error";
-        res.redirect("/login");
-      }
-    });
-  }
-} catch (error) {
+    const userinfo = await users.findOne({ email });
+    console.log(userinfo);
+    if (!userinfo) {
+      emailerr = "not found email";
+      res.redirect("/login");
+    } else {
+      bcrypt.compare(password, userinfo.password).then((result) => {
+        console.log(result);
+        console.log(result);
+        if (email == userinfo.email && result == true) {
+          req.session.user = userinfo.email;
+          console.log(req.session.user);
+          res.redirect("/");
+          console.log("postlogin");
+        } else {
+          emailerr = "password error";
+          res.redirect("/login");
+        }
+      });
+    }
+  } catch (error) {
     console.log(error);
-}
+  }
 }
 export function userGetSignup(req, res) {
   console.log("getsignup");
@@ -97,36 +80,33 @@ export async function userPostSignup(req, res) {
   console.log(req.body);
   console.log(otp);
   try {
-    
- 
+    const { password, conpassword, email } = req.body;
+    if (password == conpassword) {
+      console.log(password, conpassword);
+      console.log(email);
 
-  const { password, conpassword, email } = req.body;
-  if (password == conpassword) {
-    console.log(password, conpassword);
-    console.log(email);
+      const userinfo = await users.findOne({ email });
+      console.log(userinfo);
+      if (!userinfo) {
+        req.session.value = req.body;
+        req.session.email = email;
+        sentOTP(email, otp);
+        req.session.otp = otp;
 
-    const userinfo = await users.findOne({ email });
-    console.log(userinfo);
-    if (!userinfo) {
-    req.session.value= req.body;
-      req.session.email = email;
-      sentOTP(email, otp);
-      req.session.otp = otp;
-
-      res.redirect("/signUpOtp");
+        res.redirect("/signUpOtp");
+      } else {
+        console.log("l");
+        emailerr = "email is already exist";
+        res.redirect("/signup");
+      }
     } else {
-      console.log("l");
-      emailerr = "email is already exist";
+      passworderr = "password is not matching";
+      console.log("p");
       res.redirect("/signup");
     }
-  } else {
-    passworderr = "password is not matching";
-    console.log("p");
-    res.redirect("/signup");
+  } catch (error) {
+    console.log(error);
   }
-} catch (error) {
-   console.log(error); 
-}
 }
 export function getsignUpOtp(req, res) {
   res.render("signUpOtp", { otperr });
@@ -139,7 +119,7 @@ export function postsignUpOtp(req, res) {
     console.log(200, "success");
     createDocument(req.session.value);
     res.redirect("/login");
-    req.session.value= null;
+    req.session.value = null;
   } else {
     otperr = "wrong otp";
     res.redirect("/signUpOtp");
@@ -166,25 +146,23 @@ export function forgottenPassword(req, res) {
 export async function postForgottenPassword(req, res) {
   console.log(req.body.email);
   try {
-    
+    const email = req.body.email;
 
-  const email = req.body.email;
-
-  const userinfo = await users.findOne({ email });
-  if (!userinfo) {
-    emailerr = "not found please signup";
-    res.redirect("/otp");
-  } else {
-    sentOTP(email, otp);
-    console.log(otp);
-    req.session.email = email;
-    req.session.otp = otp;
-    loginvalue = req.body;
-    res.redirect("/otpValidate");
+    const userinfo = await users.findOne({ email });
+    if (!userinfo) {
+      emailerr = "not found please signup";
+      res.redirect("/otp");
+    } else {
+      sentOTP(email, otp);
+      console.log(otp);
+      req.session.email = email;
+      req.session.otp = otp;
+      loginvalue = req.body;
+      res.redirect("/otpValidate");
+    }
+  } catch (error) {
+    console.log(error);
   }
-} catch (error) {
-   console.log(error); 
-}
 }
 export function resendOTP(req, res) {
   let otp = otpGenerator.generate(6, {
@@ -225,73 +203,57 @@ export function getforget3(req, res) {
 export async function postforget3(req, res) {
   console.log(req.body);
   try {
-    
-  
-  let email = req.session.email;
-  const userinfo = await users.findOne({ email });
-  console.log(userinfo.id);
-  if (req.body.password == req.body.repassword) {
-    console.log("success");
-    req.body.password = await bcrypt.hash(req.body.password, 10);
-    const update = await users.updateOne(
-      { _id: userinfo._id },
-      { $set: { password: req.body.password } }
-    );
-    res.redirect("/login");
-    loginvalue = null;
-  } else {
-    passworderr = "not matching";
-    res.redirect("/forget3");
-    console.log("forget", loginvalue);
+    let email = req.session.email;
+    const userinfo = await users.findOne({ email });
+    console.log(userinfo.id);
+    if (req.body.password == req.body.repassword) {
+      console.log("success");
+      req.body.password = await bcrypt.hash(req.body.password, 10);
+      const update = await users.updateOne(
+        { _id: userinfo._id },
+        { $set: { password: req.body.password } }
+      );
+      res.redirect("/login");
+      loginvalue = null;
+    } else {
+      passworderr = "not matching";
+      res.redirect("/forget3");
+      console.log("forget", loginvalue);
+    }
+  } catch (error) {
+    console.log(error);
   }
-} catch (error) {
-  console.log(error)
-}
 }
 
 //product page
 
-
-export async function productPage(req,res){
- console.log(req.params.id);
- try {
-  const productinfo=await products.findById(req.params.id).lean()
-  console.log(productinfo);
-   res.render("productPage",{ productinfo })
- }
-  catch (error) {
-  console.log(error)
- }
-
+export async function productPage(req, res) {
+  console.log(req.params.id);
+  try {
+    const productinfo = await products.findById(req.params.id).lean();
+    console.log(productinfo);
+    res.render("productPage", { productinfo });
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-
-
-
-
-
-export async function wishlist(req,res){
-  
+export async function wishlist(req, res) {
   try {
-   const productinfo=await products.find()
-   console.log(productinfo);
-    res.render("wishlist",{ productinfo })
+    const productinfo = await products.find();
+    console.log(productinfo);
+    res.render("wishlist", { productinfo });
+  } catch (error) {
+    console.log(error);
   }
-   catch (error) {
-   console.log(error)
+}
+export async function cart(req, res) {
+  try {
+    res.render("cart");
+  } catch (error) {
+    console.log(error);
   }
- 
- }
- export async function cart(req,res){
-  
-  try {  
-    res.render("cart")
-  }
-   catch (error) {
-   console.log(error)
-  }
- 
- }
+}
 
 export function userlogout(req, res) {
   console.log("logout");

@@ -43,7 +43,7 @@
             <!-- Container wrapper -->
             <div class="container-fluid">
               <!-- Navbar brand -->
-              <a class="navbar-brand mx-5" href="#"><h3>ESHOP SPORT</h3></a>
+              <a class="navbar-brand mx-5" href="/"><h3>ESHOP SPORT</h3></a>
 
               <!-- Toggle button -->
               <button
@@ -66,7 +66,7 @@
                 <ul class="navbar-nav mx-5 me-auto mb-2 mb-lg-0">
                   <!-- Link -->
                   <li class="nav-item acitve">
-                    <a class="nav-link mx-2" href="#"><h5>HOME</h5></a>
+                    <a class="nav-link mx-2" href="/"><h5>HOME</h5></a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link mx-2" href="#"><h5>MENS</h5></a>
@@ -92,52 +92,52 @@
                     ></a>
                   </li>
                   <li class="nav-item mx-5 fs-3">
-                    <a href="/cart" class="text-decoration-none text-light d-flex"
+                    <a
+                      href="/cart"
+                      class="text-decoration-none text-light d-flex"
                       ><i class="ri-shopping-cart-fill"></i
                     ></a>
                   </li>
                   <li class="nav-item pt-1">
                     <div class="d-flex">
                       <% if (isloggedin) { %>
-                       
-                        <div class="dropdown">
-                          <button
-                            class="btn btn-secondary dropdown-toggle"
-                            type="button"
-                            id="dropdownMenuButton1"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                          >
-                            <i class="ri-user-fill"></i>
-                          </button>
-                          <ul
-                            class="dropdown-menu"
-                            aria-labelledby="dropdownMenuButton1"
-                          >
-                          <li><a class="dropdown-item" href="#">mohammed
-    
-                          </a></li>
-                            <li><a class="dropdown-item" href="#">profile</a></li>
-                            <li><a class="dropdown-item" href="#">orders</a></li>
-                            <li>
-                              <a class="dropdown-item" href="/logout"
-                                ><button class="btn btn-dark">logout</button></a
-                              >
-                            </li>
-                          </ul>
-                        </div>
-    
-                   <% } else { %>
-                      
-                    <a href="/login">
-                      <button class="btn btn-dark d-flex">
-                        <h5 class="mx-2">LOGIN</h5>
-                        <i class="ri-login-box-line fs-5"></i></button
-                    ></a>
 
-                  
-                    <% } %>
-                       
+                      <div class="dropdown">
+                        <button
+                          class="btn btn-secondary dropdown-toggle"
+                          type="button"
+                          id="dropdownMenuButton1"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false"
+                        >
+                          <i class="ri-user-fill"></i>
+                        </button>
+                        <ul
+                          class="dropdown-menu"
+                          aria-labelledby="dropdownMenuButton1"
+                        >
+                          <li>
+                            <a class="dropdown-item" href="#">mohammed </a>
+                          </li>
+                          <li><a class="dropdown-item" href="#">profile</a></li>
+                          <li><a class="dropdown-item" href="#">orders</a></li>
+                          <li>
+                            <a class="dropdown-item" href="/logout"
+                              ><button class="btn btn-dark">logout</button></a
+                            >
+                          </li>
+                        </ul>
+                      </div>
+
+                      <% } else { %>
+
+                      <a href="/login">
+                        <button class="btn btn-dark d-flex">
+                          <h5 class="mx-2">LOGIN</h5>
+                          <i class="ri-login-box-line fs-5"></i></button
+                      ></a>
+
+                      <% } %>
                     </div>
                   </li>
                 </ul>
@@ -336,7 +336,7 @@
                       </h6>
                       <div class="d-flex">
                         <button class="btn btn-primary mx-2">wishlist</button
-                        ><button class="btn btn-primary mx-2 ">buy now</button>
+                        ><button class="btn btn-primary mx-2">buy now</button>
                       </div>
                     </div>
                   </div>
