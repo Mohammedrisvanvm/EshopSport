@@ -370,3 +370,4 @@ export function adminlogout(req, res) {
   delete req.session.admin;
   res.redirect("/admin");
 }
+ 
