@@ -54,7 +54,8 @@ export async function userPostLogin(req, res) {
         console.log(result);
         if (email == userinfo.email && result == true) {
           req.session.user = userinfo;
-          console.log(req.session.user);
+          req.session.userid=userinfo.id
+          console.log(req.session.userid);
           res.redirect("/");
           console.log("postlogin");
         } else {
@@ -238,21 +239,24 @@ export async function productPage(req, res) {
 }
 
 export async function wishlist(req, res) {
-  const{_id}=req.session.user
+  console.log(req.session.userid);
+  
+  const userid=req.session.userid
+ 
 
-  console.log(_id,"id");
+  console.log(userid,"id");
   try {
-    const {wishlist}= await users.findOne({_id:_id},{wishlist:1});
+    const wishlistdetails= await users.findOne({_id:userid},{wishlist:1});
 
-    // console.log("sadfdsafds",wishlist);
-    // const productid=wishlist.map((item)=>{
-    //   return item
-    // })
-    // console.log(productid,"wishlist");
-    const wishitem=await products.find(wishlist)
-    console.log(wishitem);
+   console.log("sadfdsafds",wishlistdetails);
+     const productid=await users.find({_id:wishlistdetails},{wishlist:1,_id:0}).lean()
+      
+      console.log(productid,"p");
+      //  const product=await products.find({_id:{$in:productid}})
+    // const wishitem=await products.find(wishlist)
+    // console.log(wishitem);
 
-    res.render("wishlist", { wishitem });
+    res.render("wishlist",{productid});
   } catch (error) {
     console.log(error);
   }

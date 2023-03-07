@@ -129,7 +129,7 @@
         <div class="text-center">
           <div class="row">
             <div class="row">
-              <% wishitem.forEach(i => { %>
+              <% productid.forEach((i) => { %>
               <div class="col-lg-3 col-md-6 mb-4">
                 <div class="card">
                   <div
@@ -137,10 +137,7 @@
                     style="height: 300px"
                     data-mdb-ripple-color="light"
                   >
-                    <img
-                      src="/image/productImage/<%-i.mainImage[0].filename %>"
-                      class="w-100 h-100"
-                    />
+                   
                     <a href="/productPage/<%-i._id %>">
                       <div class="hover-overlay">
                         <div
