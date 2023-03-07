@@ -211,7 +211,7 @@
                 <img src="/image/productImage/<%- i.mainImage[0].filename %>" width="40" height="26">
             </td>
          
-            <td><button class="btn btn-success btn-sm" onclick="unlist(`<%-i._id %>`)"> <%-i.list %></button></td>
+            <td><button class="btn btn-success btn-sm" id="listbtn<%-i._id %>" onclick="unlist(`<%-i._id %>`)"> <%-i.list %></button></td>
             <td><%- i.uploadedAt.toLocaleString() %></td>
             <td class="d-flex"><a href="/admin/editproduct/<%-i._id %>"> <i class="ri-pencil-line mx-2 fs-4 text-dark"></i></a><a href="/admin/deleteproduct/<%-i._id %>"><i class="ri-delete-bin-6-fill fs-4 mx-3 text-danger" onclick="return confirm('are you sure you want to delete?')"></i></a></td>
           </tr>
@@ -242,8 +242,20 @@
     <script>
 
       function unlist(data){
-        axios.get('/admin/productunlist/'+data)
-      }
+        axios.get('/admin/productunlist/'+data).then((result)=>{
+        let value=document.getElementById("listbtn"+data)
+
+if (result.data.success==true) {
+ 
+  value.textContent='false'
+}else{
+  value.textContent='true'
+ 
+}
+        })
+        
+          }
+      
     </script>
 
     <script src="/assets/node_modules/jquery/jquery.min.js"></script>

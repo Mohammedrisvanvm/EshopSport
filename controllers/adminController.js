@@ -11,14 +11,11 @@ let imageerr = null;
 
 export function getAdminPage(req, res) {
   try {
-    console.log(req.session.admin);
     if (req.session.admin) {
-      console.log("getdash");
       res.render("index");
     } else {
-      console.log("getlogin");
       res.render("adminLogin", { error: emailerr });
-      console.log(emailerr);
+
       emailerr = null;
     }
   } catch (error) {
@@ -28,10 +25,8 @@ export function getAdminPage(req, res) {
 
 export async function postAdminPage(req, res) {
   try {
-    console.log(req.body);
     const { name, email, password } = req.body;
     const userinfo = await admins.findOne({ email });
-    console.log(userinfo);
     if (!userinfo) {
       emailerr = "admin is not found";
       res.redirect("/admin");
@@ -41,11 +36,9 @@ export async function postAdminPage(req, res) {
         email === userinfo.email &&
         password === userinfo.password
       ) {
-        console.log(200, "success");
         req.session.admin = {
           id: userinfo._id,
         };
-        console.log(req.session.admin);
         res.redirect("/admin");
       } else {
         emailerr = "password error";
@@ -57,12 +50,10 @@ export async function postAdminPage(req, res) {
   }
 }
 export function getdashboard(req, res) {
-  console.log("admin");
   res.redirect("/admin");
 }
 export async function getuserManagement(req, res) {
   try {
-    console.log("usermanage");
     const userinfo = await users.find().lean();
 
     res.render("userManagement", { userinfo });
@@ -74,9 +65,6 @@ export async function getuserManagement(req, res) {
 export async function getProductManagement(req, res) {
   try {
     const productinfo = await products.find().lean();
-
-    console.log("admin profile");
-
     res.render("ProductManagement", { producterr, productinfo });
     producterr = null;
   } catch (error) {
@@ -97,13 +85,10 @@ export async function getaddProduct(req, res) {
 export function postaddProduct(req, res) {
   return new Promise(async (resolve, reject) => {
     try {
-      console.log("hi");
-      console.log(req.body);
-      console.log(req.files);
       const productinfo = await products.findOne({
         productName: req.body.productName,
       });
-      console.log(productinfo);
+
       if (!productinfo) {
         sharp(req.files.mainImage[0].path)
           .png()
@@ -130,7 +115,6 @@ export function postaddProduct(req, res) {
           description: req.body.description,
         });
         await productadd.save();
-        console.log("no");
         res.redirect("/admin/productManagement");
       } else {
         producterr = "already exist";
@@ -138,7 +122,6 @@ export function postaddProduct(req, res) {
       }
     } catch (err) {
       imageerr = "not a image";
-      console.log("not a image");
       console.log(err);
       res.redirect("/admin/addproduct");
     }
@@ -153,24 +136,19 @@ export async function getgategoriesManagemenet(req, res) {
   }
 }
 export async function getaddcategories(req, res) {
-  console.log("get add categories");
-
   res.render("addcategory", { categorieserr });
   categorieserr = null;
 }
 export async function postaddcategories(req, res) {
   try {
-    console.log("post addcategory");
     const categoryname = req.body.name.toLowerCase();
     const categoryinfo = await categories.findOne({ name: categoryname });
-    console.log(categoryinfo);
     if (!categoryinfo) {
       try {
         const categoriesadd = new categories({
           name: categoryname,
         });
         await categoriesadd.save();
-        console.log("no");
         res.redirect("/admin/categoriesManagement");
       } catch (err) {
         console.log(err);
@@ -186,7 +164,6 @@ export async function postaddcategories(req, res) {
 export async function editcategory(req, res) {
   try {
     const categoryinfo = await categories.findById(req.params.id);
-    console.log(categoryinfo);
     res.render("editcategory", { categoryinfo });
   } catch (error) {
     res.send(error);
@@ -216,18 +193,13 @@ export async function posteditcategory(req, res) {
 
 export async function deletecategory(req, res) {
   try {
-    console.log(req.params);
-
-    console.log("success");
     categories.findByIdAndDelete(
       { _id: req.params.id },
       req.body,
       (err, data) => {
         if (err) {
-          console.log("not get");
           next(err);
         } else {
-          console.log("deleted successfullyyy");
           res.redirect("/admin/categoriesManagement");
         }
       }
@@ -241,9 +213,7 @@ export async function deletecategory(req, res) {
 export async function getEditProduct(req, res) {
   try {
     const categoryinfo = await categories.find();
-    console.log(req.params);
     const productinfo = await products.findById(req.params.id);
-
     res.render("productedit", { categoryinfo, imageerr, productinfo });
   } catch (error) {
     console.log(error);
@@ -251,14 +221,10 @@ export async function getEditProduct(req, res) {
   }
 }
 export async function postEditProduct(req, res) {
-  console.log(req.body);
-  console.log(req.files);
   const id = req.params.id;
   const { productName, category, quantity, price, MRP, description } = req.body;
   try {
     let product;
-    console.log(id);
-
     product = await products.updateOne(
       { _id: id },
       {
@@ -284,18 +250,13 @@ export async function postEditProduct(req, res) {
 
 export async function deleteProduct(req, res) {
   try {
-    console.log(req.params);
-
-    console.log("success");
     products.findByIdAndDelete(
       { _id: req.params.id },
       req.body,
       (err, data) => {
         if (err) {
-          console.log("not get");
           next(err);
         } else {
-          console.log("deleted successfullyyy");
           res.redirect("/admin/productManagement");
         }
       }
@@ -306,71 +267,56 @@ export async function deleteProduct(req, res) {
   }
 }
 export function unlistcategory(req, res) {
-  console.log(req.params);
-
   return new Promise(async (resolve, reject) => {
     try {
-      console.log(req.params.id, "id");
       const categoryinfo = await categories.findById({ _id: req.params.id });
-   
+
       const { list, name } = categoryinfo;
       if (list == false) {
         await categories.updateOne(
           { _id: req.params.id },
           { $set: { list: "true" } }
-          );
-          console.log("value true");
-          res.json({success:false})
+        );
+        res.json({ success: false });
       } else {
         await categories.updateOne(
           { _id: req.params.id },
           { $set: { list: "false" } }
         );
-        console.log("value false");
-        res.json({success:true})
+        res.json({ success: true });
       }
     } catch (error) {
       console.log(error);
-      // Log an error message
-      console.log("Failed to unlist category.");
       res.send("Failed to unlist category.");
     }
   });
 }
 export function unlistproduct(req, res) {
-  console.log(req.params);
-
   return new Promise(async (resolve, reject) => {
     try {
-      console.log(req.params.id, "id");
       const productinfo = await products.findById({ _id: req.params.id });
-      console.log(productinfo);
       const { list, name } = productinfo;
       if (list == false) {
         await products.updateOne(
           { _id: req.params.id },
           { $set: { list: "true" } }
         );
-        console.log("value true");
+        res.json({ success: false });
       } else {
         await products.updateOne(
           { _id: req.params.id },
           { $set: { list: "false" } }
         );
-        console.log("value false");
+        res.json({ success: true });
       }
     } catch (error) {
       console.log(error);
-      // Log an error message
-      console.log("Failed to unlist category.");
       res.send("Failed to unlist category.");
     }
   });
 }
-
 export function adminlogout(req, res) {
-  console.log("logout");
+  console.log("adminlogout");
   delete req.session.admin;
   res.redirect("/admin");
 }
- 
