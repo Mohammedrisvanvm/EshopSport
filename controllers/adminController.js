@@ -312,20 +312,22 @@ export function unlistcategory(req, res) {
     try {
       console.log(req.params.id, "id");
       const categoryinfo = await categories.findById({ _id: req.params.id });
-      console.log(categoryinfo);
+   
       const { list, name } = categoryinfo;
       if (list == false) {
         await categories.updateOne(
           { _id: req.params.id },
           { $set: { list: "true" } }
-        );
-        console.log("value true");
+          );
+          console.log("value true");
+          res.json({success:false})
       } else {
         await categories.updateOne(
           { _id: req.params.id },
           { $set: { list: "false" } }
         );
         console.log("value false");
+        res.json({success:true})
       }
     } catch (error) {
       console.log(error);

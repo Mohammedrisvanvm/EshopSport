@@ -252,7 +252,7 @@
           <!-- Bread crumb and right sidebar toggle -->
           <!-- ============================================================== -->
 
-<a href="/admin/addcategories"><button class="btn btn-primary">add  categories</button></a>
+<a href="/admin/addcategories"><button class="btn btn-outline-primary">add  categories</button></a>
 
 <section>
   <div style="margin-top: 50px;">
@@ -275,7 +275,7 @@
          
           <td><%-index+1 %></td>
           <td><%-i.name %></td>
-          <td><button class="btn btn-success" onclick="unlist(`<%-i._id %>`)"> <%-i.list %></button></td>
+          <td><button class="btn btn-outline-success" id="listbtn<%-i._id%>" onclick="unlist(`<%-i._id %>`)"> <%-i.list %></button></td>
           <td class="d-flex"><a href="/admin/editcategory/<%-i._id %>"> <i class="ri-pencil-line mx-2 fs-4 text-dark"></i></a><a href="/admin/deletecategory/<%-i._id %>"><i class="ri-delete-bin-6-fill fs-4 mx-3 text-danger" onclick="return confirm('are you sure you want to delete?')"></i></a></td>
        
         </tr>
@@ -284,7 +284,7 @@
   </div>
     </table>
 </section>
-<div class="d-flex justify-content-center"><a href="/admin/logout"><button class="btn btn-primary ">LOGOUT</button></a></div>
+<div class="d-flex justify-content-center"><a href="/admin/logout"><button class="btn btn-outline-primary ">LOGOUT</button></a></div>
 
         <!-- ============================================================== -->
         <!-- footer -->
@@ -312,8 +312,22 @@
     <script>
 
       function unlist(data){
-        axios.get('/admin/categoryunlist/'+data)
-      }
+        axios.get('/admin/categoryunlist/'+data).then((result)=>{
+let value=document.getElementById("listbtn"+data)
+
+if (result.data.success==true) {
+ 
+  value.textContent='false'
+}else{
+  value.textContent='true'
+ 
+}
+        })
+        
+          }
+        
+
+      
     </script>
 
     <script src="/assets/node_modules/jquery/jquery.min.js"></script>

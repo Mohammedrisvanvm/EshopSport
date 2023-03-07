@@ -3,7 +3,7 @@ import { users } from "../models/userSchema.js";
 import sentOTP from "../helpers/emailSend.js";
 import otpGenerator from "otp-generator";
 import bcrypt from "bcrypt";
-import { products } from "../models/productSchema.js";
+import { products} from "../models/productSchema.js";
 
 let passworderr = null;
 let emailerr = null;
@@ -239,6 +239,13 @@ export async function productPage(req, res) {
 }
 
 export async function wishlist(req, res) {
+  if (!req.session.user) {
+    res.redirect('/login')
+
+    
+  } else {
+    
+ 
   console.log(req.session.userid);
   
   const userid=req.session.userid
@@ -249,17 +256,14 @@ export async function wishlist(req, res) {
     const wishlistdetails= await users.findOne({_id:userid},{wishlist:1});
 
    console.log("sadfdsafds",wishlistdetails);
-     const productid=await users.find({_id:wishlistdetails},{wishlist:1,_id:0}).lean()
-      
-      console.log(productid,"p");
-      //  const product=await products.find({_id:{$in:productid}})
-    // const wishitem=await products.find(wishlist)
-    // console.log(wishitem);
-
-    res.render("wishlist",{productid});
+     const productId=wishlistdetails.wishlist.map(item=>item.product_id)
+    const productsdetails= await products.find({_id:{$in:productId}}).lean()
+    isloggedin = true;
+    res.render("wishlist",{productsdetails,isloggedin});
   } catch (error) {
     console.log(error);
   }
+}
 }
 export async function cart(req, res) {
   try {
@@ -271,13 +275,13 @@ export async function cart(req, res) {
 
 export async function userprofile(req, res) {
   try {
-    console.log(req.session.user);
-    const userinfo = await users.findOne({ email: req.session.user });
+    console.log(req.session.userid);
+    const userinfo = await users.findOne({ _id: req.session.userid });
     console.log(userinfo);
     res.render("profile", { userinfo });
     console.log(userinfo.name);
   } catch (error) {
-    res.send(500, error);
+  console.log(error);
   }
 }
 export async function addtowishlist(req,res){
