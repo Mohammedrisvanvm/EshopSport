@@ -207,7 +207,7 @@ export async function productPage(req, res) {
   try {
     const productinfo = await products.findById(req.params.id).lean();
 
-    res.render("productPage", { productinfo,isloggedin :true });
+    res.render("productPage", { productinfo, isloggedin: true });
   } catch (error) {
     console.log(error);
   }
@@ -250,7 +250,11 @@ export async function cart(req, res) {
         const productsdetails = await products
           .find({ _id: { $in: productIDs } })
           .lean();
-        res.render("cart", { productsdetails, isloggedin : true,count: userinfo.cart.length });
+        res.render("cart", {
+          productsdetails,
+          isloggedin: true,
+          count: userinfo.cart.length,
+        });
       } catch (error) {
         console.log(error);
       }
@@ -281,8 +285,18 @@ export async function addtowishlist(req, res) {
   if (!req.session.user) {
     res.redirect("/login");
   } else {
-    return new Promise((resolve, reject) => {
-      try {
+    try {
+      let id = req.params.data;
+
+      const user = await users.findOne(
+        { _id: req.session.user._id },
+        { _id: 0, wishlist: 1 }
+      );
+      const productId = user.wishlist.map((item) => {
+        return item.product_id;
+      });
+      console.log(productId);
+      if (!productId.includes(id)) {
         users
           .updateOne(
             { _id: req.session.user._id },
@@ -291,10 +305,13 @@ export async function addtowishlist(req, res) {
           .then((result) => {
             console.log(result);
           });
-      } catch (error) {
-        console.log(error);
+        console.log("111111111111111");
+      } else {
+        console.log("22222222222222");
       }
-    });
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
 export async function deletefromwishlist(req, res) {
