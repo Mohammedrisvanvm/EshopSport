@@ -238,7 +238,30 @@ export async function wishlist(req, res) {
 }
 export async function cart(req, res) {
   try {
-    res.render("cart");
+    if (!req.session.user) {
+      res.redirect('/login')
+    } else {
+try {
+
+const userinfo=await users.findOne({_id:req.session.user._id},{cart:1})
+const productIDs=userinfo.cart.map((item)=>item.product_id)
+const productsdetails=await products.find({_id:{$in:productIDs}}).lean()
+
+console.log(productsdetails,"111111111")
+
+
+
+
+
+
+  res.render("cart",{productsdetails});
+  
+} catch (error) {
+  console.log(error);
+}
+      
+    }
+    
   } catch (error) {
     console.log(error);
   }
@@ -321,6 +344,15 @@ export async function addtocart(req,res) {
     });
   }
   
+}
+export async function deletefromcart(req,res){
+try {
+  
+} catch (error) {
+  res.send(500)
+  
+}
+
 }
 
 

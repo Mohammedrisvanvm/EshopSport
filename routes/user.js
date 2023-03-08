@@ -3,6 +3,7 @@ import {
   addtocart,
   addtowishlist,
   cart,
+  deletefromcart,
   deletefromwishlist,
   forgottenPassword,
   getforget3,
@@ -54,6 +55,7 @@ router.get('/profile',userprofile)
 router.get('/addtowishlist/:data',addtowishlist)
 router.get('/deletefromwishlist/:data',deletefromwishlist)
 router.get('/addtocart/:data',addtocart)
+router.get('/deletefromcart/:data',deletefromcart)
 
 
 export default router;

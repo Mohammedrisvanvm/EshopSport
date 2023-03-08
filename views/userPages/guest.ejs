@@ -335,8 +335,12 @@
                         ><strong class="ms-2 sale">Rs.<%-i.price %></strong>
                       </h6>
                       <div class="d-flex">
-                        <button class="btn btn-primary mx-2" onclick="addtowishlist(`<%-i._id %>`)">wishlist</button
-                        ><button class="btn btn-primary mx-2">buy now</button>
+                        <button type="button" class="btn btn-danger mx-4" data-mdb-toggle="tooltip"
+                        title="Move to wishlist" onclick="addtowishlist(`<%-i._id %>`)">
+                        <i class="fas fa-heart"></i>
+                      </button>
+
+                        <button type="button" class="btn btn-primary mx-3"  title="buy now"  data-mdb-toggle="tooltip">buy now</button>
                       </div>
                     </div>
                   </div>

@@ -203,12 +203,12 @@
                       ><strong class="ms-2 sale">Rs.<%-i.price %></strong>
                     </h6>
                     <div class="d-flex justify-content-center">
-                     <a href="#" onclick=" deletefromwishlist(`<%-i._id %>`)"><i class="ri-delete-bin-fill text-danger fs-3"></i></a> 
+                     <a href="#" title="delete"  data-mdb-toggle="tooltip" onclick=" deletefromwishlist(`<%-i._id %>`)"><i class="ri-delete-bin-fill text-danger fs-3"></i></a> 
                       
                      <a
                      href="/cart"
                      class="text-decoration-none  d-flex "
-                     ><button class="btn btn-primary mx-3 ">add to cart</button></a>
+                     ><button class="btn btn-primary mx-3 " title="addtocart"  data-mdb-toggle="tooltip">add to cart</button></a>
                       
                     </div>
                   </div>
