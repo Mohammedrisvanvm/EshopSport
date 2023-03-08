@@ -2,6 +2,7 @@ import express, { Router } from "express";
 import {
   addtowishlist,
   cart,
+  deletefromwishlist,
   forgottenPassword,
   getforget3,
   getOtpValidate,
@@ -45,6 +46,12 @@ router.get('/productpage/:id',productPage)
 router.get('/wishlist',wishlist)
 router.get('/cart',cart)
 router.get('/profile',userprofile)
+
+
+
+//axios
 router.get('/addtowishlist/:data',addtowishlist)
+router.get('/deletefromwishlist/:data',deletefromwishlist)
+
 
 export default router;

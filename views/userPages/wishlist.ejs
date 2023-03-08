@@ -157,6 +157,11 @@
     <br>
     <br>
     <br>
+    <% if (productsdetails==null ) { %>
+      <img src="/image/empty/empty wishlist.jpg" alt="">
+     
+    <% } else { %>
+     
  
     <hr>
     <hr>
@@ -174,7 +179,9 @@
                     <img
                       src="/image/productImage/<%-i.mainImage[0].filename %>"
                       class="w-100 h-100"
+
                     />
+                    
                     <a href="/productPage/<%-i._id %>">
                       <div class="hover-overlay">
                         <div
@@ -196,17 +203,35 @@
                       ><strong class="ms-2 sale">Rs.<%-i.price %></strong>
                     </h6>
                     <div class="d-flex justify-content-center">
+                     <a href="#" onclick=" deletefromwishlist(`<%-i._id %>`)"><i class="ri-delete-bin-fill text-danger fs-3"></i></a> 
                       
-                      <button class="btn btn-primary mx-3">add to cart</button>
+                     <a
+                     href="/cart"
+                     class="text-decoration-none  d-flex "
+                     ><button class="btn btn-primary mx-3 ">add to cart</button></a>
+                      
                     </div>
                   </div>
                 </div>
               </div>
               <% }) %>
+              <% } %>
             </div>
           </div>
         </div>
       </section>
+      <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+<script>
+  function deletefromwishlist(data){
+    axios.get('/deletefromwishlist/'+data)
+  
+  }
+</script>
+
+
+
+
+
   </body>
 
     </main>

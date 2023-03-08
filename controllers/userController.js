@@ -253,24 +253,59 @@ export async function userprofile(req, res) {
     console.log(error);
   }
 }
-export async function addtowishlist(req, res) {
-  return new Promise((resolve, reject) => {
-    try {
-      users
-        .updateOne(
-          { _id: req.session.user._id },
-          { $push: { wishlist: { product_id: req.params.data } } }
-        )
-        .then((result) => {
-          console.log(result);
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  });
-}
 export function userlogout(req, res) {
   console.log("userlogout");
   delete req.session.user;
   res.redirect("/");
 }
+
+//axios function start
+
+export async function addtowishlist(req, res) {
+  if (!req.session.user) {
+    res.redirect('/login')
+    
+  } else {
+    return new Promise((resolve, reject) => {
+      try {
+        users
+          .updateOne(
+            { _id: req.session.user._id },
+            { $push: { wishlist: { product_id: req.params.data } } }
+          )
+          .then((result) => {
+            console.log(result);
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    });
+  }
+
+}
+export async function deletefromwishlist(req,res){
+  try {
+    console.log(req.params);
+    console.log(req.session.user);
+    users
+    .updateOne(
+      { _id: req.session.user._id },
+      { $pull: { wishlist: { product_id: req.params.data } } }
+    ).then((result) => {
+      console.log(result);
+    });
+ 
+    
+  } catch (error) {
+    
+  }
+}
+
+
+
+
+
+
+
+//axios function end
+
