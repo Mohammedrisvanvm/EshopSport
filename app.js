@@ -9,7 +9,9 @@ import logger from "morgan";
 import session from "express-session";
 import dbConnect from "./dbConnection/dbconection.js";
 import flash from "express-flash";
+import MongoStore from "connect-mongo";
 const app = express();
+
 
 dbConnect();
 
@@ -39,6 +41,7 @@ app.use(
     saveUninitialized: true,
     cookie: { maxAge: oneDay },
     resave: false,
+    store: MongoStore.create({ mongoUrl: process.env.MONGOOSE_CONNECT })   
   })
 );
 app.use((req, res, next) => {

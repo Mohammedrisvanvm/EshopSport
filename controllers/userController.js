@@ -250,10 +250,7 @@ export async function cart(req, res) {
         const productsdetails = await products
           .find({ _id: { $in: productIDs } })
           .lean();
-
-        console.log(productsdetails, "111111111");
-
-        res.render("cart", { productsdetails });
+        res.render("cart", { productsdetails, count: userinfo.cart.length });
       } catch (error) {
         console.log(error);
       }
@@ -304,6 +301,7 @@ export async function deletefromwishlist(req, res) {
   try {
     console.log(req.params);
     console.log(req.session.user);
+  
     users
       .updateOne(
         { _id: req.session.user._id },
@@ -318,16 +316,31 @@ export async function addtocart(req, res) {
   if (!req.session.user) {
     res.redirect("/login");
   } else {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       try {
+        let id=req.params.data
+        console.log(req.params.data);
+       const productin=await users.findOne({_id:req.session.user._id},{_id:0,cart:1})
+       const productId=productin.cart.map(item=>{
+        return item.product_id
+       })
+    
+      
+     console.log(productId);
+       
+        if(!productId.includes(id)){
+      
         users
           .updateOne(
             { _id: req.session.user._id },
             { $push: { cart: { product_id: req.params.data } } }
           )
           .then((result) => {
-            console.log(result);
+            console.log(result)
           });
+        }else{
+           console.log("22222222222222222222222");
+         }
       } catch (error) {
         console.log(error);
       }
