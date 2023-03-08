@@ -19,11 +19,11 @@ let otp = otpGenerator.generate(6, {
 export async function guestpage(req, res) {
   if (req.session.user) {
     isloggedin = true;
-    const productinfo = await products.find({ list: true });
+    const productinfo = await products.find({ list: true});
     res.render("guest", { productinfo, isloggedin });
   } else {
     isloggedin = false;
-    const productinfo = await products.find({ list: true });
+    const productinfo = await products.find({ list: true});
     res.render("guest", { productinfo, isloggedin });
   }
 }
@@ -101,8 +101,6 @@ export function getsignUpOtp(req, res) {
   otperr = null;
 }
 export function postsignUpOtp(req, res) {
-  console.log("postotp");
-
   if (req.body.otp == req.session.otp) {
     createDocument(req.session.value);
     res.redirect("/login");
