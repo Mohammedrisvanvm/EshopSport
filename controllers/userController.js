@@ -300,6 +300,28 @@ export async function deletefromwishlist(req,res){
     
   }
 }
+export async function addtocart(req,res) {
+  if (!req.session.user) {
+    res.redirect('/login')
+    
+  } else {
+    return new Promise((resolve, reject) => {
+      try {
+        users
+          .updateOne(
+            { _id: req.session.user._id },
+            { $push: { cart: { product_id: req.params.data } } }
+          )
+          .then((result) => {
+            console.log(result);
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    });
+  }
+  
+}
 
 
 

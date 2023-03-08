@@ -169,7 +169,7 @@
             <!-- Default input -->
             <div class="d-flex">
               <a href="#">   <button class="btn btn-outline-primary">buy now <i class="fa-solid fa-bolt ms-1"></i></button></a>
-           <a href="#">  <button class="btn btn-outline-primary mx-3">add to cart  <i class="fas fa-shopping-cart ms-1"></i></button>
+           <a href="#">  <button class="btn btn-outline-primary mx-3" onclick="addtocart(`<%-productinfo._id %>`)">add to cart  <i class="fas fa-shopping-cart ms-1"></i></button>
            </div></a>
             
            
@@ -293,8 +293,23 @@
   </div>
   <!-- Copyright -->
 </footer>
+
 <script src="https://unpkg.com/js-image-zoom@0.4.1/js-image-zoom.js"></script>
-    <script>
+<script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+<script>
+ 
+ function addtocart(data){
+
+    axios.get('/addtocart/'+data)
+    console.log("111111111");
+  }
+
+
+
+ 
+</script>
+
+   <script>
         var options = {
             width: 500,
             height: 550,

@@ -1,5 +1,6 @@
 import express, { Router } from "express";
 import {
+  addtocart,
   addtowishlist,
   cart,
   deletefromwishlist,
@@ -52,6 +53,7 @@ router.get('/profile',userprofile)
 //axios
 router.get('/addtowishlist/:data',addtowishlist)
 router.get('/deletefromwishlist/:data',deletefromwishlist)
+router.get('/addtocart/:data',addtocart)
 
 
 export default router;
