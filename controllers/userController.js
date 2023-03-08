@@ -207,7 +207,7 @@ export async function productPage(req, res) {
   try {
     const productinfo = await products.findById(req.params.id).lean();
 
-    res.render("productPage", { productinfo });
+    res.render("productPage", { productinfo,isloggedin :true });
   } catch (error) {
     console.log(error);
   }
@@ -250,7 +250,7 @@ export async function cart(req, res) {
         const productsdetails = await products
           .find({ _id: { $in: productIDs } })
           .lean();
-        res.render("cart", { productsdetails, count: userinfo.cart.length });
+        res.render("cart", { productsdetails, isloggedin : true,count: userinfo.cart.length });
       } catch (error) {
         console.log(error);
       }
