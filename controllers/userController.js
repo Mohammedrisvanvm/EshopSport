@@ -273,6 +273,10 @@ export async function userprofile(req, res) {
     console.log(error);
   }
 }
+export function contactus(req,res){
+
+  res.render('contactus')
+}
 export function userlogout(req, res) {
   console.log("userlogout");
   delete req.session.user;
@@ -295,7 +299,7 @@ export async function addtowishlist(req, res) {
       const productId = user.wishlist.map((item) => {
         return item.product_id;
       });
-      console.log(productId);
+
       if (!productId.includes(id)) {
         users
           .updateOne(
@@ -305,7 +309,6 @@ export async function addtowishlist(req, res) {
           .then((result) => {
             console.log(result);
           });
-        console.log("111111111111111");
       } else {
         console.log("22222222222222");
       }
@@ -316,9 +319,6 @@ export async function addtowishlist(req, res) {
 }
 export async function deletefromwishlist(req, res) {
   try {
-    console.log(req.params);
-    console.log(req.session.user);
-
     users
       .updateOne(
         { _id: req.session.user._id },
@@ -327,7 +327,9 @@ export async function deletefromwishlist(req, res) {
       .then((result) => {
         console.log(result);
       });
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 }
 export async function addtocart(req, res) {
   if (!req.session.user) {
