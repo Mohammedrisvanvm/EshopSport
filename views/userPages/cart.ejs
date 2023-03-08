@@ -126,7 +126,7 @@
                 <!-- Single item -->
                 <% productsdetails.forEach((i) => { %>
 
-                <div class="row">
+                <div id="cartProduct<%-i._id %>" class="row">
                   <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
                     <!-- Image -->
                     <div
@@ -306,6 +306,7 @@
       }
       function deletefromcart(data) {
        axios.get('/deletefromcart/'+data) 
+       document.getElementById('cartProduct'+data).innerHTML=''
       }
       </script>
   </body>

@@ -19,11 +19,11 @@ let otp = otpGenerator.generate(6, {
 export async function guestpage(req, res) {
   if (req.session.user) {
     isloggedin = true;
-    const productinfo = await products.find({ list: true});
+    const productinfo = await products.find({ list: true });
     res.render("guest", { productinfo, isloggedin });
   } else {
     isloggedin = false;
-    const productinfo = await products.find({ list: true});
+    const productinfo = await products.find({ list: true });
     res.render("guest", { productinfo, isloggedin });
   }
 }
@@ -65,7 +65,7 @@ export async function userPostLogin(req, res) {
   }
 }
 export function userGetSignup(req, res) {
-  res.render("signup", { passworderr, emailerr ,warning:false});
+  res.render("signup", { passworderr, emailerr, warning: false });
   passworderr = null;
   emailerr = null;
 }
@@ -239,29 +239,25 @@ export async function wishlist(req, res) {
 export async function cart(req, res) {
   try {
     if (!req.session.user) {
-      res.redirect('/login')
+      res.redirect("/login");
     } else {
-try {
+      try {
+        const userinfo = await users.findOne(
+          { _id: req.session.user._id },
+          { cart: 1 }
+        );
+        const productIDs = userinfo.cart.map((item) => item.product_id);
+        const productsdetails = await products
+          .find({ _id: { $in: productIDs } })
+          .lean();
 
-const userinfo=await users.findOne({_id:req.session.user._id},{cart:1})
-const productIDs=userinfo.cart.map((item)=>item.product_id)
-const productsdetails=await products.find({_id:{$in:productIDs}}).lean()
+        console.log(productsdetails, "111111111");
 
-console.log(productsdetails,"111111111")
-
-
-
-
-
-
-  res.render("cart",{productsdetails});
-  
-} catch (error) {
-  console.log(error);
-}
-      
+        res.render("cart", { productsdetails });
+      } catch (error) {
+        console.log(error);
+      }
     }
-    
   } catch (error) {
     console.log(error);
   }
@@ -286,8 +282,7 @@ export function userlogout(req, res) {
 
 export async function addtowishlist(req, res) {
   if (!req.session.user) {
-    res.redirect('/login')
-    
+    res.redirect("/login");
   } else {
     return new Promise((resolve, reject) => {
       try {
@@ -304,29 +299,24 @@ export async function addtowishlist(req, res) {
       }
     });
   }
-
 }
-export async function deletefromwishlist(req,res){
+export async function deletefromwishlist(req, res) {
   try {
     console.log(req.params);
     console.log(req.session.user);
     users
-    .updateOne(
-      { _id: req.session.user._id },
-      { $pull: { wishlist: { product_id: req.params.data } } }
-    ).then((result) => {
-      console.log(result);
-    });
- 
-    
-  } catch (error) {
-    
-  }
+      .updateOne(
+        { _id: req.session.user._id },
+        { $pull: { wishlist: { product_id: req.params.data } } }
+      )
+      .then((result) => {
+        console.log(result);
+      });
+  } catch (error) {}
 }
-export async function addtocart(req,res) {
+export async function addtocart(req, res) {
   if (!req.session.user) {
-    res.redirect('/login')
-    
+    res.redirect("/login");
   } else {
     return new Promise((resolve, reject) => {
       try {
@@ -343,23 +333,18 @@ export async function addtocart(req,res) {
       }
     });
   }
-  
 }
-export async function deletefromcart(req,res){
-try {
-  
-} catch (error) {
-  res.send(500)
-  
+export async function deletefromcart(req, res) {
+  try {
+    users
+      .updateOne(
+        { _id: req.session.user._id },
+        { $pull: { cart: { product_id: req.params.data } } }
+      )
+      .then((result) => console.log(result));
+  } catch (error) {
+    console.log(error);
+  }
 }
-
-}
-
-
-
-
-
-
 
 //axios function end
-

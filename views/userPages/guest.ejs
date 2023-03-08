@@ -119,7 +119,9 @@
                           <li>
                             <a class="dropdown-item" href="#">mohammed </a>
                           </li>
-                          <li><a class="dropdown-item" href="/profile">profile</a></li>
+                          <li>
+                            <a class="dropdown-item" href="/profile">profile</a>
+                          </li>
                           <li><a class="dropdown-item" href="#">orders</a></li>
                           <li>
                             <a class="dropdown-item" href="/logout"
@@ -335,12 +337,24 @@
                         ><strong class="ms-2 sale">Rs.<%-i.price %></strong>
                       </h6>
                       <div class="d-flex">
-                        <button type="button" class="btn btn-danger mx-4" data-mdb-toggle="tooltip"
-                        title="Move to wishlist" onclick="addtowishlist(`<%-i._id %>`)">
-                        <i class="fas fa-heart"></i>
-                      </button>
+                        <button
+                          type="button"
+                          class="btn btn-danger mx-4"
+                          data-mdb-toggle="tooltip"
+                          title="Move to wishlist"
+                          onclick="addtowishlist(`<%-i._id %>`)"
+                        >
+                          <i class="fas fa-heart"></i>
+                        </button>
 
-                        <button type="button" class="btn btn-primary mx-3"  title="buy now"  data-mdb-toggle="tooltip">buy now</button>
+                        <button
+                          type="button"
+                          class="btn btn-primary mx-3"
+                          title="buy now"
+                          data-mdb-toggle="tooltip"
+                        >
+                          buy now
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -466,15 +480,9 @@
     </footer>
     <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
     <script>
-     
-     function addtowishlist(data){
-    
-        axios.get('/addtowishlist/'+data)
+      function addtowishlist(data) {
+        axios.get("/addtowishlist/" + data);
       }
-    
-
-
-     
     </script>
 
     <script
