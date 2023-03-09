@@ -246,14 +246,26 @@ export async function cart(req, res) {
           { _id: req.session.user._id },
           { cart: 1 }
         );
-        const productIDs = userinfo.cart.map((item) => item.product_id);
+
+        const productIDs = userinfo.cart.map((item) => {
+          return item.product_id;
+        });
+        console.log(productIDs);
         const productsdetails = await products
           .find({ _id: { $in: productIDs } })
           .lean();
+          const Quantity=userinfo.cart.map((item)=>item.quantity)
+          console.log(Quantity);
+
+
+        
+
+        
         res.render("cart", {
           productsdetails,
           isloggedin: true,
           count: userinfo.cart.length,
+          Quantity
         });
       } catch (error) {
         console.log(error);
@@ -273,9 +285,8 @@ export async function userprofile(req, res) {
     console.log(error);
   }
 }
-export function contactus(req,res){
-
-  res.render('contactus')
+export function contactus(req, res) {
+  res.render("contactus");
 }
 export function userlogout(req, res) {
   console.log("userlogout");
@@ -350,7 +361,7 @@ export async function addtocart(req, res) {
         users
           .updateOne(
             { _id: req.session.user._id },
-            { $push: { cart: { product_id: req.params.data } } }
+            { $push: { cart: { product_id: req.params.data, quantity: 1 } } }
           )
           .then((result) => {
             console.log(result);
@@ -375,5 +386,31 @@ export async function deletefromcart(req, res) {
     console.log(error);
   }
 }
+
+export async function incdec(req,res){
+  try {
+    console.log(req.query)
+   
+    if (req.query.cond=='inc') {
+      users.updateOne({_id:req.session.user._id,cart:{$elemMatch:{product_id:req.query.data}}},{$inc:{'cart.$.quantity':1}}).then((result=>{
+         console.log(result,"11111");
+       }))
+      
+    } else {
+      users.updateOne({_id:req.session.user._id,cart:{$elemMatch:{product_id:req.query.data}}},{$inc:{'cart.$.quantity':-1}}).then((result=>{
+        console.log(result,"2222");
+      }))
+      
+    }
+    
+    
+  } catch (error) {
+    
+  }
+}
+
+
+
+
 
 //axios function end

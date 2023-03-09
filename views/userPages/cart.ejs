@@ -190,7 +190,8 @@
                     <p><strong><%-i.productName %></strong></p>
                     <p>Color: blue <%-i.category %></p>
                     <p>Size: M</p>
-                    <p>price:<%-i.price %></p>
+                    <p>₹<%-i.price %>/-</p>
+                    <p><s class="text-danger">₹<%-i.MRP %>/-</s></p>
                     <button
                       type="button"
                       class="btn btn-primary btn-sm me-1 mb-2"
@@ -217,26 +218,27 @@
                     <div class="d-flex mb-4" style="max-width: 300px">
                       <button
                         class="btn btn-primary px-3 me-2"
-                        onclick="var input = this.parentNode.querySelector('input[type=number]'); if(input.value > 0) input.stepDown();"
+                        onclick="dec(`<%-i._id %>`,`dec`);"
+
                       >
                         <i class="fas fa-minus"></i>
                       </button>
 
-                      <div class="form-outline">
+                      <div class="form-outline" id="quantity<%-Quantity %>">
                         <input
                           id="form1"
                           min="0"
                           name="quantity"
-                          value="1"
+                          value="<%-Quantity %>"
                           type="number"
-                          class="form-control"
+                          class="form-control d-flex justify-content-center"
                         />
                         <label class="form-label" for="form1"></label>
                       </div>
 
                       <button
                         class="btn btn-primary px-3 ms-2"
-                        onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                        onclick="inc(`<%-i._id %>`,`inc`)"
                       >
                         <i class="fas fa-plus"></i>
                       </button>
@@ -343,6 +345,18 @@
         axios.get("/deletefromcart/" + data);
         document.getElementById("cartProduct" + data).innerHTML = "";
       }
+      function inc(data,cond){
+        console.log(cond)
+        axios.get(`/incdec?data=${data}&cond=${cond}`)
+        document.getElementById("quantity"+data).innerHTML=""
+        
+      }
+      function dec(data,cond){
+        console.log("222222222222")
+        axios.get(`/incdec?data=${data}&cond=${cond}`)
+        
+      }
+    
     </script>
   </body>
 </html>

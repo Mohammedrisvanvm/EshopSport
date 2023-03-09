@@ -11,6 +11,7 @@ import {
   getOtpValidate,
   getsignUpOtp,
   guestpage,
+  incdec,
   postforget3,
   postForgottenPassword,
   postOtpValidate,
@@ -58,6 +59,7 @@ router.get('/addtowishlist/:data',addtowishlist)
 router.get('/deletefromwishlist/:data',deletefromwishlist)
 router.get('/addtocart/:data',addtocart)
 router.get('/deletefromcart/:data',deletefromcart)
+router.get('/incdec',incdec)
 
 
 export default router;
