@@ -263,7 +263,7 @@
 
                     <!-- Price -->
                     <p class="text-start text-md-center">
-                      <strong id="total"><%-i.price %></strong>
+                      <strong id="total"><%-i.totalp %></strong>
                     </p>
                     <!-- Price -->
                   </div>
@@ -317,12 +317,16 @@
               </div>
               <div class="card-body">
                 <ul class="list-group list-group-flush">
+                  <% addarray.forEach((j) => { %>
+                   
+             
                   <li
                     class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0"
                   >
                     Products
-                    <span>$53.98</span>
+                    <span><%-j %></span>
                   </li>
+                  <% }) %>
                   <li
                     class="list-group-item d-flex justify-content-between align-items-center px-0"
                   >
@@ -338,7 +342,7 @@
                         <p class="mb-0">(including VAT)</p>
                       </strong>
                     </div>
-                    <span><strong>$53.98</strong></span>
+                    <span><strong id="totalprice<%-totalprice %>"><%-totalprice %></strong></span>
                   </li>
                 </ul>
 
@@ -386,9 +390,8 @@ if (response.data.success) {
         })
         
       }
-      function totalprice(pa) {
-        
-      }
+    
+   
     
     </script>
   </body>

@@ -265,25 +265,41 @@ export async function cart(req, res) {
           .lean();
 
         let Qty;
-        const pricet=
-        console.log(price,"#############3");
+        const pricet=price.map((i)=>{
+          console.log(i.price)
+          return i.price
+          
+        });
+        console.log(pricet,"#############3");
         const Quantity = userinfo.cart.map((item, index) => {
           productsdetails[index].Qty = item.quantity;
           return item.quantity;
         });
-        const totalprice = userinfo.cart.map((item, index) => {
-          console.log(item)
-          productsdetails[index].totalP = item.total;
-          return;
+        const totalP= price.map((i,index)=>{
+          console.log(i.price)
+          
+          return i.price
+         
         });
-        console.log(totalprice, 322222);
+    
+        console.log(totalP, 322222);
         console.log(Quantity, "465456465");
-
-        console.log(productsdetails, "111111111");
+        let addarray=totalP.map(function(x, index){
+          productsdetails[index].totalp = Quantity[index] * x ;
+          return Quantity[index] * x 
+         });
+         let totalprice=addarray.reduce(function(x, y){
+          return x + y
+         });
+         
+console.log(addarray,totalprice);
+       console.log(productsdetails, "111111111");
         res.render("cart", {
           productsdetails,
           isloggedin: true,
           count: userinfo.cart.length,
+          totalprice,
+          addarray
         });
       } catch (error) {
         console.log(error);
