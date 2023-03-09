@@ -241,28 +241,45 @@ export async function cart(req, res) {
     if (!req.session.user) {
       res.redirect("/login");
     } else {
+      const cartQuantity = {};
       try {
         const userinfo = await users.findOne(
           { _id: req.session.user._id },
-          { cart: 1 }
+          { cart: 1}
         );
 
         const productIDs = userinfo.cart.map((item) => {
+          cartQuantity[item.id] = item.quantity;
+          cartQuantity[item.id]=item.totalP
+
           return item.product_id;
         });
-        const Quantity=userinfo.cart.map((item)=>item.quantity)
-        console.log(Quantity);
-        console.log(productIDs);
+
+       
         const productsdetails = await products
           .find({ _id: { $in: productIDs } })
           .lean();
           
-         
+          const price= await products
+          .find({ _id: { $in: productIDs } },{price:1,_id:0})
+          .lean();
 
+        let Qty;
+        const pricet=
+        console.log(price,"#############3");
+        const Quantity = userinfo.cart.map((item, index) => {
+          productsdetails[index].Qty = item.quantity;
+          return item.quantity;
+        });
+        const totalprice = userinfo.cart.map((item, index) => {
+          console.log(item)
+          productsdetails[index].totalP = item.total;
+          return;
+        });
+        console.log(totalprice, 322222);
+        console.log(Quantity, "465456465");
 
-        
-
-        
+        console.log(productsdetails, "111111111");
         res.render("cart", {
           productsdetails,
           isloggedin: true,
@@ -388,30 +405,38 @@ export async function deletefromcart(req, res) {
   }
 }
 
-export async function incdec(req,res){
+export async function incdec(req, res) {
   try {
-    console.log(req.query)
-   
-    if (req.query.cond=='inc') {
-      users.updateOne({_id:req.session.user._id,cart:{$elemMatch:{product_id:req.query.data}}},{$inc:{'cart.$.quantity':1}}).then((result=>{
-         console.log(result,"11111");
-       }))
-      
+    console.log(req.query);
+
+    if (req.query.cond == "inc") {
+      users
+        .updateOne(
+          {
+            _id: req.session.user._id,
+            cart: { $elemMatch: { product_id: req.query.data } },
+          },
+          { $inc: { "cart.$.quantity": 1 } }
+        )
+        .then((result) => {
+          console.log(result, "11111");
+        });
+      res.json({ success: true });
     } else {
-      users.updateOne({_id:req.session.user._id,cart:{$elemMatch:{product_id:req.query.data}}},{$inc:{'cart.$.quantity':-1}}).then((result=>{
-        console.log(result,"2222");
-      }))
-      
+      users
+        .updateOne(
+          {
+            _id: req.session.user._id,
+            cart: { $elemMatch: { product_id: req.query.data } },
+          },
+          { $inc: { "cart.$.quantity": -1 } }
+        )
+        .then((result) => {
+          console.log(result, "2222");
+        });
+      res.json({ success: true });
     }
-    
-    
-  } catch (error) {
-    
-  }
+  } catch (error) {}
 }
-
-
-
-
 
 //axios function end
