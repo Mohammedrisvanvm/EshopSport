@@ -250,12 +250,14 @@ export async function cart(req, res) {
         const productIDs = userinfo.cart.map((item) => {
           return item.product_id;
         });
+        const Quantity=userinfo.cart.map((item)=>item.quantity)
+        console.log(Quantity);
         console.log(productIDs);
         const productsdetails = await products
           .find({ _id: { $in: productIDs } })
           .lean();
-          const Quantity=userinfo.cart.map((item)=>item.quantity)
-          console.log(Quantity);
+          
+         
 
 
         
@@ -265,7 +267,6 @@ export async function cart(req, res) {
           productsdetails,
           isloggedin: true,
           count: userinfo.cart.length,
-          Quantity
         });
       } catch (error) {
         console.log(error);

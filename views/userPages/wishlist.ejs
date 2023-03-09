@@ -155,12 +155,15 @@
     <div class="d-flex justify-content-center mt-5">
       <h1>wishlist</h1>
     </div>
-    <br />
-    <br />
-    <br />
-    <br />
-    <% if (productsdetails==null) { %>
-    <!-- <img src="/image/empty/empty wishlist.jpg" alt="" /> -->
+   
+    <% if (!productsdetails[0]) { %>
+      <div class="d-flex justify-content-center">
+    <img src="/image/empty/emptywishlist.jpg" alt="" style="height: 550px;width: 35%;"/>
+    
+  </div>
+  <div class="d-flex justify-content-center mb-5">
+  <a href="/"><button class="btn btn-primary">shop now</button></a>
+</div>
     <% } else { %>
     <hr />
     <hr />
@@ -235,10 +238,11 @@
       function deletefromwishlist(data) {
         axios.get("/deletefromwishlist/" + data);
         document.getElementById("wishlistProduct" + data).innerHTML = "";
+        }
         function addtocart(data) {
           axios.get("/addtocart/" + data);
         }
-      }
+      
     </script>
   </body>
 </html>

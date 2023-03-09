@@ -224,12 +224,12 @@
                         <i class="fas fa-minus"></i>
                       </button>
 
-                      <div class="form-outline" id="quantity<%-Quantity %>">
+                      <div class="form-outline" id="quantity">
                         <input
                           id="form1"
                           min="0"
                           name="quantity"
-                          value="<%-Quantity %>"
+                          value=""
                           type="number"
                           class="form-control d-flex justify-content-center"
                         />
@@ -348,11 +348,11 @@
       function inc(data,cond){
         console.log(cond)
         axios.get(`/incdec?data=${data}&cond=${cond}`)
-        document.getElementById("quantity"+data).innerHTML=""
+      
         
       }
       function dec(data,cond){
-        console.log("222222222222")
+        console.log(cond)
         axios.get(`/incdec?data=${data}&cond=${cond}`)
         
       }
