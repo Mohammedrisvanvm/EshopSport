@@ -3,6 +3,7 @@ import {
   addtocart,
   addtowishlist,
   cart,
+  checkout,
   contactus,
   deletefromcart,
   deletefromwishlist,
@@ -51,6 +52,7 @@ router.get('/wishlist',wishlist)
 router.get('/cart',cart)
 router.get('/profile',userprofile)
 router.get('/contactus',contactus)
+router.post('/cart',checkout)
 
 
 

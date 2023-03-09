@@ -245,61 +245,46 @@ export async function cart(req, res) {
       try {
         const userinfo = await users.findOne(
           { _id: req.session.user._id },
-          { cart: 1}
+          { cart: 1 }
         );
 
         const productIDs = userinfo.cart.map((item) => {
           cartQuantity[item.id] = item.quantity;
-          cartQuantity[item.id]=item.totalP
+          cartQuantity[item.id] = item.totalP;
 
           return item.product_id;
         });
 
-       
         const productsdetails = await products
           .find({ _id: { $in: productIDs } })
           .lean();
-          
-          const price= await products
-          .find({ _id: { $in: productIDs } },{price:1,_id:0})
+
+        const price = await products
+          .find({ _id: { $in: productIDs } }, { price: 1, _id: 0 })
           .lean();
 
-        let Qty;
-        const pricet=price.map((i)=>{
-          console.log(i.price)
-          return i.price
-          
-        });
-        console.log(pricet,"#############3");
         const Quantity = userinfo.cart.map((item, index) => {
           productsdetails[index].Qty = item.quantity;
           return item.quantity;
         });
-        const totalP= price.map((i,index)=>{
-          console.log(i.price)
-          
-          return i.price
-         
+        const totalP = price.map((i, index) => {
+          return i.price;
         });
-    
-        console.log(totalP, 322222);
-        console.log(Quantity, "465456465");
-        let addarray=totalP.map(function(x, index){
-          productsdetails[index].totalp = Quantity[index] * x ;
-          return Quantity[index] * x 
-         });
-         let totalprice=addarray.reduce(function(x, y){
-          return x + y
-         });
-         
-console.log(addarray,totalprice);
-       console.log(productsdetails, "111111111");
+
+        let addarray = totalP.map(function (x, index) {
+          productsdetails[index].totalp = Quantity[index] * x;
+          return Quantity[index] * x;
+        });
+        let totalprice = addarray.reduce(function (x, y) {
+          return x + y;
+        });
+
         res.render("cart", {
           productsdetails,
           isloggedin: true,
           count: userinfo.cart.length,
           totalprice,
-          addarray
+          addarray,
         });
       } catch (error) {
         console.log(error);
@@ -322,6 +307,12 @@ export async function userprofile(req, res) {
 export function contactus(req, res) {
   res.render("contactus");
 }
+
+export function checkout(req, res) {
+  console.log("1111111111111");
+  res.render("checkout");
+}
+
 export function userlogout(req, res) {
   console.log("userlogout");
   delete req.session.user;
