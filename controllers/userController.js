@@ -308,66 +308,92 @@ export function contactus(req, res) {
 }
 
 export async function checkout(req, res) {
-  const userinfo = await users.findOne(
-    { _id: req.session.user._id },
-    { cart: 1 }
-  );
-  const productIDs = userinfo.cart.map((item) => {
-    return item.product_id;
-  });
-  const productsdetails = await products
-    .find({ _id: { $in: productIDs } })
-    .lean();
+  try {
+    const userinfo = await users.findOne(
+      { _id: req.session.user._id },
+      { cart: 1 }
+    );
+    const productIDs = userinfo.cart.map((item) => {
+      return item.product_id;
+    });
+    const productsdetails = await products
+      .find({ _id: { $in: productIDs } })
+      .lean();
 
-  const price = await products
-    .find({ _id: { $in: productIDs } }, { price: 1, _id: 0 })
-    .lean();
-  const Quantity = userinfo.cart.map((item, index) => {
-    productsdetails[index].Qty = item.quantity;
-    return item.quantity;
-  });
-  const totalP = price.map((i) => {
-    return i.price;
-  });
+    const price = await products
+      .find({ _id: { $in: productIDs } }, { price: 1, _id: 0 })
+      .lean();
+    const Quantity = userinfo.cart.map((item, index) => {
+      productsdetails[index].Qty = item.quantity;
+      return item.quantity;
+    });
+    const totalP = price.map((i) => {
+      return i.price;
+    });
 
+    let totaluniqueproduct = totalP.map(function (x, index) {
+      productsdetails[index].totalp = Quantity[index] * x;
+      return Quantity[index] * x;
+    });
+    let totalprice = totaluniqueproduct.reduce(function (x, y) {
+      return x + y;
+    });
 
-  let totaluniqueproduct = totalP.map(function (x, index) {
-    productsdetails[index].totalp = Quantity[index] * x;
-    return Quantity[index] * x;
-  });
-  let totalprice = totaluniqueproduct.reduce(function (x, y) {
-    return x + y;
-  });
-const userinfoaddress=await users.findOne({_id:req.session.user._id})
-  // const {productsdetails,addarray,totalprice}=req.query
-  console.log(
-    userinfoaddress,
-    req.body,
-    "11111111111"
-  );
-  res.render("checkout", {
-    isloggedin: true,
-    productsdetails,
-    totaluniqueproduct,
-    totalprice,
-    count: userinfo.cart.length,
-  });
+    if (req.body.address) {
+      const userinfoaddress = await users.updateOne(
+        { _id: req.session.user._id },
+        { $push: { address: req.body } }
+      );
+
+      console.log("222222222");
+    } else {
+      console.log("11111111111");
+    }
+
+    //address
+
+    const useraddress = await users.findOne(
+      { _id: req.session.user._id },
+      { address: 1, _id: 0 }
+    );
+
+    console.log(
+      //useraddress,
+      useraddress.address,"11111111111111"
+
+     // useraddress.address.firstName
+    );
+
+    // const {productsdetails,addarray,totalprice}=req.query
+    console.log(
+      req.body,
+
+      "fffffffffffffff"
+    );
+    req.body.address=null
+    res.render("checkout", {
+      isloggedin: true,
+      productsdetails,
+      totaluniqueproduct,
+      totalprice,
+      count: userinfo.cart.length,
+      useraddress,
+    });
+  } catch (error) {
+    console.log(error);
+  }
 }
 export function postcheckout(req, res) {
   console.log(req.body);
   res.redirect("/cart");
 }
-export function addresspage(req,res) {
-  res.render('address',{isloggedin:true})
-  
+export function addresspage(req, res) {
+  res.render("address", { isloggedin: true });
 }
-export function postaddresspage(req,res) {
-console.log(req.body);
- res.redirect("/cart") 
+export function postaddresspage(req, res) {
+  console.log(req.body);
+  res.redirect("/cart");
 }
-
-
-
 
 export function userlogout(req, res) {
   console.log("userlogout");
