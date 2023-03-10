@@ -193,19 +193,32 @@
                     <span>Total </span>
                     <strong>₹<%-totalprice %></strong>
                 </li>
+                <form class="card p-2">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Promo code">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-secondary ms-2">Redeem</button>
+                        </div>
+                    </div>
+                </form>
             </ul>
-            <form class="card p-2">
+            <!-- <form class="card p-2">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Promo code">
                     <div class="input-group-append">
                         <button type="submit" class="btn btn-secondary">Redeem</button>
                     </div>
                 </div>
-            </form>
+            </form> -->
         </div>
-        <div class="col-md-8 order-md-1">
+      
+          
+        <div class="col-md-8 order-md-1 " id="exampleModalCenter">
             <h4 class="mb-3">Billing address</h4>
             <form class="needs-validation" action="/checkout" method="post" novalidate="">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                   add address
+                  </button>
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="firstName">First name</label>
@@ -219,12 +232,12 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="username">Username</label>
+                    <label for="username"></label>
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text">@</span>
+                            <span class="input-group-text">phone no: +91</span>
                         </div>
-                        <input type="text" class="form-control" name="username" id="username" placeholder="Username" required="">
+                        <input type="number" class="form-control" name="username" id="username" placeholder="Username" required="">
                         <div class="invalid-feedback" style="width: 100%;"> Your username is required. </div>
                     </div>
                 </div>
