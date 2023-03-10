@@ -270,14 +270,17 @@ export async function cart(req, res) {
         const totalP = price.map((i, index) => {
           return i.price;
         });
-
-        let addarray = totalP.map(function (x, index) {
+let addarray=0
+        addarray = totalP.map(function (x, index) {
           productsdetails[index].totalp = Quantity[index] * x;
           return Quantity[index] * x;
         });
-        let totalprice = addarray.reduce(function (x, y) {
-          return x + y;
-        });
+        
+          
+          const totalprice = addarray.reduce((x, y) => x + y, 0);
+
+        
+         
 
         res.render("cart", {
           productsdetails,
@@ -308,11 +311,48 @@ export function contactus(req, res) {
   res.render("contactus");
 }
 
-export function checkout(req, res) {
-  console.log("1111111111111");
-  res.render("checkout");
-}
+export async function checkout(req, res) {
+  const userinfo = await users.findOne(
+    { _id: req.session.user._id },
+    { cart: 1 }
+  );
+  const productIDs = userinfo.cart.map((item) => {
+    return item.product_id;
+  });
+  const productsdetails = await products
+          .find({ _id: { $in: productIDs } })
+          .lean();
 
+  const price = await products
+          .find({ _id: { $in: productIDs } }, { price: 1, _id: 0 })
+          .lean();
+          const Quantity = userinfo.cart.map((item, index) => {
+            productsdetails[index].Qty = item.quantity;
+            return item.quantity;
+          });
+          const totalP = price.map((i, index) => {
+            return i.price;
+          });
+
+          let totaluniqueproduct = totalP.map(function (x, index) {
+            productsdetails[index].totalp = Quantity[index] * x;
+            return Quantity[index] * x;
+          });
+          let totalprice = totaluniqueproduct.reduce(function (x, y) {
+            return x + y;
+          });
+  
+
+ 
+  // const {productsdetails,addarray,totalprice}=req.query
+  console.log(userinfo,price,Quantity,totaluniqueproduct,totalprice,productsdetails,"11111111111");
+  res.render("checkout",{isloggedin:true,productsdetails,totaluniqueproduct,totalprice,count: userinfo.cart.length,});
+}
+export function postcheckout(req,res) {
+  console.log(req.body);
+  res.redirect("/cart")
+  
+}
 export function userlogout(req, res) {
   console.log("userlogout");
   delete req.session.user;

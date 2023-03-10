@@ -13,6 +13,7 @@ import {
   getsignUpOtp,
   guestpage,
   incdec,
+  postcheckout,
   postforget3,
   postForgottenPassword,
   postOtpValidate,
@@ -53,6 +54,7 @@ router.get('/cart',cart)
 router.get('/profile',userprofile)
 router.get('/contactus',contactus)
 router.post('/cart',checkout)
+router.post('/checkout',postcheckout)
 
 
 
