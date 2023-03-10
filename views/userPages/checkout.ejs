@@ -419,28 +419,32 @@
             </div>
           </div>
 
-          <hr />
-          <% if (!useraddress[0]) { %>
+        
+          <% if (useraddress[0]) { %>
            
-         
+         <h6>add address..........</h6>
 
           <% } else { %>
            <p>add address.....</p>
 
-          <div>
-            <% useraddress.address.forEach((k) => { %>
-
-            <ul>
-              <li><%- k.firstName %></li>
-              <li><%- k.lastName %></li>
-              <li><%- k.username %></li>
-              <li><%- k.Email %></li>
-              <li><%- k.address %></li>
-              <li><%- k.country %></li>
-              <li><%- k.state %></li>
-              <li><%- k.pincode %></li>
-            </ul>
+          <div class=" h-20 ">
+            
+            <% useraddress.address.forEach((i) => { %>
+<div class="d-flex">
+               <p> <%- i.address %>
+                <br>
+                <%- i.country %>
+                <br>
+                <%- i.state %>
+                <br>
+               <%- i.pincode %>
+            </p>
+        
+           
+            <input class="form-check-input align-item-center mx-5" type="radio" name="radioNoLabel" id="radioNoLabel1" value="" aria-label="...">
+       </div>
             <% }) %>
+        
           </div>
           <% } %>
 

@@ -4,6 +4,7 @@ import sentOTP from "../helpers/emailSend.js";
 import otpGenerator from "otp-generator";
 import bcrypt from "bcrypt";
 import { products } from "../models/productSchema.js";
+import uniqid from "uniqid";
 
 let passworderr = null;
 let emailerr = null;
@@ -297,8 +298,12 @@ export async function cart(req, res) {
 export async function userprofile(req, res) {
   try {
     const userinfo = await users.findOne({ _id: req.session.userid });
+    const useraddress = await users.findOne(
+      { _id: req.session.user._id },
+      { address: 1, _id: 0 }
+    );
 
-    res.render("profile", { userinfo });
+    res.render("profile", { userinfo,useraddress });
   } catch (error) {
     console.log(error);
   }
@@ -345,6 +350,7 @@ export async function checkout(req, res) {
       { _id: req.session.user._id },
       { address: 1, _id: 0 }
     );
+    console.log(useraddress);
 
     res.render("checkout", {
       isloggedin: true,
@@ -352,7 +358,7 @@ export async function checkout(req, res) {
       totaluniqueproduct,
       totalprice,
       count: userinfo.cart.length,
-      useraddress,
+      useraddress
     });
   } catch (error) {
     console.log(error);
@@ -366,12 +372,29 @@ export function addresspage(req, res) {
   res.render("address", { isloggedin: true });
 }
 export async function postaddresspage(req, res) {
-  
+  try {
 
-  const userinfoaddress = await users.updateOne(
-    { _id: req.session.user._id },
-    { $push: { address: req.body } }
-  );
+  const { firstName, lastName, username, Email,address, country, state, pincode } =
+    req.body;
+
+   
+  const user = await users.findOne({ _id: req.session.user._id });
+console.log(user);
+  let object = {
+    id: uniqid(),
+    firstName,
+    lastName,
+    username,
+    Email,
+    address,
+    country,
+    state,
+    pincode,
+  };
+  user.address.push(object);
+
+  await user.save()
+
   const useraddress = await users.findOne(
     { _id: req.session.user._id },
     { address: 1, _id: 0 }
@@ -390,7 +413,11 @@ export async function postaddresspage(req, res) {
 
     "fffffffffffffff"
   );
-  res.redirect(307,"/cart" );
+  res.redirect(307, "/cart");
+      
+} catch (error) {
+    console.log(error);
+}
 }
 
 export function userlogout(req, res) {

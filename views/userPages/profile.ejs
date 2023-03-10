@@ -49,14 +49,25 @@
               </div>
               <div class="card-body p-4 text-black">
                 <div class="mb-5">
-                  <p class="lead fw-normal mb-1">address</p>
-                  <div class="p-4" style="background-color: #f8f9fa">
-                    <p class="font-italic mb-1 text-dark">
-                      <%-userinfo.email %>
-                    </p>
-                    <p class="font-italic mb-1">Lives in New York</p>
-                    <p class="font-italic mb-0">Photographer</p>
-                  </div>
+                  <% useraddress.address.forEach((i,index) => { %>
+                  <p class="lead fw-normal mb-1">address <%-index+1 %></p>
+                  
+                    <div class="d-flex">
+                                   <p> <%- i.address %>
+                                    <br>
+                                    <%- i.country %>
+                                    <br>
+                                    <%- i.state %>
+                                    <br>
+                                   <%- i.pincode %>
+                                </p>
+                            
+                               
+                           </div>
+                           <hr>
+                                <% }) %>
+                            
+                              </div>
                 </div>
               </div>
             </div>
