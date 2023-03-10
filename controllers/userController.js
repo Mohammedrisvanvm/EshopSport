@@ -326,9 +326,10 @@ export async function checkout(req, res) {
     productsdetails[index].Qty = item.quantity;
     return item.quantity;
   });
-  const totalP = price.map((i, index) => {
+  const totalP = price.map((i) => {
     return i.price;
   });
+
 
   let totaluniqueproduct = totalP.map(function (x, index) {
     productsdetails[index].totalp = Quantity[index] * x;
@@ -337,15 +338,11 @@ export async function checkout(req, res) {
   let totalprice = totaluniqueproduct.reduce(function (x, y) {
     return x + y;
   });
-
+const userinfoaddress=await users.findOne({_id:req.session.user._id})
   // const {productsdetails,addarray,totalprice}=req.query
   console.log(
-    userinfo,
-    price,
-    Quantity,
-    totaluniqueproduct,
-    totalprice,
-    productsdetails,
+    userinfoaddress,
+    req.body,
     "11111111111"
   );
   res.render("checkout", {
@@ -361,9 +358,14 @@ export function postcheckout(req, res) {
   res.redirect("/cart");
 }
 export function addresspage(req,res) {
-  res.render('address')
+  res.render('address',{isloggedin:true})
   
 }
+export function postaddresspage(req,res) {
+console.log(req.body);
+ res.redirect("/cart") 
+}
+
 
 
 
