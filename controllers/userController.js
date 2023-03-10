@@ -339,17 +339,6 @@ export async function checkout(req, res) {
       return x + y;
     });
 
-    if (req.body.address) {
-      const userinfoaddress = await users.updateOne(
-        { _id: req.session.user._id },
-        { $push: { address: req.body } }
-      );
-
-      console.log("222222222");
-    } else {
-      console.log("11111111111");
-    }
-
     //address
 
     const useraddress = await users.findOne(
@@ -357,20 +346,6 @@ export async function checkout(req, res) {
       { address: 1, _id: 0 }
     );
 
-    console.log(
-      //useraddress,
-      useraddress.address,"11111111111111"
-
-     // useraddress.address.firstName
-    );
-
-    // const {productsdetails,addarray,totalprice}=req.query
-    console.log(
-      req.body,
-
-      "fffffffffffffff"
-    );
-    req.body.address=null
     res.render("checkout", {
       isloggedin: true,
       productsdetails,
@@ -390,9 +365,32 @@ export function postcheckout(req, res) {
 export function addresspage(req, res) {
   res.render("address", { isloggedin: true });
 }
-export function postaddresspage(req, res) {
-  console.log(req.body);
-  res.redirect("/cart");
+export async function postaddresspage(req, res) {
+  
+
+  const userinfoaddress = await users.updateOne(
+    { _id: req.session.user._id },
+    { $push: { address: req.body } }
+  );
+  const useraddress = await users.findOne(
+    { _id: req.session.user._id },
+    { address: 1, _id: 0 }
+  );
+  console.log(
+    //useraddress,
+    useraddress.address,
+    "11111111111111"
+
+    // useraddress.address.firstName
+  );
+
+  // const {productsdetails,addarray,totalprice}=req.query
+  console.log(
+    req.body,
+
+    "fffffffffffffff"
+  );
+  res.redirect(307,"/cart" );
 }
 
 export function userlogout(req, res) {
