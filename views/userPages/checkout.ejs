@@ -209,192 +209,16 @@
 
       <div class="col-md-8 order-md-1" id="exampleModalCenter">
         <h4 class="mb-3">Billing address</h4>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">add address</button>
-
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Add address</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-              <form
-                class="needs-validation"
-                action="/checkout"
-                method="post"
-                novalidate=""
-              >
-                <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <label for="firstName">First name</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="firstName"
-                      id="firstName"
-                      placeholder=""
-                      value=""
-                      required
-                    />
-                    <div class="invalid-feedback">
-                      Valid first name is required.
-                    </div>
-                  </div>
-                  <div class="col-md-6 mb-3">
-                    <label for="lastName">Last name</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="lastName"
-                      id="lastName"
-                      placeholder=""
-                      value=""
-                      required
-                    />
-                    <div class="invalid-feedback">
-                      Valid last name is required.
-                    </div>
-                  </div>
-                </div>
-                <div class="mb-3">
-                  <label for="username"></label>
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">phone no: +91</span>
-                    </div>
-                    <input
-                      type="number"
-                      class="form-control"
-                      name="username"
-                      id="username"
-                      placeholder="Phone Number"
-                      required
-                    />
-                    <div class="invalid-feedback" style="width: 100%">
-                      Your username is required.
-                    </div>
-                  </div>
-                </div>
-                <div class="mb-3">
-                  <label for="email"
-                    >Email <span class="text-muted">(Optional)</span></label
-                  >
-                  <input
-                    type="email"
-                    class="form-control"
-                    name="Email"
-                    id="email"
-                    placeholder="you@example.com"
-                  />
-                  <div class="invalid-feedback">
-                    Please enter a valid email address for shipping updates.
-                  </div>
-                </div>
-                <div class="mb-3">
-                  <label for="address">Address</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="address"
-                    placeholder="1234 Main St"
-                    required=""
-                  />
-                  <div class="invalid-feedback">
-                    Please enter your shipping address.
-                  </div>
-                </div>
-                <div class="mb-3">
-                  <label for="address2"
-                    >Address 2 <span class="text-muted">(Optional)</span></label
-                  >
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="address2"
-                    placeholder="Apartment or suite"
-                  />
-                </div>
-                <div class="row">
-                  <div class="col-md-5 mb-3">
-                    <label for="country">Country</label>
-                    <select
-                      class="custom-select d-block w-100"
-                      name="country"
-                      id="country"
-                      required=""
-                    >
-                      <option value="">Choose...</option>
-                      <option>United States</option>
-                    </select>
-                    <div class="invalid-feedback">
-                      Please select a valid country.
-                    </div>
-                  </div>
-                  <div class="col-md-4 mb-3">
-                    <label for="state">State</label>
-                    <select
-                      class="custom-select d-block w-100"
-                      name="state"
-                      id="state"
-                      required=""
-                    >
-                      <option value="">Choose...</option>
-                      <option>California</option>
-                    </select>
-                    <div class="invalid-feedback">
-                      Please provide a valid state.
-                    </div>
-                  </div>
-                  <div class="col-md-3 mb-3">
-                    <label for="zip">Zip</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="pincode"
-                      id="zip"
-                      placeholder=""
-                      required=""
-                    />
-                    <div class="invalid-feedback">Zip code required.</div>
-                  </div>
-                </div>
-                <hr class="mb-4" />
-                <div class="custom-control custom-checkbox">
-                  <input
-                    type="checkbox"
-                    class="custom-control-input"
-                    id="same-address"
-                  />
-                  <label class="custom-control-label" for="same-address"
-                    >Shipping address is the same as my billing address</label
-                  >
-                </div>
-                <div class="custom-control custom-checkbox">
-                  <input
-                    type="checkbox"
-                    class="custom-control-input"
-                    id="save-info"
-                  />
-                  <label class="custom-control-label" for="save-info"
-                    >Save this information for next time</label
-                  >
-                </div>
-                <div><button class="btn" type="submit">submit</button></div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Send message</button>
-            </div>
-          </div>
-        </div>
-      </div>
-            </div>
-          </div>
-        </div>
+        <a href="/address">
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-toggle="modal"
+            data-target="#exampleModalCenter"
+          >
+            add address
+          </button>
+        </a>
 
         <form action="">
           <hr class="mb-4" />
@@ -511,13 +335,4 @@
       </ul>
     </footer>
   </div>
-  <script>$('#exampleModal').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget) // Button that triggered the modal
-    var recipient = button.data('whatever') // Extract info from data-* attributes
-    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-    var modal = $(this)
-    modal.find('.modal-title').text('New message to ' + recipient)
-    modal.find('.modal-body input').val(recipient)
-  })</script>
 </html>

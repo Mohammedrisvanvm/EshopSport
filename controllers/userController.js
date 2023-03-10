@@ -270,17 +270,13 @@ export async function cart(req, res) {
         const totalP = price.map((i, index) => {
           return i.price;
         });
-let addarray=0
+        let addarray = 0;
         addarray = totalP.map(function (x, index) {
           productsdetails[index].totalp = Quantity[index] * x;
           return Quantity[index] * x;
         });
-        
-          
-          const totalprice = addarray.reduce((x, y) => x + y, 0);
 
-        
-         
+        const totalprice = addarray.reduce((x, y) => x + y, 0);
 
         res.render("cart", {
           productsdetails,
@@ -320,39 +316,57 @@ export async function checkout(req, res) {
     return item.product_id;
   });
   const productsdetails = await products
-          .find({ _id: { $in: productIDs } })
-          .lean();
+    .find({ _id: { $in: productIDs } })
+    .lean();
 
   const price = await products
-          .find({ _id: { $in: productIDs } }, { price: 1, _id: 0 })
-          .lean();
-          const Quantity = userinfo.cart.map((item, index) => {
-            productsdetails[index].Qty = item.quantity;
-            return item.quantity;
-          });
-          const totalP = price.map((i, index) => {
-            return i.price;
-          });
+    .find({ _id: { $in: productIDs } }, { price: 1, _id: 0 })
+    .lean();
+  const Quantity = userinfo.cart.map((item, index) => {
+    productsdetails[index].Qty = item.quantity;
+    return item.quantity;
+  });
+  const totalP = price.map((i, index) => {
+    return i.price;
+  });
 
-          let totaluniqueproduct = totalP.map(function (x, index) {
-            productsdetails[index].totalp = Quantity[index] * x;
-            return Quantity[index] * x;
-          });
-          let totalprice = totaluniqueproduct.reduce(function (x, y) {
-            return x + y;
-          });
-  
+  let totaluniqueproduct = totalP.map(function (x, index) {
+    productsdetails[index].totalp = Quantity[index] * x;
+    return Quantity[index] * x;
+  });
+  let totalprice = totaluniqueproduct.reduce(function (x, y) {
+    return x + y;
+  });
 
- 
   // const {productsdetails,addarray,totalprice}=req.query
-  console.log(userinfo,price,Quantity,totaluniqueproduct,totalprice,productsdetails,"11111111111");
-  res.render("checkout",{isloggedin:true,productsdetails,totaluniqueproduct,totalprice,count: userinfo.cart.length,});
+  console.log(
+    userinfo,
+    price,
+    Quantity,
+    totaluniqueproduct,
+    totalprice,
+    productsdetails,
+    "11111111111"
+  );
+  res.render("checkout", {
+    isloggedin: true,
+    productsdetails,
+    totaluniqueproduct,
+    totalprice,
+    count: userinfo.cart.length,
+  });
 }
-export function postcheckout(req,res) {
+export function postcheckout(req, res) {
   console.log(req.body);
-  res.redirect("/cart")
+  res.redirect("/cart");
+}
+export function addresspage(req,res) {
+  res.render('address')
   
 }
+
+
+
 export function userlogout(req, res) {
   console.log("userlogout");
   delete req.session.user;

@@ -1,5 +1,6 @@
 import express, { Router } from "express";
 import {
+  addresspage,
   addtocart,
   addtowishlist,
   cart,
@@ -55,6 +56,7 @@ router.get('/profile',userprofile)
 router.get('/contactus',contactus)
 router.post('/cart',checkout)
 router.post('/checkout',postcheckout)
+router.get('/address',addresspage)
 
 
 
