@@ -1,6 +1,7 @@
 import sharp from "sharp";
 import { admins } from "../models/adminSchema.js";
 import { categories } from "../models/categorySchema.js";
+import { coupon } from "../models/couponSchema.js";
 import { products } from "../models/productSchema.js";
 import { users } from "../models/userSchema.js";
 
@@ -267,23 +268,29 @@ export async function deleteProduct(req, res) {
   }
 }
 
-export function couponManagement(req,res) {
-  res.render("couponManagement")
-  
+export function couponManagement(req, res) {
+  res.render("couponManagement");
 }
-
-
-
-
+export async function postCouponManagement(req, res) {
+  console.log(req.body);
+  let addcoupon = new coupon({
+    
+    name: req.body.name,
+    couponCode: req.body.couponCode,
+    minamount: req.body.minamount,
+    discount: req.body.discount,
+    maxdiscount: req.body.maxdiscount,
+    expiry: req.body.expiry,
+  });
+  await addcoupon.save()
+  res.redirect("/admin/couponManagement");
+}
 
 export function adminlogout(req, res) {
   console.log("adminlogout");
   delete req.session.admin;
   res.redirect("/admin");
 }
-
-
-
 
 //axios
 export function unlistcategory(req, res) {

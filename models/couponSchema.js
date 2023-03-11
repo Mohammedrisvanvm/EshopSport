@@ -10,7 +10,7 @@ couponCode:{
     required:true
 
 },
-minamout:{
+minamount:{
     type:Number,
     required:true
 

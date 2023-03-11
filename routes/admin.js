@@ -16,6 +16,7 @@ import {
   postaddcategories,
   postaddProduct,
   postAdminPage,
+  postCouponManagement,
   posteditcategory,
   postEditProduct,
   unlistcategory,
@@ -41,6 +42,7 @@ router.get("/deletecategory/:id",deletecategory)
 router.get("/editproduct/:id", multiupload, getEditProduct);
 router.post("/editproduct/:id",multiupload, postEditProduct);
 router.get("/couponManagement",couponManagement)
+router.post("/couponManagement",postCouponManagement)
 
 
 
