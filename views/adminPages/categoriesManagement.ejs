@@ -52,7 +52,10 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
   </head>
 
   <body class="fix-header fix-sidebar card-no-border">
@@ -82,11 +85,7 @@
               <!-- Logo icon --><b>
                 <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                 <!-- Dark Logo icon -->
-                <img
-                  src=""
-                  alt="homepage"
-                  class="dark-logo"
-                />
+                <img src="" alt="homepage" class="dark-logo" />
                 <!-- Light Logo icon -->
                 <img
                   src="https://assets.stickpng.com/images/61f7cd6e67553f0004c53e73.png"
@@ -177,7 +176,7 @@
                   ><span class="hide-menu">Dashboard</span></a
                 >
               </li>
-            
+
               <li>
                 <a
                   class="waves-effect waves-dark"
@@ -192,7 +191,8 @@
                   class="waves-effect waves-dark"
                   href="/admin/categoriesManagement"
                   aria-expanded="false"
-                  ><i class="fa fa-list"></i><span class="hide-menu">categories</span></a
+                  ><i class="fa fa-list"></i
+                  ><span class="hide-menu">categories</span></a
                 >
               </li>
               <li>
@@ -204,130 +204,125 @@
                   ><span class="hide-menu">Product</span></a
                 >
               </li>
-              <!-- <li>
+              <li>
                 <a
                   class="waves-effect waves-dark"
-                  href="map-google.ejs"
+                  href="/admin/banner"
                   aria-expanded="false"
-                  ><i class="fa fa-globe"></i
-                  ><span class="hide-menu">Map</span></a
+                >
+                  <i class="fa-thin fa-image"></i
+                  ><span class="hide-menu">banner</span></a
                 >
               </li>
               <li>
                 <a
                   class="waves-effect waves-dark"
-                  href="pages-blank.ejs"
+                  href="/admin/couponManagement"
                   aria-expanded="false"
                   ><i class="fa fa-bookmark-o"></i
-                  ><span class="hide-menu">Blank</span></a
+                  ><span class="hide-menu">coupon </span></a
                 >
               </li>
               <li>
                 <a
                   class="waves-effect waves-dark"
-                  href="pages-error-404.ejs"
+                  href="/admin/orderManagement"
                   aria-expanded="false"
                   ><i class="fa fa-question-circle"></i
-                  ><span class="hide-menu">404</span></a
+                  ><span class="hide-menu">order Management</span></a
                 >
-              </li> -->
+              </li>
+              <li>
+                <a
+                  class="waves-effect waves-dark"
+                  href="/admin/salesReport"
+                  aria-expanded="false"
+                  ><i class="fa fa-question-circle"></i
+                  ><span class="hide-menu">sales report</span></a
+                >
+              </li>
             </ul>
           </nav>
-          <!-- End Sidebar navigation -->
         </div>
-        <!-- End Sidebar scroll-->
       </aside>
-      <!-- ============================================================== -->
-      <!-- End Left Sidebar - style you can find in sidebar.scss  -->
-      <!-- ============================================================== -->
-      <!-- ============================================================== -->
-      <!-- Page wrapper  -->
-      <!-- ============================================================== -->
+
       <div class="page-wrapper">
-        <!-- ============================================================== -->
-        <!-- Container fluid  -->
-        <!-- ============================================================== -->
         <div class="container-fluid bg-white fw-bold">
-          <!-- ============================================================== -->
-          <!-- Bread crumb and right sidebar toggle -->
-          <!-- ============================================================== -->
+          <a href="/admin/addcategories"
+            ><button class="btn btn-outline-primary">add categories</button></a
+          >
 
-<a href="/admin/addcategories"><button class="btn btn-outline-primary">add  categories</button></a>
+          <section>
+            <div style="margin-top: 50px">
+              <h1 class="my-5">categories</h1>
 
-<section>
-  <div style="margin-top: 50px;">
-      
-      <h1 class="my-5">categories</h1>
+              <table class="table table-condensed">
+                <thead>
+                  <tr>
+                    <th>sl</th>
+                    <th>category name</th>
+                    <th>list</th>
+                    <th>edit/delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <% categoryinfo.forEach((i,index) => { %>
 
-  <table class="table table-condensed">
-      <thead>
-        <tr>
-          <th>sl</th>
-          <th>category name</th>
-          <th>list</th>
-          <th>edit/delete</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <% categoryinfo.forEach((i,index) => { %>
-           
-         
-          <td><%-index+1 %></td>
-          <td><%-i.name %></td>
-          <td><button class="btn btn-outline-success" id="listbtn<%-i._id%>" onclick="unlist(`<%-i._id %>`)"> <%-i.list %></button></td>
-          <td class="d-flex"><a href="/admin/editcategory/<%-i._id %>"> <i class="ri-pencil-line mx-2 fs-4 text-dark"></i></a><a href="/admin/deletecategory/<%-i._id %>"><i class="ri-delete-bin-6-fill fs-4 mx-3 text-danger" onclick="return confirm('are you sure you want to delete?')"></i></a></td>
-       
-        </tr>
-        <% }) %>
-      </tbody>
-  </div>
-    </table>
-</section>
-<div class="d-flex justify-content-center"><a href="/admin/logout"><button class="btn btn-outline-primary ">LOGOUT</button></a></div>
+                    <td><%-index+1 %></td>
+                    <td><%-i.name %></td>
+                    <td>
+                      <button
+                        class="btn btn-outline-success"
+                        id="listbtn<%-i._id%>"
+                        onclick="unlist(`<%-i._id %>`)"
+                      >
+                        <%-i.list %>
+                      </button>
+                    </td>
+                    <td class="d-flex">
+                      <a href="/admin/editcategory/<%-i._id %>">
+                        <i class="ri-pencil-line mx-2 fs-4 text-dark"></i></a
+                      ><a href="/admin/deletecategory/<%-i._id %>"
+                        ><i
+                          class="ri-delete-bin-6-fill fs-4 mx-3 text-danger"
+                          onclick="return confirm('are you sure you want to delete?')"
+                        ></i
+                      ></a>
+                    </td>
+                  </tr>
+                  <% }) %>
+                </tbody>
+              </table>
+            </div>
+          </section>
+          <div class="d-flex justify-content-center">
+            <a href="/admin/logout"
+              ><button class="btn btn-outline-primary">LOGOUT</button></a
+            >
+          </div>
 
-        <!-- ============================================================== -->
-        <!-- footer -->
-        <!-- ============================================================== -->
-        <footer class="footer">
-          © 2023 eshop sport by
-          <a href="#">eshop sport.com</a>
-        </footer>
-        <!-- ============================================================== -->
-        <!-- End footer -->
-        <!-- ============================================================== -->
+          <footer class="footer">
+            © 2023 eshop sport by
+            <a href="#">eshop sport.com</a>
+          </footer>
+        </div>
       </div>
-      <!-- ============================================================== -->
-      <!-- End Page wrapper  -->
-      <!-- ============================================================== -->
     </div>
-    <!-- ============================================================== -->
-    <!-- End Wrapper -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- All Jquery -->
-    <!-- ============================================================== -->
 
     <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
     <script>
+      function unlist(data) {
+        axios.get("/admin/categoryunlist/" + data).then((result) => {
+          let value = document.getElementById("listbtn" + data);
 
-      function unlist(data){
-        axios.get('/admin/categoryunlist/'+data).then((result)=>{
-let value=document.getElementById("listbtn"+data)
-
-if (result.data.success==true) {
- 
-  value.textContent='false'
-}else{
-  value.textContent='true'
- 
-}
-        })
-        
+          if (result.data.success == true) {
+            value.textContent = "false";
+          } else {
+            value.textContent = "true";
           }
-        
-
-      
+        });
+      }
     </script>
 
     <script src="/assets/node_modules/jquery/jquery.min.js"></script>
