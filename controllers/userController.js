@@ -389,32 +389,25 @@ export async function postaddresspage(req, res) {
     users
       .updateOne(
         { _id: req.session.user._id },
-        { $push: { address:{_id:uniqid(),  firstName,
-          lastName,
-          username,
-          Email,
-          address,
-          country,
-          state,
-          pincode, }} }
+        {
+          $push: {
+            address: {
+              _id: uniqid(),
+              firstName,
+              lastName,
+              username,
+              Email,
+              address,
+              country,
+              state,
+              pincode,
+            },
+          },
+        }
       )
       .then((result) => {
         console.log(result);
       });
-    let object = new Object({
-      _id: uniqid(),
-      firstName,
-      lastName,
-      username,
-      Email,
-      address,
-      country,
-      state,
-      pincode,
-    });
-    user.address.push(object);
-
-    await user.save();
 
     const useraddress = await users.findOne(
       { _id: req.session.user._id },
@@ -443,11 +436,13 @@ export async function editaddress(req, res) {
   try {
     console.log(req.params);
 
-    const useraddress = await users.findOne(
-      { _id: req.session.user._id },
-      { address: { _id: req.params.data } }
-    );
-    console.log(useraddress.firstName);
+    const useraddress = await users.findOne({ _id: req.session.user._id })
+    .select('address')
+    .elemMatch('address', { _id: req.params.data })
+    .exec();
+  
+
+    console.log("11111111111", useraddress);
 
     res.render("editprofile", { i: useraddress, isloggedin });
   } catch (error) {
@@ -586,6 +581,18 @@ export async function incdec(req, res) {
       res.json({ success: true });
     }
   } catch (error) {}
+}
+export async function deletefromaddress(req, res) {
+  try {
+    users
+      .updateOne(
+        { _id: req.session.user._id },
+        { $pull: { address: { _id: req.params.data } } }
+      )
+      .then((result) => console.log(result));
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 //axios function end

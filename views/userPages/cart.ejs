@@ -151,31 +151,34 @@
       </section>
     </header>
     <% if (!productsdetails[0]) { %>
-      <br /><br />
-      <div class="d-flex justify-content-center mt-5">
-        <h1>empty cart !!!!!</h1>
-      </div>
-      <div class="d-flex justify-content-center">
-    <img src="/image/empty/emptywishlist.jpg" alt="" style="height: 550px;width: 35%;"/>
-    
-  </div>
-  <div class="d-flex justify-content-center mb-5">
-  <a href="/"><button class="btn btn-primary">shop now</button></a>
-</div>
+    <br /><br />
+    <div class="d-flex justify-content-center mt-5">
+      <h1>empty cart !!!!!</h1>
+    </div>
+    <div class="d-flex justify-content-center">
+      <img
+        src="/image/empty/emptywishlist.jpg"
+        alt=""
+        style="height: 550px; width: 35%"
+      />
+    </div>
+    <div class="d-flex justify-content-center mb-5">
+      <a href="/"><button class="btn btn-primary">shop now</button></a>
+    </div>
     <% } else { %>
 
     <section class="h-100 gradient-custom">
-      <div class="container py-5">
+      <div class="container py-5" id="refresh">
         <div class="row d-flex justify-content-center my-4">
           <div class="col-md-8">
             <div class="card mb-4">
               <div class="card-header py-3">
                 <h5 class="mb-0">Cart - <%-count %> items</h5>
               </div>
+
               <div class="card-body">
                 <!-- Single item -->
                 <% productsdetails.forEach((i) => { %>
-
                 <div id="cartProduct<%-i._id %>" class="row">
                   <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
                     <!-- Image -->
@@ -232,25 +235,21 @@
                       <button
                         class="btn btn-primary px-3 me-2"
                         onclick="dec(`<%-i._id %>`,`dec`);"
-
                       >
                         <i class="fas fa-minus"></i>
                       </button>
-
- 
 
                       <div class="form-outline" id="quantity">
                         <input
                           id="Qty<%-i._id %>"
                           min="0"
                           name="quantity"
-                       value="<%-i.Qty%>"
+                          value="<%-i.Qty%>"
                           type="number"
                           class="form-control d-flex justify-content-center"
                         />
                         <label class="form-label" for="form1"></label>
                       </div>
-                 
 
                       <button
                         class="btn btn-primary px-3 ms-2"
@@ -315,15 +314,13 @@
               <div class="card-header py-3">
                 <h5 class="mb-0">Summary</h5>
               </div>
+              <% addarray.forEach((j,index) => { %>
               <div class="card-body">
                 <ul class="list-group list-group-flush">
-                  <% addarray.forEach((j,index) => { %>
-                   
-            
                   <li
                     class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0"
                   >
-                  item <%-index+1 %>
+                    item <%-index+1 %>
                     <span><%-j %></span>
                   </li>
                   <% }) %>
@@ -342,14 +339,23 @@
                         <p class="mb-0">(including VAT)</p>
                       </strong>
                     </div>
-                    <span><strong id="totalprice<%-totalprice %>"><%-totalprice %></strong></span>
+                    <span
+                      ><strong id="totalprice<%-totalprice %>"
+                        ><%-totalprice %></strong
+                      ></span
+                    >
                   </li>
                 </ul>
 
-               <form action='/cart' method="post"> <button type="submit" class="btn btn-primary btn-lg btn-block">
-                Go to checkout
-              </button>
-            </div></form>
+                <form action="/cart" method="post">
+                  <button
+                    type="submit"
+                    class="btn btn-primary btn-lg btn-block"
+                  >
+                    Go to checkout
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
@@ -366,33 +372,30 @@
         axios.get("/deletefromcart/" + data);
         document.getElementById("cartProduct" + data).innerHTML = "";
       }
-      function inc(data,cond){
-        console.log(cond)
-        axios.get(`/incdec?data=${data}&cond=${cond}`).then((response)=>{
-          console.log(response.data.success,1111);
-if (response.data.success) {
- let quantity= document.getElementById('Qty'+data)
- quantity.value=Number(quantity.value)+1
-}
-        })
-      
-        
-      }
-      function dec(data,cond){
-        console.log(cond)
-        axios.get(`/incdec?data=${data}&cond=${cond}`).then((response)=>{
-          console.log(response.data);
-          if(response.data.success){
-            let quantity=document.getElementById('Qty'+data)
-            console.log(quantity);
-            quantity.value=Number(quantity.value)-1
+      function inc(data, cond) {
+        console.log(cond);
+        axios.get(`/incdec?data=${data}&cond=${cond}`).then((response) => {
+          console.log(response.data.success, 1111);
+          if (response.data.success) {
+            let quantity = document.getElementById("Qty" + data);
+            quantity.value = Number(quantity.value) + 1;
           }
-        })
-        
+        });
       }
-    
-   
-    
+      function dec(data, cond) {
+        console.log(cond);
+        axios.get(`/incdec?data=${data}&cond=${cond}`).then((response) => {
+          console.log(response.data);
+          if (response.data.success) {
+            let quantity = document.getElementById("Qty" + data);
+            console.log(quantity);
+            quantity.value = Number(quantity.value) - 1;
+          }
+        });
+      }
+      function refresh(data) {
+        document.getElementById("refresh" + data).innerHTML = "";
+      }
     </script>
   </body>
 </html>

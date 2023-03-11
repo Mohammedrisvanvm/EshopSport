@@ -6,6 +6,7 @@ import {
   cart,
   checkout,
   contactus,
+  deletefromaddress,
   deletefromcart,
   deletefromwishlist,
   editaddress,
@@ -70,6 +71,7 @@ router.get('/deletefromwishlist/:data',deletefromwishlist)
 router.get('/addtocart/:data',addtocart)
 router.get('/deletefromcart/:data',deletefromcart)
 router.get('/incdec',incdec)
+router.get("/deletefromaddress/:data",deletefromaddress)
 
 
 export default router;
