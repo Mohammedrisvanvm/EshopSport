@@ -303,7 +303,7 @@ export async function userprofile(req, res) {
       { address: 1, _id: 0 }
     );
 
-    res.render("profile", { userinfo,useraddress });
+    res.render("profile", { userinfo, useraddress });
   } catch (error) {
     console.log(error);
   }
@@ -358,7 +358,7 @@ export async function checkout(req, res) {
       totaluniqueproduct,
       totalprice,
       count: userinfo.cart.length,
-      useraddress
+      useraddress,
     });
   } catch (error) {
     console.log(error);
@@ -373,51 +373,86 @@ export function addresspage(req, res) {
 }
 export async function postaddresspage(req, res) {
   try {
+    const {
+      firstName,
+      lastName,
+      username,
+      Email,
+      address,
+      country,
+      state,
+      pincode,
+    } = req.body;
 
-  const { firstName, lastName, username, Email,address, country, state, pincode } =
-    req.body;
+    const user = await users.findOne({ _id: req.session.user._id });
+    console.log(user);
+    users
+      .updateOne(
+        { _id: req.session.user._id },
+        { $push: { address:{_id:uniqid(),  firstName,
+          lastName,
+          username,
+          Email,
+          address,
+          country,
+          state,
+          pincode, }} }
+      )
+      .then((result) => {
+        console.log(result);
+      });
+    let object = new Object({
+      _id: uniqid(),
+      firstName,
+      lastName,
+      username,
+      Email,
+      address,
+      country,
+      state,
+      pincode,
+    });
+    user.address.push(object);
 
-   
-  const user = await users.findOne({ _id: req.session.user._id });
-console.log(user);
-  let object = {
-    id: uniqid(),
-    firstName,
-    lastName,
-    username,
-    Email,
-    address,
-    country,
-    state,
-    pincode,
-  };
-  user.address.push(object);
+    await user.save();
 
-  await user.save()
+    const useraddress = await users.findOne(
+      { _id: req.session.user._id },
+      { address: 1, _id: 0 }
+    );
+    console.log(
+      //useraddress,
+      useraddress.address,
+      "11111111111111"
 
-  const useraddress = await users.findOne(
-    { _id: req.session.user._id },
-    { address: 1, _id: 0 }
-  );
-  console.log(
-    //useraddress,
-    useraddress.address,
-    "11111111111111"
+      // useraddress.address.firstName
+    );
 
-    // useraddress.address.firstName
-  );
+    // const {productsdetails,addarray,totalprice}=req.query
+    console.log(
+      req.body,
 
-  // const {productsdetails,addarray,totalprice}=req.query
-  console.log(
-    req.body,
-
-    "fffffffffffffff"
-  );
-  res.redirect(307, "/cart");
-      
-} catch (error) {
+      "fffffffffffffff"
+    );
+    res.redirect(307, "/cart");
+  } catch (error) {
     console.log(error);
+  }
 }
+export async function editaddress(req, res) {
+  try {
+    console.log(req.params);
+
+    const useraddress = await users.findOne(
+      { _id: req.session.user._id },
+      { address: { _id: req.params.data } }
+    );
+    console.log(useraddress.firstName);
+
+    res.render("editprofile", { i: useraddress, isloggedin });
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export function userlogout(req, res) {

@@ -8,6 +8,7 @@ import {
   contactus,
   deletefromcart,
   deletefromwishlist,
+  editaddress,
   forgottenPassword,
   getforget3,
   getOtpValidate,
@@ -59,6 +60,7 @@ router.post('/cart',checkout)
 router.post('/checkout',postcheckout)
 router.get('/address',addresspage)
 router.post('/address',postaddresspage)
+router.get('/editprofile/:data',editaddress)
 
 
 
