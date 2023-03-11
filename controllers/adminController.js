@@ -266,6 +266,26 @@ export async function deleteProduct(req, res) {
     alert("not success");
   }
 }
+
+export function couponManagement(req,res) {
+  res.render("couponManagement")
+  
+}
+
+
+
+
+
+export function adminlogout(req, res) {
+  console.log("adminlogout");
+  delete req.session.admin;
+  res.redirect("/admin");
+}
+
+
+
+
+//axios
 export function unlistcategory(req, res) {
   return new Promise(async (resolve, reject) => {
     try {
@@ -314,9 +334,4 @@ export function unlistproduct(req, res) {
       res.send("Failed to unlist category.");
     }
   });
-}
-export function adminlogout(req, res) {
-  console.log("adminlogout");
-  delete req.session.admin;
-  res.redirect("/admin");
 }

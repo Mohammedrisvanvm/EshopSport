@@ -1,6 +1,7 @@
 import Express, { Router } from "express";
 import {
   adminlogout,
+  couponManagement,
   deletecategory,
   deleteProduct,
   editcategory,
@@ -39,6 +40,11 @@ router.post("/editcategory/:id",posteditcategory)
 router.get("/deletecategory/:id",deletecategory)
 router.get("/editproduct/:id", multiupload, getEditProduct);
 router.post("/editproduct/:id",multiupload, postEditProduct);
+router.get("/couponManagement",couponManagement)
+
+
+
+//axios
 router.get("/deleteproduct/:id", deleteProduct);
 router.get('/categoryunlist/:id',unlistcategory)
 router.get('/productunlist/:id',unlistproduct)
