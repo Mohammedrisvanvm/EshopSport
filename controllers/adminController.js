@@ -268,10 +268,22 @@ export async function deleteProduct(req, res) {
   }
 }
 
-export function couponManagement(req, res) {
-  res.render("couponManagement");
+export async function couponManagement(req, res) {
+  try {
+const couponinfo = await coupon.find()
+console.log(couponinfo);
+
+  res.render("couponManagement",{couponinfo});
+      
+} catch (error) {
+  console.log(error);
+    
+}
 }
 export async function postCouponManagement(req, res) {
+  try {
+    
+ 
   console.log(req.body);
   let addcoupon = new coupon({
     
@@ -284,6 +296,10 @@ export async function postCouponManagement(req, res) {
   });
   await addcoupon.save()
   res.redirect("/admin/couponManagement");
+} catch (error) {
+  console.log(error);
+    
+}
 }
 
 export function adminlogout(req, res) {

@@ -29,7 +29,7 @@ expiry:{
 },
 list:{
     type:Boolean,
-    required:false
+    default:false
 }},
 {timestamps:true})
 export const coupon=new mongoose.model("coupon",couponSchema)

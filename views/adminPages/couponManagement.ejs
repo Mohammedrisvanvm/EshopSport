@@ -14,7 +14,7 @@
       content="AdminWrap Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework"
     />
     <meta name="robots" content="noindex,nofollow" />
-    <title>dashboard</title>
+    <title>coupon management</title>
     <link
       rel="canonical"
       href="https://www.wrappixel.com/templates/adminwrap-lite/"
@@ -113,14 +113,8 @@
                 </form>
               </li>
             </ul>
-            <!-- ============================================================== -->
-            <!-- User profile and search -->
-            <!-- ============================================================== -->
-            <ul class="navbar-nav my-lg-0">
-              <!-- ============================================================== -->
-              <!-- Profile -->
-              <!-- ============================================================== -->
-              <li class="nav-item dropdown u-pro">
+           <ul class="navbar-nav my-lg-0">
+          <li class="nav-item dropdown u-pro">
                 <a
                   class="nav-link dropdown-toggle waves-effect waves-dark profile-pic"
                   href="#"
@@ -147,12 +141,7 @@
           </div>
         </nav>
       </header>
-      <!-- ============================================================== -->
-      <!-- End Topbar header -->
-      <!-- ============================================================== -->
-      <!-- ============================================================== -->
-      <!-- Left Sidebar - style you can find in sidebar.scss  -->
-      <!-- ============================================================== -->
+
       <aside class="left-sidebar">
         <!-- Sidebar scroll-->
         <div class="scroll-sidebar">
@@ -359,6 +348,61 @@
             </div>
           </div>
         </div>
+
+
+
+        <section>
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">number</th>
+                  <th scope="col">name</th>
+                  <th scope="col">coupon code</th>
+                  <th scope="col">minamount</th>
+                  <th scope="col">discount</th>
+                  <th scope="col">maxdiscount</th>
+                
+                  <th scope="col">list</th>
+                  <th scope="col">expiry</th>
+                  <!-- <th scope="col">edit/delete</th> -->
+                </tr>
+              </thead>
+              <tbody>
+                <% couponinfo.forEach((i,index) => { %>
+                <tr>
+                  <td scope="row"><%- index+1 %></td>
+                  <td><%-i.name %></td>
+                  <td><%- i.couponCode %></td>
+                  <td><%- i.minamount %></td>
+                  <td><%- i.discount %></td>
+                  <td><%-i.maxdiscount %></td>
+                 
+  
+                  <td>
+                    <button
+                      class="btn btn-success btn-sm"
+                      id="listbtn<%-i._id %>"
+                     
+                    >
+                      <%-i.list %>
+                    </button>
+                  </td>
+                  <td><%- i.expiry.toLocaleString() %></td>
+                  <td class="d-flex">
+                    <a href="/admin/editproduct/<%-i._id %>">
+                      <i class="ri-pencil-line mx-2 fs-4 text-dark"></i></a
+                    ><a href="/admin/deleteproduct/<%-i._id %>"
+                      ><i
+                        class="ri-delete-bin-6-fill fs-4 mx-3 text-danger"
+                        onclick="return confirm('are you sure you want to delete?')"
+                      ></i
+                    ></a>
+                  </td>
+                </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </section>
 
         <footer class="footer">
           © 2023 eshopsport by
