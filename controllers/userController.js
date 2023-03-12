@@ -5,6 +5,7 @@ import otpGenerator from "otp-generator";
 import bcrypt from "bcrypt";
 import { products } from "../models/productSchema.js";
 import uniqid from "uniqid";
+import { coupon } from "../models/couponSchema.js";
 
 let passworderr = null;
 let emailerr = null;
@@ -351,7 +352,6 @@ export async function getcheckout(req, res) {
       { address: 1, _id: 0 }
     );
 
-
     res.render("checkout", {
       isloggedin: true,
       productsdetails,
@@ -440,11 +440,11 @@ export async function editaddress(req, res) {
   try {
     console.log(req.params);
 
-    const useraddress = await users.findOne({ _id: req.session.user._id })
-    .select('address')
-    .elemMatch('address', { _id: req.params.data })
-    .exec();
-  
+    const useraddress = await users
+      .findOne({ _id: req.session.user._id })
+      .select("address")
+      .elemMatch("address", { _id: req.params.data })
+      .exec();
 
     console.log("11111111111", useraddress);
 
@@ -598,8 +598,15 @@ export async function deletefromaddress(req, res) {
     console.log(error);
   }
 }
-export async function promoCode(req,res){
+export async function promoCode(req, res) {
   console.log(req.params);
+  try {
+    const code = await coupon.find();
+    const code1=code.map((item)=>)
+    console.log("11111111111", typeof "req.params.data", code1);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 //axios function end
