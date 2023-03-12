@@ -4,13 +4,13 @@ import {
   addtocart,
   addtowishlist,
   cart,
-  checkout,
   contactus,
   deletefromaddress,
   deletefromcart,
   deletefromwishlist,
   editaddress,
   forgottenPassword,
+  getcheckout,
   getforget3,
   getOtpValidate,
   getsignUpOtp,
@@ -23,6 +23,7 @@ import {
   postOtpValidate,
   postsignUpOtp,
   productPage,
+  promoCode,
   resendOTP,
   signupresendOTP,
   userGetLogin,
@@ -57,7 +58,8 @@ router.get('/wishlist',wishlist)
 router.get('/cart',cart)
 router.get('/profile',userprofile)
 router.get('/contactus',contactus)
-router.post('/cart',checkout)
+
+router.get('/checkout',getcheckout)
 router.post('/checkout',postcheckout)
 router.get('/address',addresspage)
 router.post('/address',postaddresspage)
@@ -72,6 +74,7 @@ router.get('/addtocart/:data',addtocart)
 router.get('/deletefromcart/:data',deletefromcart)
 router.get('/incdec',incdec)
 router.get("/deletefromaddress/:data",deletefromaddress)
+router.get('/promoCode/:data',promoCode)
 
 
 export default router;

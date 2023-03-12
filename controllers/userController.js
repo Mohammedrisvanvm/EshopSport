@@ -312,7 +312,7 @@ export function contactus(req, res) {
   res.render("contactus");
 }
 
-export async function checkout(req, res) {
+export async function getcheckout(req, res) {
   try {
     const userinfo = await users.findOne(
       { _id: req.session.user._id },
@@ -350,7 +350,7 @@ export async function checkout(req, res) {
       { _id: req.session.user._id },
       { address: 1, _id: 0 }
     );
-    console.log(useraddress);
+
 
     res.render("checkout", {
       isloggedin: true,
@@ -364,6 +364,10 @@ export async function checkout(req, res) {
     console.log(error);
   }
 }
+// export function getcheckout(req, res) {
+//   console.log(req.body);
+//   res.redirect("/cart");
+// }
 export function postcheckout(req, res) {
   console.log(req.body);
   res.redirect("/cart");
@@ -593,6 +597,9 @@ export async function deletefromaddress(req, res) {
   } catch (error) {
     console.log(error);
   }
+}
+export async function promoCode(req,res){
+  console.log(req.params);
 }
 
 //axios function end
