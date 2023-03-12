@@ -336,6 +336,18 @@
 </footer>
 
 <script src="https://unpkg.com/js-image-zoom@0.4.1/js-image-zoom.js"></script>
+<script>
+  var options = {
+      width: 500,
+      height: 550,
+      zoomWidth: 400,
+      offset: { vertical: 0, horizontal: 10 },
+      scale: 0.5
+  };
+
+  var img = document.getElementById("image-zoom");
+  new ImageZoom(img, options);
+</script>
 <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
 <script>
  
@@ -350,18 +362,7 @@
  
 </script>
 
-   <script>
-        var options = {
-            width: 500,
-            height: 550,
-            zoomWidth: 400,
-            offset: { vertical: 0, horizontal: 10 },
-            scale: 0.5
-        };
-
-        var img = document.getElementById("image-zoom");
-        new ImageZoom(img, options);
-    </script>
+  
    
       
     </body>

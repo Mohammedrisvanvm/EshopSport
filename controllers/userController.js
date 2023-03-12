@@ -370,7 +370,7 @@ export async function getcheckout(req, res) {
 // }
 export function postcheckout(req, res) {
   console.log(req.body);
-  res.redirect("/cart");
+  res.redirect("/payment");
 }
 export function addresspage(req, res) {
   res.render("address", { isloggedin: true });
@@ -602,7 +602,7 @@ export async function promoCode(req, res) {
   console.log(req.params);
   try {
     const code = await coupon.findOne({couponCode:req.params.data});
-    console.log(code.discount);
+
     if (!code) {
       console.log("1111111111111111111");
       res.json({success:false})

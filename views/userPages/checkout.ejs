@@ -173,40 +173,39 @@
                 <small class="text-muted"><%-i.description %></small>
               </div>
 
-              <span class="text-muted">Total:₹<%-i.totalp%></span>
+              <span class="text-muted" id="totalprice"
+                >Total:₹<%-i.totalp%></span
+              >
             </li>
             <% }) %>
 
             <li class="list-group-item d-flex justify-content-between bg-light">
-            
-                <h6 class="text-success" >Promo code</h6>
-                <small class="text-success" id="promoCode"></small>
-              
-            
+              <h6 class="text-success">Promo code</h6>
+              <small id="promoCode"></small>
             </li>
             <li class="list-group-item d-flex justify-content-between">
               <span>Total </span>
               <strong>₹<%-totalprice %></strong>
             </li>
-        
-              <div class="input-group mt-4">
-            
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Promo code"
-                  id="promo"
-                  name="promo"
-                  required
-                />
-            
-                  <button type="submit" onclick="promoCode()" class="btn btn-secondary ms-2">
-                    Redeem
-                  </button>
-               
-              </div>
-  
-      
+
+            <div class="input-group mt-4">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Promo code"
+                id="promo"
+                name="promo"
+                required
+              />
+
+              <button
+                type="submit"
+                onclick="promoCode()"
+                class="btn btn-secondary ms-2"
+              >
+                Redeem
+              </button>
+            </div>
           </ul>
           <!-- <form class="card p-2">
                 <div class="input-group">
@@ -346,18 +345,17 @@
                           Please enter your shipping address.
                         </div>
                       </div>
-                      
+
                       <div class="row">
                         <div class="col-md-5 mb-3">
                           <label for="country">Country</label>
                           <input
-                          type="text"
-                          class="form-control"
-                          name="country"
-                          
-                          placeholder="country"
-                          required
-                        />
+                            type="text"
+                            class="form-control"
+                            name="country"
+                            placeholder="country"
+                            required
+                          />
                           <div class="invalid-feedback">
                             Please select a valid country.
                           </div>
@@ -365,13 +363,12 @@
                         <div class="col-md-4 mb-3">
                           <label for="state">State</label>
                           <input
-                          type="text"
-                          class="form-control"
-                          name="state"
-                          
-                          placeholder="state"
-                          required
-                        />
+                            type="text"
+                            class="form-control"
+                            name="state"
+                            placeholder="state"
+                            required
+                          />
                           <div class="invalid-feedback">
                             Please provide a valid state.
                           </div>
@@ -411,36 +408,40 @@
             </div>
           </div>
 
-        
           <% if (useraddress[0]) { %>
-           
-         <h6>add address..........</h6>
+
+          <h6>add address..........</h6>
 
           <% } else { %>
-           <p>add address.....</p>
+          <p>add address.....</p>
 
-          <div class=" h-20 ">
-            
+          <div class="h-20">
             <% useraddress.address.forEach((i) => { %>
-<div class="d-flex">
-               <p> <%- i.address %>
-                <br>
+            <div class="d-flex">
+              <p>
+                <%- i.address %>
+                <br />
                 <%- i.country %>
-                <br>
+                <br />
                 <%- i.state %>
-                <br>
-               <%- i.pincode %>
-            </p>
-        
-           
-            <input class="form-check-input align-item-center mx-5" type="radio" name="radioNoLabel" id="radioNoLabel1" value="" aria-label="...">
-       </div>
+                <br />
+                <%- i.pincode %>
+              </p>
+
+              <input
+                class="form-check-input align-item-center mx-5"
+                type="radio"
+                name="radioNoLabel"
+                id="radioNoLabel1"
+                value=""
+                aria-label="..."
+              />
+            </div>
             <% }) %>
-        
           </div>
           <% } %>
 
-          <form action="">
+          <form action="/checkout" method="post">
             <hr class="mb-4" />
             <h4 class="mb-3">Payment</h4>
             <div class="d-block my-3">
@@ -560,31 +561,30 @@
       </footer>
     </div>
 
-    
     <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-function promoCode() {
-  console.log("111111111111111111111");
-  let promo=document.getElementById('promo')
- axios.get("/promoCode/"+promo.value).then((result)=>{
-  console.log(result)
- if (result.data.success) {
-// Get the promoCode element
-const promoCodeEl = document.getElementById('promoCode');
+    <script>
+      function promoCode() {
+        console.log("111111111111111111111");
+        let promo = document.getElementById("promo");
+        axios.get("/promoCode/" + promo.value).then((result) => {
+          console.log(result);
+          if (result.data.success) {
+            const promoCodeEl = document.getElementById("promoCode");
 
-// Update the innerHTML of the promoCode element
-promoCodeEl.innerHTML = -result.data.code
+            promoCodeEl.innerHTML = -result.data.code;
 
-// Add a class to the promoCode element
-promoCodeEl.classList.add('text-success') } else {
-  console.log("222222222222");
- }})
-  
-  
-}
+            promoCodeEl.classList.add("text-success");
+          } else {
+            const promoCodeEl = document.getElementById("promoCode");
+            promoCodeEl.innerHTML = "invalid code";
+            promoCodeEl.classList.add("text-danger");
 
-  </script>
+            console.log("222222222222");
+          }
+        });
+      }
+    </script>
   </body>
 </html>
