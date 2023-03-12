@@ -601,9 +601,20 @@ export async function deletefromaddress(req, res) {
 export async function promoCode(req, res) {
   console.log(req.params);
   try {
-    const code = await coupon.find();
-    const code1=code.map((item)=>)
-    console.log("11111111111", typeof "req.params.data", code1);
+    const code = await coupon.findOne({couponCode:req.params.data});
+    console.log(code.discount);
+    if (!code) {
+      console.log("1111111111111111111");
+      res.json({success:false})
+      
+    } else {
+      console.log("3222222222");
+      res.json({success:true,code:code.discount})
+      
+    }
+
+   
+    console.log("11111111111", typeof "req.params.data", code);
   } catch (error) {
     console.log(error);
   }
