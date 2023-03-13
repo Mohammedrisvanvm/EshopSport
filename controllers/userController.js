@@ -615,6 +615,11 @@ export async function deletefromaddress(req, res) {
 export async function promoCode(req, res) {
   console.log(req.params);
   try {
+    if (!req.params.data) {
+      res.json({ success: false });
+    } else {
+      
+    
     const code = await coupon.findOne({ couponCode: req.params.data });
 
     if (!code) {
@@ -624,7 +629,7 @@ export async function promoCode(req, res) {
       console.log("3222222222");
       res.json({ success: true, code: code.discount });
     }
-  } catch (error) {
+  }} catch (error) {
     console.log(error);
   }
 }
