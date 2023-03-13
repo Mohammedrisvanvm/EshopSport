@@ -233,80 +233,39 @@
 
             <div class="h-20">
               <% useraddress.address.forEach((i) => { %>
-              <div class="d-flex">
-                <p>
-                  <%- i.address %>
-                  <br />
-                  <%- i.country %>
-                  <br />
-                  <%- i.state %>
-                  <br />
-                  <%- i.pincode %>
-                </p>
-
-                <input
-                  class="form-check align-item-center mx-5"
-                  type="radio"
-                 
-                  name="radioNoLabel"
-                  id="radioNoLabel1"
-                  value=""
-                  aria-label="..."
-                  required
-                />
-              </div>
+                <div class="d-flex">
+                  <input type="radio" id="<%= i.id %>" name="address" value="<%= i.id %>">
+                  <p>
+                    <%= i.address %><br />
+                    <%= i.country %><br />
+                    <%= i.state %><br />
+                    <%= i.pincode %>
+                  </p>
+                </div>
               <% }) %>
             </div>
             <% } %>
 
             <hr class="mb-4" />
-            <h4 class="mb-3">Payment</h4>
+            <h4 class="mb-3">Payment Options:</h4>
             <div class="d-block my-3">
               <div class="custom-control custom-radio">
-                <input id="credit" name="Credit card" type="radio"
-                class="custom-control-input" checked="" required="" />
-                <label class="custom-control-label" for="credit"
-                  >Credit card</label
-                >
+                <input id="credit" name="payment-option" type="radio" class="custom-control-input" checked/>
+                <label class="custom-control-label" for="credit">Credit Card</label>
               </div>
               <div class="custom-control custom-radio">
-                <input
-                  id="debit"
-                  name="Debit card"
-                  type="radio"
-                  class="custom-control-input"
-                  required=""
-                 
-                />
-                <label class="custom-control-label" for="debit"
-                  >Debit card</label
-                >
+                <input id="debit" name="payment-option" type="radio" class="custom-control-input"/>
+                <label class="custom-control-label" for="debit">Debit Card</label>
               </div>
               <div class="custom-control custom-radio">
-                <input
-                  id="paypal"
-                  name="PayPal"
-                  type="radio"
-                  class="custom-control-input"
-                  required=""
-            
-                />
+                <input id="paypal" name="payment-option" type="radio" class="custom-control-input"/>
                 <label class="custom-control-label" for="paypal">PayPal</label>
               </div>
               <div class="custom-control custom-radio">
-                <input
-                  id="paypal"
-                  name="cashondelivery"
-                  type="radio"
-                  class="custom-control-input"
-                  required=""
-              
-                />
-                <label class="custom-control-label" for="cash"
-                  >cash on delivery</label
-                >
+                <input id="cash" name="payment-option" type="radio" class="custom-control-input"/>
+                <label class="custom-control-label" for="cash">Cash on Delivery</label>
               </div>
-            </div>
+            </div> 
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="cc-name">Name on card</label>
