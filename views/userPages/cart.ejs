@@ -206,7 +206,12 @@
                     <p><strong><%-i.productName %></strong></p>
                     <p>Color: blue <%-i.category %></p>
                     <p>Size: M</p>
-                    <p id="price">₹<%-i.price %>/-</p>
+                    <p value="<%-i.price %>">
+                      ₹
+                      <span id="price<%-i._id %>" value="<%-i.price %>"
+                        ><%-i.price %></span
+                      >/-
+                    </p>
                     <p><s class="text-danger">₹<%-i.MRP %>/-</s></p>
                     <button
                       type="button"
@@ -234,7 +239,7 @@
                     <div class="d-flex mb-4" style="max-width: 300px">
                       <button
                         class="btn btn-primary px-3 me-2"
-                        onclick="dec(`<%-i._id %>`,`dec`);"
+                        onclick="dec(`<%-i._id %>`,`dec`)"
                       >
                         <i class="fas fa-minus"></i>
                       </button>
@@ -244,11 +249,13 @@
                           id="Qty<%-i._id %>"
                           min="0"
                           name="quantity"
-                          value="<%-i.Qty%>"
+                          value="<%-i.cartQuantity%>"
                           type="number"
+                          min="1"
+                          max="10"
                           class="form-control d-flex justify-content-center"
                         />
-                        <label class="form-label" for="form1"></label>
+                       
                       </div>
 
                       <button
@@ -259,10 +266,16 @@
                       </button>
                     </div>
                     <!-- Quantity -->
-
+                    <div> <label
+                      class="form-label text-danger"
+                      id="message<%-i._id %>"
+                    ></label></div>
+                   
                     <!-- Price -->
                     <p class="text-start text-md-center">
-                      <strong id="total"><%-i.totalp %></strong>
+                      <strong id="total<%-i._id %>"
+                        ><%-i.productTotal %></strong
+                      >
                     </p>
                     <!-- Price -->
                   </div>
@@ -314,15 +327,16 @@
               <div class="card-header py-3">
                 <h5 class="mb-0">Summary</h5>
               </div>
-          
+
               <div class="card-body">
-                <% addarray.forEach((j,index) => { %>
                 <ul class="list-group list-group-flush">
+                  <% productsdetails.forEach((i,index) => { %>
+
                   <li
                     class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0"
                   >
-                    item <%-index+1 %>
-                    <span><%-j %></span>
+                    item<%-index+1 %>
+                    <span id="totalpp<%-i._id %>"><%-i.productTotal %></span>
                   </li>
                   <% }) %>
                   <li
@@ -341,14 +355,14 @@
                       </strong>
                     </div>
                     <span
-                      ><strong id="totalprice<%-totalprice %>"
-                        ><%-totalprice %></strong
+                      ><strong id="totalprice"
+                        ><%-productsdetails.sum %></strong
                       ></span
                     >
                   </li>
                 </ul>
 
-                <form action="/checkout" >
+                <form action="/checkout">
                   <button
                     type="submit"
                     class="btn btn-primary btn-lg btn-block"
@@ -374,25 +388,52 @@
         document.getElementById("cartProduct" + data).innerHTML = "";
       }
       function inc(data, cond) {
-        console.log(cond);
-        axios.get(`/incdec?data=${data}&cond=${cond}`).then((response) => {
-          console.log(response.data.success, 1111);
-          if (response.data.success) {
-            let quantity = document.getElementById("Qty" + data);
-            quantity.value = Number(quantity.value) + 1;
-          }
-        });
+        document.getElementById("message" + data).textContent = "";
+        let quantity = document.getElementById("Qty" + data);
+        if (quantity.value >= 10) {
+          document.getElementById("message" + data).textContent =
+            "reached limit";
+        } else {
+          axios.get(`/incdec?data=${data}&cond=${cond}`).then((response) => {
+            if (response.data.success) {
+              quantity.value = Number(quantity.value) + 1;
+              let price = document.getElementById("price" + data);
+              let total = document.getElementById("total" + data);
+              total.textContent =
+                Number(quantity.value) * Number(price.textContent);
+              document.getElementById("totalpp" + data).textContent =
+                total.textContent;
+              let totalprice = document.getElementById("totalprice");
+              totalprice.textContent =
+                Number(totalprice.textContent) + Number(price.textContent);
+            }
+          });
+        }
       }
       function dec(data, cond) {
         console.log(cond);
-        axios.get(`/incdec?data=${data}&cond=${cond}`).then((response) => {
-          console.log(response.data);
-          if (response.data.success) {
-            let quantity = document.getElementById("Qty" + data);
-            console.log(quantity);
-            quantity.value = Number(quantity.value) - 1;
-          }
-        });
+        document.getElementById("message" + data).textContent = "";
+        let quantity = document.getElementById("Qty" + data);
+        if (quantity.value <= 1) {
+          document.getElementById("message" + data).textContent =
+            "reached limit";
+        } else {
+          axios.get(`/incdec?data=${data}&cond=${cond}`).then((response) => {
+            console.log(response.data);
+            if (response.data.success) {
+              quantity.value = Number(quantity.value) - 1;
+              let price = document.getElementById("price" + data);
+              let total = document.getElementById("total" + data);
+              total.textContent =
+                Number(quantity.value) * Number(price.textContent);
+              document.getElementById("totalpp" + data).textContent =
+                total.textContent;
+              let totalprice = document.getElementById("totalprice");
+              totalprice.textContent =
+                Number(totalprice.textContent) - Number(price.textContent);
+            }
+          });
+        }
       }
       function refresh(data) {
         document.getElementById("refresh" + data).innerHTML = "";

@@ -168,9 +168,9 @@
               >
                 <div>
                   <h6 class="my-0"><%-i.productName %></h6>
-                  <small class="text-muted">price:₹<%-i.price %></small>
+                  <small class="text-muted" id="price">price:₹<%-i.price %></small>
                   <br />
-                  <small class="text-muted">quantity:<%-i.Qty %></small>
+                  <small class="text-muted" id="quantity">quantity:<%-i.Qty %></small>
                   <br />
                   <small class="text-muted"><%-i.description %></small>
                 </div>
@@ -524,6 +524,7 @@
           console.log(err);
         }
       }
+
     </script>
   </body>
 </html>

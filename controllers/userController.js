@@ -249,16 +249,17 @@ export async function cart(req, res) {
           { _id: req.session.user._id },
           { cart: 1 }
         )
-        userinfo.cart.sort((a, b) => a.added - b.added);
+        console.log(userinfo);
 
         const productIDs = userinfo.cart.map((item) => {
-          cartQuantity[item.id] = item.quantity;
-          cartQuantity[item.id] = item.totalP;
-
+          cartQuantity[item.product_id] = item.quantity;
+          // cartQuantity[item.product_id] = item.totalP;
           return item.product_id;
+      
         });
+        console.log(productIDs);
 
-        const productsdetails = await products
+        let productsdetails = await products
           .find({ _id: { $in: productIDs } })
           .lean()
 
@@ -266,27 +267,37 @@ export async function cart(req, res) {
           .find({ _id: { $in: productIDs } }, { price: 1, _id: 0 })
           .lean();
 
-        const Quantity = userinfo.cart.map((item, index) => {
-          productsdetails[index].Qty = item.quantity;
-          return item.quantity;
-        });
-        const totalP = price.map((i, index) => {
-          return i.price;
-        });
-        let addarray = 0;
-        addarray = totalP.map(function (x, index) {
-          productsdetails[index].totalp = Quantity[index] * x;
-          return Quantity[index] * x;
-        });
+        // const Quantity = userinfo.cart.map((item, index) => {
+        //   productsdetails[index].Qty = item.quantity;
+        //   return item.quantity;
+        // });
+        // const totalP = price.map((i, index) => {
+        //   return i.price;
+        // });
+        // let addarray = 0;
+        // addarray = totalP.map(function (x, index) {
+        //   productsdetails[index].totalp = Quantity[index] * x;
+        //   return Quantity[index] * x;
+        // });
 
-        const totalprice = addarray.reduce((x, y) => x + y, 0);
+        // const totalprice = addarray.length > 0 ? addarray.reduce((x, y) => x + y) : 0;
+ productsdetails=productsdetails.map(item=>{
+  return {...item,cartQuantity:cartQuantity[item._id]}
+})
+  let sum=0;
+  for (const i of productsdetails) {
+    i.productTotal=i.cartQuantity*i.price
+    sum=sum+i.productTotal
+  }
+productsdetails.sum=sum
+
+ console.log(productsdetails,'123456789');
 
         res.render("cart", {
           productsdetails,
           isloggedin: true,
           count: userinfo.cart.length,
-          totalprice,
-          addarray,
+ 
         });
       } catch (error) {
         console.log(error);
@@ -569,7 +580,7 @@ export async function deletefromcart(req, res) {
 
 export async function incdec(req, res) {
   try {
-    console.log(req.query);
+    console.log(req.query.data,'1234');
 
     if (req.query.cond == "inc") {
       users
