@@ -1,6 +1,7 @@
 import Express, { Router } from "express";
 import {
   adminlogout,
+  banner,
   couponManagement,
   deletecategory,
   deleteProduct,
@@ -43,6 +44,7 @@ router.get("/editproduct/:id", multiupload, getEditProduct);
 router.post("/editproduct/:id",multiupload, postEditProduct);
 router.get("/couponManagement",couponManagement)
 router.post("/couponManagement",postCouponManagement)
+router.get("/banner",banner)
 
 
 

@@ -314,6 +314,10 @@ export async function postCouponManagement(req, res) {
     console.log(error);
   }
 }
+export function banner(req, res){
+  res.render('bannerManagement')
+}
+
 
 export function adminlogout(req, res) {
   console.log("adminlogout");
