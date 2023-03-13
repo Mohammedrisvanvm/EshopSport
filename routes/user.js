@@ -16,6 +16,7 @@ import {
   getsignUpOtp,
   guestpage,
   incdec,
+  payment,
   postaddresspage,
   postcheckout,
   postforget3,
@@ -58,12 +59,12 @@ router.get('/wishlist',wishlist)
 router.get('/cart',cart)
 router.get('/profile',userprofile)
 router.get('/contactus',contactus)
-
 router.get('/checkout',getcheckout)
 router.post('/checkout',postcheckout)
 router.get('/address',addresspage)
 router.post('/address',postaddresspage)
 router.get('/editprofile/:data',editaddress)
+router.get("/trash",payment)
 
 
 
