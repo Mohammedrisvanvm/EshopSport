@@ -141,45 +141,43 @@ export async function getaddcategories(req, res) {
   categorieserr = null;
 }
 
-
-
 export async function postaddcategories(req, res) {
+  console.log(req.body);
   try {
-
     const { Category, subCategory } = req.body;
-    
-    
+    console.log(Category, subCategory);
+
     if (!Category && !subCategory) {
-      throw new Error('No category or subcategory provided');
+      throw new Error("No category or subcategory provided");
     }
 
-   
     if (Category) {
       const categoryName = Category.toLowerCase();
       const categoryInfo = await categories.findOne({ name: categoryName });
       if (!categoryInfo) {
-       
         const categoriesAdd = new categories({ name: categoryName });
-        await categoriesAdd.save();
+        await categoriesAdd.save()
+       return res.redirect("/admin/categoriesManagement");
       }
     }
 
     if (subCategory) {
       const subCategoryName = subCategory.toLowerCase();
-      const subCategoryInfo = await subCategories.findOne({ name: subCategoryName });
+      const subCategoryInfo = await subCategories.findOne({
+        name: subCategoryName,
+      });
       if (!subCategoryInfo) {
-     
         const subCategoriesAdd = new subCategories({ name: subCategoryName });
         await subCategoriesAdd.save();
+       return  res.redirect("/admin/categoriesManagement");
       }
     }
 
- 
-    res.redirect('/admin/categoriesManagement');
+    categorieserr = "already exits";
+    res.redirect("/admin/addcategories");
   } catch (error) {
-  
     console.log(error);
-    res.redirect('/admin/addcategories');
+    res.redirect("/admin/addcategories");
   }
 }
 
