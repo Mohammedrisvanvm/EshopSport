@@ -304,13 +304,13 @@ export async function userprofile(req, res) {
       { address: 1, _id: 0 }
     );
 
-    res.render("profile", { userinfo, useraddress });
+    res.render("profile", { userinfo, useraddress,isloggedin:true});
   } catch (error) {
     console.log(error);
   }
 }
 export function contactus(req, res) {
-  res.render("contactus");
+  res.render("contactus",{isloggedin:true});
 }
 
 export async function getcheckout(req, res) {
@@ -377,7 +377,7 @@ export async function postaddresspage(req, res) {
     const {
       firstName,
       lastName,
-      username,
+      phonenumber,
       Email,
       address,
       country,
@@ -387,10 +387,11 @@ export async function postaddresspage(req, res) {
 
     const user = await users.findOne({ _id: req.session.user._id });
     console.log(user);
+      
     if (
-      firstName == "" ||
-      lastName == "" ||
-      username == "" ||
+      firstName== "" ||
+      lastName== "" ||
+      phonenumber == "" ||
       Email == "" ||
       address == "" ||
       country == "" ||
@@ -398,7 +399,7 @@ export async function postaddresspage(req, res) {
       pincode == ""
     ) {
       res.redirect("/checkout");
-      console.log("value not");
+      console.log("vaue not");
     } else {
       users
         .updateOne(
@@ -409,7 +410,7 @@ export async function postaddresspage(req, res) {
                 _id: uniqid(),
                 firstName,
                 lastName,
-                username,
+                phonenumber,
                 Email,
                 address,
                 country,

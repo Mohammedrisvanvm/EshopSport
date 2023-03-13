@@ -346,15 +346,17 @@
                         >
                           <i class="fas fa-heart"></i>
                         </button>
-
+<a href="/cart">
                         <button
                           type="button"
                           class="btn btn-primary mx-3"
                           title="buy now"
                           data-mdb-toggle="tooltip"
+                          onclick="addtocart(`<%-i._id %>`)"
                         >
                           buy now
                         </button>
+                      </a>
                       </div>
                     </div>
                   </div>
@@ -483,6 +485,9 @@
       function addtowishlist(data) {
         axios.get("/addtowishlist/" + data);
       }
+      function addtocart(data) {
+          axios.get("/addtocart/" + data);
+        }
     </script>
 
     <script
