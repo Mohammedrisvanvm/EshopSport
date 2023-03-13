@@ -179,21 +179,23 @@
                 <!-- ============================================================== -->
              <section>
                 <form action="/admin/addcategories" method="post">
+                    <label class="text-danger"><%-categorieserr  %></label>
+
                     <div class="form-group">
                         <label for="formGroupExampleInput">add categories</label>
-                        <input type="text" class="form-control" name="name" placeholder="brand/category">
+                        <input type="text" class="form-control" name="category" placeholder="brand/category">
                       </div>
-                      <label class="text-danger"><%-categorieserr  %></label>
+                   
                       <button class="btn btn-primary" type="submit">add</button>
                 </form>
              </section>
              <section>
-                <form action="/admin/addsubcategories" method="post">
+                <form action="/admin/addcategories" method="post">
                     <div class="form-group">
                         <label for="formGroupExampleInput">add subcategories</label>
-                        <input type="text" class="form-control" name="name" placeholder="brand/category">
+                        <input type="text" class="form-control" name="subCategory" placeholder="size">
                       </div>
-                      <label class="text-danger"><%-categorieserr  %></label>
+                     
                       <button class="btn btn-primary" type="submit">add</button>
                 </form>
              </section>

@@ -1,6 +1,6 @@
 import sharp from "sharp";
 import { admins } from "../models/adminSchema.js";
-import { categories } from "../models/categorySchema.js";
+import { categories, subCategories } from "../models/categorySchema.js";
 import { coupon } from "../models/couponSchema.js";
 import { products } from "../models/productSchema.js";
 import { users } from "../models/userSchema.js";
@@ -140,28 +140,49 @@ export async function getaddcategories(req, res) {
   res.render("addcategory", { categorieserr });
   categorieserr = null;
 }
+
+
+
 export async function postaddcategories(req, res) {
   try {
-    const categoryname = req.body.name.toLowerCase();
-    const categoryinfo = await categories.findOne({ name: categoryname });
-    if (!categoryinfo) {
-      try {
-        const categoriesadd = new categories({
-          name: categoryname,
-        });
-        await categoriesadd.save();
-        res.redirect("/admin/categoriesManagement");
-      } catch (err) {
-        console.log(err);
-      }
-    } else {
-      categorieserr = "already exist";
-      res.redirect("/admin/addcategories");
+
+    const { Category, subCategory } = req.body;
+    
+    
+    if (!Category && !subCategory) {
+      throw new Error('No category or subcategory provided');
     }
+
+   
+    if (Category) {
+      const categoryName = Category.toLowerCase();
+      const categoryInfo = await categories.findOne({ name: categoryName });
+      if (!categoryInfo) {
+       
+        const categoriesAdd = new categories({ name: categoryName });
+        await categoriesAdd.save();
+      }
+    }
+
+    if (subCategory) {
+      const subCategoryName = subCategory.toLowerCase();
+      const subCategoryInfo = await subCategories.findOne({ name: subCategoryName });
+      if (!subCategoryInfo) {
+     
+        const subCategoriesAdd = new subCategories({ name: subCategoryName });
+        await subCategoriesAdd.save();
+      }
+    }
+
+ 
+    res.redirect('/admin/categoriesManagement');
   } catch (error) {
+  
     console.log(error);
+    res.redirect('/admin/addcategories');
   }
 }
+
 export async function editcategory(req, res) {
   try {
     const categoryinfo = await categories.findById(req.params.id);
@@ -270,36 +291,30 @@ export async function deleteProduct(req, res) {
 
 export async function couponManagement(req, res) {
   try {
-const couponinfo = await coupon.find()
-console.log(couponinfo);
+    const couponinfo = await coupon.find();
+    console.log(couponinfo);
 
-  res.render("couponManagement",{couponinfo});
-      
-} catch (error) {
-  console.log(error);
-    
-}
+    res.render("couponManagement", { couponinfo });
+  } catch (error) {
+    console.log(error);
+  }
 }
 export async function postCouponManagement(req, res) {
   try {
-    
- 
-  console.log(req.body);
-  let addcoupon = new coupon({
-    
-    name: req.body.name,
-    couponCode: req.body.couponCode,
-    minamount: req.body.minamount,
-    discount: req.body.discount,
-    maxdiscount: req.body.maxdiscount,
-    expiry: req.body.expiry,
-  });
-  await addcoupon.save()
-  res.redirect("/admin/couponManagement");
-} catch (error) {
-  console.log(error);
-    
-}
+    console.log(req.body);
+    let addcoupon = new coupon({
+      name: req.body.name,
+      couponCode: req.body.couponCode,
+      minamount: req.body.minamount,
+      discount: req.body.discount,
+      maxdiscount: req.body.maxdiscount,
+      expiry: req.body.expiry,
+    });
+    await addcoupon.save();
+    res.redirect("/admin/couponManagement");
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export function adminlogout(req, res) {
