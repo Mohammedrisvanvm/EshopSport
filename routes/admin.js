@@ -24,7 +24,7 @@ import {
   unlistcategory,
   unlistproduct,
 } from "../controllers/admincontroller.js";
-import { multiupload, uploadcaro } from "../helpers/multer.js";
+import { multiupload, multiuploadcaro } from "../helpers/multer.js";
 
 var router = Express.Router();
 
@@ -46,7 +46,7 @@ router.post("/editproduct/:id", multiupload, postEditProduct);
 router.get("/couponManagement", couponManagement);
 router.post("/couponManagement", postCouponManagement);
 router.get("/banner", banner);
-router.post("/banner", uploadcaro, postBanner);
+router.post("/banner",multiuploadcaro,postBanner);
 
 //axios
 router.get("/deleteproduct/:id", deleteProduct);

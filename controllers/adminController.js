@@ -324,7 +324,13 @@ console.log(req.files)
 
 
 try {
-  let banner=await bannerimage.insert({ mainImage: req.files.mainImage})
+  const imageadd = new bannerimage({
+   
+    mainImage: req.files.mainImage,
+   
+  });
+  await imageadd .save();
+ 
   res.redirect('/admin/banner')
 } catch (error) {
   console.log(error);
