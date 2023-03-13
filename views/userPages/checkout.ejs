@@ -173,7 +173,7 @@
                 <small class="text-muted"><%-i.description %></small>
               </div>
 
-              <span class="text-muted" id="totalprice"
+              <span class="text-muted"
                 >Total:₹<%-i.totalp%></span
               >
             </li>
@@ -185,7 +185,7 @@
             </li>
             <li class="list-group-item d-flex justify-content-between">
               <span>Total </span>
-              <strong>₹<%-totalprice %></strong>
+              <strong  id="totalprice" >₹<%-totalprice %></strong>
             </li>
 
             <div class="input-group mt-4">
@@ -572,16 +572,28 @@
           console.log(result);
           if (result.data.success) {
             const promoCodeEl = document.getElementById("promoCode");
+        
+            
+
 
             promoCodeEl.innerHTML = -result.data.code;
+          let currentPrice=0
+          
+            const tp = document.getElementById("totalprice");
+ currentPrice = Number(tp.innerHTML.replace(/[^0-9]+/g,""));
+ let newPrice = currentPrice - result.data.code;
+tp.innerHTML = "₹" + newPrice;
 
-            promoCodeEl.classList.add("text-success");
+            
+            promoCodeEl.classList.remove("text-danger")
+
+            promoCodeEl.classList.add("text-success")
           } else {
-            const promoCodeEl = document.getElementById("promoCode");
+            const promoCodeEl = document.getElementById("promoCode")
             promoCodeEl.innerHTML = "invalid code";
-            promoCodeEl.classList.add("text-danger");
+            promoCodeEl.classList.add("text-danger")
 
-            console.log("222222222222");
+            console.log("222222222222")
           }
         });
       }

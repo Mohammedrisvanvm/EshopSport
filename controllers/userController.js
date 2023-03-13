@@ -364,10 +364,7 @@ export async function getcheckout(req, res) {
     console.log(error);
   }
 }
-// export function getcheckout(req, res) {
-//   console.log(req.body);
-//   res.redirect("/cart");
-// }
+
 export function postcheckout(req, res) {
   console.log(req.body);
   res.redirect("/payment");
@@ -614,7 +611,7 @@ export async function promoCode(req, res) {
     }
 
    
-    console.log("11111111111", typeof "req.params.data", code);
+   
   } catch (error) {
     console.log(error);
   }
