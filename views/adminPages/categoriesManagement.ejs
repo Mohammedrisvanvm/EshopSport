@@ -251,10 +251,59 @@
           <a href="/admin/addcategories"
             ><button class="btn btn-outline-primary">add categories</button></a
           >
+          <a href="/admin/addsubCategories"
+          ><button class="btn btn-outline-primary">add subCategories</button></a
+        >
+
 
           <section>
             <div style="margin-top: 50px">
               <h1 class="my-5">categories</h1>
+
+              <table class="table table-condensed">
+                <thead>
+                  <tr>
+                    <th>sl</th>
+                    <th>category name</th>
+                    <th>list</th>
+                    <th>edit/delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <% categoryinfo.forEach((i,index) => { %>
+
+                    <td><%-index+1 %></td>
+                    <td><%-i.name %></td>
+                    <td>
+                      <button
+                        class="btn btn-outline-success"
+                        id="listbtn<%-i._id%>"
+                        onclick="unlist(`<%-i._id %>`)"
+                      >
+                        <%-i.list %>
+                      </button>
+                    </td>
+                    <td class="d-flex">
+                      <a href="/admin/editcategory/<%-i._id %>">
+                        <i class="ri-pencil-line mx-2 fs-4 text-dark"></i></a
+                      ><a href="/admin/deletecategory/<%-i._id %>"
+                        ><i
+                          class="ri-delete-bin-6-fill fs-4 mx-3 text-danger"
+                          onclick="return confirm('are you sure you want to delete?')"
+                        ></i
+                      ></a>
+                    </td>
+                  </tr>
+                  <% }) %>
+                </tbody>
+              </table>
+            </div>
+          </section>
+          
+          <section>
+            <div style="margin-top: 50px">
+              <h1 class="my-5">sub Categories</h1>
 
               <table class="table table-condensed">
                 <thead>

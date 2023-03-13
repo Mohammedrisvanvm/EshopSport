@@ -287,6 +287,18 @@
                   <% }) %>
                 </select>
               </div>
+              <div class="form-group">
+                <label>sub categories</label>
+                <select class="btn btn-primary" name="subCategory">
+                  <% categoryinfo.forEach((i) => { %>
+
+                  <option value="<%-i.name %>" name="subCategory">
+                    <%- i.name %>
+                  </option>
+
+                  <% }) %>
+                </select>
+              </div>
 
               <div class="form-group">
                 <label for="exampleFormControlInput1">quantity</label>
