@@ -5,6 +5,8 @@ import { coupon } from "../models/couponSchema.js";
 import { products } from "../models/productSchema.js";
 import { users } from "../models/userSchema.js";
 
+import { bannerimage } from "../models/bannerSchema.js";
+
 let emailerr = null;
 let producterr = null;
 let categorieserr = null;
@@ -314,8 +316,23 @@ export async function postCouponManagement(req, res) {
     console.log(error);
   }
 }
-export function banner(req, res){
+export  function banner(req, res){
   res.render('bannerManagement')
+}
+export async function postBanner(req, res){
+console.log(req.files)
+
+
+try {
+  let banner=await bannerimage.insert({ mainImage: req.files.mainImage})
+  res.redirect('/admin/banner')
+} catch (error) {
+  console.log(error);
+
+  res.redirect('/admin/banner') 
+}
+
+
 }
 
 

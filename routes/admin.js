@@ -17,13 +17,14 @@ import {
   postaddcategories,
   postaddProduct,
   postAdminPage,
+  postBanner,
   postCouponManagement,
   posteditcategory,
   postEditProduct,
   unlistcategory,
   unlistproduct,
 } from "../controllers/admincontroller.js";
-import { multiupload } from "../helpers/multer.js";
+import { multiupload, uploadcaro } from "../helpers/multer.js";
 
 var router = Express.Router();
 
@@ -37,22 +38,20 @@ router.get("/addProduct", getaddProduct);
 router.post("/addProduct", multiupload, postaddProduct);
 router.get("/addcategories", getaddcategories);
 router.post("/addcategories", postaddcategories);
-router.get("/editcategory/:id",editcategory)
-router.post("/editcategory/:id",posteditcategory)
-router.get("/deletecategory/:id",deletecategory)
+router.get("/editcategory/:id", editcategory);
+router.post("/editcategory/:id", posteditcategory);
+router.get("/deletecategory/:id", deletecategory);
 router.get("/editproduct/:id", multiupload, getEditProduct);
-router.post("/editproduct/:id",multiupload, postEditProduct);
-router.get("/couponManagement",couponManagement)
-router.post("/couponManagement",postCouponManagement)
-router.get("/banner",banner)
-
-
+router.post("/editproduct/:id", multiupload, postEditProduct);
+router.get("/couponManagement", couponManagement);
+router.post("/couponManagement", postCouponManagement);
+router.get("/banner", banner);
+router.post("/banner", uploadcaro, postBanner);
 
 //axios
 router.get("/deleteproduct/:id", deleteProduct);
-router.get('/categoryunlist/:id',unlistcategory)
-router.get('/productunlist/:id',unlistproduct)
-
+router.get("/categoryunlist/:id", unlistcategory);
+router.get("/productunlist/:id", unlistproduct);
 
 router.get("/logout", adminlogout);
 
