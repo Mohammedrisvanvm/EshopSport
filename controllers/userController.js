@@ -248,7 +248,8 @@ export async function cart(req, res) {
         const userinfo = await users.findOne(
           { _id: req.session.user._id },
           { cart: 1 }
-        );
+        )
+        userinfo.cart.sort((a, b) => a.added - b.added);
 
         const productIDs = userinfo.cart.map((item) => {
           cartQuantity[item.id] = item.quantity;
@@ -259,7 +260,7 @@ export async function cart(req, res) {
 
         const productsdetails = await products
           .find({ _id: { $in: productIDs } })
-          .lean();
+          .lean()
 
         const price = await products
           .find({ _id: { $in: productIDs } }, { price: 1, _id: 0 })
