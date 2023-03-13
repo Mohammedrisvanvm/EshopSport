@@ -28,6 +28,6 @@ const storagecaro=multer.diskStorage({
 
 export const upload=multer({storage:storage,fileFilter:fileFilter})
 export const uploadcaro=multer({storage:storagecaro,fileFilter:fileFilter})
-export const multiuploadcaro=upload.fields([{name:'mainImage', maxCount:1}])
+export const multiuploadcaro=uploadcaro.fields([{name:'mainImage', maxCount:1}])
 
 export const multiupload=upload.fields([{name:'mainImage', maxCount:1},{name:'subImages',maxCount:5}])
