@@ -365,10 +365,6 @@ export async function getcheckout(req, res) {
 export async function postcheckout(req, res) {
   console.log(req.body);
   try {
- 
-
-
-
     if (!req.session.user) {
       res.redirect("/login");
     } else {
@@ -378,10 +374,6 @@ export async function postcheckout(req, res) {
         { _id: req.session.user._id },
         { cart: 1 }
       );
-      
-
-   
-      
 
       const productIDs = userinfo.cart.map((item) => {
         cartQuantity[item.product_id] = item.quantity;
@@ -391,10 +383,6 @@ export async function postcheckout(req, res) {
 
       let productsdetails = await products
         .find({ _id: { $in: productIDs } })
-        .lean();
-
-      const price = await products
-        .find({ _id: { $in: productIDs } }, { price: 1, _id: 0 })
         .lean();
 
       productsdetails = productsdetails.map((item) => {
@@ -415,25 +403,49 @@ export async function postcheckout(req, res) {
         },
         { address: { $elemMatch: { _id: req.body.address } } }
       );
-      let deladdress=address.address[0]
-      
-      const order= new orderModel({
-        address:deladdress,
-        product:productIDs,
-        userId:req.session.user._id,
-        quantity:cartQuantity.value,
-        total: productsdetails.sum,
-        paymentType:req.body.paymentType,
-        
-    
-    
+      let deladdress = address.address[0];
+      let orders = [];
+      let i=1
+           let ordercount = await orderModel.find().count();
+      console.log(ordercount,productsdetails);
+      for (let product of productsdetails) {
+      orders.push({
+     
+        address: deladdress,
+        product: product,
+        userId: req.session.user._id,
+        quantity: cartQuantity[product._id],
+        total:product.productTotal,
+        amountPayable:product.sum,
+        paymentType: req.body.paymentType,
+        orderId:ordercount+1
       })
-      order.save()
+      i++
+      }
+      await orderModel.create(orders);
 
+      const orderlist=await orderModel.find()
+      let orderlist1=orderlist.map((item)=>item._id)
+      // let orders = [];
+      // let i = 1;
+      // let orderCount = await Order.find().count();
+      // for (let product of products) {
+      //   orders.push({
+      //     address: address[0],
+      //     product: product,
+      //     userId: userId,
+      //     quantity: cartQuantities[product._id],
+      //     total: cartQuantities[product._id] * product.price,
+      //     amountToPay: cartQuantities[product._id] * product.price,
+      //     paymentType: "cod",
+      //     orderId: orderCount + i,
+      //   });
+      //   i++;
+      // }
+      // await Order.create(orders);
       res.render("orderConfirmationPage", {
         isloggedin: true,
         productsdetails,
-        
       });
     }
   } catch (error) {
