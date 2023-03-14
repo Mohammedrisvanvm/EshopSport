@@ -177,13 +177,13 @@
                   >
                   <br />
                   <small class="text-muted" id="quantity"
-                    >quantity:<%-i.Qty %></small
+                    >quantity:<%-i.cartQuantity %></small
                   >
                   <br />
                   <small class="text-muted"><%-i.description %></small>
                 </div>
 
-                <span class="text-muted">Total:₹<%-i.totalp%></span>
+                <span class="text-muted">Total:₹<%-i.productTotal%></span>
               </li>
               <% }) %>
 
@@ -196,7 +196,7 @@
               <li class="list-group-item d-flex justify-content-between">
                 <span>Total </span>
 
-                <strong id="totalprice">₹<%-totalprice %></strong>
+                <strong id="totalprice">₹<%-productsdetails.sum %></strong>
               </li>
 
               <div class="input-group mt-4">

@@ -7,30 +7,30 @@
     <title>profile page</title>
     <link rel="stylesheet" href="/css/profile.css" />
     <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
-    crossorigin="anonymous"
-  />
-  <!-- Font Awesome -->
-  <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    rel="stylesheet"
-  />
-  <!-- Google Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-    rel="stylesheet"
-  />
-  <!-- MDB -->
-  <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css"
-    rel="stylesheet"
-  />
-  <link
-    href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css"
-    rel="stylesheet"
-  />
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <!-- Font Awesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- MDB -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <header>
@@ -174,17 +174,23 @@
                   <p>malappuram</p>
                 </div>
               </div>
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+              >
                 add address
-                </button>
+              </button>
               <div class="p-4 text-black" style="background-color: #f8f9fa">
                 <div class="d-flex justify-content-end text-center py-1"></div>
               </div>
-
-              <div class="card-body p-4 text-black" >
-                <% useraddress.address.forEach((i,index) => { %>
-                <div class="mb-5" id="deletefromaddress<%-i._id %>">
-                
+              <% useraddress.address.forEach((i,index) => { %>
+              <div
+                class="card-body p-4 text-black"
+                id="deletefromaddress<%-i._id %>"
+              >
+                <div class="mb-5" i>
                   <p class="lead fw-normal mb-1">address <%-index+1 %></p>
 
                   <div class="d-flex" id="deletefromaddress<%-i._id %>">
@@ -198,7 +204,7 @@
                       <%- i.pincode %>
                     </p>
                   </div>
-                  <a href="/editprofile/<%-i._id %>"><button
+                  <!-- <a href="/editprofile/"><button
                     type="button"
                     class="btn"
                     data-bs-toggle="modal"
@@ -208,14 +214,18 @@
                       title="edit address"
                       class="ri-pencil-line fs-4 text-dark"
                     ></i>
-                  </button></a>
-                   <button type="button"  onclick=" deletefromaddress(`<%-i._id %>`,`del`)" class="btn">
+                  </button></a> -->
+                  <button
+                    type="button"
+                    onclick=" deletefromaddress(`<%-i._id %>`,`del`)"
+                    class="btn"
+                  >
                     <i
                       title="delete address"
                       class="ri-delete-bin-6-fill fs-4 text-danger"
                     ></i>
                   </button>
-                 
+
                   <hr />
                   <% }) %>
                 </div>
@@ -228,187 +238,152 @@
     <!-- Button trigger modal -->
 
     <!-- Modal -->
-   
+
     <!-- modal2 -->
 
     <!-- Button trigger modal -->
-<!-- Button trigger modal -->
+    <!-- Button trigger modal -->
 
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">add address</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form
-        class="needs-validation"
-        action="/address"
-        method="post"
-        novalidate=""
+    <section>
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
       >
-        <div class="row">
-          <div class="col-md-6 mb-3">
-            <label for="firstName">First name</label>
-            <input
-              type="text"
-              class="form-control"
-              name="firstName"
-              id="firstName"
-              placeholder=""
-              value=""
-              required
-            />
-            <div class="invalid-feedback">
-              Valid first name is required.
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">
+                Add Address
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form class="needs-validation" action="/addressprofile" method="post">
+                <div class="mb-3">
+                  <label for="firstName" class="form-label">First name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="firstName"
+                    id="firstName"
+                    placeholder=""
+                    value=""
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="lastName" class="form-label">Last name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="lastName"
+                    id="lastName"
+                    placeholder=""
+                    value=""
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="username" class="form-label">Phone number</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    pattern="[0-9]*"
+                    minlength="10"
+                    maxlength="10"
+                    name="phonenumber"
+                    id="username"
+                    placeholder="Phone Number"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="email" class="form-label"
+                    >Email <span class="text-muted">(Optional)</span></label
+                  >
+                  <input
+                    type="email"
+                    class="form-control"
+                    name="Email"
+                    id="email"
+                    placeholder="you@example.com"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="address" class="form-label">Address</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="address"
+                    name="address"
+                    placeholder="1234 Main St"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="country" class="form-label">Country</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="country"
+                    placeholder="Country"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="state" class="form-label">State</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="state"
+                    placeholder="State"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="zip" class="form-label">Pincode</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="pincode"
+                    id="zip"
+                    placeholder="Pincode"
+                    required
+                  />
+                </div>
+                <div class="d-flex justify-content-center my-5">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                  <button class="btn btn-primary" type="submit">
+                    Add Address
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
-          <div class="col-md-6 mb-3">
-            <label for="lastName">Last name</label>
-            <input
-              type="text"
-              class="form-control"
-              name="lastName"
-              id="lastName"
-              placeholder=""
-              value=""
-              required
-            />
-            <div class="invalid-feedback">
-              Valid last name is required.
-            </div>
-          </div>
         </div>
-        <div class="mb-3">
-          <label for="username"></label>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">phone no: +91</span>
-            </div>
-            <input
-              type="number"
-              class="form-control"
-              name="username"
-              id="username"
-              placeholder="Phone Number"
-              required
-            />
-            <div class="invalid-feedback" style="width: 100%">
-              Your username is required.
-            </div>
-          </div>
-        </div>
-        <div class="mb-3">
-          <label for="email"
-            >Email <span class="text-muted">(Optional)</span></label
-          >
-          <input
-            type="email"
-            class="form-control"
-            name="Email"
-            id="email"
-            placeholder="you@example.com"
-          />
-          <div class="invalid-feedback">
-            Please enter a valid email address for shipping updates.
-          </div>
-        </div>
-        <div class="mb-3">
-          <label for="address">Address</label>
-          <input
-            type="text"
-            class="form-control"
-            id="address"
-            name="address"
-            placeholder="1234 Main St"
-            required=""
-          />
-          <div class="invalid-feedback">
-            Please enter your shipping address.
-          </div>
-        </div>
-        <div class="mb-3">
-          <label for="address2"
-            >Address 2 <span class="text-muted">(Optional)</span></label
-          >
-          <input
-            type="text"
-            class="form-control"
-            id="address2"
-            placeholder="Apartment or suite"
-          />
-        </div>
-        <div class="row">
-          <div class="col-md-5 mb-3">
-            <label for="country">Country</label>
-            <select
-              class="custom-select d-block w-100"
-              name="country"
-              id="country"
-              required=""
-            >
-              <option value="">Choose...</option>
-              <option>United States</option>
-            </select>
-            <div class="invalid-feedback">
-              Please select a valid country.
-            </div>
-          </div>
-          <div class="col-md-4 mb-3">
-            <label for="state">State</label>
-            <select
-              class="custom-select d-block w-100"
-              name="state"
-              id="state"
-              required=""
-            >
-              <option value="">Choose...</option>
-              <option>California</option>
-            </select>
-            <div class="invalid-feedback">
-              Please provide a valid state.
-            </div>
-          </div>
-          <div class="col-md-3 mb-3">
-            <label for="zip">Zip</label>
-            <input
-              type="text"
-              class="form-control"
-              name="pincode"
-              id="zip"
-              placeholder=""
-              required=""
-            />
-            <div class="invalid-feedback">Zip code required.</div>
-          </div>
-        </div>
-
-        <div class="d-flex justify-content-center my-5">
-          <button class="btn btn-primary" type="submit">
-            add address
-          </button>
-        </div>
-      </form>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
+    </section>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
     <script>
-
-      function deletefromaddress(data){
-        axios.get("/deletefromaddress/"+data)
+      function deletefromaddress(data) {
+        axios.get("/deletefromaddress/" + data);
         console.log(data);
         document.getElementById("deletefromaddress" + data).innerHTML = "";
-
       }
     </script>
   </body>

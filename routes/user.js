@@ -18,6 +18,7 @@ import {
   incdec,
   payment,
   postaddresspage,
+  postaddressprofile,
   postcheckout,
   postforget3,
   postForgottenPassword,
@@ -63,6 +64,8 @@ router.get('/checkout',getcheckout)
 router.post('/checkout',postcheckout)
 router.get('/address',addresspage)
 router.post('/address',postaddresspage)
+router.post('/addressprofile',postaddressprofile)
+
 router.get('/editprofile/:data',editaddress)
 router.get("/trash",payment)
 

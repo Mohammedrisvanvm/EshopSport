@@ -263,10 +263,6 @@ export async function cart(req, res) {
           .find({ _id: { $in: productIDs } })
           .lean();
 
-        const price = await products
-          .find({ _id: { $in: productIDs } }, { price: 1, _id: 0 })
-          .lean();
-
         productsdetails = productsdetails.map((item) => {
           return { ...item, cartQuantity: cartQuantity[item._id] };
         });
@@ -312,36 +308,39 @@ export function contactus(req, res) {
 
 export async function getcheckout(req, res) {
   try {
+    const cartQuantity = {};
     const userinfo = await users.findOne(
       { _id: req.session.user._id },
       { cart: 1 }
     );
+    console.log(userinfo);
+
     const productIDs = userinfo.cart.map((item) => {
+      cartQuantity[item.product_id] = item.quantity;
+
       return item.product_id;
     });
-    const productsdetails = await products
+    console.log(productIDs);
+
+    let productsdetails = await products
       .find({ _id: { $in: productIDs } })
       .lean();
 
-    const price = await products
-      .find({ _id: { $in: productIDs } }, { price: 1, _id: 0 })
-      .lean();
-    const Quantity = userinfo.cart.map((item, index) => {
-      productsdetails[index].Qty = item.quantity;
-      return item.quantity;
+    productsdetails = productsdetails.map((item) => {
+      return { ...item, cartQuantity: cartQuantity[item._id] };
     });
-    const totalP = price.map((i) => {
-      return i.price;
-    });
+    let sum = 0;
+    for (const i of productsdetails) {
+      i.productTotal = i.cartQuantity * i.price;
+      sum = sum + i.productTotal;
+    }
+    productsdetails.sum = sum;
 
-    let totaluniqueproduct = totalP.map(function (x, index) {
-      productsdetails[index].totalp = Quantity[index] * x;
-      return Quantity[index] * x;
-    });
-    let totalprice = totaluniqueproduct.reduce(function (x, y) {
-      return x + y;
-    });
+    console.log(productsdetails, "123456789");
+    const count = await users.findOne(
+      { _id: req.session.user._id} ,{cart} ).count()
 
+      console.log(count);
     //address
 
     const useraddress = await users.findOne(
@@ -350,12 +349,10 @@ export async function getcheckout(req, res) {
     );
 
     res.render("checkout", {
-      isloggedin: true,
       productsdetails,
-      totaluniqueproduct,
-      totalprice,
-      count: userinfo.cart.length,
+      isloggedin: true,
       useraddress,
+      count
     });
   } catch (error) {
     console.log(error);
@@ -405,27 +402,26 @@ export async function postcheckout(req, res) {
       );
       let deladdress = address.address[0];
       let orders = [];
-      let i=1
-           let ordercount = await orderModel.find().count();
-      console.log(ordercount,productsdetails);
+      let i = 1;
+      let ordercount = await orderModel.find().count();
+      console.log(ordercount, productsdetails);
       for (let product of productsdetails) {
-      orders.push({
-     
-        address: deladdress,
-        product: product,
-        userId: req.session.user._id,
-        quantity: cartQuantity[product._id],
-        total:product.productTotal,
-        amountPayable:product.sum,
-        paymentType: req.body.paymentType,
-        orderId:ordercount+1
-      })
-      i++
+        orders.push({
+          address: deladdress,
+          product: product,
+          userId: req.session.user._id,
+          quantity: cartQuantity[product._id],
+          total: product.productTotal,
+          amountPayable: product.sum,
+          paymentType: req.body.paymentType,
+          orderId: ordercount + 1,
+        });
+        i++;
       }
       await orderModel.create(orders);
 
-      const orderlist=await orderModel.find()
-      let orderlist1=orderlist.map((item)=>item._id)
+      const orderlist = await orderModel.find();
+      let orderlist1 = orderlist.map((item) => item._id);
       // let orders = [];
       // let i = 1;
       // let orderCount = await Order.find().count();
@@ -455,7 +451,8 @@ export async function postcheckout(req, res) {
 export function addresspage(req, res) {
   res.render("address", { isloggedin: true });
 }
-export async function postaddresspage(req, res) {
+export async function postaddressprofile(req, res) {
+  
   try {
     const {
       firstName,
@@ -517,11 +514,80 @@ export async function postaddresspage(req, res) {
         "11111111111111"
       );
 
-      console.log(
-        req.body,
+      
+      res.redirect("/profile");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
 
-        "fffffffffffffff"
+
+
+export async function postaddresspage(req, res) {
+  
+  try {
+    const {
+      firstName,
+      lastName,
+      phonenumber,
+      Email,
+      address,
+      country,
+      state,
+      pincode,
+    } = req.body;
+
+    const user = await users.findOne({ _id: req.session.user._id });
+    console.log(user);
+
+    if (
+      firstName == "" ||
+      lastName == "" ||
+      phonenumber == "" ||
+      Email == "" ||
+      address == "" ||
+      country == "" ||
+      state == "" ||
+      pincode == ""
+    ) {
+      res.redirect("/checkout");
+      console.log("vaue not");
+    } else {
+      users
+        .updateOne(
+          { _id: req.session.user._id },
+          {
+            $push: {
+              address: {
+                _id: uniqid(),
+                firstName,
+                lastName,
+                phonenumber,
+                Email,
+                address,
+                country,
+                state,
+                pincode,
+              },
+            },
+          }
+        )
+        .then((result) => {
+          console.log(result);
+        });
+
+      const useraddress = await users.findOne(
+        { _id: req.session.user._id },
+        { address: 1, _id: 0 }
       );
+      console.log(
+        //useraddress,
+        useraddress.address,
+        "11111111111111"
+      );
+
+      
       res.redirect("/checkout");
     }
   } catch (error) {
