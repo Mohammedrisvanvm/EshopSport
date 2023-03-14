@@ -25,7 +25,7 @@ import {
   unlistcategory,
   unlistproduct,
 } from "../controllers/admincontroller.js";
-import { multiupload, multiuploadcaro } from "../helpers/multer.js";
+import { multiupload, multiuploadcaro } from "../middleware/multer.js";
 
 var router = Express.Router();
 
