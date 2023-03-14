@@ -165,22 +165,15 @@
           </div>
         </nav>
       </header>
-      <!-- ============================================================== -->
-      <!-- End Topbar header -->
-      <!-- ============================================================== -->
-      <!-- ============================================================== -->
-      <!-- Left Sidebar - style you can find in sidebar.scss  -->
-      <!-- ============================================================== -->
+ 
       <aside class="left-sidebar">
-        <!-- Sidebar scroll-->
         <div class="scroll-sidebar">
-          <!-- Sidebar navigation-->
           <nav class="sidebar-nav">
             <ul id="sidebarnav">
               <li>
                 <a
                   class="waves-effect waves-dark"
-                  href="/admin"
+                  href="/admin/dashboard"
                   aria-expanded="false"
                   ><i class="fa fa-home"></i
                   ><span class="hide-menu">Dashboard</span></a
@@ -213,35 +206,52 @@
                   ><span class="hide-menu">Product</span></a
                 >
               </li>
-              <!-- <li> <a class="waves-effect waves-dark" href="map-google.ejs" aria-expanded="false"><i
-                                    class="fa fa-globe"></i><span class="hide-menu">Map</span></a>
-                        </li>
-                        <li> <a class="waves-effect waves-dark" href="" aria-expanded="false"><i
-                                    class="fa fa-bookmark-o"></i><span class="hide-menu">Blank</span></a>
-                        </li>
-                        <li> <a class="waves-effect waves-dark" href="pages-error-404.ejs" aria-expanded="false"><i
-                                    class="fa fa-question-circle"></i><span class="hide-menu">404</span></a>
-                        </li>-->
+              <li>
+                <a
+                  class="waves-effect waves-dark"
+                  href="/admin/banner"
+                  aria-expanded="false"
+                >
+                  <i class="fa-thin fa-image"></i
+                  ><span class="hide-menu">banner</span></a
+                >
+              </li>
+              <li>
+                <a
+                  class="waves-effect waves-dark"
+                  href="/admin/couponManagement"
+                  aria-expanded="false"
+                  ><i class="fa fa-bookmark-o"></i
+                  ><span class="hide-menu">coupon </span></a
+                >
+              </li>
+              <li>
+                <a
+                  class="waves-effect waves-dark"
+                  href="/admin/orderManagement"
+                  aria-expanded="false"
+                  ><i class="fa fa-question-circle"></i
+                  ><span class="hide-menu">order Management</span></a
+                >
+              </li>
+              <li>
+                <a
+                  class="waves-effect waves-dark"
+                  href="/admin/salesReport"
+                  aria-expanded="false"
+                  ><i class="fa fa-question-circle"></i
+                  ><span class="hide-menu">sales report</span></a
+                >
+              </li>
             </ul>
           </nav>
+          <!-- End Sidebar navigation -->
         </div>
         <!-- End Sidebar scroll-->
       </aside>
-      <!-- ============================================================== -->
-      <!-- End Left Sidebar - style you can find in sidebar.scss  -->
-      <!-- ============================================================== -->
-      <!-- ============================================================== -->
-      <!-- Page wrapper  -->
-      <!-- ============================================================== -->
-      <div class="page-wrapper">
-        <!-- ============================================================== -->
-        <!-- Container fluid  -->
-        <!-- ============================================================== -->
-        <div class="container-fluid">
-          <!-- ============================================================== -->
-          <!-- Bread crumb and right sidebar toggle -->
-          <!-- ============================================================== -->
-          <div class="row page-titles">
+       <div class="page-wrapper">
+       <div class="container-fluid">
+         <div class="row page-titles">
             <div class="col-md-5 align-self-center">
               <h3 class="text-themecolor">product</h3>
               <ol class="breadcrumb">
@@ -252,10 +262,7 @@
               </ol>
             </div>
           </div>
-          <!-- ============================================================== -->
-          <!-- End Bread crumb and right sidebar toggle -->
-          <!-- ============================================================== -->
-          <section class="Container">
+            <section class="Container">
             <form
               class=""
               action="/admin/addProduct"
@@ -368,27 +375,13 @@
             </form>
           </section>
         </div>
-        <!-- footer -->
-        <!-- ============================================================== -->
-        <footer class="footer">
+         <footer class="footer">
           © 2023 eshopsport by
           <a href="/views/adminPages/adminHome.ejs">eshopsport.com</a>
         </footer>
-        <!-- ============================================================== -->
-        <!-- End footer -->
-        <!-- ============================================================== -->
-      </div>
-      <!-- ============================================================== -->
-      <!-- End Page wrapper  -->
-      <!-- ============================================================== -->
-    </div>
-    <!-- ============================================================== -->
-    <!-- End Wrapper -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- All Jquery -->
-    <!-- ============================================================== -->
-    <script src="/assets/node_modules/jquery/jquery.min.js"></script>
+        </div>
+     </div>
+      <script src="/assets/node_modules/jquery/jquery.min.js"></script>
     <!-- Bootstrap popper Core JavaScript -->
     <script src="/assets/node_modules/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- slimscrollbar scrollbar JavaScript -->

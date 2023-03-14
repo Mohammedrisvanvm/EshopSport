@@ -8,6 +8,7 @@ import uniqid from "uniqid";
 import { coupon } from "../models/couponSchema.js";
 import { orderModel } from "../models/orderSchema.js";
 import { ifuser } from "../middleware/middleware.js";
+import { bannerimage } from "../models/bannerSchema.js";
 
 let passworderr = null;
 let emailerr = null;
@@ -21,15 +22,18 @@ let otp = otpGenerator.generate(6, {
 });
 
 export async function guestpage(req, res) {
-  if (req.session.user) {
-    
+  try {
     const productinfo = await products.find({ list: true });
-    res.render("guest", { productinfo, ifuser });
-  } else {
-  
-    const productinfo = await products.find({ list: true });
-    res.render("guest", { productinfo, ifuser });
+let cImage=await bannerimage.find()
+cImage=cImage.map((item)=>item.mainImage[0])
+
+
+
+    res.render("guest", { productinfo,cImage, ifuser });
+  } catch (error) {
+    console.log(error);
   }
+  
 }
 export function userGetLogin(req, res) {
   if (!req.session.user) {
