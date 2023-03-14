@@ -6,6 +6,7 @@ import { products } from "../models/productSchema.js";
 import { users } from "../models/userSchema.js";
 
 import { bannerimage } from "../models/bannerSchema.js";
+import { orderModel } from "../models/orderSchema.js";
 
 let emailerr = null;
 let producterr = null;
@@ -339,6 +340,12 @@ try {
 }
 
 
+}
+export async function ordermanagement(req,res) {
+const orderinfo=await orderModel.find()
+
+  res.render("orderManagement",{orderinfo})
+  
 }
 
 

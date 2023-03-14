@@ -14,6 +14,7 @@ import {
   getgategoriesManagemenet,
   getProductManagement,
   getuserManagement,
+  ordermanagement,
   postaddcategories,
   postaddProduct,
   postAdminPage,
@@ -47,6 +48,7 @@ router.get("/couponManagement", couponManagement);
 router.post("/couponManagement", postCouponManagement);
 router.get("/banner", banner);
 router.post("/banner",multiuploadcaro,postBanner);
+router.get('/ordermanagement',ordermanagement)
 
 //axios
 router.get("/deleteproduct/:id", deleteProduct);
