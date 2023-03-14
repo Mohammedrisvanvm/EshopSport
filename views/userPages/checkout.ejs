@@ -168,7 +168,7 @@
               >
                 <div>
                   <h6 class="my-0"><%-i.productName %></h6>
-                  <small class="text-muted" id="price"
+                  <small class="text-muted" id="price" name="price" value="<%-i.price %>"
                     >price:₹<%-i.price %></small
                   >
                   <br />
@@ -191,6 +191,7 @@
               </li>
               <li class="list-group-item d-flex justify-content-between">
                 <span>Total </span>
+               
                 <strong id="totalprice">₹<%-totalprice %></strong>
               </li>
 
@@ -207,6 +208,7 @@
                   onclick="promoCode()"
                   class="btn btn-secondary ms-2"
                   id="Redeemcode"
+                  name="Redeemed"
                 >
                   Redeem
                 </button>
@@ -244,22 +246,19 @@
               <% useraddress.address.forEach((i) => { %>
               <div class="d-flex radio">
                 <label for="">
-              
                   <%= i.address %><br />
                   <%= i.country %><br />
                   <%= i.state %><br />
                   <%= i.pincode %>
-             
-                <input
-                  type="radio"
-                  id="address<%= i.id %>"
-                  name="address<%- i._id %>"
-                  value="<%- i._id %>"
-               
-                  required
-                />
-              </label>
-               
+
+                  <input
+                    type="radio"
+                    id="address<%= i.id %>"
+                    name="address"
+                    value="<%- i._id %>"
+                    required
+                  />
+                </label>
               </div>
               <% }) %>
             </div>
@@ -300,13 +299,8 @@
                 />
                 <label class="custom-control-label" for="paypal">PayPal</label>
               </div> -->
-              <div class="custom-control custom-radio ">
-                <input
-                  id="cash"
-                  name="COD"
-                  type="radio"
-             required
-                />
+              <div class="custom-control custom-radio">
+                <input id="cash" name="COD" type="radio" required />
                 <label class="custom-control-label" for="cash"
                   >Cash on Delivery</label
                 >
@@ -348,7 +342,7 @@
                 />
                 <div class="invalid-feedback">Expiration date required</div>
               </div> -->
-              <!-- <div class="col-md-3 mb-3">
+            <!-- <div class="col-md-3 mb-3">
                 <label for="cc-cvv">CVV</label>
                 <input
                   type="text"
@@ -365,10 +359,10 @@
         </div>
         <button
           class="btn btn-primary btn-lg btn-block form-control"
-id="payment"
+          id="payment"
           type="submit"
-        >Payment
-          
+        >
+          Payment
         </button>
       </form>
       <footer class="my-5 pt-5 text-muted text-center text-small">

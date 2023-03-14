@@ -248,56 +248,40 @@ export async function cart(req, res) {
         const userinfo = await users.findOne(
           { _id: req.session.user._id },
           { cart: 1 }
-        )
+        );
         console.log(userinfo);
 
         const productIDs = userinfo.cart.map((item) => {
           cartQuantity[item.product_id] = item.quantity;
-          // cartQuantity[item.product_id] = item.totalP;
+
           return item.product_id;
-      
         });
         console.log(productIDs);
 
         let productsdetails = await products
           .find({ _id: { $in: productIDs } })
-          .lean()
+          .lean();
 
         const price = await products
           .find({ _id: { $in: productIDs } }, { price: 1, _id: 0 })
           .lean();
 
-        // const Quantity = userinfo.cart.map((item, index) => {
-        //   productsdetails[index].Qty = item.quantity;
-        //   return item.quantity;
-        // });
-        // const totalP = price.map((i, index) => {
-        //   return i.price;
-        // });
-        // let addarray = 0;
-        // addarray = totalP.map(function (x, index) {
-        //   productsdetails[index].totalp = Quantity[index] * x;
-        //   return Quantity[index] * x;
-        // });
+        productsdetails = productsdetails.map((item) => {
+          return { ...item, cartQuantity: cartQuantity[item._id] };
+        });
+        let sum = 0;
+        for (const i of productsdetails) {
+          i.productTotal = i.cartQuantity * i.price;
+          sum = sum + i.productTotal;
+        }
+        productsdetails.sum = sum;
 
-        // const totalprice = addarray.length > 0 ? addarray.reduce((x, y) => x + y) : 0;
- productsdetails=productsdetails.map(item=>{
-  return {...item,cartQuantity:cartQuantity[item._id]}
-})
-  let sum=0;
-  for (const i of productsdetails) {
-    i.productTotal=i.cartQuantity*i.price
-    sum=sum+i.productTotal
-  }
-productsdetails.sum=sum
-
- console.log(productsdetails,'123456789');
+        console.log(productsdetails, "123456789");
 
         res.render("cart", {
           productsdetails,
           isloggedin: true,
           count: userinfo.cart.length,
- 
         });
       } catch (error) {
         console.log(error);
@@ -316,13 +300,13 @@ export async function userprofile(req, res) {
       { address: 1, _id: 0 }
     );
 
-    res.render("profile", { userinfo, useraddress,isloggedin:true});
+    res.render("profile", { userinfo, useraddress, isloggedin: true });
   } catch (error) {
     console.log(error);
   }
 }
 export function contactus(req, res) {
-  res.render("contactus",{isloggedin:true});
+  res.render("contactus", { isloggedin: true });
 }
 
 export async function getcheckout(req, res) {
@@ -377,9 +361,50 @@ export async function getcheckout(req, res) {
   }
 }
 
-export function postcheckout(req, res) {
+export async function postcheckout(req, res) {
   console.log(req.body);
-  res.redirect("/checkout");
+  try {
+    if (!req.session.user) {
+      res.redirect("/login");
+    } else {
+      const cartQuantity = {};
+
+      const userinfo = await users.findOne(
+        { _id: req.session.user._id },
+        { cart: 1 }
+      );
+      console.log(userinfo);
+
+      const productIDs = userinfo.cart.map((item) => {
+        cartQuantity[item.product_id] = item.quantity;
+
+        return item.product_id;
+      });
+      console.log(productIDs);
+
+      let productsdetails = await products
+        .find({ _id: { $in: productIDs } })
+        .lean();
+
+      const price = await products
+        .find({ _id: { $in: productIDs } }, { price: 1, _id: 0 })
+        .lean();
+
+      productsdetails = productsdetails.map((item) => {
+        return { ...item, cartQuantity: cartQuantity[item._id] };
+      });
+      let sum = 0;
+      for (const i of productsdetails) {
+        i.productTotal = i.cartQuantity * i.price;
+        sum = sum + i.productTotal;
+      }
+      productsdetails.sum = sum;
+
+      res.render("orderConfirmationPage", { isloggedin: true });
+    }
+  } catch (error) {
+    console.log(error);
+  }
 }
 export function addresspage(req, res) {
   res.render("address", { isloggedin: true });
@@ -399,10 +424,10 @@ export async function postaddresspage(req, res) {
 
     const user = await users.findOne({ _id: req.session.user._id });
     console.log(user);
-      
+
     if (
-      firstName== "" ||
-      lastName== "" ||
+      firstName == "" ||
+      lastName == "" ||
       phonenumber == "" ||
       Email == "" ||
       address == "" ||
@@ -580,7 +605,7 @@ export async function deletefromcart(req, res) {
 
 export async function incdec(req, res) {
   try {
-    console.log(req.query.data,'1234');
+    console.log(req.query.data, "1234");
 
     if (req.query.cond == "inc") {
       users
@@ -629,18 +654,17 @@ export async function promoCode(req, res) {
     if (!req.params.data) {
       res.json({ success: false });
     } else {
-      
-    
-    const code = await coupon.findOne({ couponCode: req.params.data });
+      const code = await coupon.findOne({ couponCode: req.params.data });
 
-    if (!code) {
-      console.log("1111111111111111111");
-      res.json({ success: false });
-    } else {
-      console.log("3222222222");
-      res.json({ success: true, code: code.discount });
+      if (!code) {
+        console.log("1111111111111111111");
+        res.json({ success: false });
+      } else {
+        console.log("3222222222");
+        res.json({ success: true, code: code.discount });
+      }
     }
-  }} catch (error) {
+  } catch (error) {
     console.log(error);
   }
 }
