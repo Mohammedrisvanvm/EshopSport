@@ -362,7 +362,8 @@ export async function getcheckout(req, res) {
 }
 
 export async function postcheckout(req, res) {
-  console.log(req.body);
+  console.log(req.body.address);
+
   try {
     if (!req.session.user) {
       res.redirect("/login");
@@ -373,14 +374,24 @@ export async function postcheckout(req, res) {
         { _id: req.session.user._id },
         { cart: 1 }
       );
-      console.log(userinfo);
+      const addressIds = req.body.address;
+
+      // const address = await users.findOne(
+      //   {
+      //     _id: req.session.user._id,
+      //     address: {
+      //       $elemMatch: { _id: { $in: addressIds } }
+      //     }
+      //   }
+      // );
+
+      // console.log(address);
 
       const productIDs = userinfo.cart.map((item) => {
         cartQuantity[item.product_id] = item.quantity;
 
         return item.product_id;
       });
-      console.log(productIDs);
 
       let productsdetails = await products
         .find({ _id: { $in: productIDs } })
@@ -399,12 +410,13 @@ export async function postcheckout(req, res) {
         sum = sum + i.productTotal;
       }
       productsdetails.sum = sum;
-      let promo=0
-      productsdetails.promo=(req.body.promo)
+      let promo = 0;
+      productsdetails.promo = req.body.promo;
 
-      
-console.log(productsdetails);
-      res.render("orderConfirmationPage", { isloggedin: true,productsdetails });
+      res.render("orderConfirmationPage", {
+        isloggedin: true,
+        productsdetails,
+      });
     }
   } catch (error) {
     console.log(error);

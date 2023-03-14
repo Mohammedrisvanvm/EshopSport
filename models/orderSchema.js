@@ -41,7 +41,7 @@ const orderSchema = new mongoose.Schema(
     },
     paymentType: {
       type: String,
-      default: "cod",
+      required: true,
     },
     total: {
       type: Number,
@@ -63,4 +63,3 @@ const orderSchema = new mongoose.Schema(
   { timestamps: true }
 );
 export const orderModel = mongoose.model("order", orderSchema);
-
