@@ -362,7 +362,7 @@ export async function getcheckout(req, res) {
 }
 
 export async function postcheckout(req, res) {
-  console.log(req.body.address);
+  console.log(req.body);
 
   try {
     if (!req.session.user) {
@@ -374,18 +374,23 @@ export async function postcheckout(req, res) {
         { _id: req.session.user._id },
         { cart: 1 }
       );
-      const addressIds = req.body.address;
+      const addressId = req.body.address;
 
-      // const address = await users.findOne(
-      //   {
-      //     _id: req.session.user._id,
-      //     address: {
-      //       $elemMatch: { _id: { $in: addressIds } }
-      //     }
-      //   }
-      // );
+      const address = await users.findOne(
+        {
+          _id: req.session.user._id,
+          "address._id": addressId,
+        },
+        { address: { $elemMatch: { _id: addressId } } }
+      );
 
-      // console.log(address);
+      if (address && address.address.length > 0) {
+        console.log(address.address[0]);
+      } else {
+        console.log("Address not found");
+      }
+
+      console.log(address.address[0]._id);
 
       const productIDs = userinfo.cart.map((item) => {
         cartQuantity[item.product_id] = item.quantity;

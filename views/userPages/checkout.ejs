@@ -205,7 +205,6 @@
                   placeholder="Promo code"
                   id="promo"
                   name="promo"
-                  
                 />
 
                 <button
@@ -239,33 +238,36 @@
 
             <h6>add address..........</h6>
 
-            <% } else { %>
+            <% } else { %> <% useraddress.address.forEach((i) => { %>
+            <div
+              class="d-flex radio"
+              style="
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+              "
+            >
+              <%= i.address %>
+              <br />
+              <%= i.country %>
+              <br />
+              <%= i.state %>
+              <br />
+              <%= i.pincode %>
+              <%= i.address %>
+              <%= i.country %>
+              <%= i.state %>
+              <%= i.pincode %>
 
-          
-              <% useraddress.address.forEach((i) => { %>
-              <div class="d-flex radio" style="
-              display: flex;
-              flex-direction: column;
-              justify-content: flex-end;
-            ">
-             
-                  <%= i.address %><br />
-                  <%= i.country %><br />
-                  <%= i.state %><br />
-                  <%= i.pincode %>
-
-                  <input
-                    type="radio"
-                    id="address<%= i.id %>"
-                    name="address"
-                    value="<%- i._id %>"
-                    required
-                  />
-              
-              </div>
-              <% }) %>
-       
-            <% } %>
+              <input
+                type="radio"
+                id="address<%= i.id %>"
+                name="address"
+                value="<%= i._id %>"
+                required
+              />
+            </div>
+            <% }) %> <% } %>
 
             <hr class="mb-4" />
             <h4 class="mb-3">Payment Options:</h4>
@@ -529,7 +531,7 @@
             console.log(result);
             let newPrice;
             let total = result.data.code;
-       
+
             if (!result.data.success) {
               const promoCodeEl = document.getElementById("promoCode");
               promoCodeEl.innerHTML = "invalid code";
@@ -551,7 +553,6 @@
 
               promoCodeEl.classList.add("text-success");
             }
-           
           });
         } else {
           console.log(err);
