@@ -7,10 +7,11 @@ import { products } from "../models/productSchema.js";
 import uniqid from "uniqid";
 import { coupon } from "../models/couponSchema.js";
 import { orderModel } from "../models/orderSchema.js";
+import { ifuser } from "../middleware/middleware.js";
 
 let passworderr = null;
 let emailerr = null;
-let isloggedin = false;
+
 let loginvalue = null;
 let otperr = null;
 
@@ -21,13 +22,13 @@ let otp = otpGenerator.generate(6, {
 
 export async function guestpage(req, res) {
   if (req.session.user) {
-    isloggedin = true;
+    
     const productinfo = await products.find({ list: true });
-    res.render("guest", { productinfo, isloggedin });
+    res.render("guest", { productinfo, ifuser });
   } else {
-    isloggedin = false;
+  
     const productinfo = await products.find({ list: true });
-    res.render("guest", { productinfo, isloggedin });
+    res.render("guest", { productinfo, ifuser });
   }
 }
 export function userGetLogin(req, res) {
@@ -210,16 +211,14 @@ export async function productPage(req, res) {
   try {
     const productinfo = await products.findById(req.params.id).lean();
 
-    res.render("productPage", { productinfo, isloggedin: true });
+    res.render("productPage", { productinfo, ifuser });
   } catch (error) {
     console.log(error);
   }
 }
 
 export async function wishlist(req, res) {
-  if (!req.session.user) {
-    res.redirect("/login");
-  } else {
+
     const userid = req.session.userid;
 
     try {
@@ -232,13 +231,14 @@ export async function wishlist(req, res) {
       const productsdetails = await products
         .find({ _id: { $in: productId } })
         .lean();
-      isloggedin = true;
-      res.render("wishlist", { productsdetails, isloggedin });
+       
+      
+      res.render("wishlist", { productsdetails, ifuser  });
     } catch (error) {
       console.log(error);
     }
   }
-}
+
 export async function cart(req, res) {
   try {
     if (!req.session.user) {
@@ -251,6 +251,15 @@ export async function cart(req, res) {
           { cart: 1 }
         );
         console.log(userinfo);
+        let count=0
+        const countf = userinfo.cart.map((item) => {
+          count=count+1
+     
+        
+
+          return count;
+        });
+        console.log(count,"=========");
 
         const productIDs = userinfo.cart.map((item) => {
           cartQuantity[item.product_id] = item.quantity;
@@ -263,6 +272,8 @@ export async function cart(req, res) {
           .find({ _id: { $in: productIDs } })
           .lean();
 
+
+            console.log(productsdetails, "123456789");
         productsdetails = productsdetails.map((item) => {
           return { ...item, cartQuantity: cartQuantity[item._id] };
         });
@@ -273,11 +284,12 @@ export async function cart(req, res) {
         }
         productsdetails.sum = sum;
 
-        console.log(productsdetails, "123456789");
+        // console.log(productsdetails, "123456789");
+        
 
         res.render("cart", {
           productsdetails,
-          isloggedin: true,
+          ifuser,
           count: userinfo.cart.length,
         });
       } catch (error) {
@@ -297,13 +309,13 @@ export async function userprofile(req, res) {
       { address: 1, _id: 0 }
     );
 
-    res.render("profile", { userinfo, useraddress, isloggedin: true });
+    res.render("profile", { userinfo, useraddress, ifuser });
   } catch (error) {
     console.log(error);
   }
 }
 export function contactus(req, res) {
-  res.render("contactus", { isloggedin: true });
+  res.render("contactus", { ifuser });
 }
 
 export async function getcheckout(req, res) {
@@ -350,7 +362,7 @@ export async function getcheckout(req, res) {
 
     res.render("checkout", {
       productsdetails,
-      isloggedin: true,
+      ifuser,
       useraddress,
       count
     });
@@ -440,7 +452,7 @@ export async function postcheckout(req, res) {
       // }
       // await Order.create(orders);
       res.render("orderConfirmationPage", {
-        isloggedin: true,
+        ifuser,
         productsdetails,
       });
     }
@@ -449,7 +461,7 @@ export async function postcheckout(req, res) {
   }
 }
 export function addresspage(req, res) {
-  res.render("address", { isloggedin: true });
+  res.render("address", { ifuser });
 }
 export async function postaddressprofile(req, res) {
   
@@ -606,7 +618,7 @@ export async function editaddress(req, res) {
 
     console.log("11111111111", useraddress);
 
-    res.render("editprofile", { i: useraddress, isloggedin });
+    res.render("editprofile", { i: useraddress, ifuser });
   } catch (error) {
     console.log(error);
   }

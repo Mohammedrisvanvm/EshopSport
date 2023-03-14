@@ -101,7 +101,7 @@
                   </li>
                   <li class="nav-item pt-1">
                     <div class="d-flex">
-                      <% if (isloggedin) { %>
+                      <% if (ifuser) { %>
 
                       <div class="dropdown">
                         <button
@@ -225,10 +225,9 @@
                       class="ri-delete-bin-6-fill fs-4 text-danger"
                     ></i>
                   </button>
-
-                  <hr />
-                  <% }) %>
                 </div>
+                <hr />
+                <% }) %>
               </div>
             </div>
           </div>
@@ -266,7 +265,11 @@
               ></button>
             </div>
             <div class="modal-body">
-              <form class="needs-validation" action="/addressprofile" method="post">
+              <form
+                class="needs-validation"
+                action="/addressprofile"
+                method="post"
+              >
                 <div class="mb-3">
                   <label for="firstName" class="form-label">First name</label>
                   <input

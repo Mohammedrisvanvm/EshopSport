@@ -36,6 +36,7 @@ import {
   userprofile,
   wishlist,
 } from "../controllers/userController.js";
+import { ifuser } from "../middleware/middleware.js";
 
 var router = express.Router();
 
@@ -56,13 +57,13 @@ router.get("/resendotp", resendOTP);
 router.get("/signupResendOtp", signupresendOTP);
 router.get("/logout", userlogout);
 router.get('/productpage/:id',productPage)
-router.get('/wishlist',wishlist)
-router.get('/cart',cart)
-router.get('/profile',userprofile)
+router.get('/wishlist',ifuser,wishlist)
+router.get('/cart',ifuser,cart)
+router.get('/profile',ifuser,userprofile)
 router.get('/contactus',contactus)
-router.get('/checkout',getcheckout)
-router.post('/checkout',postcheckout)
-router.get('/address',addresspage)
+router.get('/checkout',ifuser,getcheckout)
+router.post('/checkout',ifuser,postcheckout)
+router.get('/address',ifuser,addresspage)
 router.post('/address',postaddresspage)
 router.post('/addressprofile',postaddressprofile)
 
@@ -72,9 +73,9 @@ router.get("/trash",payment)
 
 
 //axios
-router.get('/addtowishlist/:data',addtowishlist)
+router.get('/addtowishlist/:data',ifuser,addtowishlist)
 router.get('/deletefromwishlist/:data',deletefromwishlist)
-router.get('/addtocart/:data',addtocart)
+router.get('/addtocart/:data',ifuser,addtocart)
 router.get('/deletefromcart/:data',deletefromcart)
 router.get('/incdec',incdec)
 router.get("/deletefromaddress/:data",deletefromaddress)

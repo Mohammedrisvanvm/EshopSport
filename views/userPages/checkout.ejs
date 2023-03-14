@@ -100,7 +100,7 @@
                   </li>
                   <li class="nav-item pt-1">
                     <div class="d-flex">
-                      <% if (isloggedin) { %>
+                      <% if (ifuser) { %>
 
                       <div class="dropdown">
                         <button
@@ -220,7 +220,7 @@
             </ul>
           </div>
 
-          <div class="col-md-8 order-md-1" id="exampleModalCenter">
+          <div class="col-md-8 order-md-1 " id="exampleModalCenter">
             <h4 class="mb-3">Billing address</h4>
             <!-- Button trigger modal -->
             <button
@@ -240,32 +240,36 @@
 
             <% } else { %> <% useraddress.address.forEach((i) => { %>
             <div
-              class="d-flex radio"
-              style="
-                display: flex;
-                flex-direction: column;
-                justify-content: flex-end;
-              "
+              class="d-flex radio border " id="deletefromaddress<%= i._id %>"
+             
             >
+           
               <%= i.address %>
               <br />
               <%= i.country %>
               <br />
               <%= i.state %>
               <br />
-              <%= i.pincode %>
-              <%= i.address %>
-              <%= i.country %>
-              <%= i.state %>
-              <%= i.pincode %>
-
+         
               <input
-                type="radio"
-                id="address<%= i.id %>"
-                name="address"
-                value="<%= i._id %>"
-                required
-              />
+              type="radio"
+          
+              id="address<%= i.id %>"
+              name="address"
+              value="<%= i._id %>"
+              required
+            />
+            <button
+            type="button"
+            onclick=" deletefromaddress(`<%-i._id %>`,`del`)"
+            class="btn btn-outline-none border-0"
+          >
+            <i
+              title="delete address"
+              class="ri-delete-bin-6-fill fs-4 text-danger"
+            ></i>
+          </button>
+             
             </div>
             <% }) %> <% } %>
 
@@ -557,6 +561,12 @@
         } else {
           console.log(err);
         }
+      }
+
+      function deletefromaddress(data) {
+        axios.get("/deletefromaddress/" + data);
+        console.log(data);
+        document.getElementById("deletefromaddress" + data).innerHTML = "";
       }
     </script>
   </body>
