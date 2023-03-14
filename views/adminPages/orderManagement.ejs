@@ -46,36 +46,15 @@
     <link href="/css/pages/dashboard1.css" rel="stylesheet" />
     <!-- You can change the theme colors from here -->
     <link href="/css/colors/default.css" id="theme" rel="stylesheet" />
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
   </head>
 
   <body class="fix-header fix-sidebar card-no-border">
-    <!-- ============================================================== -->
-    <!-- Preloader - style you can find in spinners.css -->
-    <!-- ============================================================== -->
-   
-    <!-- ============================================================== -->
-    <!-- Main wrapper - style you can find in pages.scss -->
-    <!-- ============================================================== -->
     <div id="main-wrapper">
-      <!-- ============================================================== -->
-      <!-- Topbar header - style you can find in pages.scss -->
-      <!-- ============================================================== -->
       <header class="topbar">
         <nav class="navbar top-navbar navbar-expand-md navbar-light">
-          <!-- ============================================================== -->
-          <!-- Logo -->
-          <!-- ============================================================== -->
           <div class="navbar-header">
             <a class="navbar-brand" href="index.ejs">
               <!-- Logo icon --><b>
-                <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
-                <!-- Dark Logo icon -->
                 <img
                   src="/assets/images/logo-icon.png"
                   alt="homepage"
@@ -88,9 +67,7 @@
                   class="light-logo"
                 />
               </b>
-              <!--End Logo icon -->
-              <!-- Logo text --><span>
-                <!-- dark Logo text -->
+              <span>
                 <img
                   src="../assets/images/logo-text.png"
                   alt="homepage"
@@ -103,13 +80,7 @@
               /></span>
             </a>
           </div>
-          <!-- ============================================================== -->
-          <!-- End Logo -->
-          <!-- ============================================================== -->
           <div class="navbar-collapse">
-            <!-- ============================================================== -->
-            <!-- toggle and nav items -->
-            <!-- ============================================================== -->
             <ul class="navbar-nav me-auto">
               <li class="nav-item">
                 <a
@@ -118,9 +89,6 @@
                   ><i class="fa fa-bars"></i
                 ></a>
               </li>
-              <!-- ============================================================== -->
-              <!-- Search -->
-              <!-- ============================================================== -->
               <li class="nav-item hidden-xs-down search-box">
                 <a
                   class="nav-link hidden-sm-down waves-effect waves-dark"
@@ -137,13 +105,7 @@
                 </form>
               </li>
             </ul>
-            <!-- ============================================================== -->
-            <!-- User profile and search -->
-            <!-- ============================================================== -->
             <ul class="navbar-nav my-lg-0">
-              <!-- ============================================================== -->
-              <!-- Profile -->
-              <!-- ============================================================== -->
               <li class="nav-item dropdown u-pro">
                 <a
                   class="nav-link dropdown-toggle waves-effect waves-dark profile-pic"
@@ -171,98 +133,91 @@
           </div>
         </nav>
       </header>
-      <!-- ============================================================== -->
-      <!-- End Topbar header -->
-      <!-- ============================================================== -->
-      <!-- ============================================================== -->
-      <!-- Left Sidebar - style you can find in sidebar.scss  -->
-      <!-- ============================================================== -->
-      <aside class="left-sidebar">
-        <!-- Sidebar scroll-->
-        <div class="scroll-sidebar">
-          <!-- Sidebar navigation-->
-          <nav class="sidebar-nav">
-            <ul id="sidebarnav">
-              <li>
-                <a
-                  class="waves-effect waves-dark"
-                  href="/admin/dashboard"
-                  aria-expanded="false"
-                  ><i class="fa fa-home"></i
-                  ><span class="hide-menu">Dashboard</span></a
-                >
-              </li>
-              <li>
-                <a
-                  class="waves-effect waves-dark"
-                  href="/admin/userManagement"
-                  aria-expanded="false"
-                  ><i class="fa fa-users"></i
-                  ><span class="hide-menu">user management</span></a
-                >
-              </li>
-              <li>
-                <a
-                  class="waves-effect waves-dark"
-                  href="/admin/categoriesManagement"
-                  aria-expanded="false"
-                  ><i class="fa fa-list"></i
-                  ><span class="hide-menu">categories</span></a
-                >
-              </li>
-              <li>
-                <a
-                  class="waves-effect waves-dark"
-                  href="/admin/productManagement"
-                  aria-expanded="false"
-                  ><i class="fa fa-shopping-cart"></i
-                  ><span class="hide-menu">Product</span></a
-                >
-              </li>
-              <li>
-                <a
-                  class="waves-effect waves-dark"
-                  href="/admin/banner"
-                  aria-expanded="false"
-                >
-                  <i class="fa-thin fa-image"></i
-                  ><span class="hide-menu">banner</span></a
-                >
-              </li>
-              <li>
-                <a
-                  class="waves-effect waves-dark"
-                  href="/admin/couponManagement"
-                  aria-expanded="false"
-                  ><i class="fa fa-bookmark-o"></i
-                  ><span class="hide-menu">coupon </span></a
-                >
-              </li>
-              <li>
-                <a
-                  class="waves-effect waves-dark"
-                  href="/admin/orderManagement"
-                  aria-expanded="false"
-                  ><i class="fa fa-question-circle"></i
-                  ><span class="hide-menu">order Management</span></a
-                >
-              </li>
-              <li>
-                <a
-                  class="waves-effect waves-dark"
-                  href="/admin/salesReport"
-                  aria-expanded="false"
-                  ><i class="fa fa-question-circle"></i
-                  ><span class="hide-menu">sales report</span></a
-                >
-              </li>
-            </ul>
-          </nav>
-          <!-- End Sidebar navigation -->
-        </div>
-        <!-- End Sidebar scroll-->
-      </aside>
-      <section>
+    </div>
+
+    <aside class="left-sidebar">
+      <div class="scroll-sidebar">
+        <nav class="sidebar-nav">
+          <ul id="sidebarnav">
+            <li>
+              <a
+                class="waves-effect waves-dark"
+                href="/admin/dashboard"
+                aria-expanded="false"
+                ><i class="fa fa-home"></i
+                ><span class="hide-menu">Dashboard</span></a
+              >
+            </li>
+            <li>
+              <a
+                class="waves-effect waves-dark"
+                href="/admin/userManagement"
+                aria-expanded="false"
+                ><i class="fa fa-users"></i
+                ><span class="hide-menu">user management</span></a
+              >
+            </li>
+            <li>
+              <a
+                class="waves-effect waves-dark"
+                href="/admin/categoriesManagement"
+                aria-expanded="false"
+                ><i class="fa fa-list"></i
+                ><span class="hide-menu">categories</span></a
+              >
+            </li>
+            <li>
+              <a
+                class="waves-effect waves-dark"
+                href="/admin/productManagement"
+                aria-expanded="false"
+                ><i class="fa fa-shopping-cart"></i
+                ><span class="hide-menu">Product</span></a
+              >
+            </li>
+            <li>
+              <a
+                class="waves-effect waves-dark"
+                href="/admin/banner"
+                aria-expanded="false"
+              >
+                <i class="fa-thin fa-image"></i
+                ><span class="hide-menu">banner</span></a
+              >
+            </li>
+            <li>
+              <a
+                class="waves-effect waves-dark"
+                href="/admin/couponManagement"
+                aria-expanded="false"
+                ><i class="fa fa-bookmark-o"></i
+                ><span class="hide-menu">coupon </span></a
+              >
+            </li>
+            <li>
+              <a
+                class="waves-effect waves-dark"
+                href="/admin/orderManagement"
+                aria-expanded="false"
+                ><i class="fa fa-question-circle"></i
+                ><span class="hide-menu">order Management</span></a
+              >
+            </li>
+            <li>
+              <a
+                class="waves-effect waves-dark"
+                href="/admin/salesReport"
+                aria-expanded="false"
+                ><i class="fa fa-question-circle"></i
+                ><span class="hide-menu">sales report</span></a
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </aside>
+
+    <section>
       <div class="page-wrapper">
         <div class="container-fluid">
           <div class="row page-titles">
@@ -276,57 +231,55 @@
               </ol>
             </div>
           </div>
-       
+
           <section>
             <table class="table table-hover">
               <thead>
                 <tr>
                   <th scope="col">number</th>
                   <th scope="col">name</th>
-                  <th scope="col">coupon code</th>
                   <th scope="col">amountPa</th>
+                  <th scope="col">coupon use</th>
                   <th scope="col">totalamount</th>
-                  
-                  
+
                   <th scope="col">paymentType</th>
-                
-                 
+
                   <th scope="col">quantity</th>
-                  
 
                   <th scope="col">purchased date</th>
                   <th scope="col">dispatched date</th>
                   <th scope="col">orderstatus</th>
-
                 </tr>
               </thead>
               <tbody>
                 <% orderinfo.forEach((i,index) => { %>
-                    <tr>
-                      <td scope="row"><%- index+1 %></td>
-                      <td><%- i._id %></td>
-                      <td><%-i.prderId %></td>
-                      <td><%- i.coupon %></td>
-                      <td><%- i.total %></td>
-                      <td><%- i.paymentType %></td>
-                      <td><%- i.quantity %></td>
-                      <td><%- i.createdAt %></td>
-                      <td><%- i.dispatch %></td>
-                      
-                      <td><%-i.orderStatus %></td>
-                     
-      
-                 
-                
+                <tr>
+                  <td scope="row"><%- index+1 %></td>
+                  <td><%- i._id %></td>
+                  <td><%-i.orderId %></td>
+                  <td><%- i.coupon.price %></td>
+                  <td><%- i.total %></td>
+                  <td><%- i.paymentType %></td>
+                  <td><%- i.quantity %></td>
+                  <td><%- i.createdAt %></td>
+                  <td><%- i.dispatch %></td>
+                  <td>
+                    <select
+                      class="form-select"
+                      aria-label="Default select example"
+                    >
+                      <option value="1"><%-i.orderStatus %></option>
+                      <option value="2" class="bg-success">Delivered</option>
+                      <option value="cancelled" class="bg-danger">
+                        cancelled
+                      </option>
+                    </select>
+                  </td>
                 </tr>
                 <% }) %>
               </tbody>
             </table>
           </section>
-
-          
-
-         
 
           <footer class="footer">
             © 2023 eshopsport by
@@ -334,9 +287,7 @@
           </footer>
         </div>
       </div>
-    </div>
-    </div>
-</section>
+    </section>
 
     <script src="/assets/node_modules/jquery/jquery.min.js"></script>
     <!-- Bootstrap popper Core JavaScript -->
@@ -360,9 +311,5 @@
     <script src="/assets/node_modules/c3-master/c3.min.js"></script>
     <!-- Chart JS -->
     <script src="js/dashboard1.js"></script>
-
-   
-    ></script>
-
   </body>
 </html>
