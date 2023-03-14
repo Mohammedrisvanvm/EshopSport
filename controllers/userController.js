@@ -364,24 +364,11 @@ export async function getcheckout(req, res) {
 
 export async function postcheckout(req, res) {
   console.log(req.body);
-  let address = await users.findOne(
-    {
-      _id: req.session.user._id,
-      "address._id": req.body.address,
-    },
-    { address: { $elemMatch: { _id: req.body.address } } }
-  );
-  let deladdress=address.address[0]
-  const order= new orderModel({
-    address:deladdress,
-    product:productIDs,
-    userId:req.session.user._id,
-    paymentType:req.body.payment
-
-  })
-
-
   try {
+ 
+
+
+
     if (!req.session.user) {
       res.redirect("/login");
     } else {
@@ -421,6 +408,27 @@ export async function postcheckout(req, res) {
       productsdetails.sum = sum;
       let promo = 0;
       productsdetails.promo = req.body.promo;
+      let address = await users.findOne(
+        {
+          _id: req.session.user._id,
+          "address._id": req.body.address,
+        },
+        { address: { $elemMatch: { _id: req.body.address } } }
+      );
+      let deladdress=address.address[0]
+      
+      const order= new orderModel({
+        address:deladdress,
+        product:productIDs,
+        userId:req.session.user._id,
+        quantity:cartQuantity.value,
+        total: productsdetails.sum,
+        paymentType:req.body.paymentType,
+        
+    
+    
+      })
+      order.save()
 
       res.render("orderConfirmationPage", {
         isloggedin: true,
