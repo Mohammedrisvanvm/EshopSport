@@ -16,7 +16,7 @@ const orderSchema = new mongoose.Schema(
       required: true,
     },
     product: {
-      type: Object,
+      type: Array,
       required: true,
     },
     createdAt: {

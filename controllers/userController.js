@@ -6,6 +6,7 @@ import bcrypt from "bcrypt";
 import { products } from "../models/productSchema.js";
 import uniqid from "uniqid";
 import { coupon } from "../models/couponSchema.js";
+import { orderModel } from "../models/orderSchema.js";
 
 let passworderr = null;
 let emailerr = null;
@@ -363,6 +364,22 @@ export async function getcheckout(req, res) {
 
 export async function postcheckout(req, res) {
   console.log(req.body);
+  let address = await users.findOne(
+    {
+      _id: req.session.user._id,
+      "address._id": req.body.address,
+    },
+    { address: { $elemMatch: { _id: req.body.address } } }
+  );
+  let deladdress=address.address[0]
+  const order= new orderModel({
+    address:deladdress,
+    product:productIDs,
+    userId:req.session.user._id,
+    paymentType:req.body.payment
+
+  })
+
 
   try {
     if (!req.session.user) {
@@ -374,23 +391,10 @@ export async function postcheckout(req, res) {
         { _id: req.session.user._id },
         { cart: 1 }
       );
-      const addressId = req.body.address;
+      
 
-      const address = await users.findOne(
-        {
-          _id: req.session.user._id,
-          "address._id": addressId,
-        },
-        { address: { $elemMatch: { _id: addressId } } }
-      );
-
-      if (address && address.address.length > 0) {
-        console.log(address.address[0]);
-      } else {
-        console.log("Address not found");
-      }
-
-      console.log(address.address[0]._id);
+   
+      
 
       const productIDs = userinfo.cart.map((item) => {
         cartQuantity[item.product_id] = item.quantity;
@@ -421,6 +425,7 @@ export async function postcheckout(req, res) {
       res.render("orderConfirmationPage", {
         isloggedin: true,
         productsdetails,
+        
       });
     }
   } catch (error) {
