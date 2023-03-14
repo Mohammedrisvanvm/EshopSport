@@ -152,7 +152,7 @@
     </header>
 
     <div class="container pt-4">
-      <form action="/checkout" method="post">
+      <form action="/checkout" method="post" id="payment">
         <div class="row" style="margin-top: 100px">
           <h1 class="d-flex justify-content-center mb-5">checkout</h1>
           <div class="col-md-4 order-md-2 mb-4">
@@ -168,9 +168,13 @@
               >
                 <div>
                   <h6 class="my-0"><%-i.productName %></h6>
-                  <small class="text-muted" id="price">price:₹<%-i.price %></small>
+                  <small class="text-muted" id="price"
+                    >price:₹<%-i.price %></small
+                  >
                   <br />
-                  <small class="text-muted" id="quantity">quantity:<%-i.Qty %></small>
+                  <small class="text-muted" id="quantity"
+                    >quantity:<%-i.Qty %></small
+                  >
                   <br />
                   <small class="text-muted"><%-i.description %></small>
                 </div>
@@ -229,19 +233,34 @@
             <h6>add address..........</h6>
 
             <% } else { %>
-            <p>add address.....</p>
 
-            <div class="h-20">
+            <div
+              style="
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+              "
+            >
               <% useraddress.address.forEach((i) => { %>
-                <div class="d-flex">
-                  <input type="radio" id="<%= i.id %>" name="address" value="<%= i.id %>">
-                  <p>
-                    <%= i.address %><br />
-                    <%= i.country %><br />
-                    <%= i.state %><br />
-                    <%= i.pincode %>
-                  </p>
-                </div>
+              <div class="d-flex radio">
+                <label for="">
+              
+                  <%= i.address %><br />
+                  <%= i.country %><br />
+                  <%= i.state %><br />
+                  <%= i.pincode %>
+             
+                <input
+                  type="radio"
+                  id="address<%= i.id %>"
+                  name="address<%- i._id %>"
+                  value="<%- i._id %>"
+               
+                  required
+                />
+              </label>
+               
+              </div>
               <% }) %>
             </div>
             <% } %>
@@ -249,34 +268,55 @@
             <hr class="mb-4" />
             <h4 class="mb-3">Payment Options:</h4>
             <div class="d-block my-3">
-              <div class="custom-control custom-radio">
-                <input id="credit" name="payment-option" type="radio" class="custom-control-input" checked/>
-                <label class="custom-control-label" for="credit">Credit Card</label>
-              </div>
-              <div class="custom-control custom-radio">
-                <input id="debit" name="payment-option" type="radio" class="custom-control-input"/>
-                <label class="custom-control-label" for="debit">Debit Card</label>
-              </div>
-              <div class="custom-control custom-radio">
-                <input id="paypal" name="payment-option" type="radio" class="custom-control-input"/>
+              <!-- <div class="custom-control custom-radio">
+                <input
+                  id="credit"
+                  name="payment-option"
+                  type="radio"
+                  class="custom-control-input"
+                  checked
+                />
+                <label class="custom-control-label" for="credit"
+                  >Credit Card</label
+                >
+              </div> -->
+              <!-- <div class="custom-control custom-radio">
+                <input
+                  id="debit"
+                  name="payment-option"
+                  type="radio"
+                  class="custom-control-input"
+                />
+                <label class="custom-control-label" for="debit"
+                  >Debit Card</label
+                >
+              </div> -->
+              <!-- <div class="custom-control custom-radio">
+                <input
+                  id="paypal"
+                  name="payment-option"
+                  type="radio"
+                  class="custom-control-input"
+                />
                 <label class="custom-control-label" for="paypal">PayPal</label>
+              </div> -->
+              <div class="custom-control custom-radio ">
+                <input
+                  id="cash"
+                  name="COD"
+                  type="radio"
+             required
+                />
+                <label class="custom-control-label" for="cash"
+                  >Cash on Delivery</label
+                >
               </div>
-              <div class="custom-control custom-radio">
-                <input id="cash" name="payment-option" type="radio" class="custom-control-input"/>
-                <label class="custom-control-label" for="cash">Cash on Delivery</label>
-              </div>
-            </div> 
-            <div class="row">
+            </div>
+            <!-- <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="cc-name">Name on card</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="cc-name"
-                  name="card name"
-                  placeholder=""
-                  required=
-                />
+                <input type="text" class="form-control" id="cc-name" name="card
+                name" placeholder="" required= />
                 <small class="text-muted">Full name as displayed on card</small>
                 <div class="invalid-feedback">Name on card is required</div>
               </div>
@@ -294,8 +334,8 @@
                   Credit card number is required
                 </div>
               </div>
-            </div>
-            <div class="row">
+            </div> -->
+            <!-- <div class="row">
               <div class="col-md-3 mb-3">
                 <label for="cc-expiration">Expiration</label>
                 <input
@@ -307,8 +347,8 @@
                   required=""
                 />
                 <div class="invalid-feedback">Expiration date required</div>
-              </div>
-              <div class="col-md-3 mb-3">
+              </div> -->
+              <!-- <div class="col-md-3 mb-3">
                 <label for="cc-cvv">CVV</label>
                 <input
                   type="text"
@@ -318,21 +358,21 @@
                   placeholder=""
                   required=""
                 />
-                <div class="invalid-feedback">Security code required</div>
-              </div>
-            </div>
+               
+            </div> -->
             <hr class="mb-4" />
           </div>
         </div>
         <button
           class="btn btn-primary btn-lg btn-block form-control"
+id="payment"
           type="submit"
-        >
-          Continue to checkout
+        >Payment
+          
         </button>
       </form>
       <footer class="my-5 pt-5 text-muted text-center text-small">
-        <p class="mb-1">© 2017-2019 Company Name</p>
+        <p class="mb-1">© 2023 ESHOP SPORT</p>
         <ul class="list-inline">
           <li class="list-inline-item"><a href="#">Privacy</a></li>
           <li class="list-inline-item"><a href="#">Terms</a></li>
@@ -363,12 +403,7 @@
               ></button>
             </div>
             <div class="modal-body">
-              <form
-                class="needs-validation"
-                action="/address"
-                method="post"
-                novalidate
-              >
+              <form class="needs-validation" action="/address" method="post">
                 <div class="mb-3">
                   <label for="firstName" class="form-label">First name</label>
                   <input
@@ -524,7 +559,6 @@
           console.log(err);
         }
       }
-
     </script>
   </body>
 </html>
