@@ -238,7 +238,7 @@
                 <tr>
                   <th scope="col">number</th>
                   <th scope="col">name</th>
-                  <th scope="col">amountPa</th>
+                  <th scope="col">orderId</th>
                   <th scope="col">coupon use</th>
                   <th scope="col">totalamount</th>
 
@@ -261,8 +261,8 @@
                   <td><%- i.total %></td>
                   <td><%- i.paymentType %></td>
                   <td><%- i.quantity %></td>
-                  <td><%- i.createdAt %></td>
-                  <td><%- i.dispatch %></td>
+                  <td><%- i.createdAt.toLocaleString()  %></td>
+                  <td><%- i.dispatch.toLocaleString()  %></td>
                   <td>
                     <select
                       class="form-select"

@@ -317,8 +317,12 @@ export async function postCouponManagement(req, res) {
     console.log(error);
   }
 }
-export  function banner(req, res){
-  res.render('bannerManagement')
+export async function banner(req, res){
+let banner=await bannerimage.find()
+
+let bannerimage1=banner.map((item)=>item.mainImage[0])
+console.log(bannerimage1,banner);
+  res.render('bannerManagement',{bannerimage1})
 }
 export async function postBanner(req, res){
 console.log(req.files)

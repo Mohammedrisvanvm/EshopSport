@@ -295,6 +295,28 @@
             </button>
           </div>
         </form>
+        <h2 class="mt-4">carousel images</h2> 
+          <div class="border d-flex mt-4">
+     
+          <% bannerimage1.forEach(i => { %>
+           
+       
+          <div
+            class="col-lg-4 col-md-12 mb-2 bg-image hover-zoom ripple ripple-surface ripple-surface-light"
+          >
+            <img
+              src="/image/carousel image/<%-i.filename %>"
+              class="img-fluid"
+              alt=""
+              style="height: 60px
+              ;width: 80px;"
+            />
+          </div>
+        
+          <% }) %>
+        </div>
+          
+
           
 
          
