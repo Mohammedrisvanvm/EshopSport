@@ -399,8 +399,12 @@ export async function postcheckout(req, res) {
         sum = sum + i.productTotal;
       }
       productsdetails.sum = sum;
+      let promo=0
+      productsdetails.promo=(req.body.promo)
 
-      res.render("orderConfirmationPage", { isloggedin: true });
+      
+console.log(productsdetails);
+      res.render("orderConfirmationPage", { isloggedin: true,productsdetails });
     }
   } catch (error) {
     console.log(error);
