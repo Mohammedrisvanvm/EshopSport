@@ -409,3 +409,16 @@ export function unlistproduct(req, res) {
     }
   });
 }
+export async function userban(req,res){
+console.log(req.params);
+try {
+  const userinfo=await users.findByIdAndupdate({
+    _id:id
+  })
+  
+} catch (error) {
+  res.send(error);
+  
+}
+
+}

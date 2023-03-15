@@ -16,6 +16,7 @@ import {
   getsignUpOtp,
   guestpage,
   incdec,
+  newp,
   payment,
   postaddresspage,
   postaddressprofile,
@@ -81,5 +82,7 @@ router.get('/incdec',incdec)
 router.get("/deletefromaddress/:data",deletefromaddress)
 router.get('/promoCode/:data',promoCode)
 
+
+router.get('/new',newp)
 
 export default router;

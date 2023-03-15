@@ -286,6 +286,7 @@
                 <label>categories</label>
                 <select class="btn btn-primary" name="category">
                   <% categoryinfo.forEach((i) => { %>
+                    <option value="">select</option>
 
                   <option value="<%-i.name %>" name="category">
                     <%- i.name %>

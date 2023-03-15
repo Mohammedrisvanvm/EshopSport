@@ -213,7 +213,7 @@ export async function postforget3(req, res) {
 
 export async function productPage(req, res) {
   try {
-    const productinfo = await products.findById(req.params.id).lean();
+    const productinfo = await products.findById(req.params.id).lean()
 
     res.render("productPage", { productinfo, ifuser });
   } catch (error) {
@@ -252,8 +252,8 @@ export async function cart(req, res) {
       try {
         const userinfo = await users.findOne(
           { _id: req.session.user._id },
-          { cart: 1 }
-        );
+          { cart: 1 })
+        ;
         console.log(userinfo);
         let count=0
         const countf = userinfo.cart.map((item) => {
@@ -294,7 +294,7 @@ export async function cart(req, res) {
         res.render("cart", {
           productsdetails,
           ifuser,
-          count: userinfo.cart.length,
+          count
         });
       } catch (error) {
         console.log(error);
@@ -329,14 +329,14 @@ export async function getcheckout(req, res) {
       { _id: req.session.user._id },
       { cart: 1 }
     );
-    console.log(userinfo);
+   
 
     const productIDs = userinfo.cart.map((item) => {
       cartQuantity[item.product_id] = item.quantity;
 
       return item.product_id;
     });
-    console.log(productIDs);
+   
 
     let productsdetails = await products
       .find({ _id: { $in: productIDs } })
@@ -352,11 +352,16 @@ export async function getcheckout(req, res) {
     }
     productsdetails.sum = sum;
 
-    console.log(productsdetails, "123456789");
-    const count = await users.findOne(
-      { _id: req.session.user._id} ,{cart} ).count()
+    // console.log(productsdetails, "123456789");
+    let count=0
+    const count1 = userinfo.cart.map((item) => {
+      count=count+1
+ 
+    
 
-      console.log(count);
+      return count;
+    });
+    console.log(count);
     //address
 
     const useraddress = await users.findOne(
@@ -798,3 +803,6 @@ export async function promoCode(req, res) {
 }
 
 //axios function end
+export function newp(req,res){
+  res.render("new home")
+}

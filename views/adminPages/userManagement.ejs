@@ -46,37 +46,34 @@
     <link href="/css/pages/dashboard1.css" rel="stylesheet" />
     <!-- You can change the theme colors from here -->
     <link href="/css/colors/default.css" id="theme" rel="stylesheet" />
-    </head>
+  </head>
 
   <body class="fix-header fix-sidebar card-no-border">
-  
     <div id="main-wrapper">
-    <header class="topbar">
+      <header class="topbar">
         <nav class="navbar top-navbar navbar-expand-md navbar-light">
           <div class="navbar-header">
             <a class="navbar-brand" href="index.ejs">
-             <b>
-                
+              <b>
                 <img
                   src="/assets/images/logo-icon.png"
                   alt="homepage"
                   class="dark-logo"
                 />
-           
+
                 <img
                   src="/assets/images/logo-light-icon.png"
                   alt="homepage"
                   class="light-logo"
                 />
               </b>
-             
-          <span>
-             
+
+              <span>
                 <img
                   src="../assets/images/logo-text.png"
                   alt="homepage"
                   class="dark-logo" />
-            
+
                 <img
                   src="../assets/images/logo-light-text.png"
                   class="light-logo"
@@ -85,7 +82,7 @@
             </a>
           </div>
           <div class="navbar-collapse">
-           <ul class="navbar-nav me-auto">
+            <ul class="navbar-nav me-auto">
               <li class="nav-item">
                 <a
                   class="nav-link nav-toggler hidden-md-up waves-effect waves-dark"
@@ -94,8 +91,8 @@
                 ></a>
               </li>
             </ul>
-           <ul class="navbar-nav my-lg-0">
-             <li class="nav-item dropdown u-pro">
+            <ul class="navbar-nav my-lg-0">
+              <li class="nav-item dropdown u-pro">
                 <a
                   class="nav-link dropdown-toggle waves-effect waves-dark profile-pic"
                   href="#"
@@ -116,7 +113,7 @@
           </div>
         </nav>
       </header>
-  
+
       <aside class="left-sidebar">
         <!-- Sidebar scroll-->
         <div class="scroll-sidebar">
@@ -199,15 +196,11 @@
               </li>
             </ul>
           </nav>
-  
         </div>
-
       </aside>
 
       <div class="page-wrapper">
-  
         <div class="container-fluid bg-white fw-bold">
-
           <div class="row page-titles">
             <div class="col-md-5 align-self-center">
               <h3 class="text-themecolor">User Management</h3>
@@ -238,7 +231,7 @@
                   <td><%-i.name %></td>
                   <td><%- i.email %></td>
                   <td>
-                    <button class="btn btn-success" onclick="">
+                    <button class="btn btn-success" onclick="userban(`<%-i._id %>`)">
                       <%- i.ban %>
                     </button>
                   </td>
@@ -259,22 +252,17 @@
           © 2023 eshop sport by
           <a href="https://www.wrappixel.com/">eshop sport.com</a>
         </footer>
-        </div>
-     </div>
-      <script src="/assets/node_modules/jquery/jquery.min.js"></script>
+      </div>
+    </div>
+
+
+
+    <script src="/assets/node_modules/jquery/jquery.min.js"></script>
     <!-- Bootstrap popper Core JavaScript -->
     <script src="/assets/node_modules/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- slimscrollbar scrollbar JavaScript -->
-    <script src="js/perfect-scrollbar.jquery.min.js"></script>
-    <!--Wave Effects -->
-    <script src="js/waves.js"></script>
-    <!--Menu sidebar -->
-    <script src="js/sidebarmenu.js"></script>
-    <!--Custom JavaScript -->
-    <script src="js/custom.min.js"></script>
-    <!-- ============================================================== -->
-    <!-- This page plugins -->
-    <!-- ============================================================== -->
+    
+   
     <!--morris JavaScript -->
     <script src="/assets/node_modules/raphael/raphael-min.js"></script>
     <script src="/assets/node_modules/morrisjs/morris.min.js"></script>
@@ -282,6 +270,16 @@
     <script src="/assets/node_modules/d3/d3.min.js"></script>
     <script src="/assets/node_modules/c3-master/c3.min.js"></script>
     <!-- Chart JS -->
-    <script src="js/dashboard1.js"></script>
+ 
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+
+    <script>
+      function userban(data) {
+        axios.get('/admin/userban/'+data)
+        
+      }
+    </script>
+
+
   </body>
 </html>
