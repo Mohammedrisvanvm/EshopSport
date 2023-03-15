@@ -3,8 +3,6 @@ import {
   adminlogout,
   banner,
   couponManagement,
-  deletecategory,
-  deleteProduct,
   editcategory,
   getaddcategories,
   getaddProduct,
@@ -43,7 +41,7 @@ router.get("/addcategories",ifadmin, getaddcategories);
 router.post("/addcategories", postaddcategories);
 router.get("/editcategory/:id",ifadmin, editcategory);
 router.post("/editcategory/:id", posteditcategory);
-router.get("/deletecategory/:id",ifadmin, deletecategory);
+
 router.get("/editproduct/:id",ifadmin, multiupload, getEditProduct);
 router.post("/editproduct/:id", multiupload, postEditProduct);
 router.get("/couponManagement",ifadmin, couponManagement);
@@ -53,7 +51,8 @@ router.post("/banner",multiuploadcaro,postBanner);
 router.get('/ordermanagement',ifadmin,ordermanagement)
 router.get("/logout",ifadmin, adminlogout);
 //axios
-router.get("/deleteproduct/:id",ifadmin, deleteProduct);
+
+
 router.get("/categoryunlist/:id",ifadmin, unlistcategory);
 router.get("/productunlist/:id",ifadmin, unlistproduct);
 router.get("/userban/:id",ifadmin, userban);

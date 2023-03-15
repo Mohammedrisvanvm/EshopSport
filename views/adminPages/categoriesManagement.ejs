@@ -59,25 +59,27 @@
   </head>
 
   <body class="fix-header fix-sidebar card-no-border">
-    
-   <div id="main-wrapper">
-       <header class="topbar">
+    <div id="main-wrapper">
+      <header class="topbar">
         <nav class="navbar top-navbar navbar-expand-md navbar-light">
-         <div class="navbar-header">
+          <div class="navbar-header">
             <a class="navbar-brand" href="index.ejs">
-             <b>
-                <img src="" alt="homepage" class="dark-logo" />
+              <!-- Logo icon --><b>
+                <img
+                  src="/assets/images/logo-icon.png"
+                  alt="homepage"
+                  class="dark-logo"
+                />
                 <!-- Light Logo icon -->
                 <img
-                  src="https://assets.stickpng.com/images/61f7cd6e67553f0004c53e73.png"
+                  src="/assets/images/logo-light-icon.png"
                   alt="homepage"
                   class="light-logo"
                 />
               </b>
-           <span>
-             
+              ><span>
                 <img
-                  src="/image/Screenshot_20230216_113503.jpg"
+                  src="../assets/images/logo-text.png"
                   alt="homepage"
                   class="dark-logo" />
                 <!-- Light Logo text -->
@@ -97,9 +99,24 @@
                   ><i class="fa fa-bars"></i
                 ></a>
               </li>
+              <li class="nav-item hidden-xs-down search-box">
+                <a
+                  class="nav-link hidden-sm-down waves-effect waves-dark"
+                  href="javascript:void(0)"
+                  ><i class="fa fa-search"></i
+                ></a>
+                <form class="app-search">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Search & enter"
+                  />
+                  <a class="srh-btn"><i class="fa fa-times"></i></a>
+                </form>
+              </li>
             </ul>
-           <ul class="navbar-nav my-lg-0">
-            <li class="nav-item dropdown u-pro">
+            <ul class="navbar-nav my-lg-0">
+              <li class="nav-item dropdown u-pro">
                 <a
                   class="nav-link dropdown-toggle waves-effect waves-dark profile-pic"
                   href="#"
@@ -112,15 +129,21 @@
                     alt="user"
                     class=""
                   />
-                  <span class="hidden-md-down">Mohammed Risvan&nbsp;</span>
+                  <span class="hidden-md-down">Mohammed Risvan &nbsp;</span>
                 </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown"></ul>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li>
+                    <a class="dropdown-item" href="/admin/logout"
+                      ><button class="btn btn-dark">logout</button></a
+                    >
+                  </li>
+                </ul>
               </li>
             </ul>
           </div>
         </nav>
       </header>
-   
+
       <aside class="left-sidebar">
         <div class="scroll-sidebar">
           <nav class="sidebar-nav">
@@ -211,9 +234,10 @@
             ><button class="btn btn-outline-primary">add categories</button></a
           >
           <a href="/admin/addcategories"
-          ><button class="btn btn-outline-primary">add subCategories</button></a
-        >
-
+            ><button class="btn btn-outline-primary">
+              add subCategories
+            </button></a
+          >
 
           <section>
             <div style="margin-top: 50px">
@@ -225,7 +249,6 @@
                     <th>sl</th>
                     <th>category name</th>
                     <th>list</th>
-                    <th>edit/delete</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -243,23 +266,13 @@
                         <%-i.list %>
                       </button>
                     </td>
-                    <td class="d-flex">
-                      <a href="/admin/editcategory/<%-i._id %>">
-                        <i class="ri-pencil-line mx-2 fs-4 text-dark"></i></a
-                      ><a href="/admin/deletecategory/<%-i._id %>"
-                        ><i
-                          class="ri-delete-bin-6-fill fs-4 mx-3 text-danger"
-                          onclick="return confirm('are you sure you want to delete?')"
-                        ></i
-                      ></a>
-                    </td>
                   </tr>
                   <% }) %>
                 </tbody>
               </table>
             </div>
           </section>
-          
+
           <section>
             <div style="margin-top: 50px">
               <h1 class="my-5">sub Categories</h1>
@@ -270,11 +283,10 @@
                     <th>sl</th>
                     <th>category name</th>
                     <th>list</th>
-                    <th>edit/delete</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr id="category">
                     <% categoryinfo.forEach((i,index) => { %>
 
                     <td><%-index+1 %></td>
@@ -287,16 +299,6 @@
                       >
                         <%-i.list %>
                       </button>
-                    </td>
-                    <td class="d-flex">
-                      <a href="/admin/editcategory/<%-i._id %>">
-                        <i class="ri-pencil-line mx-2 fs-4 text-dark"></i></a
-                      ><a href="/admin/deletecategory/<%-i._id %>"
-                        ><i
-                          class="ri-delete-bin-6-fill fs-4 mx-3 text-danger"
-                          onclick="return confirm('are you sure you want to delete?')"
-                        ></i
-                      ></a>
                     </td>
                   </tr>
                   <% }) %>

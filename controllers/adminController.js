@@ -214,24 +214,6 @@ export async function posteditcategory(req, res) {
   }
 }
 
-export async function deletecategory(req, res) {
-  try {
-    categories.findByIdAndDelete(
-      { _id: req.params.id },
-      req.body,
-      (err, data) => {
-        if (err) {
-          next(err);
-        } else {
-          res.redirect("/admin/categoriesManagement");
-        }
-      }
-    );
-  } catch (error) {
-    res.redirect("/admin/categoriesManagement");
-    alert("not success");
-  }
-}
 
 export async function getEditProduct(req, res) {
   try {
@@ -353,6 +335,9 @@ export function adminlogout(req, res) {
 }
 
 //axios
+
+
+
 export function unlistcategory(req, res) {
   return new Promise(async (resolve, reject) => {
     try {

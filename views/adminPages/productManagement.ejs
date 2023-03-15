@@ -72,15 +72,11 @@
       <!-- ============================================================== -->
       <header class="topbar">
         <nav class="navbar top-navbar navbar-expand-md navbar-light">
-          <!-- ============================================================== -->
-          <!-- Logo -->
-          <!-- ============================================================== -->
+        
           <div class="navbar-header">
             <a class="navbar-brand" href="index.ejs">
               <!-- Logo icon --><b>
-                <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
-                <!-- Dark Logo icon -->
-                <img
+               <img
                   src="/assets/images/logo-icon.png"
                   alt="homepage"
                   class="dark-logo"
@@ -92,9 +88,8 @@
                   class="light-logo"
                 />
               </b>
-              <!--End Logo icon -->
-              <!-- Logo text --><span>
-                <!-- dark Logo text -->
+            ><span>
+                
                 <img
                   src="../assets/images/logo-text.png"
                   alt="homepage"
@@ -107,14 +102,8 @@
               /></span>
             </a>
           </div>
-          <!-- ============================================================== -->
-          <!-- End Logo -->
-          <!-- ============================================================== -->
-          <div class="navbar-collapse">
-            <!-- ============================================================== -->
-            <!-- toggle and nav items -->
-            <!-- ============================================================== -->
-            <ul class="navbar-nav me-auto">
+         <div class="navbar-collapse">
+          <ul class="navbar-nav me-auto">
               <li class="nav-item">
                 <a
                   class="nav-link nav-toggler hidden-md-up waves-effect waves-dark"
@@ -122,10 +111,7 @@
                   ><i class="fa fa-bars"></i
                 ></a>
               </li>
-              <!-- ============================================================== -->
-              <!-- Search -->
-              <!-- ============================================================== -->
-              <li class="nav-item hidden-xs-down search-box">
+            <li class="nav-item hidden-xs-down search-box">
                 <a
                   class="nav-link hidden-sm-down waves-effect waves-dark"
                   href="javascript:void(0)"
@@ -141,14 +127,8 @@
                 </form>
               </li>
             </ul>
-            <!-- ============================================================== -->
-            <!-- User profile and search -->
-            <!-- ============================================================== -->
-            <ul class="navbar-nav my-lg-0">
-              <!-- ============================================================== -->
-              <!-- Profile -->
-              <!-- ============================================================== -->
-              <li class="nav-item dropdown u-pro">
+           <ul class="navbar-nav my-lg-0">
+            <li class="nav-item dropdown u-pro">
                 <a
                   class="nav-link dropdown-toggle waves-effect waves-dark profile-pic"
                   href="#"
@@ -161,20 +141,21 @@
                     alt="user"
                     class=""
                   />
-                  <span class="hidden-md-down"> Mohammed Risvan&nbsp;</span>
+                  <span class="hidden-md-down">Mohammed Risvan &nbsp;</span>
                 </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown"></ul>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li>
+                    <a class="dropdown-item" href="/admin/logout"
+                      ><button class="btn btn-dark">logout</button></a
+                    >
+                  </li>
+                </ul>
               </li>
             </ul>
           </div>
         </nav>
       </header>
-      <!-- ============================================================== -->
-      <!-- End Topbar header -->
-      <!-- ============================================================== -->
-      <!-- ============================================================== -->
-      <!-- Left Sidebar - style you can find in sidebar.scss  -->
-      <!-- ============================================================== -->
+
       <aside class="left-sidebar">
         <!-- Sidebar scroll-->
         <div class="scroll-sidebar">
@@ -293,7 +274,7 @@
                 <th scope="col">mainImage</th>
                 <th scope="col">list</th>
                 <th scope="col">account created date</th>
-                <th scope="col">edit/delete</th>
+                <th scope="col">edit</th>
               </tr>
             </thead>
             <tbody>
@@ -326,12 +307,7 @@
                 <td class="d-flex">
                   <a href="/admin/editproduct/<%-i._id %>">
                     <i class="ri-pencil-line mx-2 fs-4 text-dark"></i></a
-                  ><a href="/admin/deleteproduct/<%-i._id %>"
-                    ><i
-                      class="ri-delete-bin-6-fill fs-4 mx-3 text-danger"
-                      onclick="return confirm('are you sure you want to delete?')"
-                    ></i
-                  ></a>
+                  >
                 </td>
               </tr>
               <% }) %>
