@@ -617,37 +617,21 @@ export function userlogout(req, res) {
 //axios function start
 
 export async function addtowishlist(req, res) {
-  if (!req.session.user) {
-    res.redirect("/login");
-  } else {
-    try {
-      let id = req.params.data;
-
-      const user = await users.findOne(
+  try {
+    await users
+      .updateOne(
         { _id: req.session.user._id },
-        { _id: 0, wishlist: 1 }
-      );
-      const productId = user.wishlist.map((item) => {
-        return item.product_id;
+        { $addToSet: { wishlist: { product_id: req.params.data } } }
+      )
+      .then((result) => {
+        console.log(result);
       });
-
-      if (!productId.includes(id)) {
-        users
-          .updateOne(
-            { _id: req.session.user._id },
-            { $push: { wishlist: { product_id: req.params.data } } }
-          )
-          .then((result) => {
-            console.log(result);
-          });
-      } else {
-        console.log("22222222222222");
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    res.json({ success: true });
+  } catch (error) {
+    console.log(error);
   }
 }
+
 export async function deletefromwishlist(req, res) {
   try {
     users
@@ -775,5 +759,5 @@ export async function promoCode(req, res) {
 
 //axios function end
 export function newp(req, res) {
-  res.render("new home",{ifuser});
+  res.render("new home", { ifuser });
 }

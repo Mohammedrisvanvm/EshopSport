@@ -189,7 +189,17 @@
             <div class="p-3 right-side">
               <div class="d-flex justify-content-between align-items-center">
                 <h3><%-productinfo.productName %></h3>
-                <span class="heart"><i class="bx bx-heart"></i></span>
+                <button
+                  style="
+                    border-radius: 25px;
+                    border: 0;
+                    background-color: rgb(255, 255, 255);
+                  "
+                  id="heart"
+                  onclick="addtowishlist(`<%-productinfo._id %>`)"
+                >
+                  <i class="ri-heart-line fs-4"></i>
+                </button>
               </div>
               <div class="mb-3">
                 <span class="badge bg-dark me-1"
@@ -325,11 +335,41 @@
       </div>
       <!-- Copyright -->
     </footer>
-
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
     <script>
       function changeImage(element) {
         var main_prodcut_image = document.getElementById("main_product_image");
         main_prodcut_image.src = element.src;
+      }
+      function addtowishlist(data) {
+        console.log(data, "111111111111");
+        axios.get("/addtowishlist/" + data).then((result) => {
+          if (result.data.success) {
+            let btn = (document.getElementById(
+              "heart"
+            ).innerHTML = ` <button style="border-radius: 25px; border: 0 ; background-color: pink" id="heart" onclick="deletefromwishlist('<%-productinfo._id %>')">  <i class="ri-heart-line"></i></button>`);
+          }
+        });
+      }
+      function deletefromwishlist(data) {
+        console.log(data, "111111111111");
+        axios.get("/deletefromwishlist/" + data).then((result) => {
+          if (result.data.success) {
+            let btn = (document.getElementById(
+              "heart"
+            ).innerHTML = `<button
+                  style="
+                    border-radius: 25px;
+                    border: 0;
+                    background-color: rgb(255, 255, 255);
+                  "
+                  id="heart"
+                  onclick="addtowishlist('<%-productinfo._id %>')"
+                >
+                  <i class="ri-heart-line fs-4"></i>
+                </button>`);
+          }
+        });
       }
     </script>
 
