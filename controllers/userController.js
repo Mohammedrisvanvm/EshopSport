@@ -24,16 +24,13 @@ let otp = otpGenerator.generate(6, {
 export async function guestpage(req, res) {
   try {
     const productinfo = await products.find({ list: true });
-let cImage=await bannerimage.find()
-cImage=cImage.map((item)=>item.mainImage[0])
+    let cImage = await bannerimage.find();
+    cImage = cImage.map((item) => item.mainImage[0]);
 
-
-
-    res.render("guest", { productinfo,cImage, ifuser });
+    res.render("guest", { productinfo, cImage, ifuser });
   } catch (error) {
     console.log(error);
   }
-  
 }
 export function userGetLogin(req, res) {
   if (!req.session.user) {
@@ -213,7 +210,7 @@ export async function postforget3(req, res) {
 
 export async function productPage(req, res) {
   try {
-    const productinfo = await products.findById(req.params.id).lean()
+    const productinfo = await products.findById(req.params.id).lean();
 
     res.render("productPage", { productinfo, ifuser });
   } catch (error) {
@@ -222,26 +219,24 @@ export async function productPage(req, res) {
 }
 
 export async function wishlist(req, res) {
+  const userid = req.session.userid;
 
-    const userid = req.session.userid;
+  try {
+    const wishlistdetails = await users.findOne(
+      { _id: userid },
+      { wishlist: 1 }
+    );
 
-    try {
-      const wishlistdetails = await users.findOne(
-        { _id: userid },
-        { wishlist: 1 }
-      );
+    const productId = wishlistdetails.wishlist.map((item) => item.product_id);
+    const productsdetails = await products
+      .find({ _id: { $in: productId } })
+      .lean();
 
-      const productId = wishlistdetails.wishlist.map((item) => item.product_id);
-      const productsdetails = await products
-        .find({ _id: { $in: productId } })
-        .lean();
-       
-      
-      res.render("wishlist", { productsdetails, ifuser  });
-    } catch (error) {
-      console.log(error);
-    }
+    res.render("wishlist", { productsdetails, ifuser });
+  } catch (error) {
+    console.log(error);
   }
+}
 
 export async function cart(req, res) {
   try {
@@ -252,18 +247,16 @@ export async function cart(req, res) {
       try {
         const userinfo = await users.findOne(
           { _id: req.session.user._id },
-          { cart: 1 })
-        ;
+          { cart: 1 }
+        );
         console.log(userinfo);
-        let count=0
+        let count = 0;
         const countf = userinfo.cart.map((item) => {
-          count=count+1
-     
-        
+          count = count + 1;
 
           return count;
         });
-        console.log(count,"=========");
+        console.log(count, "=========");
 
         const productIDs = userinfo.cart.map((item) => {
           cartQuantity[item.product_id] = item.quantity;
@@ -276,8 +269,7 @@ export async function cart(req, res) {
           .find({ _id: { $in: productIDs } })
           .lean();
 
-
-            console.log(productsdetails, "123456789");
+        console.log(productsdetails, "123456789");
         productsdetails = productsdetails.map((item) => {
           return { ...item, cartQuantity: cartQuantity[item._id] };
         });
@@ -289,12 +281,11 @@ export async function cart(req, res) {
         productsdetails.sum = sum;
 
         // console.log(productsdetails, "123456789");
-        
 
         res.render("cart", {
           productsdetails,
           ifuser,
-          count
+          count,
         });
       } catch (error) {
         console.log(error);
@@ -330,14 +321,12 @@ export async function getcheckout(req, res) {
       { _id: req.session.user._id },
       { cart: 1 }
     );
-   
 
     const productIDs = userinfo.cart.map((item) => {
       cartQuantity[item.product_id] = item.quantity;
 
       return item.product_id;
     });
-   
 
     let productsdetails = await products
       .find({ _id: { $in: productIDs } })
@@ -354,15 +343,13 @@ export async function getcheckout(req, res) {
     productsdetails.sum = sum;
 
     // console.log(productsdetails, "123456789");
-    let count=0
+    let count = 0;
     const count1 = userinfo.cart.map((item) => {
-      count=count+1
- 
-    
+      count = count + 1;
 
       return count;
     });
- 
+
     //address
 
     const useraddress = await users.findOne(
@@ -374,7 +361,7 @@ export async function getcheckout(req, res) {
       productsdetails,
       ifuser,
       useraddress,
-      count
+      count,
     });
   } catch (error) {
     console.log(error);
@@ -403,37 +390,26 @@ export async function postcheckout(req, res) {
       let productsdetails = await products
         .find({ _id: { $in: productIDs } })
         .lean();
-       
-      
 
       productsdetails = productsdetails.map((item) => {
-        return { ...item, cartQuantity: cartQuantity[item._id]};
+        return { ...item, cartQuantity: cartQuantity[item._id] };
       });
-      let promo=0
+      let promo = 0;
       if (req.body.promo) {
         const code = await coupon.findOne({ couponCode: req.body.promo });
         console.log(code);
         productsdetails.promo = code.discount;
-      }else{
-        productsdetails.promo = promo
+      } else {
+        productsdetails.promo = promo;
       }
       let sum = 0;
       for (const i of productsdetails) {
         i.productTotal = i.cartQuantity * i.price;
         sum = sum + i.productTotal;
       }
-   
 
-      productsdetails.sum = sum-productsdetails.promo
-      
+      productsdetails.sum = sum - productsdetails.promo;
 
-    
-    
-
-      console.log(productsdetails.promo);
-
-
-     
       let address = await users.findOne(
         {
           _id: req.session.user._id,
@@ -445,7 +421,7 @@ export async function postcheckout(req, res) {
       let orders = [];
       let i = 1;
       let ordercount = await orderModel.find().count();
-     
+
       for (let product of productsdetails) {
         orders.push({
           address: deladdress,
@@ -461,8 +437,6 @@ export async function postcheckout(req, res) {
       }
       await orderModel.create(orders);
 
-     
-  
       res.render("orderConfirmationPage", {
         ifuser,
         productsdetails,
@@ -476,7 +450,6 @@ export function addresspage(req, res) {
   res.render("address", { ifuser });
 }
 export async function postaddressprofile(req, res) {
-  
   try {
     const {
       firstName,
@@ -538,7 +511,6 @@ export async function postaddressprofile(req, res) {
         "11111111111111"
       );
 
-      
       res.redirect("/profile");
     }
   } catch (error) {
@@ -546,10 +518,7 @@ export async function postaddressprofile(req, res) {
   }
 }
 
-
-
 export async function postaddresspage(req, res) {
-  
   try {
     const {
       firstName,
@@ -611,7 +580,6 @@ export async function postaddresspage(req, res) {
         "11111111111111"
       );
 
-      
       res.redirect("/checkout");
     }
   } catch (error) {
@@ -806,6 +774,6 @@ export async function promoCode(req, res) {
 }
 
 //axios function end
-export function newp(req,res){
-  res.render("new home")
+export function newp(req, res) {
+  res.render("new home",{ifuser});
 }
