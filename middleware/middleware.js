@@ -8,3 +8,13 @@ export function ifuser(req,res,next){
     }
  
 }
+export function ifadmin(req,res,next){
+    if(req.session.admin){
+        admin:true
+        next()
+    }else{
+        admin:false
+        res.redirect('/admin/login')
+    }
+
+}

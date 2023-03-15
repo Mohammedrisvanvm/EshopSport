@@ -176,7 +176,8 @@
             <div class="main_image">
               <img
               src="/image/productImage/<%-productinfo.mainImage[0].filename %>"
-                id="main_product_image"
+               
+                id="image-zoom" style="z-index: 10;"
                 width="250"
               
               />
@@ -267,11 +268,24 @@
   <script>
     function changeImage(element) {
 
-var main_prodcut_image = document.getElementById('main_product_image');
+var main_prodcut_image = document.getElementById('image-zoom');
 main_prodcut_image.src = element.src;
 
 
 }
+  </script>
+  <script src="https://unpkg.com/js-image-zoom@0.4.1/js-image-zoom.js"></script>
+  <script>
+    var options = {
+        width: 500,
+        height: 550,
+        zoomWidth: 400,
+        offset: { vertical: 0, horizontal: 10 },
+        scale: 0.5
+    };
+  
+    var img = document.getElementById("image-zoom");
+    new ImageZoom(img, options);
   </script>
   <script src="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

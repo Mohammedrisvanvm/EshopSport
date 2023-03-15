@@ -68,21 +68,21 @@ router.get('/address',ifuser,addresspage)
 router.post('/address',postaddresspage)
 router.post('/addressprofile',postaddressprofile)
 
-router.get('/editprofile/:data',editaddress)
-router.get("/trash",payment)
+router.get('/editprofile/:data',ifuser,editaddress)
+router.get("/trash",ifuser,payment)
 
 
 
 //axios
 router.get('/addtowishlist/:data',ifuser,addtowishlist)
-router.get('/deletefromwishlist/:data',deletefromwishlist)
+router.get('/deletefromwishlist/:data',ifuser,deletefromwishlist)
 router.get('/addtocart/:data',ifuser,addtocart)
-router.get('/deletefromcart/:data',deletefromcart)
-router.get('/incdec',incdec)
-router.get("/deletefromaddress/:data",deletefromaddress)
-router.get('/promoCode/:data',promoCode)
+router.get('/deletefromcart/:data',ifuser,deletefromcart)
+router.get('/incdec',ifuser,incdec)
+router.get("/deletefromaddress/:data",ifuser,deletefromaddress)
+router.get('/promoCode/:data',ifuser,promoCode)
 
 
-router.get('/new',newp)
+router.get('/new',ifuser,newp)
 
 export default router;
