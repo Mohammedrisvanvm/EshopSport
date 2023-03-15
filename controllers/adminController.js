@@ -159,8 +159,8 @@ export async function postaddcategories(req, res) {
       const categoryInfo = await categories.findOne({ name: categoryName });
       if (!categoryInfo) {
         const categoriesAdd = new categories({ name: categoryName });
-        await categoriesAdd.save()
-       return res.redirect("/admin/categoriesManagement");
+        await categoriesAdd.save();
+        return res.redirect("/admin/categoriesManagement");
       }
     }
 
@@ -172,7 +172,7 @@ export async function postaddcategories(req, res) {
       if (!subCategoryInfo) {
         const subCategoriesAdd = new subCategories({ name: subCategoryName });
         await subCategoriesAdd.save();
-       return  res.redirect("/admin/categoriesManagement");
+        return res.redirect("/admin/categoriesManagement");
       }
     }
 
@@ -317,41 +317,34 @@ export async function postCouponManagement(req, res) {
     console.log(error);
   }
 }
-export async function banner(req, res){
-let banner=await bannerimage.find()
+export async function banner(req, res) {
+  let banner = await bannerimage.find();
 
-let bannerimage1=banner.map((item)=>item.mainImage[0])
-console.log(bannerimage1,banner);
-  res.render('bannerManagement',{bannerimage1})
+  let bannerimage1 = banner.map((item) => item.mainImage[0]);
+  console.log(bannerimage1, banner);
+  res.render("bannerManagement", { bannerimage1 });
 }
-export async function postBanner(req, res){
-console.log(req.files)
+export async function postBanner(req, res) {
+  console.log(req.files);
 
+  try {
+    const imageadd = new bannerimage({
+      mainImage: req.files.mainImage,
+    });
+    await imageadd.save();
 
-try {
-  const imageadd = new bannerimage({
-   
-    mainImage: req.files.mainImage,
-   
-  });
-  await imageadd .save();
- 
-  res.redirect('/admin/banner')
-} catch (error) {
-  console.log(error);
+    res.redirect("/admin/banner");
+  } catch (error) {
+    console.log(error);
 
-  res.redirect('/admin/banner') 
+    res.redirect("/admin/banner");
+  }
 }
+export async function ordermanagement(req, res) {
+  const orderinfo = await orderModel.find();
 
-
+  res.render("orderManagement", { orderinfo });
 }
-export async function ordermanagement(req,res) {
-const orderinfo=await orderModel.find()
-
-  res.render("orderManagement",{orderinfo})
-  
-}
-
 
 export function adminlogout(req, res) {
   console.log("adminlogout");
@@ -409,16 +402,38 @@ export function unlistproduct(req, res) {
     }
   });
 }
-export async function userban(req,res){
-console.log(req.params);
-try {
-  const userinfo=await users.findByIdAndupdate({
-    _id:id
-  })
-  
-} catch (error) {
-  res.send(error);
-  
-}
-
+export async function userban(req, res) {
+  console.log(req.params);
+  try {
+    const userinfo = await users.findById({
+      _id: req.params.id,
+    });
+    const {ban}=userinfo
+    if(ban== false){
+      console.log("true");
+      await users.updateOne(
+        {
+          _id: req.params.id,
+        },
+        { $set: { ban: "true" } }
+      );
+     
+      res.json({ success: true });
+    }else{
+      console.log("false");
+      await users.updateOne(
+        {
+          _id: req.params.id,
+        },
+        { $set: { ban: "false" } }
+      );
+      
+      res.json({ success: false});
+    }
+    console.log(userinfo);
+    
+    
+  } catch (error) {
+    res.send(error);
+  }
 }

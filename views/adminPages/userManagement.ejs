@@ -231,7 +231,7 @@
                   <td><%-i.name %></td>
                   <td><%- i.email %></td>
                   <td>
-                    <button class="btn btn-success" onclick="userban(`<%-i._id %>`)">
+                    <button class="btn btn-success"  value=" <%- i.ban %>" id="ban<%-i._id %>" onclick="userban(`<%-i._id %>`)">
                       <%- i.ban %>
                     </button>
                   </td>
@@ -275,7 +275,19 @@
 
     <script>
       function userban(data) {
-        axios.get('/admin/userban/'+data)
+        let value=document.getElementById('ban'+ data)
+       
+        console.log(value);
+        axios.get(`/admin/userban/`+ data).then((result)=>{
+          console.log(result.data);
+          if (result.data.success == true) {
+            value.textContent = "true";
+            console.log("false");
+          } else {
+            value.textContent = "false";
+            console.log("true");
+          }
+        })
         
       }
     </script>

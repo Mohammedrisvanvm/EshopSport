@@ -24,6 +24,7 @@ import {
   postEditProduct,
   unlistcategory,
   unlistproduct,
+  userban,
 } from "../controllers/admincontroller.js";
 import { multiupload, multiuploadcaro } from "../middleware/multer.js";
 
@@ -49,12 +50,13 @@ router.post("/couponManagement", postCouponManagement);
 router.get("/banner", banner);
 router.post("/banner",multiuploadcaro,postBanner);
 router.get('/ordermanagement',ordermanagement)
-
+router.get("/logout", adminlogout);
 //axios
 router.get("/deleteproduct/:id", deleteProduct);
 router.get("/categoryunlist/:id", unlistcategory);
 router.get("/productunlist/:id", unlistproduct);
+router.get("/userban/:id", userban);
 
-router.get("/logout", adminlogout);
+
 
 export default router;
