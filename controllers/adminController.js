@@ -393,7 +393,7 @@ export function unlistproduct(req, res) {
         await products.updateOne(
           { _id: req.params.id },
           { $set: { list: "false" } }
-        );
+        )
         res.json({ success: true });
       }
     } catch (error) {

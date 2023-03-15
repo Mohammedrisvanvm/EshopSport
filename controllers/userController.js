@@ -323,6 +323,7 @@ export function contactus(req, res) {
 }
 
 export async function getcheckout(req, res) {
+  console.log(req.body.promo);
   try {
     const cartQuantity = {};
     const userinfo = await users.findOne(
@@ -361,7 +362,7 @@ export async function getcheckout(req, res) {
 
       return count;
     });
-    console.log(count);
+ 
     //address
 
     const useraddress = await users.findOne(
@@ -381,7 +382,7 @@ export async function getcheckout(req, res) {
 }
 
 export async function postcheckout(req, res) {
-  console.log(req.body);
+  console.log(req.body.promo);
   try {
     if (!req.session.user) {
       res.redirect("/login");
@@ -402,18 +403,37 @@ export async function postcheckout(req, res) {
       let productsdetails = await products
         .find({ _id: { $in: productIDs } })
         .lean();
+       
+      
 
       productsdetails = productsdetails.map((item) => {
-        return { ...item, cartQuantity: cartQuantity[item._id] };
+        return { ...item, cartQuantity: cartQuantity[item._id]};
       });
+      let promo=0
+      if (req.body.promo) {
+        const code = await coupon.findOne({ couponCode: req.body.promo });
+        console.log(code);
+        productsdetails.promo = code.discount;
+      }else{
+        productsdetails.promo = promo
+      }
       let sum = 0;
       for (const i of productsdetails) {
         i.productTotal = i.cartQuantity * i.price;
         sum = sum + i.productTotal;
       }
-      productsdetails.sum = sum;
-      let promo = 0;
-      productsdetails.promo = req.body.promo;
+   
+
+      productsdetails.sum = sum-productsdetails.promo
+      
+
+    
+    
+
+      console.log(productsdetails.promo);
+
+
+     
       let address = await users.findOne(
         {
           _id: req.session.user._id,
@@ -425,7 +445,7 @@ export async function postcheckout(req, res) {
       let orders = [];
       let i = 1;
       let ordercount = await orderModel.find().count();
-      console.log(ordercount, productsdetails);
+     
       for (let product of productsdetails) {
         orders.push({
           address: deladdress,
@@ -441,25 +461,8 @@ export async function postcheckout(req, res) {
       }
       await orderModel.create(orders);
 
-      const orderlist = await orderModel.find();
-      let orderlist1 = orderlist.map((item) => item._id);
-      // let orders = [];
-      // let i = 1;
-      // let orderCount = await Order.find().count();
-      // for (let product of products) {
-      //   orders.push({
-      //     address: address[0],
-      //     product: product,
-      //     userId: userId,
-      //     quantity: cartQuantities[product._id],
-      //     total: cartQuantities[product._id] * product.price,
-      //     amountToPay: cartQuantities[product._id] * product.price,
-      //     paymentType: "cod",
-      //     orderId: orderCount + i,
-      //   });
-      //   i++;
-      // }
-      // await Order.create(orders);
+     
+  
       res.render("orderConfirmationPage", {
         ifuser,
         productsdetails,
