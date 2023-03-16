@@ -28,6 +28,7 @@ import {
   productPage,
   promoCode,
   resendOTP,
+  shop,
   signupresendOTP,
   userGetLogin,
   userGetSignup,
@@ -61,6 +62,7 @@ router.get('/productpage/:id',productPage)
 router.get('/wishlist',ifuser,wishlist)
 router.get('/cart',ifuser,cart)
 router.get('/profile',ifuser,userprofile)
+router.get('/shop',shop)
 router.get('/contactus',contactus)
 router.get('/checkout',ifuser,getcheckout)
 router.post('/checkout',ifuser,postcheckout)

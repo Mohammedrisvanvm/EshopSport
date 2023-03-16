@@ -32,13 +32,24 @@ export async function guestpage(req, res) {
     console.log(error);
   }
 }
-export function userGetLogin(req, res) {
-  if (!req.session.user) {
-    res.render("login", { emailerr });
-    emailerr = null;
-  } else {
-    res.redirect("/");
+export async function shop(req,res){
+  try {
+    const productinfo = await products.find({ list: true });
+    res.render('shop',{productinfo,ifuser})
+  } catch (error) {
+    
   }
+}
+
+export function userGetLogin(req, res) {
+  try {
+    if (!req.session.user) {
+      res.render("login", { emailerr });
+      emailerr = null;
+    } else {
+      res.redirect("/");
+    }
+  } catch (error) {}
 }
 
 export async function userPostLogin(req, res) {
