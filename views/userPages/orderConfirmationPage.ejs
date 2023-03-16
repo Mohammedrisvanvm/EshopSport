@@ -290,7 +290,7 @@
                                                 </td>
                                                 <td>
                                                     <div class="text-right">
-                                                        <span> ₹<%-productsdetails.sum %> </span>
+                                                        <span> ₹<%-productsdetails.total[0] %> </span>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -341,8 +341,8 @@
                                                         <span class="text-success">₹
                                                            
                                                              
-                                                            <% if (productsdetails.promo ) { %>
-                                                                <%-productsdetails.promo %>
+                                                            <% if (productsdetails.coupon ) { %>
+                                                                <%-productsdetails.coupon %>
                                                            <% } else { %>
                                                             0
                                                             <% } %>  /-</span>
