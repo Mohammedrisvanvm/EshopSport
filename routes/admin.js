@@ -3,6 +3,7 @@ import {
   adminlogout,
   banner,
   couponManagement,
+  deleteFromProductEdit,
   editcategory,
   getaddcategories,
   getaddProduct,
@@ -56,6 +57,7 @@ router.get("/logout",ifadmin, adminlogout);
 router.get("/categoryunlist/:id",ifadmin, unlistcategory);
 router.get("/productunlist/:id",ifadmin, unlistproduct);
 router.get("/userban/:id",ifadmin, userban);
+router.get("/deleteFromProductEdit",deleteFromProductEdit);
 
 
 

@@ -187,6 +187,7 @@ export async function postaddcategories(req, res) {
 export async function editcategory(req, res) {
   try {
     const categoryinfo = await categories.findById(req.params.id);
+    
     res.render("editcategory", { categoryinfo });
   } catch (error) {
     res.send(error);
@@ -421,4 +422,18 @@ export async function userban(req, res) {
   } catch (error) {
     res.send(error);
   }
+}
+export async function deleteFromProductEdit(req,res){
+  console.log(req.query);
+  const{pId,data}=req.query
+  try {
+    const productinfo = await products.updateOne({
+      _id: pId
+    },{$pull:{subImages:{filename:req.query.data}}}).then((result)=>{console.log(result);})
+ res.json({success:true})
+
+  } catch (error) {
+    
+  }
+
 }

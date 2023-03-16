@@ -26,6 +26,10 @@
       sizes="16x16"
       href="/assets/images/favicon.png"
     />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
     <!-- Bootstrap Core CSS -->
     <link
       href="/assets/node_modules/bootstrap/css/bootstrap.min.css"
@@ -46,26 +50,11 @@
     <link href="/css/pages/dashboard1.css" rel="stylesheet" />
     <!-- You can change the theme colors from here -->
     <link href="/css/colors/default.css" id="theme" rel="stylesheet" />
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+  
   </head>
 
   <body class="fix-header fix-sidebar card-no-border">
-    <!-- ============================================================== -->
-    <!-- Preloader - style you can find in spinners.css -->
-    <!-- ============================================================== -->
-
-    <!-- ============================================================== -->
-    <!-- Main wrapper - style you can find in pages.scss -->
-    <!-- ============================================================== -->
     <div id="main-wrapper">
-      <!-- ============================================================== -->
-      <!-- Topbar header - style you can find in pages.scss -->
-      <!-- ============================================================== -->
       <header class="topbar">
         <nav class="navbar top-navbar navbar-expand-md navbar-light">
           <!-- ============================================================== -->
@@ -74,9 +63,7 @@
           <div class="navbar-header">
             <a class="navbar-brand" href="index.ejs">
               <!-- Logo icon --><b>
-                <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
-                <!-- Dark Logo icon -->
-                <img
+               <img
                   src="/assets/images/logo-icon.png"
                   alt="homepage"
                   class="dark-logo"
@@ -103,14 +90,8 @@
               /></span>
             </a>
           </div>
-          <!-- ============================================================== -->
-          <!-- End Logo -->
-          <!-- ============================================================== -->
-          <div class="navbar-collapse">
-            <!-- ============================================================== -->
-            <!-- toggle and nav items -->
-            <!-- ============================================================== -->
-            <ul class="navbar-nav me-auto">
+         <div class="navbar-collapse">
+             <ul class="navbar-nav me-auto">
               <li class="nav-item">
                 <a
                   class="nav-link nav-toggler hidden-md-up waves-effect waves-dark"
@@ -118,10 +99,7 @@
                   ><i class="fa fa-bars"></i
                 ></a>
               </li>
-              <!-- ============================================================== -->
-              <!-- Search -->
-              <!-- ============================================================== -->
-              <li class="nav-item hidden-xs-down search-box">
+               <li class="nav-item hidden-xs-down search-box">
                 <a
                   class="nav-link hidden-sm-down waves-effect waves-dark"
                   href="javascript:void(0)"
@@ -137,13 +115,7 @@
                 </form>
               </li>
             </ul>
-            <!-- ============================================================== -->
-            <!-- User profile and search -->
-            <!-- ============================================================== -->
             <ul class="navbar-nav my-lg-0">
-              <!-- ============================================================== -->
-              <!-- Profile -->
-              <!-- ============================================================== -->
               <li class="nav-item dropdown u-pro">
                 <a
                   class="nav-link dropdown-toggle waves-effect waves-dark profile-pic"
@@ -165,12 +137,7 @@
           </div>
         </nav>
       </header>
-      <!-- ============================================================== -->
-      <!-- End Topbar header -->
-      <!-- ============================================================== -->
-      <!-- ============================================================== -->
-      <!-- Left Sidebar - style you can find in sidebar.scss  -->
-      <!-- ============================================================== -->
+    
       <aside class="left-sidebar">
         <!-- Sidebar scroll-->
         <div class="scroll-sidebar">
@@ -227,20 +194,8 @@
         </div>
         <!-- End Sidebar scroll-->
       </aside>
-      <!-- ============================================================== -->
-      <!-- End Left Sidebar - style you can find in sidebar.scss  -->
-      <!-- ============================================================== -->
-      <!-- ============================================================== -->
-      <!-- Page wrapper  -->
-      <!-- ============================================================== -->
       <div class="page-wrapper">
-        <!-- ============================================================== -->
-        <!-- Container fluid  -->
-        <!-- ============================================================== -->
         <div class="container-fluid">
-          <!-- ============================================================== -->
-          <!-- Bread crumb and right sidebar toggle -->
-          <!-- ============================================================== -->
           <div class="row page-titles">
             <div class="col-md-5 align-self-center">
               <h3 class="text-themecolor">product</h3>
@@ -252,10 +207,7 @@
               </ol>
             </div>
           </div>
-          <!-- ============================================================== -->
-          <!-- End Bread crumb and right sidebar toggle -->
-          <!-- ============================================================== -->
-          <section class="Container">
+           <section class="Container">
             <form
               class=""
               action="/admin/editproduct/<%-productinfo._id %>"
@@ -281,8 +233,8 @@
                 <select class="btn btn-primary btn-sm" name="category">
                   <% categoryinfo.forEach((i) => { %>
 
-                  <option value="<%-i.name %>" name="category">
-                    <%- productinfo.category %>
+                  <option name="category">
+                    <%- i.name %>
                   </option>
 
                   <% }) %>
@@ -367,7 +319,7 @@
                    
                
                   <div
-                    class="col-lg-4 col-md-12 mb-4 bg-image hover-zoom ripple ripple-surface ripple-surface-light"
+                    class="col-lg-4 col-md-12 mb-4 bg-image hover-zoom ripple ripple-surface ripple-surface-light" id="subImages<%-i.filename %>"
                   >
                     <img
                       src="/image/productImage/<%-i.filename %>"
@@ -376,6 +328,16 @@
                       style="height: 40px
                       ;width: 40px;"
                     />
+                    <button
+                    type="button"
+                    class="btn btn-primary btn-sm me-1 mb-2"
+                    data-mdb-toggle="tooltip"
+                    title="Remove item"
+                    onclick=" deleteFromProductEdit(`<%-i.filename %>`,`<%-productinfo._id %>`)"
+                  >
+                    <i class="fas fa-trash"></i>
+                  </button>
+
                   </div>
                   <!--Grid column-->
                   <% }) %>
@@ -393,37 +355,17 @@
             </form>
           </section>
         </div>
-        <!-- footer -->
-        <!-- ============================================================== -->
         <footer class="footer">
           © 2023 eshopsport by
           <a href="/views/adminPages/adminHome.ejs">eshopsport.com</a>
         </footer>
-        <!-- ============================================================== -->
-        <!-- End footer -->
-        <!-- ============================================================== -->
+        </div>
       </div>
-      <!-- ============================================================== -->
-      <!-- End Page wrapper  -->
-      <!-- ============================================================== -->
-    </div>
-    <!-- ============================================================== -->
-    <!-- End Wrapper -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- All Jquery -->
-    <!-- ============================================================== -->
     <script src="/assets/node_modules/jquery/jquery.min.js"></script>
     <!-- Bootstrap popper Core JavaScript -->
     <script src="/assets/node_modules/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- slimscrollbar scrollbar JavaScript -->
-    <script src="js/perfect-scrollbar.jquery.min.js"></script>
-    <!--Wave Effects -->
-    <script src="js/waves.js"></script>
-    <!--Menu sidebar -->
-    <script src="js/sidebarmenu.js"></script>
-    <!--Custom JavaScript -->
-    <script src="js/custom.min.js"></script>
+   
     <!-- ============================================================== -->
     <!-- This page plugins -->
     <!-- ============================================================== -->
@@ -434,7 +376,8 @@
     <script src="/assets/node_modules/d3/d3.min.js"></script>
     <script src="/assets/node_modules/c3-master/c3.min.js"></script>
     <!-- Chart JS -->
-    <script src="js/dashboard1.js"></script>
+
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
     <script>
       function space(data) {
         var startsWithSpace = /^\s/.test(data);
@@ -447,6 +390,16 @@
         } else {
           alert.innerText = "";
         }
+      }
+      function deleteFromProductEdit(data,pId) {
+        console.log('22222',data,pId);
+        axios.get(`/admin/deleteFromProductEdit?data=${data}&pId=${pId}`).then((result)=>{
+          if(result.data.success){
+document.getElementById('subImages' +data).textContent=""
+          }
+        })
+       
+        
       }
     </script>
   </body>

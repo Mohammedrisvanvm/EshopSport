@@ -41,12 +41,13 @@
       rel="stylesheet"
     />
   </head>
-  <body>
+  <body class="fix-header fix-sidebar card-no-border">
+  
     <header>
       <div class="container-fluid">
         <!-- Navbar -->
         <nav
-          class="navbar fixed-top navbar-expand-lg navbar-dark mt-1 mb-5 shadow p-2"
+          class="navbar navbar-expand-lg navbar-dark  mb-5 shadow "
           style="background-color: #607d8b"
         >
           <!-- Container wrapper -->
@@ -157,7 +158,81 @@
     </header>
 
     <main>
-      <section>
+        <aside class="left-sidebar">
+            <div class="scroll-sidebar">
+              <nav class="sidebar-nav">
+                 <div class="search-option">
+                <i class="bx bx-search-alt-2 first-search"></i>
+                <div class="inputs"><input type="text" name="" /></div>
+                <i class="bx bx-share-alt share"></i>
+              </div>
+                <ul id="sidebarnav">
+                  <li>
+                    <a
+                      class="waves-effect waves-dark"
+                      href="/admin/dashboard"
+                      aria-expanded="false"
+                      ><i class="fa fa-home"></i
+                      ><span class="hide-menu">Dashboard</span></a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="waves-effect waves-dark"
+                      href="/admin/userManagement"
+                      aria-expanded="false"
+                      ><i class="fa fa-users"></i
+                      ><span class="hide-menu">user management</span></a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="waves-effect waves-dark"
+                      href="/admin/categoriesManagement"
+                      aria-expanded="false"
+                      ><i class="fa fa-list"></i
+                      ><span class="hide-menu">categories</span></a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="waves-effect waves-dark"
+                      href="/admin/productManagement"
+                      aria-expanded="false"
+                      ><i class="fa fa-shopping-cart"></i
+                      ><span class="hide-menu">Product</span></a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="waves-effect waves-dark"
+                      href="/admin/banner"
+                      aria-expanded="false"
+                    >
+                      <i class="fa-thin fa-image"></i
+                      ><span class="hide-menu">banner</span></a
+                    >
+                  </li>
+                  <li class="nav-item acitve">
+                    <a class="nav-link " href="#">All</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">jersey</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link " href="#">shorts</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link " href="#">sheos</a>
+                  </li>
+                </ul>
+              </nav>
+              <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+          </aside>
+    
+
         <div class="container">
           <!-- Navbar -->
           <nav
@@ -219,9 +294,10 @@
           <!-- Navbar -->
         </div>
         <!-- Products -->
-      </section>
+  
       <section>
-        <div class="text-center">
+       
+        <div class="text-center container">
           <div class="row">
             <div class="row">
               <% productinfo.forEach(i => { %>
