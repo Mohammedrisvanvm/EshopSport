@@ -17,6 +17,7 @@ import {
   guestpage,
   incdec,
   newp,
+  orderDetails,
   payment,
   postaddresspage,
   postaddressprofile,
@@ -72,6 +73,8 @@ router.post('/addressprofile',postaddressprofile)
 
 router.get('/editprofile/:data',ifuser,editaddress)
 router.get("/trash",ifuser,payment)
+router.get('/orders',orderDetails)
+
 
 
 

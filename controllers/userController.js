@@ -618,6 +618,14 @@ export function payment(req, res) {
   console.log(req.body);
   res.render("address");
 }
+export function orderDetails(req, res) {
+  console.log(req.body);
+  res.render("order");
+}
+
+
+//orderpage
+
 
 export function userlogout(req, res) {
   console.log("userlogout");
