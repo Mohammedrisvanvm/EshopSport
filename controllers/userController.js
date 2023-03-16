@@ -812,18 +812,17 @@ export async function addtocart(req, res) {
       });
 
       if (!productId.includes(id)) {
-        await users
-          .updateOne(
-            { _id: req.session.user._id },
-            { $push: { cart: { product_id: req.params.data, quantity: 1 } } }
-          )
-          
-          await products.updateOne(
-            { _id: req.params.data },
-            { $inc: { quantity: -1 } }
-          )
+        await users.updateOne(
+          { _id: req.session.user._id },
+          { $push: { cart: { product_id: req.params.data, quantity: 1 } } }
+        );
+
+        await products.updateOne(
+          { _id: req.params.data },
+          { $inc: { quantity: -1 } }
+        );
       } else {
-        res.send("not worked")
+        res.send("not worked");
       }
     } catch (error) {
       console.log(error);
@@ -832,19 +831,17 @@ export async function addtocart(req, res) {
 }
 export async function deletefromcart(req, res) {
   try {
-    let {data,quantity}=req.query
-        console.log(data,typeof(quantity));
-        quantity=parseInt(quantity)
-        console.log(data,typeof(quantity));
-    await users
-      .updateOne(
-        { _id: req.session.user._id },
-        { $pull: { cart: { product_id:data } } }
-      )
-       products.updateOne(
-        { _id: req.query.data },
-        { $inc: { quantity: quantity } }
-      ).then((result)=>console.log(result))
+    let { data, quantity } = req.query;
+    console.log(data, typeof quantity);
+    quantity = parseInt(quantity);
+    console.log(data, typeof quantity);
+    await users.updateOne(
+      { _id: req.session.user._id },
+      { $pull: { cart: { product_id: data } } }
+    );
+    products
+      .updateOne({ _id: req.query.data }, { $inc: { quantity: quantity } })
+      .then((result) => console.log(result));
   } catch (error) {
     console.log(error);
   }
@@ -882,15 +879,14 @@ export async function incdec(req, res) {
         res.json({ success: false });
       }
     } else {
-      await users
-        .updateOne(
-          {
-            _id: req.session.user._id,
-            cart: { $elemMatch: { product_id: req.query.data } },
-          },
-          { $inc: { "cart.$.quantity": -1 } }
-        )
-        
+      await users.updateOne(
+        {
+          _id: req.session.user._id,
+          cart: { $elemMatch: { product_id: req.query.data } },
+        },
+        { $inc: { "cart.$.quantity": -1 } }
+      );
+
       await products.updateOne(
         { _id: req.query.data },
         { $inc: { quantity: 1 } }
