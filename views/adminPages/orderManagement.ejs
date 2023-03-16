@@ -237,8 +237,8 @@
               <thead>
                 <tr>
                   <th scope="col">number</th>
-                  <th scope="col">name</th>
                   <th scope="col">orderId</th>
+                  <th scope="col"> name</th>
                   <th scope="col">coupon use</th>
                   <th scope="col">totalamount</th>
 
@@ -256,7 +256,7 @@
                 <tr>
                   <td scope="row"><%- index+1 %></td>
                   <td><%- i._id %></td>
-                  <td><%-i.orderId %></td>
+                  <td><%-i.address.firstName %></td>
                   <td><%- i.coupon.price %></td>
                   <td><%- i.total %></td>
                   <td><%- i.paymentType %></td>
@@ -292,14 +292,7 @@
     <script src="/assets/node_modules/jquery/jquery.min.js"></script>
     <!-- Bootstrap popper Core JavaScript -->
     <script src="/assets/node_modules/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- slimscrollbar scrollbar JavaScript -->
-    <script src="js/perfect-scrollbar.jquery.min.js"></script>
-    <!--Wave Effects -->
-    <script src="js/waves.js"></script>
-    <!--Menu sidebar -->
-    <script src="js/sidebarmenu.js"></script>
-    <!--Custom JavaScript -->
-    <script src="js/custom.min.js"></script>
+ 
     <!-- ============================================================== -->
     <!-- This page plugins -->
     <!-- ============================================================== -->
@@ -309,7 +302,6 @@
     <!--c3 JavaScript -->
     <script src="/assets/node_modules/d3/d3.min.js"></script>
     <script src="/assets/node_modules/c3-master/c3.min.js"></script>
-    <!-- Chart JS -->
-    <script src="js/dashboard1.js"></script>
+ 
   </body>
 </html>

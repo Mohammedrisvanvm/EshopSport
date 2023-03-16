@@ -325,6 +325,7 @@ export async function postBanner(req, res) {
 }
 export async function ordermanagement(req, res) {
   const orderinfo = await orderModel.find();
+  console.log(orderinfo);
 
   res.render("orderManagement", { orderinfo });
 }

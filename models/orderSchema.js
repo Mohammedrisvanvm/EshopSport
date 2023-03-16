@@ -49,7 +49,7 @@ const orderSchema = new mongoose.Schema(
     },
     amountPayable: {
       type: Number,
-      default: 0,
+      required:true,
     },
     coupon: {
       type: Object,

@@ -32,12 +32,30 @@ export async function guestpage(req, res) {
     console.log(error);
   }
 }
-export async function shop(req,res){
+export async function shop(req, res) {
   try {
     const productinfo = await products.find({ list: true });
-    res.render('shop',{productinfo,ifuser})
+    res.render("shop", { productinfo, ifuser });
   } catch (error) {
-    
+    res.send(error);
+  }
+}
+export async function jersey(req, res) {
+  try {
+    const productinfo = await products.find({ category: "jersey", list: true });
+    console.log(productinfo);
+    res.render("jersey", { productinfo, ifuser });
+  } catch (error) {
+    res.send(error);
+  }
+}
+export async function shorts(req, res) {
+  try {
+    const productinfo = await products.find({ category: "shorts", list: true });
+    console.log(productinfo);
+    res.render("shorts", { productinfo, ifuser });
+  } catch (error) {
+    res.send(error);
   }
 }
 
@@ -408,7 +426,7 @@ export async function postcheckout(req, res) {
       let promo = 0;
       if (req.body.promo) {
         const code = await coupon.findOne({ couponCode: req.body.promo });
-        console.log(code);
+      
         productsdetails.promo = code.discount;
       } else {
         productsdetails.promo = promo;
@@ -418,9 +436,10 @@ export async function postcheckout(req, res) {
         i.productTotal = i.cartQuantity * i.price;
         sum = sum + i.productTotal;
       }
-
-      productsdetails.sum = sum - productsdetails.promo;
-
+  
+      productsdetails.sum = sum;
+      productsdetails.total = sum - productsdetails.promo;
+      console.log(productsdetails.sum, productsdetails.total);
       let address = await users.findOne(
         {
           _id: req.session.user._id,
@@ -432,15 +451,15 @@ export async function postcheckout(req, res) {
       let orders = [];
       let i = 1;
       let ordercount = await orderModel.find().count();
-
+      console.log("3244444",typeof(productsdetails.sum),productsdetails.total,"11111111");
       for (let product of productsdetails) {
         orders.push({
           address: deladdress,
-          product: product,
+          product: product.productname,
           userId: req.session.user._id,
           quantity: cartQuantity[product._id],
-          total: product.productTotal,
-          amountPayable: product.sum,
+          total: product.sum,
+          amountPayable: product.total,
           paymentType: req.body.paymentType,
           orderId: ordercount + 1,
         });
@@ -623,9 +642,7 @@ export function orderDetails(req, res) {
   res.render("order");
 }
 
-
 //orderpage
-
 
 export function userlogout(req, res) {
   console.log("userlogout");

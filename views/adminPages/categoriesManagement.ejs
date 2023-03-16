@@ -273,44 +273,8 @@
             </div>
           </section>
 
-          <section>
-            <div style="margin-top: 50px">
-              <h1 class="my-5">sub Categories</h1>
-
-              <table class="table table-condensed">
-                <thead>
-                  <tr>
-                    <th>sl</th>
-                    <th>category name</th>
-                    <th>list</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr id="category">
-                    <% categoryinfo.forEach((i,index) => { %>
-
-                    <td><%-index+1 %></td>
-                    <td><%-i.name %></td>
-                    <td>
-                      <button
-                        class="btn btn-outline-success"
-                        id="listbtn<%-i._id%>"
-                        onclick="unlist(`<%-i._id %>`)"
-                      >
-                        <%-i.list %>
-                      </button>
-                    </td>
-                  </tr>
-                  <% }) %>
-                </tbody>
-              </table>
-            </div>
-          </section>
-          <div class="d-flex justify-content-center">
-            <a href="/admin/logout"
-              ><button class="btn btn-outline-primary">LOGOUT</button></a
-            >
-          </div>
+          
+       
 
           <footer class="footer">
             © 2023 eshop sport by

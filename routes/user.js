@@ -16,6 +16,7 @@ import {
   getsignUpOtp,
   guestpage,
   incdec,
+  jersey,
   newp,
   orderDetails,
   payment,
@@ -30,6 +31,7 @@ import {
   promoCode,
   resendOTP,
   shop,
+  shorts,
   signupresendOTP,
   userGetLogin,
   userGetSignup,
@@ -64,6 +66,8 @@ router.get('/wishlist',ifuser,wishlist)
 router.get('/cart',ifuser,cart)
 router.get('/profile',ifuser,userprofile)
 router.get('/shop',shop)
+router.get('/jersey',jersey)
+router.get('/shorts',shorts)
 router.get('/contactus',contactus)
 router.get('/checkout',ifuser,getcheckout)
 router.post('/checkout',ifuser,postcheckout)
@@ -89,5 +93,4 @@ router.get('/promoCode/:data',ifuser,promoCode)
 
 
 router.get('/new',ifuser,newp)
-
 export default router;
