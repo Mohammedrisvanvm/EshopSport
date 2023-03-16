@@ -386,8 +386,10 @@
         axios.get("/addtowishlist/" + data);
       }
       function deletefromcart(data) {
-        axios.get("/deletefromcart/" + data);
-        
+        let quantity=document.getElementById('Qty'+data).value
+        console.log(quantity);
+        axios.get(`/deletefromcart?quantity=${quantity}&data=${data}`);
+
         document.getElementById("cartProduct" + data).innerHTML = "";
       }
       function inc(data, cond) {

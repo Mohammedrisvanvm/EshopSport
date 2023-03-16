@@ -799,7 +799,10 @@ export async function addtocart(req, res) {
   } else {
     try {
       let id = req.params.data;
-
+      let quantity = await products.findOne(
+        { _id: req.query.data },
+        { _id: 0, quantity: 1 }
+      );
       const productin = await users.findOne(
         { _id: req.session.user._id },
         { _id: 0, cart: 1 }
@@ -809,16 +812,18 @@ export async function addtocart(req, res) {
       });
 
       if (!productId.includes(id)) {
-        users
+        await users
           .updateOne(
             { _id: req.session.user._id },
             { $push: { cart: { product_id: req.params.data, quantity: 1 } } }
           )
-          .then((result) => {
-            console.log(result);
-          });
+          
+          await products.updateOne(
+            { _id: req.params.data },
+            { $inc: { quantity: -1 } }
+          )
       } else {
-        console.log("22222222222222222222222");
+        res.send("not worked")
       }
     } catch (error) {
       console.log(error);
@@ -827,12 +832,19 @@ export async function addtocart(req, res) {
 }
 export async function deletefromcart(req, res) {
   try {
-    users
+    let {data,quantity}=req.query
+        console.log(data,typeof(quantity));
+        quantity=parseInt(quantity)
+        console.log(data,typeof(quantity));
+    await users
       .updateOne(
         { _id: req.session.user._id },
-        { $pull: { cart: { product_id: req.params.data } } }
+        { $pull: { cart: { product_id:data } } }
       )
-      .then((result) => console.log(result));
+       products.updateOne(
+        { _id: req.query.data },
+        { $inc: { quantity: quantity } }
+      ).then((result)=>console.log(result))
   } catch (error) {
     console.log(error);
   }
@@ -870,7 +882,7 @@ export async function incdec(req, res) {
         res.json({ success: false });
       }
     } else {
-      users
+      await users
         .updateOne(
           {
             _id: req.session.user._id,
@@ -878,9 +890,7 @@ export async function incdec(req, res) {
           },
           { $inc: { "cart.$.quantity": -1 } }
         )
-        .then((result) => {
-          console.log(result, "2222");
-        });
+        
       await products.updateOne(
         { _id: req.query.data },
         { $inc: { quantity: 1 } }
