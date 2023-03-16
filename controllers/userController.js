@@ -396,86 +396,7 @@ export async function getcheckout(req, res) {
     console.log(error);
   }
 }
-// export async function postcheckout(req, res) {
-//   try {
-//     // Check if user is logged in
-//     if (!req.session.user) {
-//       return res.redirect("/login");
-//     }
-
-//     // Get cart items and quantities for the logged in user
-//     const userinfo = await users.findOne(
-//       { _id: req.session.user._id },
-//       { cart: 1 }
-//     );
-//     const cartQuantity = {};
-//     const productIDs = userinfo.cart.map((item) => {
-//       cartQuantity[item.product_id] = item.quantity;
-//       return item.product_id;
-//     });
-
-//     // Get product details for the items in the cart
-//     let productsdetails = await products
-//       .find({ _id: { $in: productIDs } })
-//       .lean();
-
-//     // Add cart quantity for each item and check for promo code
-//     let promo = 0;
-//     if (req.body.promo) {
-//       const code = await coupon.findOne({ couponCode: req.body.promo });
-//       promo = code.discount;
-//       productsdetails.promo=promo
-//     }
-//     productsdetails = productsdetails.map((item) => {
-//       const cartQty = cartQuantity[item._id];
-//       return { ...item, cartQuantity: cartQty, productTotal: cartQty * item.price,coupon:promo };
-//     });
-
-//     // Calculate totals
-//     const sum = productsdetails.reduce((acc, item) => acc + item.productTotal, 0);
-//     const total = sum - promo;
-
-//     // Get delivery address
-//     const address = await users.findOne(
-//       {
-//         _id: req.session.user._id,
-//         "address._id": req.body.address,
-//       },
-//       { address: { $elemMatch: { _id: req.body.address } } }
-//     );
-//     const deliveryAddress = address.address[0];
-// console.log(productsdetails);
-//     // Create orders and save to database
-//     const orderCount = await orderModel.countDocuments();
-//     const orders = productsdetails.map((product, index) => ({
-//       address: deliveryAddress,
-//       product: product,
-//       userId: req.session.user._id,
-//       quantity: cartQuantity[product._id],
-//       total: product.productTotal,
-//       coupon:product.coupon,
-//       amountPayable: index === 0 ? total : 0, // Only set amountPayable for the first order
-//       paymentType: req.body.paymentType,
-//       orderId: orderCount + index + 1,
-//     }));
-//     await orderModel.create(orders);
-
-//     // Render order confirmation page
-//     res.render("orderConfirmationPage", {
-//       ifuser, // What is this variable?
-//       productsdetails,
-//       sum,
-//       promo,
-//       total,
-//     });
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).send("Internal Server Error");
-//   }
-// }
-
 export async function postcheckout(req, res) {
-  console.log(req.body.promo);
   try {
     if (!req.session.user) {
       res.redirect("/login");
@@ -502,43 +423,34 @@ export async function postcheckout(req, res) {
         const code = await coupon.findOne({ couponCode: req.body.promo });
 
         promo = code.discount;
-      } else {
-        promo = promo;
       }
-      console.log(promo);
+
       let sum = 0;
-    
+
       productsdetails = productsdetails.map((item) => {
-      
         return {
           ...item,
           cartQuantity: cartQuantity[item._id],
           coupon: promo,
-          
         };
       });
       for (const i of productsdetails) {
-   
         i.productTotal = i.cartQuantity * i.price;
         sum = sum + i.productTotal;
       }
 
-   sum = productsdetails.reduce((acc, item) => acc + item.productTotal, 0);
-  
+      sum = productsdetails.reduce((acc, item) => acc + item.productTotal, 0);
 
       let total = sum - promo;
-    
+
       productsdetails = productsdetails.map((item) => {
-     
         return {
           ...item,
           total: sum,
           payableAmount: total,
-      
-          
         };
       });
-      // console.log(productsdetails);
+
       let address = await users.findOne(
         {
           _id: req.session.user._id,
@@ -547,27 +459,24 @@ export async function postcheckout(req, res) {
         { address: { $elemMatch: { _id: req.body.address } } }
       );
       let deladdress = address.address[0];
-      let orders = [];
-      let i = 1;
-      let ordercount = await orderModel.find().count();
-console.log(productsdetails);
-      for (let product of productsdetails) {
-        orders.push({
-          address: deladdress,
-          product: product,
-          userId: req.session.user._id,
-          quantity: cartQuantity[product._id],
-          total: product.total,
-          coupon: product.coupon,
-          amountPayable: product.payableAmount,
-          paymentType: req.body.paymentType,
-          orderId: ordercount + 1,
-        });
-        i++;
-      }
-      await orderModel.create(orders);
-      
 
+      let ordercount = await orderModel.find().count();
+
+      let orders = productsdetails.map((product) => ({
+        address: deladdress,
+        product: product,
+        userId: req.session.user._id,
+        quantity: product.cartQuantity,
+        total: product.total,
+        coupon: product.coupon,
+        amountPayable: product.payableAmount,
+        paymentType: req.body.paymentType,
+        orderId: ordercount + 1,
+      }));
+
+      await orderModel.create(orders);
+
+      console.log(productsdetails);
       res.render("orderConfirmationPage", {
         ifuser,
         productsdetails,
@@ -577,6 +486,107 @@ console.log(productsdetails);
     console.log(error);
   }
 }
+
+// export async function postcheckout(req, res) {
+//   console.log(req.body.promo);
+//   try {
+//     if (!req.session.user) {
+//       res.redirect("/login");
+//     } else {
+//       const cartQuantity = {};
+
+//       const userinfo = await users.findOne(
+//         { _id: req.session.user._id },
+//         { cart: 1 }
+//       );
+
+//       const productIDs = userinfo.cart.map((item) => {
+//         cartQuantity[item.product_id] = item.quantity;
+
+//         return item.product_id;
+//       });
+
+//       let productsdetails = await products
+//         .find({ _id: { $in: productIDs } })
+//         .lean();
+
+//       let promo = 0;
+//       if (req.body.promo) {
+//         const code = await coupon.findOne({ couponCode: req.body.promo });
+
+//         promo = code.discount;
+//       } else {
+//         promo = promo;
+//       }
+//       console.log(promo);
+//       let sum = 0;
+
+//       productsdetails = productsdetails.map((item) => {
+
+//         return {
+//           ...item,
+//           cartQuantity: cartQuantity[item._id],
+//           coupon: promo,
+
+//         };
+//       });
+//       for (const i of productsdetails) {
+
+//         i.productTotal = i.cartQuantity * i.price;
+//         sum = sum + i.productTotal;
+//       }
+
+//    sum = productsdetails.reduce((acc, item) => acc + item.productTotal, 0);
+
+//       let total = sum - promo;
+
+//       productsdetails = productsdetails.map((item) => {
+
+//         return {
+//           ...item,
+//           total: sum,
+//           payableAmount: total,
+
+//         };
+//       });
+//       // console.log(productsdetails);
+//       let address = await users.findOne(
+//         {
+//           _id: req.session.user._id,
+//           "address._id": req.body.address,
+//         },
+//         { address: { $elemMatch: { _id: req.body.address } } }
+//       );
+//       let deladdress = address.address[0];
+//       let orders = [];
+//       let i = 1;
+//       let ordercount = await orderModel.find().count();
+// console.log(productsdetails);
+//       for (let product of productsdetails) {
+//         orders.push({
+//           address: deladdress,
+//           product: product,
+//           userId: req.session.user._id,
+//           quantity: cartQuantity[product._id],
+//           total: product.total,
+//           coupon: product.coupon,
+//           amountPayable: product.payableAmount,
+//           paymentType: req.body.paymentType,
+//           orderId: ordercount + 1,
+//         });
+//         i++;
+//       }
+//       await orderModel.create(orders);
+
+//       res.render("orderConfirmationPage", {
+//         ifuser,
+//         productsdetails,
+//       });
+//     }
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
 export function addresspage(req, res) {
   res.render("address", { ifuser });
 }
@@ -833,18 +843,32 @@ export async function incdec(req, res) {
     console.log(req.query.data, "1234");
 
     if (req.query.cond == "inc") {
-      users
-        .updateOne(
-          {
-            _id: req.session.user._id,
-            cart: { $elemMatch: { product_id: req.query.data } },
-          },
-          { $inc: { "cart.$.quantity": 1 } }
-        )
-        .then((result) => {
-          console.log(result, "11111");
-        });
-      res.json({ success: true });
+      let quantity = await products.findOne(
+        { _id: req.query.data },
+        { _id: 0, quantity: 1 }
+      );
+      console.log(quantity);
+
+      if (quantity.quantity >= 1) {
+        users
+          .updateOne(
+            {
+              _id: req.session.user._id,
+              cart: { $elemMatch: { product_id: req.query.data } },
+            },
+            { $inc: { "cart.$.quantity": 1 } }
+          )
+          .then((result) => {
+            console.log(result, "11111");
+          });
+        await products.updateOne(
+          { _id: req.query.data },
+          { $inc: { quantity: -1 } }
+        );
+        res.json({ success: true });
+      } else {
+        res.json({ success: false });
+      }
     } else {
       users
         .updateOne(
@@ -857,6 +881,10 @@ export async function incdec(req, res) {
         .then((result) => {
           console.log(result, "2222");
         });
+      await products.updateOne(
+        { _id: req.query.data },
+        { $inc: { quantity: 1 } }
+      );
       res.json({ success: true });
     }
   } catch (error) {}

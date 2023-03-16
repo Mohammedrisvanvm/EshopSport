@@ -74,7 +74,7 @@ router.post('/checkout',ifuser,postcheckout)
 router.get('/address',ifuser,addresspage)
 router.post('/address',postaddresspage)
 router.post('/addressprofile',postaddressprofile)
-
+router.post('/orderconfirmationpage',)
 router.get('/editprofile/:data',ifuser,editaddress)
 router.get("/trash",ifuser,payment)
 router.get('/orders',orderDetails)
