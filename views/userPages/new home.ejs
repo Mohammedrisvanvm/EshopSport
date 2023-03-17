@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=, initial-scale=1.0">
-  <title>Orders</title>
-  <link href="/css/usercss.css" rel="stylesheet" />
-  <link
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>order confirmation</title>
+    <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
@@ -31,269 +30,383 @@
       href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css"
       rel="stylesheet"
     />
-</head>
-<body>
-  <header>
-    <div class="container-fluid">
-      <!-- Navbar -->
-      <nav
-        class="navbar fixed-top navbar-expand-lg navbar-dark mt-1 mb-5 shadow p-2"
-        style="background-color: #607d8b"
-      >
-        <!-- Container wrapper -->
+  </head>
+  <body>
+    <header>
+      <section>
         <div class="container-fluid">
-          <!-- Navbar brand -->
-          <a class="navbar-brand mx-5" href="/"><h3>ESHOP SPORT</h3></a>
-
-          <!-- Toggle button -->
-          <button
-            class="navbar-toggler text-white"
-            type="button"
-            data-mdb-toggle="collapse"
-            data-mdb-target="#navbarSupportedContent1"
-            aria-controls="navbarSupportedContent1"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
+          <!-- Navbar -->
+          <nav
+            class="navbar navbar-expand-lg navbar-dark mt-1 mb-5 shadow p-2"
+            style="background-color: #607d8b"
           >
-            <i class="fas fa-bars"></i>
-          </button>
+            <!-- Container wrapper -->
+            <div class="container-fluid">
+              <!-- Navbar brand -->
+              <a class="navbar-brand mx-5" href="/"><h3>ESHOP SPORT</h3></a>
 
-          <!-- Collapsible wrapper -->
-          <div class="collapse navbar-collapse" id="navbarSupportedContent1">
-            <ul class="navbar-nav mx-5 me-auto mb-2 mb-lg-0">
-              <!-- Link -->
-              <li class="nav-item acitve">
-                <a class="nav-link mx-2" href="/"><h5>HOME</h5></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link mx-2" href="/shop"><h5>SHOP NOW</h5></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link mx-2" href="/jersey"><H5>JERSEY</H5></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link mx-2" href="/shorts"><H5>SHORTS</H5></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link mx-2" href="/socks"><H5>SOCKS</H5></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link mx-2" href="/contactus"
-                  ><H5>CONTACT US</H5></a
-                >
-              </li>
-            </ul>
+              <!-- Toggle button -->
+              <button
+                class="navbar-toggler text-white"
+                type="button"
+                data-mdb-toggle="collapse"
+                data-mdb-target="#navbarSupportedContent1"
+                aria-controls="navbarSupportedContent1"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <i class="fas fa-bars"></i>
+              </button>
 
-            <ul class="navbar-nav mb-2 mb-lg-0">
-              <li class="nav-item ms-5 fs-3 text-light">
-                <a href="/wishlist" class="text-decoration-none text-light"
-                  ><i class="ri-heart-line"></i
-                ></a>
-              </li>
-              <li class="nav-item mx-5 fs-3">
-                <a href="/cart" class="text-decoration-none text-light d-flex"
-                  ><i class="ri-shopping-cart-fill"></i
-                ></a>
-              </li>
-              <li class="nav-item pt-1">
-                <div class="d-flex">
-                  <% if (ifuser) { %>
-
-                  <div class="dropdown">
-                    <button
-                      class="btn btn-secondary dropdown-toggle"
-                      type="button"
-                      id="dropdownMenuButton1"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
+              <!-- Collapsible wrapper -->
+              <div
+                class="collapse navbar-collapse"
+                id="navbarSupportedContent1"
+              >
+                <ul class="navbar-nav mx-5 me-auto mb-2 mb-lg-0">
+                  <!-- Link -->
+                  <li class="nav-item acitve">
+                    <a class="nav-link mx-2" href="/"><h5>HOME</h5></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link mx-2" href="#"><h5>MENS</h5></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link mx-2" href="#"><H5>WOMENS</H5></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link mx-2" href="#"><H5>BOYS</H5></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link mx-2" href="#"><H5>GIRLS</H5></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link mx-2" href="/contactus"
+                      ><H5>CONTACT US</H5></a
                     >
-                      <i class="ri-user-fill"></i>
-                    </button>
-                    <ul
-                      class="dropdown-menu"
-                      aria-labelledby="dropdownMenuButton1"
-                    >
-                      <li>
-                        <a class="dropdown-item" href="#">mohammed </a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="/profile">profile</a>
-                      </li>
-                      <li><a class="dropdown-item" href="/orders">orders</a></li>
-                      <li>
-                        <a class="dropdown-item" href="/logout"
-                          ><button class="btn btn-dark">logout</button></a
+                  </li>
+                </ul>
+
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                  <li class="nav-item ms-5 fs-3 text-light">
+                    <a href="/wishlist" class="text-decoration-none text-light"
+                      ><i class="ri-heart-line"></i
+                    ></a>
+                  </li>
+                  <li class="nav-item mx-5 fs-3">
+                    <a
+                      href="/cart"
+                      class="text-decoration-none text-light d-flex"
+                      ><i class="ri-shopping-cart-fill"></i
+                    ></a>
+                  </li>
+                  <li class="nav-item pt-1">
+                    <div class="d-flex">
+                      <% if (ifuser) { %>
+
+                      <div class="dropdown">
+                        <button
+                          class="btn btn-secondary dropdown-toggle"
+                          type="button"
+                          id="dropdownMenuButton1"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false"
                         >
-                      </li>
-                    </ul>
-                  </div>
+                          <i class="ri-user-fill"></i>
+                        </button>
+                        <ul
+                          class="dropdown-menu"
+                          aria-labelledby="dropdownMenuButton1"
+                        >
+                          <li>
+                            <a class="dropdown-item" href="#">mohammed </a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" href="/profile">profile</a>
+                          </li>
+                          <li><a class="dropdown-item" href="#">orders</a></li>
+                          <li>
+                            <a class="dropdown-item" href="/logout"
+                              ><button class="btn btn-dark">logout</button></a
+                            >
+                          </li>
+                        </ul>
+                      </div>
 
-                  <% } else { %>
+                      <% } else { %>
 
-                  <a href="/login">
-                    <button class="btn btn-dark d-flex">
-                      <h5 class="mx-2">LOGIN</h5>
-                      <i class="ri-login-box-line fs-5"></i></button
-                  ></a>
+                      <a href="/login">
+                        <button class="btn btn-dark d-flex">
+                          <h5 class="mx-2">LOGIN</h5>
+                          <i class="ri-login-box-line fs-5"></i></button
+                      ></a>
 
-                  <% } %>
-                </div>
-              </li>
-            </ul>
-          </div>
+                      <% } %>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <!-- Container wrapper -->
+          </nav>
         </div>
-        <!-- Container wrapper -->
-      </nav>
-    </div>
-  </header>
+      </section>
+    </header>
 
-  <section class="h-100 gradient-custom">
-    <div class="container py-5 h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-lg-10 col-xl-8">
-          <div class="card" style="border-radius: 10px;">
-            <div class="card-header px-4 py-5">
-              <h5 class="text-muted mb-0">Thanks for your Order, <span style="color: #a8729a;">Anna</span>!</h5>
+    <div class="container mt-5 mb-5">
+      <div class="row d-flex justify-content-center">
+        <div class="col-md-8">
+          <div class="card">
+            <div class="text-left logo p-2 px-5">
+              <img src="https://i.imgur.com/2zDU056.png" width="50" />
             </div>
-            <div class="card-body p-4">
-              <div class="d-flex justify-content-between align-items-center mb-4">
-                <p class="lead fw-normal mb-0" style="color: #a8729a;">Receipt</p>
-                <p class="small text-muted mb-0">Receipt Voucher : 1KAU9-84UIL</p>
+
+            <div class="invoice p-5">
+              <h5>Your order Confirmed!</h5>
+
+              <span class="font-weight-bold d-block mt-4">Hello, Chris</span>
+              <span
+                >You order has been confirmed and will be shipped in next two
+                days!</span
+              >
+
+              <div
+                class="payment border-top mt-3 mb-3 border-bottom table-responsive"
+              >
+                <table class="table table-borderless">
+                  <tbody>
+                    <tr>
+                      <td>
+                        <div class="py-2">
+                          <span class="d-block text-muted">Order Date</span>
+                          <span>12 Jan,2018</span>
+                        </div>
+                      </td>
+
+                      <td>
+                        <div class="py-2">
+                          <span class="d-block text-muted">Order No</span>
+                          <span>MT12332345</span>
+                        </div>
+                      </td>
+
+                      <td>
+                        <div class="py-2">
+                          <span class="d-block text-muted">Payment</span>
+                          <span
+                            ><img
+                              src="https://img.icons8.com/color/48/000000/mastercard.png"
+                              width="20"
+                          /></span>
+                        </div>
+                      </td>
+
+                      <td>
+                        <div class="py-2">
+                          <span class="d-block text-muted"
+                            >Shiping Address</span
+                          >
+                          <span>414 Advert Avenue, NY,USA</span>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              <div class="card shadow-0 border mb-4">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-md-2">
-                      <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/13.webp"
-                        class="img-fluid" alt="Phone">
-                    </div>
-                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                      <p class="text-muted mb-0">Samsung Galaxy</p>
-                    </div>
-                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                      <p class="text-muted mb-0 small">White</p>
-                    </div>
-                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                      <p class="text-muted mb-0 small">Capacity: 64GB</p>
-                    </div>
-                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                      <p class="text-muted mb-0 small">Qty: 1</p>
-                    </div>
-                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                      <p class="text-muted mb-0 small">$499</p>
-                    </div>
-                  </div>
-                  <hr class="mb-4" style="background-color: #e0e0e0; opacity: 1;">
-                  <div class="row d-flex align-items-center">
-                    <div class="col-md-2">
-                      <p class="text-muted mb-0 small">Track Order</p>
-                    </div>
-                    <div class="col-md-10">
-                      <div class="progress" style="height: 6px; border-radius: 16px;">
-                        <div class="progress-bar" role="progressbar"
-                          style="width: 65%; border-radius: 16px; background-color: #a8729a;" aria-valuenow="65"
-                          aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                      <div class="d-flex justify-content-around mb-1">
-                        <p class="text-muted mt-1 mb-0 small ms-xl-5">Out for delivary</p>
-                        <p class="text-muted mt-1 mb-0 small ms-xl-5">Delivered</p>
-                      </div>
-                    </div>
-                  </div>
+
+              <div class="product border-bottom table-responsive">
+                <table class="table table-borderless">
+                  <tbody>
+                    <% productsdetails.forEach((i) => { %>
+
+                    <tr>
+                      <td width="20%">
+                        <img
+                          src="/image/productImage/<%-i.mainImage[0].filename %>"
+                          width="90"
+                        />
+                      </td>
+
+                      <td width="60%">
+                        <span class="font-weight-bold"
+                          ><%-i.productName %></span
+                        >
+                        <div class="product-qty">
+                          <span class="d-block"
+                            >Quantity:<%-i.cartQuantity %></span
+                          >
+                          <span>Color:Dark</span>
+                          <br />
+                          <span>price:<%-i.price %></span>
+                        </div>
+                      </td>
+                      <td width="20%">
+                        <div class="text-right">
+                          <span class="font-weight-bold"
+                            ><%-i.productTotal %></span
+                          >
+                        </div>
+                      </td>
+                    </tr>
+                    <% }) %>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="row d-flex justify-content-end">
+                <div class="col-md-5">
+                  <table class="table table-borderless">
+                    <tbody class="totals">
+                      <tr>
+                        <td>
+                          <div class="text-left">
+                            <span class="text-muted">Subtotal</span>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="text-right">
+                            <span> ₹<%-productsdetails[0].total %> </span>
+                          </div>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <div class="text-left">
+                            <span class="text-muted">Shipping Fee</span>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="text-right text-success">
+                            <span>free</span>
+                          </div>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <div class="text-left">
+                            <span class="text-muted">Tax Fee</span>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="text-right text-success">
+                            <span>free</span>
+                          </div>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <div class="text-left">
+                            <span class="text-muted">Discount</span>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="text-right">
+                            <span class="text-success"
+                              >₹ <% if (productsdetails[0].coupon) { %>
+                              <%-productsdetails[0].coupon %> <% } else { %> 0 <% }
+                              %> /-</span
+                            >
+                          </div>
+                        </td>
+                      </tr>
+
+                      <tr class="border-top border-bottom">
+                        <td>
+                          <div class="text-left">
+                            <span class="font-weight-bold">Subtotal</span>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="text-right">
+                            <span class="font-weight-bold text-success">
+                              ₹<%-productsdetails[0].payableAmount %> /-</span
+                            >
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
-              <div class="card shadow-0 border mb-4">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-md-2">
-                      <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/1.webp"
-                        class="img-fluid" alt="Phone">
-                    </div>
-                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                      <p class="text-muted mb-0">iPad</p>
-                    </div>
-                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                      <p class="text-muted mb-0 small">Pink rose</p>
-                    </div>
-                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                      <p class="text-muted mb-0 small">Capacity: 32GB</p>
-                    </div>
-                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                      <p class="text-muted mb-0 small">Qty: 1</p>
-                    </div>
-                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                      <p class="text-muted mb-0 small">$399</p>
-                    </div>
-                  </div>
-                  <hr class="mb-4" style="background-color: #e0e0e0; opacity: 1;">
-                  <div class="row d-flex align-items-center">
-                    <div class="col-md-2">
-                      <p class="text-muted mb-0 small">Track Order</p>
-                    </div>
-                    <div class="col-md-10">
-                      <div class="progress" style="height: 6px; border-radius: 16px;">
-                        <div class="progress-bar" role="progressbar"
-                          style="width: 20%; border-radius: 16px; background-color: #a8729a;" aria-valuenow="20"
-                          aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                      <div class="d-flex justify-content-around mb-1">
-                        <p class="text-muted mt-1 mb-0 small ms-xl-5">Out for delivary</p>
-                        <p class="text-muted mt-1 mb-0 small ms-xl-5">Delivered</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-  
-              <div class="d-flex justify-content-between pt-2">
-                <p class="fw-bold mb-0">Order Details</p>
-                <p class="text-muted mb-0"><span class="fw-bold me-4">Total</span> $898.00</p>
-              </div>
-  
-              <div class="d-flex justify-content-between pt-2">
-                <p class="text-muted mb-0">Invoice Number : 788152</p>
-                <p class="text-muted mb-0"><span class="fw-bold me-4">Discount</span> $19.00</p>
-              </div>
-  
-              <div class="d-flex justify-content-between">
-                <p class="text-muted mb-0">Invoice Date : 22 Dec,2019</p>
-                <p class="text-muted mb-0"><span class="fw-bold me-4">GST 18%</span> 123</p>
-              </div>
-  
-              <div class="d-flex justify-content-between mb-5">
-                <p class="text-muted mb-0">Recepits Voucher : 18KU-62IIK</p>
-                <p class="text-muted mb-0"><span class="fw-bold me-4">Delivery Charges</span> Free</p>
-              </div>
+
+              <p>
+                We will be sending shipping confirmation email when the item
+                shipped successfully!
+              </p>
+              <p class="font-weight-bold mb-0">Thanks for shopping with us!</p>
+              <span>ESHOP SPORT TEAM</span>
             </div>
-            <div class="card-footer border-0 px-4 py-5"
-              style="background-color: #a8729a; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
-              <h5 class="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">Total
-                paid: <span class="h2 mb-0 ms-2">$1040</span></h5>
+
+            <div class="d-flex justify-content-between footer p-3">
+              <span>Need Help? visit our <a href="#"> help center</a></span>
+              <span>12 June, 2020</span>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
-  <script
-  src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-  integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
-  crossorigin="anonymous"
-></script>
-<script
-  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
-  integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
-  crossorigin="anonymous"
-></script>
-<script
-  type="text/javascript"
-  src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"
-></script>
-
-<script
-  src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-  crossorigin="anonymous"
-></script>
-</body>
+    <div class="d-flex justify-content-center">
+      <a href="/"><button>back to shop</button></a>
+    </div>
+  </body>
 </html>
+<script>
+  // export async function postcheckout(req, res) {
+  // try {
+  //   if (!req.session.user) {
+  //     res.redirect("/login");
+  //   } else {
+  //     const cartQuantity = {};
+
+  //     const userinfo = await users.findOne(
+  //       { _id: req.session.user._id },
+  //       { cart: 1 }
+  //     );
+
+  //     const productIDs = userinfo.cart.map((item) => {
+  //       cartQuantity[item.product_id] = item.quantity;
+
+  //       return item.product_id;
+  //     });
+
+  //     let productsdetails = await products
+  //       .find({ _id: { $in: productIDs } })
+  //       .lean();
+
+  //     let promo = 0;
+  //     if (req.body.promo) {
+  //       const code = await coupon.findOne({ couponCode: req.body.promo });
+
+  //       promo = code.discount;
+  //     }
+
+  //     let sum = 0;
+
+  //     productsdetails = productsdetails.map((item) => {
+  //       return {
+  //         ...item,
+  //         cartQuantity: cartQuantity[item._id],
+  //         coupon: promo,
+  //       };
+  //     });
+  //     for (const i of productsdetails) {
+  //       i.productTotal = i.cartQuantity * i.price;
+  //       sum = sum + i.productTotal;
+  //     }
+
+  //     sum = productsdetails.reduce((acc, item) => acc + item.productTotal, 0);
+
+  //     let total = sum - promo;
+
+  //     productsdetails = productsdetails.map((item) => {
+  //       return {
+  //         ...item,
+  //         total: sum,
+  //         payableAmount: total,
+  //       };
+  //     });
+
+</script>

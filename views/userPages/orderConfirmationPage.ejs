@@ -217,38 +217,38 @@
               <div class="product border-bottom table-responsive">
                 <table class="table table-borderless">
                   <tbody>
-                    <% productsdetails.forEach((i) => { %>
+                   
 
                     <tr>
                       <td width="20%">
                         <img
-                          src="/image/productImage/<%-i.mainImage[0].filename %>"
+                          src="/image/productImage/"
                           width="90"
                         />
                       </td>
 
                       <td width="60%">
                         <span class="font-weight-bold"
-                          ><%-i.productName %></span
+                          ></span
                         >
                         <div class="product-qty">
                           <span class="d-block"
-                            >Quantity:<%-i.cartQuantity %></span
+                            >Quantity:</span
                           >
                           <span>Color:Dark</span>
                           <br />
-                          <span>price:<%-i.price %></span>
+                          <span>price:</span>
                         </div>
                       </td>
                       <td width="20%">
                         <div class="text-right">
                           <span class="font-weight-bold"
-                            ><%-i.productTotal %></span
+                            ></span
                           >
                         </div>
                       </td>
                     </tr>
-                    <% }) %>
+                 
                   </tbody>
                 </table>
               </div>
@@ -265,7 +265,7 @@
                         </td>
                         <td>
                           <div class="text-right">
-                            <span> ₹<%-productsdetails[0].total %> </span>
+                            <span> ₹ </span>
                           </div>
                         </td>
                       </tr>
@@ -305,9 +305,7 @@
                         <td>
                           <div class="text-right">
                             <span class="text-success"
-                              >₹ <% if (productsdetails[0].coupon) { %>
-                              <%-productsdetails[0].coupon %> <% } else { %> 0 <% }
-                              %> /-</span
+                              >₹ /-</span
                             >
                           </div>
                         </td>
@@ -322,7 +320,7 @@
                         <td>
                           <div class="text-right">
                             <span class="font-weight-bold text-success">
-                              ₹<%-productsdetails[0].payableAmount %> /-</span
+                              ₹0 /-</span
                             >
                           </div>
                         </td>

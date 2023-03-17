@@ -10,7 +10,6 @@ import { orderModel } from "../models/orderSchema.js";
 import { ifuser } from "../middleware/middleware.js";
 import { bannerimage } from "../models/bannerSchema.js";
 
-
 let passworderr = null;
 let emailerr = null;
 
@@ -398,89 +397,82 @@ export async function getcheckout(req, res) {
 }
 export async function postcheckout(req, res) {
   try {
-    if (!req.session.user) {
-      res.redirect("/login");
-    } else {
-      const cartQuantity = {};
+    const cartQuantity = {};
 
-      const userinfo = await users.findOne(
-        { _id: req.session.user._id },
-        { cart: 1 }
-      );
+    const userinfo = await users.findOne(
+      { _id: req.session.user._id },
+      { cart: 1 }
+    );
 
-      const productIDs = userinfo.cart.map((item) => {
-        cartQuantity[item.product_id] = item.quantity;
+    const productIDs = userinfo.cart.map((item) => {
+      cartQuantity[item.product_id] = item.quantity;
 
-        return item.product_id;
-      });
+      return item.product_id;
+    });
 
-      let productsdetails = await products
-        .find({ _id: { $in: productIDs } })
-        .lean();
+    let productsdetails = await products
+      .find({ _id: { $in: productIDs } })
+      .lean();
 
-      let promo = 0;
-      if (req.body.promo) {
-        const code = await coupon.findOne({ couponCode: req.body.promo });
+    let promo = 0;
+    if (req.body.promo) {
+      const code = await coupon.findOne({ couponCode: req.body.promo });
 
-        promo = code.discount;
-      }
-
-      let sum = 0;
-
-      productsdetails = productsdetails.map((item) => {
-        return {
-          ...item,
-          cartQuantity: cartQuantity[item._id],
-          coupon: promo,
-        };
-      });
-      for (const i of productsdetails) {
-        i.productTotal = i.cartQuantity * i.price;
-        sum = sum + i.productTotal;
-      }
-
-      sum = productsdetails.reduce((acc, item) => acc + item.productTotal, 0);
-
-      let total = sum - promo;
-
-      productsdetails = productsdetails.map((item) => {
-        return {
-          ...item,
-          total: sum,
-          payableAmount: total,
-        };
-      });
-
-      let address = await users.findOne(
-        {
-          _id: req.session.user._id,
-          "address._id": req.body.address,
-        },
-        { address: { $elemMatch: { _id: req.body.address } } }
-      );
-      let deladdress = address.address[0];
-
-      let ordercount = await orderModel.find().count();
-
-      let orders = productsdetails.map((product) => ({
-        address: deladdress,
-        product: product,
-        userId: req.session.user._id,
-        quantity: product.cartQuantity,
-        total: product.total,
-        coupon: product.coupon,
-        amountPayable: product.payableAmount,
-        paymentType: req.body.paymentType,
-        orderId: ordercount + 1,
-      }));
-
-      await orderModel.create(orders);
-
-      res.render("orderConfirmationPage", {
-        ifuser,
-        productsdetails,
-      });
+      promo = code.discount;
     }
+
+    let sum = 0;
+
+    productsdetails = productsdetails.map((item) => {
+      return {
+        ...item,
+        cartQuantity: cartQuantity[item._id],
+        coupon: promo,
+      };
+    });
+    for (const i of productsdetails) {
+      i.productTotal = i.cartQuantity * i.price;
+      sum = sum + i.productTotal;
+    }
+
+    sum = productsdetails.reduce((acc, item) => acc + item.productTotal, 0);
+
+    let total = sum - promo;
+
+    productsdetails = productsdetails.map((item) => {
+      return {
+        ...item,
+        total: sum,
+        payableAmount: total,
+      };
+    });
+
+    let address = await users.findOne(
+      {
+        _id: req.session.user._id,
+        "address._id": req.body.address,
+      },
+      { address: { $elemMatch: { _id: req.body.address } } }
+    );
+    let deladdress = address.address[0];
+
+    let ordercount = await orderModel.find().count();
+
+    let orders = productsdetails.map((product) => ({
+      address: deladdress,
+      product: product,
+      userId: req.session.user._id,
+      quantity: product.cartQuantity,
+      total: product.total,
+      coupon: product.coupon,
+      amountPayable: product.payableAmount,
+      paymentType: req.body.paymentType,
+      orderId: ordercount + 1,
+    }));
+
+    await orderModel.create(orders);
+
+    res.redirect("/orderConfirmationPage");
   } catch (error) {
     addressError = "address is not found";
     res.redirect("/checkout");
@@ -726,12 +718,15 @@ export async function editaddress(req, res) {
 export function payment(req, res) {
   res.render("address");
 }
+export function orderconfirmationpage(req, res) {
+  res.render("orderconfirmationpage",{ifuser});
+}
 export async function orderDetails(req, res) {
-  const orderDetails=await orderModel.find()
+  const orderDetails = await orderModel.find();
 
-let user=await users.findOne(req.session.user)
-console.log(user);
-  res.render("order",{ifuser,orderDetails});
+  let user = await users.findOne(req.session.user);
+  console.log(user);
+  res.render("order", { ifuser, orderDetails });
 }
 
 //orderpage
@@ -875,30 +870,34 @@ export async function incdec(req, res) {
       );
 
       if (quantity.quantity > req.query.quantity) {
-        await users.updateOne(
-                  {
-                    _id: req.session.user._id,
-                    cart: { $elemMatch: { product_id: req.query.data } },
-                  },
-                  { $inc: { "cart.$.quantity": 1 } }
-                ).then((result)=>{
-                  console.log(result,'sdfghjk');
-                });
- 
+        await users
+          .updateOne(
+            {
+              _id: req.session.user._id,
+              cart: { $elemMatch: { product_id: req.query.data } },
+            },
+            { $inc: { "cart.$.quantity": 1 } }
+          )
+          .then((result) => {
+            console.log(result, "sdfghjk");
+          });
+
         res.json({ success: true });
       } else {
         res.json({ success: false });
       }
     } else {
-      await users.updateOne(
-        {
-          _id: req.session.user._id,
-          cart: { $elemMatch: { product_id: req.query.data } },
-        },
-        { $inc: { "cart.$.quantity": -1 } }
-      ).then((result)=>{
-        console.log(result,'s123123');
-      });
+      await users
+        .updateOne(
+          {
+            _id: req.session.user._id,
+            cart: { $elemMatch: { product_id: req.query.data } },
+          },
+          { $inc: { "cart.$.quantity": -1 } }
+        )
+        .then((result) => {
+          console.log(result, "s123123");
+        });
 
       res.json({ success: true });
     }
