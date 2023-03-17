@@ -234,13 +234,15 @@
                 </ul>
 
                 <!-- Search -->
-                <form class="w-auto py-1" style="max-width: 12rem">
+                <form class="w-auto py-1" action="/search" method="post" style="max-width: 12rem">
                   <input
                     type="search"
                     class="form-control rounded-0"
                     placeholder="Search"
                     aria-label="Search"
+                    name="search"
                   />
+                  <button type="submit">search</button>
                 </form>
               </div>
             </div>
@@ -255,6 +257,7 @@
         <div class="text-center container">
           <div class="row">
             <div class="row">
+              
               <% productinfo.forEach(i => { %>
               <div class="col-lg-3 col-md-6 mb-4">
                 <div class="card">

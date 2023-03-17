@@ -31,6 +31,7 @@ import {
   productPage,
   promoCode,
   resendOTP,
+  search,
   shop,
   shorts,
   signupresendOTP,
@@ -92,6 +93,7 @@ router.get('/incdec',ifuser,incdec)
 router.get("/deletefromaddress/:data",ifuser,deletefromaddress)
 router.get('/promoCode/:data',ifuser,promoCode)
 
+router.post('/search',search)
 
 router.get('/new',ifuser,newp)
 export default router;

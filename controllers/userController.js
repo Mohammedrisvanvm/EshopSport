@@ -35,8 +35,16 @@ export async function guestpage(req, res) {
 }
 export async function shop(req, res) {
   try {
-    const productinfo = await products.find({ list: true });
-    res.render("shop", { productinfo, ifuser });
+    
+    let productinfo = await products.find({ list: true });
+    if (req.session.searchdata) {
+      productinfo = req.session.searchdata;
+      res.render("shop", { productinfo, ifuser });
+      req.session.searchdata=null
+      console.log( req.session.searchdata);
+    } else {
+      res.render("shop", { productinfo, ifuser });
+    }
   } catch (error) {
     res.send(error);
   }
@@ -719,7 +727,7 @@ export function payment(req, res) {
   res.render("address");
 }
 export function orderconfirmationpage(req, res) {
-  res.render("orderconfirmationpage",{ifuser});
+  res.render("orderconfirmationpage", { ifuser });
 }
 export async function orderDetails(req, res) {
   const orderDetails = await orderModel.find();
@@ -934,4 +942,13 @@ export async function promoCode(req, res) {
 //axios function end
 export function newp(req, res) {
   res.render("new home", { ifuser });
+}
+
+export async function search(req, res) {
+  console.log(req.body);
+  let searchdata = await products
+    .find({ productName: RegExp(req.body.search, "i") })
+    console.log(searchdata);
+  req.session.searchdata = searchdata;
+  res.redirect("/shop");
 }

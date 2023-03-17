@@ -247,9 +247,8 @@
                       <div class="form-outline" id="quantity">
                         <input
                           id="Qty<%-i._id %>"
-                          
                           name="quantity"
-                          value="<%-i.cartQuantity %>"
+                          value="<%-i.cart %>"
                           type="number"
                           min="1"
                           max="10"
@@ -399,24 +398,26 @@
           document.getElementById("message" + data).textContent =
             "reached limit";
         } else {
-          axios.get(`/incdec?quantity=${quantity.value}&data=${data}&cond=${cond}`).then((response) => {
-            if (response.data.success) {
-              quantity.value = Number(quantity.value) + 1;
-              let price = document.getElementById("price" + data);
-              let total = document.getElementById("total" + data);
-              total.textContent =
-                Number(quantity.value) * Number(price.textContent);
-              document.getElementById("totalpp" + data).textContent =
-                total.textContent;
-              let totalprice = document.getElementById("totalprice");
-              totalprice.textContent =
-                Number(totalprice.textContent) + Number(price.textContent);
-            } else {
-              console.log("21321312");
-              document.getElementById("message" + data).textContent =
-                "outofstock";
-            }
-          });
+          axios
+            .get(`/incdec?quantity=${quantity.value}&data=${data}&cond=${cond}`)
+            .then((response) => {
+              if (response.data.success) {
+                quantity.value = Number(quantity.value) + 1;
+                let price = document.getElementById("price" + data);
+                let total = document.getElementById("total" + data);
+                total.textContent =
+                  Number(quantity.value) * Number(price.textContent);
+                document.getElementById("totalpp" + data).textContent =
+                  total.textContent;
+                let totalprice = document.getElementById("totalprice");
+                totalprice.textContent =
+                  Number(totalprice.textContent) + Number(price.textContent);
+              } else {
+                console.log("21321312");
+                document.getElementById("message" + data).textContent =
+                  "outofstock";
+              }
+            });
         }
       }
       function dec(data, cond) {
