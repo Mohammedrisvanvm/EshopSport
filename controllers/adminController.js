@@ -387,14 +387,14 @@ export function unlistproduct(req, res) {
   });
 }
 export async function userban(req, res) {
-  console.log(req.params);
+ 
   try {
     const userinfo = await users.findById({
       _id: req.params.id,
     });
     const { ban } = userinfo;
     if (ban == false) {
-      console.log("true");
+
       await users.updateOne(
         {
           _id: req.params.id,
@@ -404,7 +404,7 @@ export async function userban(req, res) {
 
       res.json({ success: true });
     } else {
-      console.log("false");
+
       await users.updateOne(
         {
           _id: req.params.id,
@@ -436,46 +436,81 @@ export async function deleteFromProductEdit(req, res) {
     res.json({ success: true });
   } catch (error) {}
 }
-export async function changestatus(req, res) {
-  console.log(req.query);
-  const { id, toChange } = req.query;
-  console.log(id, toChange);
-  console.log(typeof toChange);
-   if (toChange == "pending") {
-    await orderModel.updateOne(
-      {
-        _id: id,
-      },
-      { $set: { orderStatus: toChange } }
-    );
-    res.json({status:'pending'})
+export async function listCoupon(req, res) {
+  console.log(req.params);
+  try {
+    const couponinfo = await coupon.findById({
+      _id: req.params.id,
+    });
+    const { list } = couponinfo;
+    if (list == false) {
+
+      await coupon.updateOne(
+        {
+          _id: req.params.id,
+        },
+        { $set: { list: "true" } }
+      );
+
+      res.json({ success: true });
+    } else {
+
+      await coupon.updateOne(
+        {
+          _id: req.params.id,
+        },
+        { $set: { list: "false" } }
+      );
+
+      res.json({ success: false });
+    }
+   
+  } catch (error) {
+    res.send(error);
   }
-  else if (toChange == "shipped") {
-    console.log("43211");
-    await orderModel.updateOne(
-      {
-        _id: id,
-      },
-      { $set: { orderStatus: toChange } }
-    );
-    res.json({status:'shipped'})
-  } else if (toChange == "out for delivery") {
-    await orderModel.updateOne(
-      {
-        _id: id,
-      },
-      { $set: { orderStatus: toChange } }
-    );
-    res.json({status:'outForDelivery'})
-  } else if (toChange == "delivered") {
-    await orderModel.updateOne(
-      {
-        _id: id,
-      },
-      { $set: { orderStatus: toChange } }
-    );
-    res.json({status: 'delivered'})
-  } else {
-  console.log('not matched');
+}
+
+export async function changestatus(req, res) {
+  try {
+    const { id, toChange } = req.query;
+
+    if (toChange == "pending") {
+      await orderModel.updateOne(
+        {
+          _id: id,
+        },
+        { $set: { orderStatus: toChange } }
+      );
+      res.json({ status: "pending" });
+    } else if (toChange == "shipped") {
+      console.log("43211");
+      await orderModel.updateOne(
+        {
+          _id: id,
+        },
+        { $set: { orderStatus: toChange } }
+      );
+      res.json({ status: "shipped" });
+    } else if (toChange == "out for delivery") {
+      await orderModel.updateOne(
+        {
+          _id: id,
+        },
+        { $set: { orderStatus: toChange } }
+      );
+      res.json({ status: "outForDelivery" });
+    } else if (toChange == "delivered") {
+      await orderModel.updateOne(
+        {
+          _id: id,
+        },
+        { $set: { orderStatus: toChange } }
+      );
+      res.json({ status: "delivered" });
+    } else {
+      console.log("not matched");
+    }
+  } catch (error) {
+    res.send(error);
   }
 }

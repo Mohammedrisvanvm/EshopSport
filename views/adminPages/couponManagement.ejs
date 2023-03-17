@@ -58,11 +58,10 @@
     <div id="main-wrapper">
       <header class="topbar">
         <nav class="navbar top-navbar navbar-expand-md navbar-light">
-        
           <div class="navbar-header">
             <a class="navbar-brand" href="index.ejs">
               <!-- Logo icon --><b>
-               <img
+                <img
                   src="/assets/images/logo-icon.png"
                   alt="homepage"
                   class="dark-logo"
@@ -74,8 +73,7 @@
                   class="light-logo"
                 />
               </b>
-            ><span>
-                
+              ><span>
                 <img
                   src="../assets/images/logo-text.png"
                   alt="homepage"
@@ -88,8 +86,8 @@
               /></span>
             </a>
           </div>
-         <div class="navbar-collapse">
-          <ul class="navbar-nav me-auto">
+          <div class="navbar-collapse">
+            <ul class="navbar-nav me-auto">
               <li class="nav-item">
                 <a
                   class="nav-link nav-toggler hidden-md-up waves-effect waves-dark"
@@ -97,7 +95,7 @@
                   ><i class="fa fa-bars"></i
                 ></a>
               </li>
-            <li class="nav-item hidden-xs-down search-box">
+              <li class="nav-item hidden-xs-down search-box">
                 <a
                   class="nav-link hidden-sm-down waves-effect waves-dark"
                   href="javascript:void(0)"
@@ -113,8 +111,8 @@
                 </form>
               </li>
             </ul>
-           <ul class="navbar-nav my-lg-0">
-            <li class="nav-item dropdown u-pro">
+            <ul class="navbar-nav my-lg-0">
+              <li class="nav-item dropdown u-pro">
                 <a
                   class="nav-link dropdown-toggle waves-effect waves-dark profile-pic"
                   href="#"
@@ -308,7 +306,6 @@
                           <input
                             type="text"
                             class="form-control"
-                           
                             name="discount"
                             placeholder="dicount"
                             required=""
@@ -349,60 +346,58 @@
           </div>
         </div>
 
-
-
         <section>
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">number</th>
-                  <th scope="col">name</th>
-                  <th scope="col">coupon code</th>
-                  <th scope="col">minamount</th>
-                  <th scope="col">discount</th>
-                  <th scope="col">maxdiscount</th>
-                
-                  <th scope="col">list</th>
-                  <th scope="col">expiry</th>
-                  <!-- <th scope="col">edit/delete</th> -->
-                </tr>
-              </thead>
-              <tbody>
-                <% couponinfo.forEach((i,index) => { %>
-                <tr>
-                  <td scope="row"><%- index+1 %></td>
-                  <td><%-i.name %></td>
-                  <td><%- i.couponCode %></td>
-                  <td><%- i.minamount %></td>
-                  <td><%- i.discount %></td>
-                  <td><%-i.maxdiscount %></td>
-                 
-  
-                  <td>
-                    <button
-                      class="btn btn-success btn-sm"
-                      id="listbtn<%-i._id %>"
-                     
-                    >
-                      <%-i.list %>
-                    </button>
-                  </td>
-                  <td><%- i.expiry.toLocaleString() %></td>
-                  <td class="d-flex">
-                    <a href="/admin/editproduct/<%-i._id %>">
-                      <i class="ri-pencil-line mx-2 fs-4 text-dark"></i></a
-                    ><a href="/admin/deleteproduct/<%-i._id %>"
-                      ><i
-                        class="ri-delete-bin-6-fill fs-4 mx-3 text-danger"
-                        onclick="return confirm('are you sure you want to delete?')"
-                      ></i
-                    ></a>
-                  </td>
-                </tr>
-                <% }) %>
-              </tbody>
-            </table>
-          </section>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">number</th>
+                <th scope="col">name</th>
+                <th scope="col">coupon code</th>
+                <th scope="col">minamount</th>
+                <th scope="col">discount</th>
+                <th scope="col">maxdiscount</th>
+
+                <th scope="col">list</th>
+                <th scope="col">expiry</th>
+                <!-- <th scope="col">edit/delete</th> -->
+              </tr>
+            </thead>
+            <tbody>
+              <% couponinfo.forEach((i,index) => { %>
+              <tr>
+                <td scope="row"><%- index+1 %></td>
+                <td><%-i.name %></td>
+                <td><%- i.couponCode %></td>
+                <td><%- i.minamount %></td>
+                <td><%- i.discount %></td>
+                <td><%-i.maxdiscount %></td>
+
+                <td>
+                  <button
+                    class="btn btn-success btn-sm"
+                    id="listbtn<%-i._id %>"
+                    onclick="list(`<%-i._id %>`)"
+                    value="    <%-i.list %>"
+                  >
+                    <%-i.list %>
+                  </button>
+                </td>
+                <td><%- i.expiry.toLocaleString() %></td>
+                <td class="d-flex">
+                  <a href="/admin/editproduct/<%-i._id %>">
+                    <i class="ri-pencil-line mx-2 fs-4 text-dark"></i></a
+                  ><a href="/admin/deleteproduct/<%-i._id %>"
+                    ><i
+                      class="ri-delete-bin-6-fill fs-4 mx-3 text-danger"
+                      onclick="return confirm('are you sure you want to delete?')"
+                    ></i
+                  ></a>
+                </td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </section>
 
         <footer class="footer">
           © 2023 eshopsport by
@@ -410,18 +405,30 @@
         </footer>
       </div>
     </div>
-
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+    <script>
+      function list(data) {
+        let value = document.getElementById("listbtn" + data);
+        axios.get("/admin/listcoupon/" + data).then((response) => {
+        
+          if (response.data.success == true) {
+            value.textContent ="true";
+    
+          } else {
+            value.textContent ="false";
+           
+          }
+        });
+      }
+    </script>
     <script src="/assets/node_modules/jquery/jquery.min.js"></script>
     <!-- Bootstrap popper Core JavaScript -->
     <script src="/assets/node_modules/bootstrap/js/bootstrap.bundle.min.js"></script>
-
 
     <script src="/assets/node_modules/raphael/raphael-min.js"></script>
     <script src="/assets/node_modules/morrisjs/morris.min.js"></script>
     <!--c3 JavaScript -->
     <script src="/assets/node_modules/d3/d3.min.js"></script>
     <script src="/assets/node_modules/c3-master/c3.min.js"></script>
-
-   
   </body>
 </html>

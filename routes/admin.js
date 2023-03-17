@@ -14,6 +14,7 @@ import {
   getgategoriesManagemenet,
   getProductManagement,
   getuserManagement,
+  listCoupon,
   ordermanagement,
   postaddcategories,
   postaddProduct,
@@ -60,6 +61,8 @@ router.get("/productunlist/:id",ifadmin, unlistproduct);
 router.get("/userban/:id",ifadmin, userban);
 router.get("/deleteFromProductEdit",deleteFromProductEdit);
 router.get("/changestatus",ifadmin,changestatus );
+router.get("/listcoupon/:id",ifadmin,listCoupon );
+
 
 
 

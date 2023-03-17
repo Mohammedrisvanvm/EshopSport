@@ -299,9 +299,9 @@
       function userban(data) {
         let value=document.getElementById('ban'+ data)
        
-        console.log(value);
+      
         axios.get(`/admin/userban/`+ data).then((result)=>{
-          console.log(result.data);
+      
           if (result.data.success == true) {
             value.textContent = "true";
             console.log("false");
