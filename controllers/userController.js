@@ -299,6 +299,7 @@ export async function cart(req, res) {
         productsdetails = productsdetails.map((item) => {
           return { ...item, cartQuantity: cartQuantity[item._id] };
         });
+        console.log(productsdetails);
         let sum = 0;
         for (const i of productsdetails) {
           i.productTotal = i.cartQuantity * i.price;
@@ -359,6 +360,7 @@ export async function getcheckout(req, res) {
     productsdetails = productsdetails.map((item) => {
       return { ...item, cartQuantity: cartQuantity[item._id] };
     });
+    console.log(productsdetails);
     let sum = 0;
     for (const i of productsdetails) {
       i.productTotal = i.cartQuantity * i.price;
@@ -789,10 +791,10 @@ export async function addtocart(req, res) {
           { $push: { cart: { product_id: req.params.data, quantity: 1 } } }
         );
 
-        await products.updateOne(
-          { _id: req.params.data },
-          { $inc: { quantity: -1 } }
-        );
+        // await products.updateOne(
+        //   { _id: req.params.data },
+        //   { $inc: { quantity: -1 } }
+        // );
       } else {
         res.send("not worked");
       }
@@ -864,7 +866,7 @@ export async function deletefromcart(req, res) {
 // }
 export async function incdec(req, res) {
   try {
-    
+    console.log(req.query);
 
     if (req.query.cond == "inc") {
       let quantity = await products.findOne(
@@ -872,14 +874,32 @@ export async function incdec(req, res) {
         { _id: 0, quantity: 1 }
       );
 
-      if (quantity.quantity >= req.query.quantity) {
-   
+      if (quantity.quantity > req.query.quantity) {
+        await users.updateOne(
+                  {
+                    _id: req.session.user._id,
+                    cart: { $elemMatch: { product_id: req.query.data } },
+                  },
+                  { $inc: { "cart.$.quantity": 1 } }
+                ).then((result)=>{
+                  console.log(result,'sdfghjk');
+                });
+ 
         res.json({ success: true });
       } else {
         res.json({ success: false });
       }
     } else {
-     
+      await users.updateOne(
+        {
+          _id: req.session.user._id,
+          cart: { $elemMatch: { product_id: req.query.data } },
+        },
+        { $inc: { "cart.$.quantity": -1 } }
+      ).then((result)=>{
+        console.log(result,'s123123');
+      });
+
       res.json({ success: true });
     }
   } catch (error) {}

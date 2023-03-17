@@ -247,9 +247,9 @@
                       <div class="form-outline" id="quantity">
                         <input
                           id="Qty<%-i._id %>"
-                          min="0"
+                          
                           name="quantity"
-                          value="<%-i.cartQuantity%>"
+                          value="<%-i.cartQuantity %>"
                           type="number"
                           min="1"
                           max="10"
@@ -363,7 +363,7 @@
                   </li>
                 </ul>
 
-                <form action="/checkout">
+                <form action="/checkout?">
                   <button
                     type="submit"
                     class="btn btn-primary btn-lg btn-block"
@@ -429,7 +429,6 @@
         } else {
           axios.get(`/incdec?data=${data}&cond=${cond}`).then((response) => {
             console.log(response);
-            console.log("asdfghjkl");
             if (response.data.success) {
               quantity.value = Number(quantity.value) - 1;
               let price = document.getElementById("price" + data);
