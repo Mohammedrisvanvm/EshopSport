@@ -14,7 +14,7 @@ export function ifadmin(req,res,next){
         next()
     }else{
         admin:false
-        res.redirect('/admin/login')
+        res.redirect('/admin')
     }
 
 }

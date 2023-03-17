@@ -399,7 +399,7 @@
           document.getElementById("message" + data).textContent =
             "reached limit";
         } else {
-          axios.get(`/incdec?data=${data}&cond=${cond}`).then((response) => {
+          axios.get(`/incdec?quantity=${quantity.value}&data=${data}&cond=${cond}`).then((response) => {
             if (response.data.success) {
               quantity.value = Number(quantity.value) + 1;
               let price = document.getElementById("price" + data);
