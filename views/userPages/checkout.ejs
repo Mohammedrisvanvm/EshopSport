@@ -198,31 +198,54 @@
 
                 <strong id="totalprice">₹<%-productsdetails.sum %></strong>
               </li>
+              <h4 class="my-3">Available Coupons</h4>
+              <% coupons.forEach((i) => { %>
 
-              <div class="input-group mt-4">
-                <input
-                  type="text"
-                  placeholder="Promo code"
-                  id="promo"
-                  name="promo"
-                />
+              <li
+                class="list-group-item d-flex justify-content-between lh-condensed"
+              >
+                <div>
+                  <h6 class="my-0">Coupon Name: <%-i.name %></h6>
+                  <small>Code:<%-i.couponCode %></small>
+                  <br />
+                  <small class="text-muted" id="quantity"
+                    >Dicount:₹<%-i.discount %></small
+                  >
+                  <br />
+                  <small class="text-muted"
+                    >Minimum purchase:₹<%-i.minamount %></small
+                  >
+                </div>
+              </li>
+              <% }) %>
+              <li class="list-group-item d-flex justify-content-between">
+                <div class="input-group mt-4">
+                  <input
+                    type="text"
+                    placeholder="Promo code"
+                    id="promo"
+                    name="promo"
+                    class="rounded"
+                  />
 
-                <button
-                  type="button"
-                  onclick="promoCode()"
-                  class="btn btn-secondary ms-2"
-                  id="Redeemcode"
-                  name="Redeemed"
-                >
-                  Redeem
-                </button>
-              </div>
+                  <button
+                    type="button"
+                    onclick="promoCode()"
+                    class="btn btn-secondary ms-2"
+                    id="Redeemcode"
+                    name="Redeemed"
+                  >
+                    Redeem
+                  </button>
+                </div>
+              </li>
             </ul>
           </div>
 
-          <div class="col-md-8 order-md-1 " id="exampleModalCenter">
+          <div class="col-md-8 order-md-1" id="exampleModalCenter">
             <h4 class="mb-3">Billing address</h4>
             <!-- Button trigger modal -->
+
             <button
               type="button"
               class="btn btn-primary"
@@ -231,6 +254,7 @@
             >
               add address
             </button>
+            <label class="text-danger"><%-addressError %></label>
 
             <!-- Modal -->
 
@@ -239,38 +263,32 @@
             <h6>add address..........</h6>
 
             <% } else { %> <% useraddress.address.forEach((i) => { %>
-              <h5 class="mt-5">Your Address</h5>
-            <div
-              class="d-flex radio border " id="deletefromaddress<%= i._id %>"
-             
-            >
-           
+            <h5 class="mt-5">Your Address</h5>
+            <div class="d-flex radio border" id="deletefromaddress<%= i._id %>">
               <%= i.address %>
               <br />
               <%= i.country %>
               <br />
               <%= i.state %>
               <br />
-         
+
               <input
-              type="radio"
-          
-              id="address<%= i.id %>"
-              name="address"
-              value="<%= i._id %>"
-              required
-            />
-            <button
-            type="button"
-            onclick=" deletefromaddress(`<%-i._id %>`,`del`)"
-            class="btn btn-outline-none border-0"
-          >
-            <i
-              title="delete address"
-              class="ri-delete-bin-6-fill fs-4 text-danger"
-            ></i>
-          </button>
-             
+                type="radio"
+                id="address<%= i.id %>"
+                name="address"
+                value="<%= i._id %>"
+                required
+              />
+              <button
+                type="button"
+                onclick=" deletefromaddress(`<%-i._id %>`,`del`)"
+                class="btn btn-outline-none border-0"
+              >
+                <i
+                  title="delete address"
+                  class="ri-delete-bin-6-fill fs-4 text-danger"
+                ></i>
+              </button>
             </div>
             <% }) %> <% } %>
 
@@ -381,6 +399,7 @@
           Payment
         </button>
       </form>
+
       <footer class="my-5 pt-5 text-muted text-center text-small">
         <p class="mb-1">© 2023 ESHOP SPORT</p>
         <ul class="list-inline">

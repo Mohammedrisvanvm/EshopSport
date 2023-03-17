@@ -504,7 +504,7 @@ export async function changestatus(req, res) {
         {
           _id: id,
         },
-        { $set: { orderStatus: toChange } }
+        { $set: { orderStatus: toChange ,paid:true} }
       );
       res.json({ status: "delivered" });
     } else {

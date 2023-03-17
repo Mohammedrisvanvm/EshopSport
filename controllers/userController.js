@@ -15,6 +15,7 @@ let emailerr = null;
 
 let loginvalue = null;
 let otperr = null;
+let addressError=null
 
 let otp = otpGenerator.generate(6, {
   upperCaseAlphabets: false,
@@ -371,7 +372,6 @@ export async function getcheckout(req, res) {
     }
     productsdetails.sum = sum;
 
-    // console.log(productsdetails, "123456789");
     let count = 0;
     const count1 = userinfo.cart.map((item) => {
       count = count + 1;
@@ -380,18 +380,23 @@ export async function getcheckout(req, res) {
     });
 
     //address
-
+console.log(addressError);
     const useraddress = await users.findOne(
       { _id: req.session.user._id },
       { address: 1, _id: 0 }
     );
+    const coupons=await coupon.find({list:"true"})
+   
 
     res.render("checkout", {
       productsdetails,
       ifuser,
       useraddress,
       count,
+      coupons,
+      addressError
     });
+    addressError=null
   } catch (error) {
     console.log(error);
   }
@@ -483,7 +488,8 @@ export async function postcheckout(req, res) {
       });
     }
   } catch (error) {
-    console.log(error);
+    addressError="address is not found"
+    res.redirect('/checkout')
   }
 }
 
