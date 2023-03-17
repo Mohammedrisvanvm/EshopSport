@@ -239,8 +239,8 @@
                   <th scope="col">number</th>
                   <th scope="col">orderId</th>
                   <th scope="col">name</th>
-                  <th scope="col">coupon use</th>
-                  <th scope="col">totalamount</th>
+                  <th scope="col">product name</th>
+                  <th scope="col">price/item</th>
 
                   <th scope="col">paymentType</th>
 
@@ -257,8 +257,8 @@
                   <td scope="row"><%- index+1 %></td>
                   <td><%- i._id %></td>
                   <td><%-i.address.firstName %></td>
-                  <td><%- i.coupon.price %></td>
-                  <td><%- i.total %></td>
+                  <td><%- i.product[0] .productName%></td>
+                  <td><%- i.product[0] .price %></td>
                   <td><%- i.paymentType %></td>
                   <td><%- i.quantity %></td>
                   <td><%- i.createdAt.toLocaleString() %></td>
@@ -354,8 +354,7 @@
           .then((response) => {
             let status = response.data.status;
 
-           document.getElementById("status" + data).textContent=status
-        
+            document.getElementById("status" + data).textContent = status;
           });
       }
     </script>

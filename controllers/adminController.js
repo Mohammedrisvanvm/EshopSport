@@ -148,7 +148,6 @@ export async function postaddcategories(req, res) {
   console.log(req.body);
   try {
     const { Category, subCategory } = req.body;
-    console.log(Category, subCategory);
 
     if (!Category && !subCategory) {
       throw new Error("No category or subcategory provided");
@@ -275,7 +274,6 @@ export async function deleteProduct(req, res) {
 export async function couponManagement(req, res) {
   try {
     const couponinfo = await coupon.find();
-    console.log(couponinfo);
 
     res.render("couponManagement", { couponinfo });
   } catch (error) {
@@ -284,7 +282,6 @@ export async function couponManagement(req, res) {
 }
 export async function postCouponManagement(req, res) {
   try {
-    console.log(req.body);
     let addcoupon = new coupon({
       name: req.body.name,
       couponCode: req.body.couponCode,
@@ -303,12 +300,10 @@ export async function banner(req, res) {
   let banner = await bannerimage.find();
 
   let bannerimage1 = banner.map((item) => item.mainImage[0]);
-  console.log(bannerimage1, banner);
+
   res.render("bannerManagement", { bannerimage1 });
 }
 export async function postBanner(req, res) {
-  console.log(req.files);
-
   try {
     const imageadd = new bannerimage({
       mainImage: req.files.mainImage,
@@ -324,7 +319,6 @@ export async function postBanner(req, res) {
 }
 export async function ordermanagement(req, res) {
   const orderinfo = await orderModel.find();
-  console.log(orderinfo);
 
   res.render("orderManagement", { orderinfo });
 }
@@ -387,14 +381,12 @@ export function unlistproduct(req, res) {
   });
 }
 export async function userban(req, res) {
- 
   try {
     const userinfo = await users.findById({
       _id: req.params.id,
     });
     const { ban } = userinfo;
     if (ban == false) {
-
       await users.updateOne(
         {
           _id: req.params.id,
@@ -404,7 +396,6 @@ export async function userban(req, res) {
 
       res.json({ success: true });
     } else {
-
       await users.updateOne(
         {
           _id: req.params.id,
@@ -414,13 +405,11 @@ export async function userban(req, res) {
 
       res.json({ success: false });
     }
-    console.log(userinfo);
   } catch (error) {
     res.send(error);
   }
 }
 export async function deleteFromProductEdit(req, res) {
-  console.log(req.query);
   const { pId, data } = req.query;
   try {
     const productinfo = await products
@@ -437,14 +426,12 @@ export async function deleteFromProductEdit(req, res) {
   } catch (error) {}
 }
 export async function listCoupon(req, res) {
-  console.log(req.params);
   try {
     const couponinfo = await coupon.findById({
       _id: req.params.id,
     });
     const { list } = couponinfo;
     if (list == false) {
-
       await coupon.updateOne(
         {
           _id: req.params.id,
@@ -454,7 +441,6 @@ export async function listCoupon(req, res) {
 
       res.json({ success: true });
     } else {
-
       await coupon.updateOne(
         {
           _id: req.params.id,
@@ -464,7 +450,6 @@ export async function listCoupon(req, res) {
 
       res.json({ success: false });
     }
-   
   } catch (error) {
     res.send(error);
   }
@@ -483,7 +468,6 @@ export async function changestatus(req, res) {
       );
       res.json({ status: "pending" });
     } else if (toChange == "shipped") {
-      console.log("43211");
       await orderModel.updateOne(
         {
           _id: id,
@@ -504,7 +488,7 @@ export async function changestatus(req, res) {
         {
           _id: id,
         },
-        { $set: { orderStatus: toChange ,paid:true} }
+        { $set: { orderStatus: toChange, paid: true } }
       );
       res.json({ status: "delivered" });
     } else {

@@ -15,7 +15,7 @@ let emailerr = null;
 
 let loginvalue = null;
 let otperr = null;
-let addressError=null
+let addressError = null;
 
 let otp = otpGenerator.generate(6, {
   upperCaseAlphabets: false,
@@ -44,7 +44,7 @@ export async function shop(req, res) {
 export async function jersey(req, res) {
   try {
     const productinfo = await products.find({ category: "jersey", list: true });
-    console.log(productinfo);
+
     res.render("jersey", { productinfo, ifuser });
   } catch (error) {
     res.send(error);
@@ -53,7 +53,7 @@ export async function jersey(req, res) {
 export async function shorts(req, res) {
   try {
     const productinfo = await products.find({ category: "shorts", list: true });
-    console.log(productinfo);
+
     res.render("shorts", { productinfo, ifuser });
   } catch (error) {
     res.send(error);
@@ -73,7 +73,6 @@ export function userGetLogin(req, res) {
 
 export async function userPostLogin(req, res) {
   try {
-    console.log(req.body);
     const { email, password } = req.body;
 
     const userinfo = await users.findOne({ email });
@@ -229,7 +228,6 @@ export async function postforget3(req, res) {
     } else {
       passworderr = "not matching";
       res.redirect("/forget3");
-      console.log("forget", loginvalue);
     }
   } catch (error) {
     console.log(error);
@@ -286,20 +284,17 @@ export async function cart(req, res) {
 
           return count;
         });
-        console.log(count, "=========");
 
         const productIDs = userinfo.cart.map((item) => {
           cartQuantity[item.product_id] = item.quantity;
 
           return item.product_id;
         });
-        console.log(productIDs);
 
         let productsdetails = await products
           .find({ _id: { $in: productIDs } })
           .lean();
 
-        console.log(productsdetails, "123456789");
         productsdetails = productsdetails.map((item) => {
           return { ...item, cartQuantity: cartQuantity[item._id] };
         });
@@ -309,8 +304,6 @@ export async function cart(req, res) {
           sum = sum + i.productTotal;
         }
         productsdetails.sum = sum;
-
-        // console.log(productsdetails, "123456789");
 
         res.render("cart", {
           productsdetails,
@@ -380,13 +373,12 @@ export async function getcheckout(req, res) {
     });
 
     //address
-console.log(addressError);
+
     const useraddress = await users.findOne(
       { _id: req.session.user._id },
       { address: 1, _id: 0 }
     );
-    const coupons=await coupon.find({list:"true"})
-   
+    const coupons = await coupon.find({ list: "true" });
 
     res.render("checkout", {
       productsdetails,
@@ -394,9 +386,9 @@ console.log(addressError);
       useraddress,
       count,
       coupons,
-      addressError
+      addressError,
     });
-    addressError=null
+    addressError = null;
   } catch (error) {
     console.log(error);
   }
@@ -481,15 +473,14 @@ export async function postcheckout(req, res) {
 
       await orderModel.create(orders);
 
-      console.log(productsdetails);
       res.render("orderConfirmationPage", {
         ifuser,
         productsdetails,
       });
     }
   } catch (error) {
-    addressError="address is not found"
-    res.redirect('/checkout')
+    addressError = "address is not found";
+    res.redirect("/checkout");
   }
 }
 
@@ -610,7 +601,6 @@ export async function postaddressprofile(req, res) {
     } = req.body;
 
     const user = await users.findOne({ _id: req.session.user._id });
-    console.log(user);
 
     if (
       firstName == "" ||
@@ -623,39 +613,29 @@ export async function postaddressprofile(req, res) {
       pincode == ""
     ) {
       res.redirect("/checkout");
-      console.log("vaue not");
     } else {
-      users
-        .updateOne(
-          { _id: req.session.user._id },
-          {
-            $push: {
-              address: {
-                _id: uniqid(),
-                firstName,
-                lastName,
-                phonenumber,
-                Email,
-                address,
-                country,
-                state,
-                pincode,
-              },
+      await users.updateOne(
+        { _id: req.session.user._id },
+        {
+          $push: {
+            address: {
+              _id: uniqid(),
+              firstName,
+              lastName,
+              phonenumber,
+              Email,
+              address,
+              country,
+              state,
+              pincode,
             },
-          }
-        )
-        .then((result) => {
-          console.log(result);
-        });
+          },
+        }
+      );
 
       const useraddress = await users.findOne(
         { _id: req.session.user._id },
         { address: 1, _id: 0 }
-      );
-      console.log(
-        //useraddress,
-        useraddress.address,
-        "11111111111111"
       );
 
       res.redirect("/profile");
@@ -692,7 +672,6 @@ export async function postaddresspage(req, res) {
       pincode == ""
     ) {
       res.redirect("/checkout");
-      console.log("vaue not");
     } else {
       users
         .updateOne(
@@ -721,11 +700,6 @@ export async function postaddresspage(req, res) {
         { _id: req.session.user._id },
         { address: 1, _id: 0 }
       );
-      console.log(
-        //useraddress,
-        useraddress.address,
-        "11111111111111"
-      );
 
       res.redirect("/checkout");
     }
@@ -735,15 +709,11 @@ export async function postaddresspage(req, res) {
 }
 export async function editaddress(req, res) {
   try {
-    console.log(req.params);
-
     const useraddress = await users
       .findOne({ _id: req.session.user._id })
       .select("address")
       .elemMatch("address", { _id: req.params.data })
       .exec();
-
-    console.log("11111111111", useraddress);
 
     res.render("editprofile", { i: useraddress, ifuser });
   } catch (error) {
@@ -751,12 +721,14 @@ export async function editaddress(req, res) {
   }
 }
 export function payment(req, res) {
-  console.log(req.body);
   res.render("address");
 }
-export function orderDetails(req, res) {
-  console.log(req.body);
-  res.render("order");
+export async function orderDetails(req, res) {
+  const orderDetails=await orderModel.find()
+
+let user=await users.findOne(req.session.user)
+console.log(user);
+  res.render("order",{ifuser,orderDetails});
 }
 
 //orderpage
@@ -771,14 +743,11 @@ export function userlogout(req, res) {
 
 export async function addtowishlist(req, res) {
   try {
-    await users
-      .updateOne(
-        { _id: req.session.user._id },
-        { $addToSet: { wishlist: { product_id: req.params.data } } }
-      )
-      .then((result) => {
-        console.log(result);
-      });
+    await users.updateOne(
+      { _id: req.session.user._id },
+      { $addToSet: { wishlist: { product_id: req.params.data } } }
+    );
+
     res.json({ success: true });
   } catch (error) {
     console.log(error);
@@ -787,14 +756,10 @@ export async function addtowishlist(req, res) {
 
 export async function deletefromwishlist(req, res) {
   try {
-    users
-      .updateOne(
-        { _id: req.session.user._id },
-        { $pull: { wishlist: { product_id: req.params.data } } }
-      )
-      .then((result) => {
-        console.log(result);
-      });
+    users.updateOne(
+      { _id: req.session.user._id },
+      { $pull: { wishlist: { product_id: req.params.data } } }
+    );
   } catch (error) {
     console.log(error);
   }
@@ -838,16 +803,15 @@ export async function addtocart(req, res) {
 export async function deletefromcart(req, res) {
   try {
     let { data, quantity } = req.query;
-    console.log(data, typeof quantity);
     quantity = parseInt(quantity);
-    console.log(data, typeof quantity);
     await users.updateOne(
       { _id: req.session.user._id },
       { $pull: { cart: { product_id: data } } }
     );
-    products
-      .updateOne({ _id: req.query.data }, { $inc: { quantity: quantity } })
-      .then((result) => console.log(result));
+    await products.updateOne(
+      { _id: req.query.data },
+      { $inc: { quantity: quantity } }
+    );
   } catch (error) {
     console.log(error);
   }
@@ -862,20 +826,16 @@ export async function incdec(req, res) {
         { _id: req.query.data },
         { _id: 0, quantity: 1 }
       );
-      console.log(quantity);
 
       if (quantity.quantity >= 1) {
-        users
-          .updateOne(
-            {
-              _id: req.session.user._id,
-              cart: { $elemMatch: { product_id: req.query.data } },
-            },
-            { $inc: { "cart.$.quantity": 1 } }
-          )
-          .then((result) => {
-            console.log(result, "11111");
-          });
+        await users.updateOne(
+          {
+            _id: req.session.user._id,
+            cart: { $elemMatch: { product_id: req.query.data } },
+          },
+          { $inc: { "cart.$.quantity": 1 } }
+        );
+
         await products.updateOne(
           { _id: req.query.data },
           { $inc: { quantity: -1 } }
@@ -903,18 +863,15 @@ export async function incdec(req, res) {
 }
 export async function deletefromaddress(req, res) {
   try {
-    users
-      .updateOne(
-        { _id: req.session.user._id },
-        { $pull: { address: { _id: req.params.data } } }
-      )
-      .then((result) => console.log(result));
+    await users.updateOne(
+      { _id: req.session.user._id },
+      { $pull: { address: { _id: req.params.data } } }
+    );
   } catch (error) {
     console.log(error);
   }
 }
 export async function promoCode(req, res) {
-  console.log(req.params);
   try {
     if (!req.params.data) {
       res.json({ success: false });
@@ -922,10 +879,8 @@ export async function promoCode(req, res) {
       const code = await coupon.findOne({ couponCode: req.params.data });
 
       if (!code) {
-        console.log("1111111111111111111");
         res.json({ success: false });
       } else {
-        console.log("3222222222");
         res.json({ success: true, code: code.discount });
       }
     }
