@@ -2,6 +2,7 @@ import Express, { Router } from "express";
 import {
   adminlogout,
   banner,
+  changestatus,
   couponManagement,
   deleteFromProductEdit,
   editcategory,
@@ -58,6 +59,7 @@ router.get("/categoryunlist/:id",ifadmin, unlistcategory);
 router.get("/productunlist/:id",ifadmin, unlistproduct);
 router.get("/userban/:id",ifadmin, userban);
 router.get("/deleteFromProductEdit",deleteFromProductEdit);
+router.get("/changestatus",ifadmin,changestatus );
 
 
 

@@ -156,14 +156,14 @@
         <div class="row g-0">
           <div class="col-md-6 border-end">
             <div class="d-flex flex-column justify-content-center">
-              <div class="main_image">
+              <div class="main_image" id="image-zoom">
                 <img
                   src="/image/productImage/<%-productinfo.mainImage[0].filename %>"
                   id="main_product_image"
                   width="350"
                 />
               </div>
-              <div class="thumbnail_images">
+              <div class="thumbnail_images" id="image-zoom">
                 <ul>
                   <li>
                     <img
@@ -387,6 +387,8 @@
         offset: { vertical: 0, horizontal: 10 },
         scale: 0.5,
       };
+    
+
 
       var img = document.getElementById("image-zoom");
       new ImageZoom(img, options);

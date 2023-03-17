@@ -187,7 +187,7 @@ export async function postaddcategories(req, res) {
 export async function editcategory(req, res) {
   try {
     const categoryinfo = await categories.findById(req.params.id);
-    
+
     res.render("editcategory", { categoryinfo });
   } catch (error) {
     res.send(error);
@@ -214,7 +214,6 @@ export async function posteditcategory(req, res) {
     res.send(error);
   }
 }
-
 
 export async function getEditProduct(req, res) {
   try {
@@ -338,8 +337,6 @@ export function adminlogout(req, res) {
 
 //axios
 
-
-
 export function unlistcategory(req, res) {
   return new Promise(async (resolve, reject) => {
     try {
@@ -380,7 +377,7 @@ export function unlistproduct(req, res) {
         await products.updateOne(
           { _id: req.params.id },
           { $set: { list: "false" } }
-        )
+        );
         res.json({ success: true });
       }
     } catch (error) {
@@ -395,8 +392,8 @@ export async function userban(req, res) {
     const userinfo = await users.findById({
       _id: req.params.id,
     });
-    const {ban}=userinfo
-    if(ban== false){
+    const { ban } = userinfo;
+    if (ban == false) {
       console.log("true");
       await users.updateOne(
         {
@@ -404,9 +401,9 @@ export async function userban(req, res) {
         },
         { $set: { ban: "true" } }
       );
-     
+
       res.json({ success: true });
-    }else{
+    } else {
       console.log("false");
       await users.updateOne(
         {
@@ -414,27 +411,71 @@ export async function userban(req, res) {
         },
         { $set: { ban: "false" } }
       );
-      
-      res.json({ success: false});
+
+      res.json({ success: false });
     }
     console.log(userinfo);
-    
-    
   } catch (error) {
     res.send(error);
   }
 }
-export async function deleteFromProductEdit(req,res){
+export async function deleteFromProductEdit(req, res) {
   console.log(req.query);
-  const{pId,data}=req.query
+  const { pId, data } = req.query;
   try {
-    const productinfo = await products.updateOne({
-      _id: pId
-    },{$pull:{subImages:{filename:req.query.data}}}).then((result)=>{console.log(result);})
- res.json({success:true})
-
-  } catch (error) {
-    
+    const productinfo = await products
+      .updateOne(
+        {
+          _id: pId,
+        },
+        { $pull: { subImages: { filename: req.query.data } } }
+      )
+      .then((result) => {
+        console.log(result);
+      });
+    res.json({ success: true });
+  } catch (error) {}
+}
+export async function changestatus(req, res) {
+  console.log(req.query);
+  const { id, toChange } = req.query;
+  console.log(id, toChange);
+  console.log(typeof toChange);
+   if (toChange == "pending") {
+    await orderModel.updateOne(
+      {
+        _id: id,
+      },
+      { $set: { orderStatus: toChange } }
+    );
+    res.json({status:'pending'})
   }
-
+  else if (toChange == "shipped") {
+    console.log("43211");
+    await orderModel.updateOne(
+      {
+        _id: id,
+      },
+      { $set: { orderStatus: toChange } }
+    );
+    res.json({status:'shipped'})
+  } else if (toChange == "out for delivery") {
+    await orderModel.updateOne(
+      {
+        _id: id,
+      },
+      { $set: { orderStatus: toChange } }
+    );
+    res.json({status:'outForDelivery'})
+  } else if (toChange == "delivered") {
+    await orderModel.updateOne(
+      {
+        _id: id,
+      },
+      { $set: { orderStatus: toChange } }
+    );
+    res.json({status: 'delivered'})
+  } else {
+  console.log('not matched');
+  }
 }

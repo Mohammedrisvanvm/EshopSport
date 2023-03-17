@@ -238,7 +238,7 @@
                 <tr>
                   <th scope="col">number</th>
                   <th scope="col">orderId</th>
-                  <th scope="col"> name</th>
+                  <th scope="col">name</th>
                   <th scope="col">coupon use</th>
                   <th scope="col">totalamount</th>
 
@@ -261,19 +261,67 @@
                   <td><%- i.total %></td>
                   <td><%- i.paymentType %></td>
                   <td><%- i.quantity %></td>
-                  <td><%- i.createdAt.toLocaleString()  %></td>
-                  <td><%- i.dispatch.toLocaleString()  %></td>
+                  <td><%- i.createdAt.toLocaleString() %></td>
+                  <td><%- i.dispatch.toLocaleString() %></td>
                   <td>
-                    <select
+                    <div class="dropdown">
+                      <button
+                        class="btn btn-secondary dropdown-toggle"
+                        type="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                        id="status<%-i._id %>"
+                      >
+                        <%-i.orderStatus %>
+                      </button>
+                      <ul class="dropdown-menu justify-content-center">
+                        <li>
+                          <button
+                            class="btn-dark"
+                            onclick="changeStatus(`<%- i._id %>`,'pending')"
+                          >
+                            pending
+                          </button>
+                        </li>
+                        <li>
+                          <button
+                            class="btn-dark"
+                            onclick="changeStatus(`<%- i._id %>`,`shipped`)"
+                          >
+                            shipped
+                          </button>
+                        </li>
+                        <li>
+                          <button
+                            class="btn-dark"
+                            onclick="changeStatus(`<%- i._id %>`,`out for delivery`)"
+                          >
+                            out for delivery
+                          </button>
+                        </li>
+                        <li>
+                          <button
+                            class="btn-dark"
+                            onclick="changeStatus(`<%- i._id %>`,`delivered`)"
+                          >
+                            Delivered
+                          </button>
+                        </li>
+                      </ul>
+                    </div>
+                    <!-- <select
                       class="form-select"
                       aria-label="Default select example"
+                      id="status"
+                      onclick="changeStatus(`<%- i._id %>`,`<%-i.orderStatus %>`)"
                     >
-                      <option value="1"><%-i.orderStatus %></option>
-                      <option value="2" class="bg-success">Delivered</option>
-                      <option value="cancelled" class="bg-danger">
-                        cancelled
+                      <option value="pending"><%-i.orderStatus %></option>
+                      <option value="shipped" class="text-primary">
+                        shipped
                       </option>
-                    </select>
+                      <option value="Delivered" class="text-success">Delivered</option>
+                     
+                    </select> -->
                   </td>
                 </tr>
                 <% }) %>
@@ -290,18 +338,26 @@
     </section>
 
     <script src="/assets/node_modules/jquery/jquery.min.js"></script>
-    <!-- Bootstrap popper Core JavaScript -->
+
     <script src="/assets/node_modules/bootstrap/js/bootstrap.bundle.min.js"></script>
- 
-    <!-- ============================================================== -->
-    <!-- This page plugins -->
-    <!-- ============================================================== -->
-    <!--morris JavaScript -->
+
     <script src="/assets/node_modules/raphael/raphael-min.js"></script>
     <script src="/assets/node_modules/morrisjs/morris.min.js"></script>
-    <!--c3 JavaScript -->
+
     <script src="/assets/node_modules/d3/d3.min.js"></script>
     <script src="/assets/node_modules/c3-master/c3.min.js"></script>
- 
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+    <script>
+      function changeStatus(data, toChange) {
+        axios
+          .get(`/admin/changestatus?id=${data}&toChange=${toChange}`)
+          .then((response) => {
+            let status = response.data.status;
+
+           document.getElementById("status" + data).textContent=status
+        
+          });
+      }
+    </script>
   </body>
 </html>
