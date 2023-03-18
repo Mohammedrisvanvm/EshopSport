@@ -16,6 +16,7 @@ let emailerr = null;
 let loginvalue = null;
 let otperr = null;
 let addressError = null;
+let quantityerr=null
 
 let otp = otpGenerator.generate(6, {
   upperCaseAlphabets: false,
@@ -410,8 +411,10 @@ export async function getcheckout(req, res) {
       count,
       coupons,
       addressError,
+      quantityerr,
     });
     addressError = null;
+    quantityerr=null
   } catch (error) {
     console.log(error);
   }
@@ -452,7 +455,15 @@ export async function postcheckout(req, res) {
         coupon: promo,
       };
     });
-
+  
+    productsdetails.forEach((item) => {
+      console.log(item.quantity, item.cartQuantity);
+      if (item.quantity < item.cartQuantity) {
+        quantityerr = "out of stock";
+        res.redirect('/checkout');
+      }
+    });
+    
     for (const i of productsdetails) {
       i.productTotal = i.cartQuantity * i.price;
       sum = sum + i.productTotal;
@@ -479,6 +490,12 @@ export async function postcheckout(req, res) {
     );
     let deladdress = address.address[0];
 
+    
+      // let quantity = await products.findOne(
+      //   { _id: productIDs },
+      //   { _id: 0, quantity: 1 }
+      // );
+
     let ordercount = await orderModel.find().count();
 
     let orders = productsdetails.map((product) => ({
@@ -494,114 +511,13 @@ export async function postcheckout(req, res) {
     }));
 
     await orderModel.create(orders);
-   
+  
     res.redirect("/orderConfirmationPage");
   } catch (error) {
     addressError = "address is not found";
     res.redirect("/checkout");
   }
 }
-
-// export async function postcheckout(req, res) {
-//   console.log(req.body.promo);
-//   try {
-//     if (!req.session.user) {
-//       res.redirect("/login");
-//     } else {
-//       const cartQuantity = {};
-
-//       const userinfo = await users.findOne(
-//         { _id: req.session.user._id },
-//         { cart: 1 }
-//       );
-
-//       const productIDs = userinfo.cart.map((item) => {
-//         cartQuantity[item.product_id] = item.quantity;
-
-//         return item.product_id;
-//       });
-
-//       let productsdetails = await products
-//         .find({ _id: { $in: productIDs } })
-//         .lean();
-
-//       let promo = 0;
-//       if (req.body.promo) {
-//         const code = await coupon.findOne({ couponCode: req.body.promo });
-
-//         promo = code.discount;
-//       } else {
-//         promo = promo;
-//       }
-//       console.log(promo);
-//       let sum = 0;
-
-//       productsdetails = productsdetails.map((item) => {
-
-//         return {
-//           ...item,
-//           cartQuantity: cartQuantity[item._id],
-//           coupon: promo,
-
-//         };
-//       });
-//       for (const i of productsdetails) {
-
-//         i.productTotal = i.cartQuantity * i.price;
-//         sum = sum + i.productTotal;
-//       }
-
-//    sum = productsdetails.reduce((acc, item) => acc + item.productTotal, 0);
-
-//       let total = sum - promo;
-
-//       productsdetails = productsdetails.map((item) => {
-
-//         return {
-//           ...item,
-//           total: sum,
-//           payableAmount: total,
-
-//         };
-//       });
-//       // console.log(productsdetails);
-//       let address = await users.findOne(
-//         {
-//           _id: req.session.user._id,
-//           "address._id": req.body.address,
-//         },
-//         { address: { $elemMatch: { _id: req.body.address } } }
-//       );
-//       let deladdress = address.address[0];
-//       let orders = [];
-//       let i = 1;
-//       let ordercount = await orderModel.find().count();
-// console.log(productsdetails);
-//       for (let product of productsdetails) {
-//         orders.push({
-//           address: deladdress,
-//           product: product,
-//           userId: req.session.user._id,
-//           quantity: cartQuantity[product._id],
-//           total: product.total,
-//           coupon: product.coupon,
-//           amountPayable: product.payableAmount,
-//           paymentType: req.body.paymentType,
-//           orderId: ordercount + 1,
-//         });
-//         i++;
-//       }
-//       await orderModel.create(orders);
-
-//       res.render("orderConfirmationPage", {
-//         ifuser,
-//         productsdetails,
-//       });
-//     }
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
 export function addresspage(req, res) {
   res.render("address", { ifuser });
 }
@@ -937,14 +853,17 @@ export async function deletefromaddress(req, res) {
   }
 }
 export async function promoCode(req, res) {
+  console.log(req.query);
   try {
     if (!req.params.data) {
       res.json({ success: false });
     } else {
       const code = await coupon.findOne({ couponCode: req.params.data });
-
+console.log(code.minamount);
       if (!code) {
         res.json({ success: false });
+      }else if(code){
+
       } else {
         res.json({ success: true, code: code.discount });
       }
@@ -970,12 +889,12 @@ res.json({success:true})
 }
 
 //axios function end
-export async function newp(req, res) {
+export async function uniqueorder(req, res) {
   const user = await users.findOne({ _id: req.session.user });
   console.log(user.name);
   const orderDetails = await orderModel.findOne({ _id: req.query.data });
 
-  res.render("new home", { ifuser, orderDetails, user });
+  res.render("orderdetails", { ifuser, orderDetails, user });
 }
 
 export async function search(req, res) {
