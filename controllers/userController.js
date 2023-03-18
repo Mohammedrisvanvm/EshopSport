@@ -848,6 +848,14 @@ export async function promoCode(req, res) {
 }
 export async function productReturn(req, res) {
   try {
+    let p=await orderModel.findOne({_id:req.query.data})
+    console.log(p.quantity);
+    await products.updateOne(
+      {
+        _id: req.query.proid,
+      },
+      { $inc: { quantity: p.quantity } }
+    );
     await orderModel.updateOne(
       {
         _id: req.query.data,

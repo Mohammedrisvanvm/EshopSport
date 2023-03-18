@@ -225,7 +225,7 @@
                             <span class="text-warning"> <%= orderDetails.orderStatus %> </span>
                           <% } else if (orderDetails.orderStatus === 'delivered') { %>
                             <span class="text-success"> <%= orderDetails.orderStatus %> </span>
-                            <button onclick="returnProduct('<%= orderDetails._id %>')">Return</button>
+                            <button onclick="returnProduct('<%= orderDetails._id %>','<%=orderDetails.product[0]._id %>')">Return</button>
                           <% } else { %>
                             <span class="text-danger">  <%= orderDetails.orderStatus %></span>
                           
@@ -373,9 +373,9 @@
 
     <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
     <script>
-      function returnProduct(data){
-        console.log(data,"233333333333");
-axios.get(`/productReturn?data=${data}`).then((result)=>{
+      function returnProduct(data,proid){
+        console.log(data,proid,"233333333333");
+axios.get(`/productReturn?data=${data}&proid=${proid}`).then((result)=>{
   if(result.data.success){
     let r=document.getElementById('return'+data).innerHTML=`Order Status:<span class="text-danger">Returned</span>`
     console.log(r);
