@@ -352,6 +352,7 @@
         axios
           .get(`/admin/changestatus?id=${data}&toChange=${toChange}`)
           .then((response) => {
+            console.log(response.data.status);
             let status = response.data.status;
 
             document.getElementById("status" + data).textContent = status;

@@ -484,12 +484,13 @@ export async function changestatus(req, res) {
       );
       res.json({ status: "outForDelivery" });
     } else if (toChange == "delivered") {
+      console.log("11111111111111");
       await orderModel.updateOne(
         {
           _id: id,
         },
-        { $set: { orderStatus: toChange, paid: true } }
-      );
+        { $set: { orderStatus: toChange, paid: true ,deliveredDate:new Date()} ,upsert:true}
+      ).then((result)=>console.log(result))
       res.json({ status: "delivered" });
     } else {
       console.log("not matched");
