@@ -745,7 +745,7 @@ export function orderconfirmationpage(req, res) {
   res.render("orderconfirmationpage", { ifuser });
 }
 export async function orderDetails(req, res) {
-  const orderDetails = await orderModel.find();
+  const orderDetails = await orderModel.find().sort({_id:-1})
 
   let user = await users.findOne(req.session.user);
   console.log(user);
@@ -982,6 +982,7 @@ export async function search(req, res) {
   console.log(req.body);
   let searchdata = await products.find({
     productName: RegExp(req.body.search, "i"),
+    
   });
   console.log(searchdata);
   req.session.searchdata = searchdata;
