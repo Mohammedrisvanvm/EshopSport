@@ -164,12 +164,13 @@
             <div class="invoice p-5">
               <h5>Your order Confirmed!</h5>
 
-              <span class="font-weight-bold d-block mt-4">Hello, Chris</span>
+              <span class="font-weight-bold d-block mt-4"
+                >Hello, <%-user.name %></span
+              >
               <span
                 >You order has been confirmed and will be shipped in next two
                 days!</span
               >
-
               <div
                 class="payment border-top mt-3 mb-3 border-bottom table-responsive"
               >
@@ -179,25 +180,21 @@
                       <td>
                         <div class="py-2">
                           <span class="d-block text-muted">Order Date</span>
-                          <span>12 Jan,2018</span>
+                          <span><%-orderDetails.createdAt %></span>
                         </div>
                       </td>
 
                       <td>
                         <div class="py-2">
-                          <span class="d-block text-muted">Order No</span>
-                          <span>MT12332345</span>
+                          <span class="d-block text-muted">Order Id</span>
+                          <span><%-orderDetails._id %></span>
                         </div>
                       </td>
 
                       <td>
                         <div class="py-2">
                           <span class="d-block text-muted">Payment</span>
-                          <span
-                            ><img
-                              src="https://img.icons8.com/color/48/000000/mastercard.png"
-                              width="20"
-                          /></span>
+                          <span><%-orderDetails.paymentType %></span>
                         </div>
                       </td>
 
@@ -206,9 +203,36 @@
                           <span class="d-block text-muted"
                             >Shiping Address</span
                           >
-                          <span>414 Advert Avenue, NY,USA</span>
+                          <span><%-orderDetails.address.address %></span>
                         </div>
                       </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="product border-bottom table-responsive">
+                <table class="table table-borderless">
+                  <tbody>
+                    <tr>
+                      <td>
+                        <h1 class="d-flex justify-content-center" id="return<%= orderDetails._id %>">
+                          Order Status:
+                          <% if (orderDetails.orderStatus === 'pending') { %>
+                            <span class="text-warning"> <%= orderDetails.orderStatus %> </span>
+                          <% } else if (orderDetails.orderStatus === 'shipped') { %>
+                            <span class="text-primary"> <%= orderDetails.orderStatus %> </span>
+                          <% } else if (orderDetails.orderStatus === 'out for delivery') { %>
+                            <span class="text-warning"> <%= orderDetails.orderStatus %> </span>
+                          <% } else if (orderDetails.orderStatus === 'delivered') { %>
+                            <span class="text-success"> <%= orderDetails.orderStatus %> </span>
+                            <button onclick="returnProduct('<%= orderDetails._id %>')">Return</button>
+                          <% } else { %>
+                            <span class="text-danger">  <%= orderDetails.orderStatus %></span>
+                          
+                          <% } %>
+                        </h1>
+                      </td>
+                      
                     </tr>
                   </tbody>
                 </table>
@@ -217,38 +241,33 @@
               <div class="product border-bottom table-responsive">
                 <table class="table table-borderless">
                   <tbody>
-                    <% productsdetails.forEach((i) => { %>
-
                     <tr>
                       <td width="20%">
                         <img
-                          src="/image/productImage/<%-i.mainImage[0].filename %>"
+                          src="/image/productImage/<%-orderDetails.product[0].mainImage[0].filename %>"
                           width="90"
                         />
                       </td>
 
                       <td width="60%">
                         <span class="font-weight-bold"
-                          ><%-i.productName %></span
-                        >
+                          ><%-orderDetails.product[0].productName %></span>
                         <div class="product-qty">
                           <span class="d-block"
-                            >Quantity:<%-i.cartQuantity %></span
-                          >
+                            >Quantity:<%-orderDetails.product[0].cartQuantity
+                            %></span>
                           <span>Color:Dark</span>
                           <br />
-                          <span>price:<%-i.price %></span>
+                          <span>price:<%-orderDetails.product[0].price %></span>
                         </div>
                       </td>
                       <td width="20%">
                         <div class="text-right">
                           <span class="font-weight-bold"
-                            ><%-i.productTotal %></span
-                          >
+                            ><%-orderDetails.productTotal %></span>
                         </div>
                       </td>
                     </tr>
-                    <% }) %>
                   </tbody>
                 </table>
               </div>
@@ -265,7 +284,7 @@
                         </td>
                         <td>
                           <div class="text-right">
-                            <span> ₹<%-productsdetails[0].total %> </span>
+                            <span> ₹<%-orderDetails.total %> </span>
                           </div>
                         </td>
                       </tr>
@@ -305,10 +324,10 @@
                         <td>
                           <div class="text-right">
                             <span class="text-success"
-                              >₹ <% if (productsdetails[0].coupon) { %>
-                              <%-productsdetails[0].coupon %> <% } else { %> 0 <% }
-                              %> /-</span
-                            >
+                              >₹ <% if (orderDetails.coupon) { %>
+                              <%-orderDetails.coupon %> <% } else { %> 0 <% } %>
+                              /-</span>
+                            
                           </div>
                         </td>
                       </tr>
@@ -322,8 +341,8 @@
                         <td>
                           <div class="text-right">
                             <span class="font-weight-bold text-success">
-                              ₹<%-productsdetails[0].payableAmount %> /-</span
-                            >
+                              ₹<%-orderDetails.amountPayable %> /-</span     >
+                       
                           </div>
                         </td>
                       </tr>
@@ -349,64 +368,20 @@
       </div>
     </div>
     <div class="d-flex justify-content-center">
-      <a href="/"><button>back to shop</button></a>
+      <a href="/order"><button>back to shop</button></a>
     </div>
+
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+    <script>
+      function returnProduct(data){
+        console.log(data,"233333333333");
+axios.get(`/productReturn?data=${data}`).then((result)=>{
+  if(result.data.success){
+    let r=document.getElementById('return'+data).innerHTML=`Order Status:<span class="text-danger">Returned</span>`
+    console.log(r);
+  }
+})
+      }
+    </script>
   </body>
 </html>
-<script>
-  // export async function postcheckout(req, res) {
-  // try {
-  //   if (!req.session.user) {
-  //     res.redirect("/login");
-  //   } else {
-  //     const cartQuantity = {};
-
-  //     const userinfo = await users.findOne(
-  //       { _id: req.session.user._id },
-  //       { cart: 1 }
-  //     );
-
-  //     const productIDs = userinfo.cart.map((item) => {
-  //       cartQuantity[item.product_id] = item.quantity;
-
-  //       return item.product_id;
-  //     });
-
-  //     let productsdetails = await products
-  //       .find({ _id: { $in: productIDs } })
-  //       .lean();
-
-  //     let promo = 0;
-  //     if (req.body.promo) {
-  //       const code = await coupon.findOne({ couponCode: req.body.promo });
-
-  //       promo = code.discount;
-  //     }
-
-  //     let sum = 0;
-
-  //     productsdetails = productsdetails.map((item) => {
-  //       return {
-  //         ...item,
-  //         cartQuantity: cartQuantity[item._id],
-  //         coupon: promo,
-  //       };
-  //     });
-  //     for (const i of productsdetails) {
-  //       i.productTotal = i.cartQuantity * i.price;
-  //       sum = sum + i.productTotal;
-  //     }
-
-  //     sum = productsdetails.reduce((acc, item) => acc + item.productTotal, 0);
-
-  //     let total = sum - promo;
-
-  //     productsdetails = productsdetails.map((item) => {
-  //       return {
-  //         ...item,
-  //         total: sum,
-  //         payableAmount: total,
-  //       };
-  //     });
-
-</script>

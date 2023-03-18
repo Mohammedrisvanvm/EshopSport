@@ -24,24 +24,37 @@ let otp = otpGenerator.generate(6, {
 
 export async function guestpage(req, res) {
   try {
-    const productinfo = await products.find({ list: true });
+    const jerseyinfo = await products
+      .aggregate([
+        { $match: { category: "jersey", list: true } },
+        { $sort: { _id: -1 } },
+        { $limit: 4 },
+      ])
+      .exec();
+    const shortsinfo = await products
+      .aggregate([
+        { $match: { category: "shorts", list: true } },
+        { $sort: { _id: -1 } },
+        { $limit: 4 },
+      ])
+      .exec();
+
     let cImage = await bannerimage.find();
     cImage = cImage.map((item) => item.mainImage[0]);
 
-    res.render("guest", { productinfo, cImage, ifuser });
+    res.render("guest", { jerseyinfo, shortsinfo, cImage, ifuser });
   } catch (error) {
     console.log(error);
   }
 }
 export async function shop(req, res) {
   try {
-    
     let productinfo = await products.find({ list: true });
     if (req.session.searchdata) {
       productinfo = req.session.searchdata;
       res.render("shop", { productinfo, ifuser });
-      req.session.searchdata=null
-      console.log( req.session.searchdata);
+      req.session.searchdata = null;
+      console.log(req.session.searchdata);
     } else {
       res.render("shop", { productinfo, ifuser });
     }
@@ -367,7 +380,7 @@ export async function getcheckout(req, res) {
     productsdetails = productsdetails.map((item) => {
       return { ...item, cartQuantity: cartQuantity[item._id] };
     });
-    console.log(productsdetails);
+
     let sum = 0;
     for (const i of productsdetails) {
       i.productTotal = i.cartQuantity * i.price;
@@ -418,6 +431,7 @@ export async function postcheckout(req, res) {
       return item.product_id;
     });
 
+
     let productsdetails = await products
       .find({ _id: { $in: productIDs } })
       .lean();
@@ -438,6 +452,7 @@ export async function postcheckout(req, res) {
         coupon: promo,
       };
     });
+
     for (const i of productsdetails) {
       i.productTotal = i.cartQuantity * i.price;
       sum = sum + i.productTotal;
@@ -479,7 +494,7 @@ export async function postcheckout(req, res) {
     }));
 
     await orderModel.create(orders);
-
+   
     res.redirect("/orderConfirmationPage");
   } catch (error) {
     addressError = "address is not found";
@@ -814,9 +829,13 @@ export async function deletefromcart(req, res) {
       { _id: req.session.user._id },
       { $pull: { cart: { product_id: data } } }
     );
-    await products.updateOne(
-      { _id: req.query.data },
-      { $inc: { quantity: quantity } }
+
+    await users.updateOne(
+      {
+        _id: req.session.user._id,
+        cart: { $elemMatch: { product_id: data } },
+      },
+      { $inc: { "cart.$.quantity": 1 } }
     );
   } catch (error) {
     console.log(error);
@@ -869,7 +888,7 @@ export async function deletefromcart(req, res) {
 // }
 export async function incdec(req, res) {
   try {
-    console.log(req.query);
+
 
     if (req.query.cond == "inc") {
       let quantity = await products.findOne(
@@ -886,9 +905,7 @@ export async function incdec(req, res) {
             },
             { $inc: { "cart.$.quantity": 1 } }
           )
-          .then((result) => {
-            console.log(result, "sdfghjk");
-          });
+          
 
         res.json({ success: true });
       } else {
@@ -903,9 +920,7 @@ export async function incdec(req, res) {
           },
           { $inc: { "cart.$.quantity": -1 } }
         )
-        .then((result) => {
-          console.log(result, "s123123");
-        });
+        
 
       res.json({ success: true });
     }
@@ -938,17 +953,37 @@ export async function promoCode(req, res) {
     console.log(error);
   }
 }
+export async function productReturn(req,res){
+ try {
+  await orderModel.updateOne(
+    {
+      _id:  req.query.data,
+    },
+    { $set: { orderStatus: 'Returned', paid: false } }
+  );
+res.json({success:true})
+ } catch (error) {
+  res.send(error)
+ }
+  
+
+}
 
 //axios function end
-export function newp(req, res) {
-  res.render("new home", { ifuser });
+export async function newp(req, res) {
+  const user = await users.findOne({ _id: req.session.user });
+  console.log(user.name);
+  const orderDetails = await orderModel.findOne({ _id: req.query.data });
+
+  res.render("new home", { ifuser, orderDetails, user });
 }
 
 export async function search(req, res) {
   console.log(req.body);
-  let searchdata = await products
-    .find({ productName: RegExp(req.body.search, "i") })
-    console.log(searchdata);
+  let searchdata = await products.find({
+    productName: RegExp(req.body.search, "i"),
+  });
+  console.log(searchdata);
   req.session.searchdata = searchdata;
   res.redirect("/shop");
 }

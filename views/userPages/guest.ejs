@@ -81,15 +81,7 @@
                 <li class="nav-item">
                   <a class="nav-link mx-2" href="/shop"><h5>SHOP NOW</h5></a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link mx-2" href="/jersey"><H5>JERSEY</H5></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link mx-2" href="/shorts"><H5>SHORTS</H5></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link mx-2" href="/socks"><H5>SOCKS</H5></a>
-                </li>
+              
                 <li class="nav-item">
                   <a class="nav-link mx-2" href="/contactus"
                     ><H5>CONTACT US</H5></a
@@ -132,7 +124,9 @@
                         <li>
                           <a class="dropdown-item" href="/profile">profile</a>
                         </li>
-                        <li><a class="dropdown-item" href="/orders">orders</a></li>
+                        <li>
+                          <a class="dropdown-item" href="/orders">orders</a>
+                        </li>
                         <li>
                           <a class="dropdown-item" href="/logout"
                             ><button class="btn btn-dark">logout</button></a
@@ -270,7 +264,8 @@
               <h2>jersey</h2>
               <p>
                 Browse jersey shirts stock photos and images
-                <br> available
+                <br />
+                available
               </p>
               <p>
                 <a class="btn btn-secondary" href="/jersey" role="button"
@@ -282,15 +277,16 @@
             <div class="col-lg-4">
               <img
                 class="rounded-circle"
-                src="/image/category/shorts.jpg"               
-                 alt="Generic placeholder image"
+                src="/image/category/shorts.jpg"
+                alt="Generic placeholder image"
                 width="140"
                 height="140"
               />
               <h2>Shorts</h2>
               <p>
                 Browse jersey shorts stock photos and images
-                <br> available
+                <br />
+                available
               </p>
               <p>
                 <a class="btn btn-secondary" href="/shorts" role="button"
@@ -309,7 +305,8 @@
               />
               <h2>Heading</h2>
               <p>
-                Browse football  socks photos and images <br> available
+                Browse football socks photos and images <br />
+                available
               </p>
               <p>
                 <a class="btn btn-secondary" href="/shop" role="button"
@@ -324,69 +321,15 @@
       </section>
 
       <div class="container">
-        <!-- Navbar -->
-        <nav
-          class="navbar navbar-expand-lg navbar-dark mt-3 mb-5 shadow p-2"
-          style="background-color: #607d8b"
-        >
-          <!-- Container wrapper -->
-          <div class="container-fluid">
-            <!-- Navbar brand -->
-            <a class="navbar-brand" href="#">categories</a>
-
-            <!-- Toggle button -->
-            <button
-              class="navbar-toggler"
-              type="button"
-              data-mdb-toggle="collapse"
-              data-mdb-target="#navbarSupportedContent2"
-              aria-controls="navbarSupportedContent2"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <i class="fas fa-bars"></i>
-            </button>
-
-            <!-- Collapsible wrapper -->
-            <div class="collapse navbar-collapse" id="navbarSupportedContent2">
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <!-- Link -->
-                <li class="nav-item acitve">
-                  <a class="nav-link text-white" href="#">All</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link text-white" href="#">jersey</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link text-white" href="#">shorts</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link text-white" href="#">sheos</a>
-                </li>
-              </ul>
-
-              <!-- Search -->
-              <form class="w-auto py-1" style="max-width: 12rem">
-                <input
-                  type="search"
-                  class="form-control rounded-0"
-                  placeholder="Search"
-                  aria-label="Search"
-                />
-              </form>
-            </div>
-          </div>
-          <!-- Container wrapper -->
-        </nav>
-        <!-- Navbar -->
-
-        <!-- Products -->
-
+        <H1 class="d-flex justify-content-center"> New Arrivals......</H1>
+        <hr />
+        <h3 class="d-flex justify-content-center">Jersey</h3>
+        <hr />
         <section>
-          <div class="text-center">
+          <div class="text-center container">
             <div class="row">
               <div class="row">
-                <% productinfo.forEach(i => { %>
+                <% jerseyinfo.forEach(i => { %>
                 <div class="col-lg-3 col-md-6 mb-4">
                   <div class="card">
                     <div
@@ -449,48 +392,75 @@
           </div>
         </section>
 
-        <!-- Pagination -->
-        <nav
-          aria-label="Page navigation example"
-          class="d-flex justify-content-center mt-3"
-        >
-          <ul class="pagination">
-            <li class="page-item">
-              <a
-                class="page-link bg-dark text-white"
-                href="#"
-                aria-label="Previous"
-              >
-                <span aria-hidden="true">&laquo;</span>
-              </a>
-            </li>
-            <li class="page-item active">
-              <a class="page-link bg-dark text-white" href="#">1</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link bg-dark text-white" href="#">2</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link bg-dark text-white" href="#">3</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link bg-dark text-white" href="#">4</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link bg-dark text-white" href="#">5</a>
-            </li>
-            <li class="page-item">
-              <a
-                class="page-link bg-dark text-white"
-                href="#"
-                aria-label="Next"
-              >
-                <span aria-hidden="true">&raquo;</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-        <!-- Pagination -->
+        <hr />
+        <h3 class="d-flex justify-content-center">Shorts</h3>
+        <hr />
+        <section>
+          <div class="text-center container">
+            <div class="row">
+              <div class="row">
+                <% shortsinfo.forEach(i => { %>
+                <div class="col-lg-3 col-md-6 mb-4">
+                  <div class="card">
+                    <div
+                      class="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
+                      style="height: 300px"
+                      data-mdb-ripple-color="light"
+                    >
+                      <img
+                        src="/image/productImage/<%-i.mainImage[0].filename %>"
+                        class="w-100 h-100"
+                      />
+                      <a href="/productPage/<%-i._id %>">
+                        <div class="hover-overlay">
+                          <div
+                            class="mask"
+                            style="background-color: rgba(251, 251, 251, 0.15)"
+                          ></div>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="card-body text-center">
+                      <a href="" class="text-reset">
+                        <h5 class="card-title mb-2"><%-i.productName %></h5>
+                      </a>
+                      <a href="" class="text-reset">
+                        <p><%-i.category %></p>
+                      </a>
+                      <h6 class="mb-3 price">
+                        <s class="text-danger">Rs.<%-i.MRP %></s
+                        ><strong class="ms-2 sale">Rs.<%-i.price %></strong>
+                      </h6>
+                      <div class="d-flex">
+                        <button
+                          type="button"
+                          class="btn btn-danger mx-4"
+                          data-mdb-toggle="tooltip"
+                          title="Move to wishlist"
+                          onclick="addtowishlist(`<%-i._id %>`)"
+                        >
+                          <i class="fas fa-heart"></i>
+                        </button>
+                        <a href="/cart">
+                          <button
+                            type="button"
+                            class="btn btn-primary mx-3"
+                            title="buy now"
+                            data-mdb-toggle="tooltip"
+                            onclick="addtocart(`<%-i._id %>`)"
+                          >
+                            buy now
+                          </button>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <% }) %>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </main>
     <!--Main layout-->
@@ -598,6 +568,5 @@
           '<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>'
         );
     </script>
-  
   </body>
 </html>

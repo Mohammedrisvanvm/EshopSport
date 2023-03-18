@@ -157,7 +157,7 @@
               <div class="card-header px-4 py-5">
                 <h5 class="text-muted mb-0">
                   Thanks for your Order,
-                  <span style="color: #a8729a">Anna</span>!
+                  <span style="color: #a8729a">risvan</span>!
                 </h5>
               </div>
               <div class="card-body p-4">
@@ -247,7 +247,7 @@
                 </div>
 
                 <% orderDetails.forEach((i) => { %>
-
+                  <a href="/new?data=<%-i._id %>">
                 <div class="card shadow-0 border mb-4">
                   <div class="card-body">
                     <div class="row">
@@ -272,11 +272,7 @@
                           <%-i.product[0].category %>
                         </p>
                       </div>
-                      <div
-                        class="col-md-2 text-center d-flex justify-content-center align-items-center"
-                      >
-                        <p class="text-muted mb-0 small">Capacity: 32GB</p>
-                      </div>
+                     
                       <div
                         class="col-md-2 text-center d-flex justify-content-center align-items-center"
                       >
@@ -290,7 +286,13 @@
                         <p class="text-muted mb-0 small">
                           ₹<%-i.product[0].productTotal %>
                         </p>
+                     
                       </div>
+                      <div
+                      class="col-md-2 text-center d-flex justify-content-center align-items-center"
+                    >
+                      <p class="text-muted mb-0 small"><%-i.paymentType %></p>
+                    </div>
                     </div>
                     <hr
                       class="mb-4"
@@ -341,7 +343,7 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div></a>
                 <% }) %>
               </div>
             </div>
