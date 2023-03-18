@@ -1,311 +1,347 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>add address</title>
     <link rel="stylesheet" href="/css/profile.css" />
     <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
-    crossorigin="anonymous"
-  />
-  <!-- Font Awesome -->
-  <link
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-  rel="stylesheet"
-/>
-<!-- Google Fonts -->
-<link
-  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-  rel="stylesheet"
-/>
-<!-- MDB -->
-<link
-  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css"
-  rel="stylesheet"
-/>
-<link
-  href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css"
-  rel="stylesheet"
-/>
-</head>
-<body >
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <!-- Font Awesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- MDB -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
     <header>
-        <section>
-          <div class="container-fluid">
-            <!-- Navbar -->
-            <nav
-              class="navbar navbar-expand-lg navbar-dark mt-1 mb-5 shadow p-2"
-              style="background-color: #607d8b"
-            >
-              <!-- Container wrapper -->
-              <div class="container-fluid">
-                <!-- Navbar brand -->
-                <a class="navbar-brand mx-5" href="/"><h3>ESHOP SPORT</h3></a>
-  
-                <!-- Toggle button -->
-                <button
-                  class="navbar-toggler text-white"
-                  type="button"
-                  data-mdb-toggle="collapse"
-                  data-mdb-target="#navbarSupportedContent1"
-                  aria-controls="navbarSupportedContent1"
-                  aria-expanded="false"
-                  aria-label="Toggle navigation"
-                >
-                  <i class="fas fa-bars"></i>
-                </button>
-  
-                <!-- Collapsible wrapper -->
-                <div
-                  class="collapse navbar-collapse"
-                  id="navbarSupportedContent1"
-                >
-                  <ul class="navbar-nav mx-5 me-auto mb-2 mb-lg-0">
-                    <!-- Link -->
-                    <li class="nav-item acitve">
-                      <a class="nav-link mx-2" href="/"><h5>HOME</h5></a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link mx-2" href="#"><h5>MENS</h5></a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link mx-2" href="#"><H5>WOMENS</H5></a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link mx-2" href="#"><H5>BOYS</H5></a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link mx-2" href="#"><H5>GIRLS</H5></a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link mx-2" href="#"><H5>CONTACT US</H5></a>
-                    </li>
-                  </ul>
-  
-                  <ul class="navbar-nav mb-2 mb-lg-0">
-                    <li class="nav-item ms-5 fs-3 text-light">
-                      <a href="/wishlist" class="text-decoration-none text-light"
-                        ><i class="ri-heart-line"></i
-                      ></a>
-                    </li>
-                    <li class="nav-item mx-5 fs-3">
-                      <a
-                        href="/cart"
-                        class="text-decoration-none text-light d-flex"
-                        ><i class="ri-shopping-cart-fill"></i
-                      ></a>
-                    </li>
-                    <li class="nav-item pt-1">
-                      <div class="d-flex">
-                        <% if (ifuser) { %>
-  
-                        <div class="dropdown">
-                          <button
-                            class="btn btn-secondary dropdown-toggle"
-                            type="button"
-                            id="dropdownMenuButton1"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                          >
-                            <i class="ri-user-fill"></i>
-                          </button>
-                          <ul
-                            class="dropdown-menu"
-                            aria-labelledby="dropdownMenuButton1"
-                          >
-                            <li>
-                              <a class="dropdown-item" href="#">mohammed </a>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="/profile">profile</a>
-                            </li>
-                            <li><a class="dropdown-item" href="#">orders</a></li>
-                            <li>
-                              <a class="dropdown-item" href="/logout"
-                                ><button class="btn btn-dark">logout</button></a
-                              >
-                            </li>
-                          </ul>
-                        </div>
-  
-                        <% } else { %>
-  
-                        <a href="/login">
-                          <button class="btn btn-dark d-flex">
-                            <h5 class="mx-2">LOGIN</h5>
-                            <i class="ri-login-box-line fs-5"></i></button
-                        ></a>
-  
-                        <% } %>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <!-- Container wrapper -->
-            </nav>
-          </div>
-        </section>
-      </header>
+      <section>
+        <div class="container-fluid">
+          <!-- Navbar -->
+          <nav
+            class="navbar navbar-expand-lg navbar-dark mt-1 mb-5 shadow p-2"
+            style="background-color: #607d8b"
+          >
+            <!-- Container wrapper -->
+            <div class="container-fluid">
+              <!-- Navbar brand -->
+              <a class="navbar-brand mx-5" href="/"><h3>ESHOP SPORT</h3></a>
 
-            <h1 class="d-flex justify-content-center mb-5">edit address</h1>
-            <div class="d-flex justify-content-center">
-              <form
-                class="needs-validation"
-                action="/profile"
-                method="post"
-                novalidate=""
+              <!-- Toggle button -->
+              <button
+                class="navbar-toggler text-white"
+                type="button"
+                data-mdb-toggle="collapse"
+                data-mdb-target="#navbarSupportedContent1"
+                aria-controls="navbarSupportedContent1"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
               >
-              
-                <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <label for="firstName">First name</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="firstName"
-                      id="firstName"
-                      placeholder=""
-                      value="<%-i.firstName %>"
-                      required
-                    />
-                    <div class="invalid-feedback">
-                      Valid first name is required.
-                    </div>
-                  </div>
-                  <div class="col-md-6 mb-3">
-                    <label for="lastName">Last name</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="lastName"
-                      id="lastName"
-                      placeholder=""
-                      value="<%-i.lastName%>"
-                      required
-                    />
-                    <div class="invalid-feedback">
-                      Valid last name is required.
-                    </div>
-                  </div>
-                </div>
-                <div class="mb-3">
-                  <label for="username"></label>
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">phone no: +91</span>
-                    </div>
-                    <input
-                      type="number"
-                      class="form-control"
-                      name="phoneno"
-                      id="username"
-                      value="<%-i.phoneno%>"
-                      placeholder="Phone Number"
-                      required
-                    />
-                    <div class="invalid-feedback" style="width: 100%">
-                      Your username is required.
-                    </div>
-                  </div>
-                </div>
-                <div class="mb-3">
-                  <label for="email"
-                    >Email <span class="text-muted">(Optional)</span></label
-                  >
-                  <input
-                    type="email"
-                    class="form-control"
-                    name="Email"
-                    id="email"
-                    value="<%-i.Email%>"
-                 
-                  />
-                  <div class="invalid-feedback">
-                    Please enter a valid email address for shipping updates.
-                  </div>
-                </div>
-                <div class="mb-3">
-                  <label for="address">Address</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="address"
-                    name="address"
-                    value="<%-i.address%>"
-                   
-                    required=""
-                  />
-                  <div class="invalid-feedback">
-                    Please enter your shipping address.
-                  </div>
-                </div>
-                <div class="mb-3">
-                  <label for="address2"
-                    >Address 2 <span class="text-muted">(Optional)</span></label
-                  >
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="address2"
-                    placeholder="Apartment or suite"
-                  />
-                </div>
-                <div class="row">
-                  <div class="col-md-5 mb-3">
-                    <label for="country">Country</label>
-                    <input
-                    type="text"
-                    class="form-control"
-                    value="<%-i.country %>"
-                    
-                  
-                  />
-                    <div class="invalid-feedback">
-                      Please select a valid country.
-                    </div>
-                  </div>
-                  <div class="col-md-4 mb-3">
-                    <label for="state">State</label>
-                    <input
-                    type="text"
-                    class="form-control"
-                 value="<%-i.state %>"
-                    
-                  />
-                    <div class="invalid-feedback">
-                      Please provide a valid state.
-                    </div>
-                  </div>
-                  <div class="col-md-3 mb-3">
-                    <label for="zip">Zip</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="pincode"
-                      id="zip"
-                      value="<%-i.pincode%>"
-                      placeholder=""
-                      required=""
-                    />
-                    <div class="invalid-feedback">Zip code required.</div>
-                  </div>
-                </div>
+                <i class="fas fa-bars"></i>
+              </button>
 
-                <div class="d-flex justify-content-center my-5">
-                  <button class="btn btn-primary" type="submit">
-                    add address
-                  </button>
-              
-                </div>
-              </form>
+              <!-- Collapsible wrapper -->
+              <div
+                class="collapse navbar-collapse"
+                id="navbarSupportedContent1"
+              >
+                <ul class="navbar-nav mx-5 me-auto mb-2 mb-lg-0">
+                  <!-- Link -->
+                  <li class="nav-item acitve">
+                    <a class="nav-link mx-2" href="/"><h5>HOME</h5></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link mx-2" href="#"><h5>MENS</h5></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link mx-2" href="#"><H5>WOMENS</H5></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link mx-2" href="#"><H5>BOYS</H5></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link mx-2" href="#"><H5>GIRLS</H5></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link mx-2" href="#"><H5>CONTACT US</H5></a>
+                  </li>
+                </ul>
+
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                  <li class="nav-item ms-5 fs-3 text-light">
+                    <a href="/wishlist" class="text-decoration-none text-light"
+                      ><i class="ri-heart-line"></i
+                    ></a>
+                  </li>
+                  <li class="nav-item mx-5 fs-3">
+                    <a
+                      href="/cart"
+                      class="text-decoration-none text-light d-flex"
+                      ><i class="ri-shopping-cart-fill"></i
+                    ></a>
+                  </li>
+                  <li class="nav-item pt-1">
+                    <div class="d-flex">
+                      <% if (ifuser) { %>
+
+                      <div class="dropdown">
+                        <button
+                          class="btn btn-secondary dropdown-toggle"
+                          type="button"
+                          id="dropdownMenuButton1"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false"
+                        >
+                          <i class="ri-user-fill"></i>
+                        </button>
+                        <ul
+                          class="dropdown-menu"
+                          aria-labelledby="dropdownMenuButton1"
+                        >
+                          <li>
+                            <a class="dropdown-item" href="#">mohammed </a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" href="/profile">profile</a>
+                          </li>
+                          <li><a class="dropdown-item" href="#">orders</a></li>
+                          <li>
+                            <a class="dropdown-item" href="/logout"
+                              ><button class="btn btn-dark">logout</button></a
+                            >
+                          </li>
+                        </ul>
+                      </div>
+
+                      <% } else { %>
+
+                      <a href="/login">
+                        <button class="btn btn-dark d-flex">
+                          <h5 class="mx-2">LOGIN</h5>
+                          <i class="ri-login-box-line fs-5"></i></button
+                      ></a>
+
+                      <% } %>
+                    </div>
+                  </li>
+                </ul>
+              </div>
             </div>
-         
-          
-        
-</body>
+            <!-- Container wrapper -->
+          </nav>
+        </div>
+      </section>
+    </header>
+
+    <h1 class="d-flex justify-content-center mb-5">edit address</h1>
+    <div class="d-flex justify-content-center">
+      <form
+        class="needs-validation"
+        action="/profile"
+        method="post"
+        novalidate=""
+      >
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="firstName">First name</label>
+            <input
+              type="text"
+              class="form-control"
+              name="firstName"
+              id="firstName"
+              placeholder=""
+              value="<%-i.firstName %>"
+              required
+            />
+            <div class="invalid-feedback">Valid first name is required.</div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="lastName">Last name</label>
+            <input
+              type="text"
+              class="form-control"
+              name="lastName"
+              id="lastName"
+              placeholder=""
+              value="<%-i.lastName%>"
+              required
+            />
+            <div class="invalid-feedback">Valid last name is required.</div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="username"></label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">phone no: +91</span>
+            </div>
+            <input
+              type="number"
+              class="form-control"
+              name="phoneno"
+              id="username"
+              value="<%-i.phoneno%>"
+              placeholder="Phone Number"
+              required
+            />
+            <div class="invalid-feedback" style="width: 100%">
+              Your username is required.
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="email"
+            >Email <span class="text-muted">(Optional)</span></label
+          >
+          <input
+            type="email"
+            class="form-control"
+            name="Email"
+            id="email"
+            value="<%-i.Email%>"
+          />
+          <div class="invalid-feedback">
+            Please enter a valid email address for shipping updates.
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="address">Address</label>
+          <input
+            type="text"
+            class="form-control"
+            id="address"
+            name="address"
+            value="<%-i.address%>"
+            required=""
+          />
+          <div class="invalid-feedback">
+            Please enter your shipping address.
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="address2"
+            >Address 2 <span class="text-muted">(Optional)</span></label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="address2"
+            placeholder="Apartment or suite"
+          />
+        </div>
+        <div class="row">
+          <div class="col-md-5 mb-3">
+            <label for="country">Country</label>
+            <input type="text" class="form-control" value="<%-i.country %>" />
+            <div class="invalid-feedback">Please select a valid country.</div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label for="state">State</label>
+            <input type="text" class="form-control" value="<%-i.state %>" />
+            <div class="invalid-feedback">Please provide a valid state.</div>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label for="zip">Zip</label>
+            <input
+              type="text"
+              class="form-control"
+              name="pincode"
+              id="zip"
+              value="<%-i.pincode%>"
+              placeholder=""
+              required=""
+            />
+            <div class="invalid-feedback">Zip code required.</div>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-center my-5">
+          <button class="btn btn-primary" type="submit">add address</button>
+        </div>
+      </form>
+    </div>
+    <footer
+      class="text-center text-white mt-4"
+      style="background-color: #607d8b"
+    >
+      <hr class="text-dark" />
+
+      <div class="container" style="height: 50px">
+        <!-- Section: Social media -->
+        <section class="mb-3">
+          <!-- Facebook -->
+          <a
+            class="btn-link btn-floating btn-lg text-white"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-facebook-f"></i
+          ></a>
+
+          <!-- Twitter -->
+          <a
+            class="btn-link btn-floating btn-lg text-white"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-twitter"></i
+          ></a>
+
+          <!-- Google -->
+          <a
+            class="btn-link btn-floating btn-lg text-white"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-google"></i
+          ></a>
+
+          <!-- Instagram -->
+          <a
+            class="btn-link btn-floating btn-lg text-white"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-instagram"></i
+          ></a>
+
+          <!-- YouTube -->
+          <a
+            class="btn-link btn-floating btn-lg text-white"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-youtube"></i
+          ></a>
+        </section>
+      </div>
+
+      <div
+        class="text-center p-3"
+        style="background-color: rgba(0, 0, 0, 0.2); color: #e0e0e0"
+      >
+        © 2022 Copyright:
+        <a class="text-white" href="https://mdbootstrap.com/">eshopsport.com</a>
+      </div>
+    </footer>
+  </body>
 </html>
