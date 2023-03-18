@@ -16,7 +16,7 @@ let emailerr = null;
 let loginvalue = null;
 let otperr = null;
 let addressError = null;
-let quantityerr=null
+let quantityerr = null;
 
 let otp = otpGenerator.generate(6, {
   upperCaseAlphabets: false,
@@ -360,7 +360,6 @@ export function contactus(req, res) {
 }
 
 export async function getcheckout(req, res) {
-  console.log(req.body.promo);
   try {
     const cartQuantity = {};
     const userinfo = await users.findOne(
@@ -402,7 +401,19 @@ export async function getcheckout(req, res) {
       { _id: req.session.user._id },
       { address: 1, _id: 0 }
     );
-    const coupons = await coupon.find({ list: "true" });
+ 
+const coupon1 = await coupon.findOne({ list: false });
+
+// Log the coupon object to the console
+console.log(coupon1);
+
+// Update the coupon's list field to true
+await coupon.findByIdAndUpdate(
+  coupon1._id,
+  { $set: { list: true } }
+);
+
+let  coupons = await coupon.find({ list: "true" });
 
     res.render("checkout", {
       productsdetails,
@@ -414,7 +425,7 @@ export async function getcheckout(req, res) {
       quantityerr,
     });
     addressError = null;
-    quantityerr=null
+    quantityerr = null;
   } catch (error) {
     console.log(error);
   }
@@ -433,7 +444,6 @@ export async function postcheckout(req, res) {
 
       return item.product_id;
     });
-
 
     let productsdetails = await products
       .find({ _id: { $in: productIDs } })
@@ -455,15 +465,15 @@ export async function postcheckout(req, res) {
         coupon: promo,
       };
     });
-  
+
     productsdetails.forEach((item) => {
       console.log(item.quantity, item.cartQuantity);
       if (item.quantity < item.cartQuantity) {
         quantityerr = "out of stock";
-        res.redirect('/checkout');
+        res.redirect("/checkout");
       }
     });
-    
+
     for (const i of productsdetails) {
       i.productTotal = i.cartQuantity * i.price;
       sum = sum + i.productTotal;
@@ -490,11 +500,10 @@ export async function postcheckout(req, res) {
     );
     let deladdress = address.address[0];
 
-    
-      // let quantity = await products.findOne(
-      //   { _id: productIDs },
-      //   { _id: 0, quantity: 1 }
-      // );
+    // let quantity = await products.findOne(
+    //   { _id: productIDs },
+    //   { _id: 0, quantity: 1 }
+    // );
 
     let ordercount = await orderModel.find().count();
 
@@ -511,7 +520,7 @@ export async function postcheckout(req, res) {
     }));
 
     await orderModel.create(orders);
-  
+
     res.redirect("/orderConfirmationPage");
   } catch (error) {
     addressError = "address is not found";
@@ -661,7 +670,7 @@ export function orderconfirmationpage(req, res) {
   res.render("orderconfirmationpage", { ifuser });
 }
 export async function orderDetails(req, res) {
-  const orderDetails = await orderModel.find().sort({_id:-1})
+  const orderDetails = await orderModel.find().sort({ _id: -1 });
 
   let user = await users.findOne(req.session.user);
   console.log(user);
@@ -804,8 +813,6 @@ export async function deletefromcart(req, res) {
 // }
 export async function incdec(req, res) {
   try {
-
-
     if (req.query.cond == "inc") {
       let quantity = await products.findOne(
         { _id: req.query.data },
@@ -813,30 +820,26 @@ export async function incdec(req, res) {
       );
 
       if (quantity.quantity > req.query.quantity) {
-        await users
-          .updateOne(
-            {
-              _id: req.session.user._id,
-              cart: { $elemMatch: { product_id: req.query.data } },
-            },
-            { $inc: { "cart.$.quantity": 1 } }
-          )
-          
+        await users.updateOne(
+          {
+            _id: req.session.user._id,
+            cart: { $elemMatch: { product_id: req.query.data } },
+          },
+          { $inc: { "cart.$.quantity": 1 } }
+        );
 
         res.json({ success: true });
       } else {
         res.json({ success: false });
       }
     } else {
-      await users
-        .updateOne(
-          {
-            _id: req.session.user._id,
-            cart: { $elemMatch: { product_id: req.query.data } },
-          },
-          { $inc: { "cart.$.quantity": -1 } }
-        )
-        
+      await users.updateOne(
+        {
+          _id: req.session.user._id,
+          cart: { $elemMatch: { product_id: req.query.data } },
+        },
+        { $inc: { "cart.$.quantity": -1 } }
+      );
 
       res.json({ success: true });
     }
@@ -858,13 +861,27 @@ export async function promoCode(req, res) {
     if (!req.query.data) {
       res.json({ success: false });
     } else {
-      const code = await coupon.findOne({ couponCode: req.query.data });
-console.log(code.minamount);
-      if (!code) {
-        res.json({ success: false });
-      }else if(code.minamount<=req.query.price){
-        res.json({ success: true, code: code.discount });
+      const code = await coupon.findOne({
+        couponCode: req.query.data,
+        list: true,
+      });
+      if (code) {
+        if (code.minamount <= req.query.price) {
+         
+          await coupon.updateOne(
+            { couponCode: req.query.data },
+            { $set: { list: false } }
+          );
+          res.json({ success: true, code: code.discount });
+        }else {
+          await coupon.updateOne(
+            { couponCode: req.query.data },
+            { $set: { list: true } }
+          );
+          res.json({ success: false });
+        }
       } else {
+       
         res.json({ success: false });
       }
     }
@@ -872,20 +889,18 @@ console.log(code.minamount);
     console.log(error);
   }
 }
-export async function productReturn(req,res){
- try {
-  await orderModel.updateOne(
-    {
-      _id:  req.query.data,
-    },
-    { $set: { orderStatus: 'Returned', paid: false } }
-  );
-res.json({success:true})
- } catch (error) {
-  res.send(error)
- }
-  
-
+export async function productReturn(req, res) {
+  try {
+    await orderModel.updateOne(
+      {
+        _id: req.query.data,
+      },
+      { $set: { orderStatus: "Returned", paid: false } }
+    );
+    res.json({ success: true });
+  } catch (error) {
+    res.send(error);
+  }
 }
 
 //axios function end
@@ -901,7 +916,6 @@ export async function search(req, res) {
   console.log(req.body);
   let searchdata = await products.find({
     productName: RegExp(req.body.search, "i"),
-    
   });
   console.log(searchdata);
   req.session.searchdata = searchdata;
