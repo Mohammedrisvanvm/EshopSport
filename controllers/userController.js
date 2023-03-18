@@ -401,19 +401,14 @@ export async function getcheckout(req, res) {
       { _id: req.session.user._id },
       { address: 1, _id: 0 }
     );
- 
-const coupon1 = await coupon.findOne({ list: false });
 
-// Log the coupon object to the console
-console.log(coupon1);
+    const coupon1 = await coupon.findOne({ list: false });
 
-// Update the coupon's list field to true
-await coupon.findByIdAndUpdate(
-  coupon1._id,
-  { $set: { list: true } }
-);
+    if (coupon1) {
+      await coupon.findByIdAndUpdate(coupon1._id, { $set: { list: true } });
+    }
 
-let  coupons = await coupon.find({ list: "true" });
+    let coupons = await coupon.find({ list: "true" });
 
     res.render("checkout", {
       productsdetails,
@@ -500,10 +495,18 @@ export async function postcheckout(req, res) {
     );
     let deladdress = address.address[0];
 
-    // let quantity = await products.findOne(
-    //   { _id: productIDs },
-    //   { _id: 0, quantity: 1 }
-    // );
+    let quantity = await products.findOne(
+      { _id: productIDs },
+      { _id: 0, quantity: 1 }
+    );
+    productsdetails.forEach(async (i) => {
+      await products.updateOne(
+        {
+          _id: i._id,
+        },
+        { $inc: { quantity: -i.cartQuantity } }
+      );
+    });
 
     let ordercount = await orderModel.find().count();
 
@@ -823,13 +826,12 @@ export async function promoCode(req, res) {
       });
       if (code) {
         if (code.minamount <= req.query.price) {
-         
           await coupon.updateOne(
             { couponCode: req.query.data },
             { $set: { list: false } }
           );
           res.json({ success: true, code: code.discount });
-        }else {
+        } else {
           await coupon.updateOne(
             { couponCode: req.query.data },
             { $set: { list: true } }
@@ -837,7 +839,6 @@ export async function promoCode(req, res) {
           res.json({ success: false });
         }
       } else {
-       
         res.json({ success: false });
       }
     }
