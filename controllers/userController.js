@@ -767,50 +767,6 @@ export async function deletefromcart(req, res) {
   }
 }
 
-// export async function incdec(req, res) {
-//   try {
-//     console.log(req.query.data, "1234");
-
-//     if (req.query.cond == "inc") {
-//       let quantity = await products.findOne(
-//         { _id: req.query.data },
-//         { _id: 0, quantity: 1 }
-//       );
-
-//       if (quantity.quantity >= 1) {
-//         await users.updateOne(
-//           {
-//             _id: req.session.user._id,
-//             cart: { $elemMatch: { product_id: req.query.data } },
-//           },
-//           { $inc: { "cart.$.quantity": 1 } }
-//         );
-
-//         await products.updateOne(
-//           { _id: req.query.data },
-//           { $inc: { quantity: -1 } }
-//         );
-//         res.json({ success: true });
-//       } else {
-//         res.json({ success: false });
-//       }
-//     } else {
-//       await users.updateOne(
-//         {
-//           _id: req.session.user._id,
-//           cart: { $elemMatch: { product_id: req.query.data } },
-//         },
-//         { $inc: { "cart.$.quantity": -1 } }
-//       );
-
-//       await products.updateOne(
-//         { _id: req.query.data },
-//         { $inc: { quantity: 1 } }
-//       );
-//       res.json({ success: true });
-//     }
-//   } catch (error) {}
-// }
 export async function incdec(req, res) {
   try {
     if (req.query.cond == "inc") {
