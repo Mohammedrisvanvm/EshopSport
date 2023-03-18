@@ -39,11 +39,18 @@ export async function guestpage(req, res) {
         { $limit: 4 },
       ])
       .exec();
+      const socksinfo = await products
+      .aggregate([
+        { $match: { category: "socks", list: true } },
+        { $sort: { _id: -1 } },
+        { $limit: 4 },
+      ])
+      .exec();
 
     let cImage = await bannerimage.find();
     cImage = cImage.map((item) => item.mainImage[0]);
 
-    res.render("guest", { jerseyinfo, shortsinfo, cImage, ifuser });
+    res.render("guest", { jerseyinfo, shortsinfo,socksinfo, cImage, ifuser });
   } catch (error) {
     console.log(error);
   }

@@ -487,10 +487,13 @@ export async function changestatus(req, res) {
       await orderModel.updateOne(
         { _id: id },
         {
-          $set: { orderStatus: toChange, paid: true,deliveredDate:new Date },
+          $set: {
+            orderStatus: toChange,
+            paid: true,
+            deliveredDate: new Date(),
+          },
         }
       );
-
 
       res.json({ status: "delivered" });
     } else {

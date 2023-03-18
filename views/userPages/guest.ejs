@@ -81,7 +81,7 @@
                 <li class="nav-item">
                   <a class="nav-link mx-2" href="/shop"><h5>SHOP NOW</h5></a>
                 </li>
-              
+
                 <li class="nav-item">
                   <a class="nav-link mx-2" href="/contactus"
                     ><H5>CONTACT US</H5></a
@@ -298,18 +298,18 @@
             <div class="col-lg-4">
               <img
                 class="rounded-circle"
-                src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+                src="/image/category/socks.jpg"
                 alt="Generic placeholder image"
                 width="140"
                 height="140"
               />
-              <h2>Heading</h2>
+              <h2>Socks</h2>
               <p>
                 Browse football socks photos and images <br />
                 available
               </p>
               <p>
-                <a class="btn btn-secondary" href="/shop" role="button"
+                <a class="btn btn-secondary" href="/socks" role="button"
                   >View details &raquo;</a
                 >
               </p>
@@ -400,6 +400,75 @@
             <div class="row">
               <div class="row">
                 <% shortsinfo.forEach(i => { %>
+                <div class="col-lg-3 col-md-6 mb-4">
+                  <div class="card">
+                    <div
+                      class="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
+                      style="height: 300px"
+                      data-mdb-ripple-color="light"
+                    >
+                      <img
+                        src="/image/productImage/<%-i.mainImage[0].filename %>"
+                        class="w-100 h-100"
+                      />
+                      <a href="/productPage/<%-i._id %>">
+                        <div class="hover-overlay">
+                          <div
+                            class="mask"
+                            style="background-color: rgba(251, 251, 251, 0.15)"
+                          ></div>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="card-body text-center">
+                      <a href="" class="text-reset">
+                        <h5 class="card-title mb-2"><%-i.productName %></h5>
+                      </a>
+                      <a href="" class="text-reset">
+                        <p><%-i.category %></p>
+                      </a>
+                      <h6 class="mb-3 price">
+                        <s class="text-danger">Rs.<%-i.MRP %></s
+                        ><strong class="ms-2 sale">Rs.<%-i.price %></strong>
+                      </h6>
+                      <div class="d-flex">
+                        <button
+                          type="button"
+                          class="btn btn-danger mx-4"
+                          data-mdb-toggle="tooltip"
+                          title="Move to wishlist"
+                          onclick="addtowishlist(`<%-i._id %>`)"
+                        >
+                          <i class="fas fa-heart"></i>
+                        </button>
+                        <a href="/cart">
+                          <button
+                            type="button"
+                            class="btn btn-primary mx-3"
+                            title="buy now"
+                            data-mdb-toggle="tooltip"
+                            onclick="addtocart(`<%-i._id %>`)"
+                          >
+                            buy now
+                          </button>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <% }) %>
+              </div>
+            </div>
+          </div>
+        </section>
+        <hr />
+        <h3 class="d-flex justify-content-center">Socks</h3>
+        <hr />
+        <section>
+          <div class="text-center container">
+            <div class="row">
+              <div class="row">
+                <% socksinfo.forEach(i => { %>
                 <div class="col-lg-3 col-md-6 mb-4">
                   <div class="card">
                     <div
