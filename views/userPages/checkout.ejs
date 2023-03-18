@@ -552,7 +552,7 @@
     <script>
       function promoCode() {
         let promo = document.getElementById("promo").value
-        let totalprice=document.getElementById('totalprice').value
+        let totalprice=document.getElementById('totalprice').textContent
         console.log(totalprice,promo);
         if (promo) {
           axios.get(`/promoCode?data=${promo}&price=${totalprice}`).then((result) => {

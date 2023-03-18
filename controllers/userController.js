@@ -855,17 +855,17 @@ export async function deletefromaddress(req, res) {
 export async function promoCode(req, res) {
   console.log(req.query);
   try {
-    if (!req.params.data) {
+    if (!req.query.data) {
       res.json({ success: false });
     } else {
-      const code = await coupon.findOne({ couponCode: req.params.data });
+      const code = await coupon.findOne({ couponCode: req.query.data });
 console.log(code.minamount);
       if (!code) {
         res.json({ success: false });
-      }else if(code){
-
-      } else {
+      }else if(code.minamount<=req.query.price){
         res.json({ success: true, code: code.discount });
+      } else {
+        res.json({ success: false });
       }
     }
   } catch (error) {

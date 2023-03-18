@@ -90,7 +90,7 @@ router.get("/addtocart/:data", ifuser, addtocart);
 router.get("/deletefromcart", ifuser, deletefromcart);
 router.get("/incdec", ifuser, incdec);
 router.get("/deletefromaddress/:data", ifuser, deletefromaddress);
-router.get("/promoCode/:data", ifuser, promoCode);
+router.get("/promoCode", ifuser, promoCode);
 router.get("/productReturn", productReturn);
 
 router.post("/search", search);
