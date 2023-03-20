@@ -697,8 +697,20 @@ export async function orderDetails(req, res) {
 }
 
 export async function newp(req, res) {
+  try {
+    let productinfo = await products.find({ list: true });
+    if (req.session.searchdata) {
+      productinfo = req.session.searchdata;
+      res.render("new", { productinfo, ifuser });
+      req.session.searchdata = null;
+      console.log(req.session.searchdata);
+    } else {
+      res.render("new",{ifuser,productinfo});
+    }
+  } catch (error) {
+    res.send(error);
+  }
 
-  res.render("new");
 }
 
 //orderpage
