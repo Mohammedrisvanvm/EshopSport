@@ -17,6 +17,7 @@ import {
   guestpage,
   incdec,
   jersey,
+  newp,
   orderconfirmationpage,
   orderDetails,
   payment,
@@ -84,6 +85,7 @@ router.get("/editprofile/:data", ifuser, editaddress);
 router.get("/trash", ifuser, payment);
 router.get("/orders", orderDetails);
 router.get("/order/orderdetails", ifuser, uniqueorder);
+router.get("/new", newp);
 
 
 //axios

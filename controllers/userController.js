@@ -696,6 +696,11 @@ export async function orderDetails(req, res) {
   res.render("order", { ifuser, orderDetails });
 }
 
+export async function newp(req, res) {
+
+  res.render("new");
+}
+
 //orderpage
 
 export function userlogout(req, res) {
