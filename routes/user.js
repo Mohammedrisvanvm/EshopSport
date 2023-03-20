@@ -35,6 +35,7 @@ import {
   shop,
   shorts,
   signupresendOTP,
+  socks,
   uniqueorder,
   userGetLogin,
   userGetSignup,
@@ -71,6 +72,7 @@ router.get("/profile", ifuser, userprofile);
 router.get("/shop", shop);
 router.get("/jersey", jersey);
 router.get("/shorts", shorts);
+router.get("/socks", socks);
 router.get("/contactus", contactus);
 router.get("/checkout", ifuser, getcheckout);
 router.post("/checkout", ifuser, postcheckout);
@@ -82,6 +84,7 @@ router.get("/editprofile/:data", ifuser, editaddress);
 router.get("/trash", ifuser, payment);
 router.get("/orders", orderDetails);
 router.get("/order/orderdetails", ifuser, uniqueorder);
+
 
 //axios
 router.get("/addtowishlist/:data", ifuser, addtowishlist);

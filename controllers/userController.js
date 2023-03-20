@@ -88,6 +88,15 @@ export async function shorts(req, res) {
     res.send(error);
   }
 }
+export async function socks(req, res) {
+  try {
+    const productinfo = await products.find({ category: "socks", list: true });
+
+    res.render("socks", { productinfo, ifuser });
+  } catch (error) {
+    res.send(error);
+  }
+}
 
 export function userGetLogin(req, res) {
   try {
