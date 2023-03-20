@@ -56,6 +56,7 @@ export async function guestpage(req, res) {
   }
 }
 export async function shop(req, res) {
+  console.log(req.query);
   
   try {
     let productinfo;
@@ -923,4 +924,8 @@ export async function search(req, res) {
   console.log(searchdata);
   req.session.searchdata = searchdata;
   res.redirect("/shop");
+}
+
+export async function sort(req, res) {
+  console.log(req.query);
 }

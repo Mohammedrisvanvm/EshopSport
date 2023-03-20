@@ -37,6 +37,7 @@ import {
   shorts,
   signupresendOTP,
   socks,
+  sort,
   uniqueorder,
   userGetLogin,
   userGetSignup,
@@ -98,5 +99,6 @@ router.get("/deletefromaddress/:data", ifuser, deletefromaddress);
 router.get("/promoCode", ifuser, promoCode);
 router.get("/productReturn", productReturn);
 router.post("/search", search);
+router.get('/sort',sort)
 
 export default router;

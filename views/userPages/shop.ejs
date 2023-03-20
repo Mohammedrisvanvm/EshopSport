@@ -150,9 +150,7 @@
       </div>
     </header>
 
-    <main >
-     
-
+    <main>
       <div class="container">
         <!-- Navbar -->
         <nav
@@ -162,7 +160,7 @@
           <!-- Container wrapper -->
           <div class="container-fluid">
             <!-- Navbar brand -->
-            <a class="navbar-brand" href="#">categories</a>
+            <a class="navbar-brand text-dark" href="#"></a>
 
             <!-- Toggle button -->
             <button
@@ -176,30 +174,131 @@
             >
               <i class="fas fa-bars"></i>
             </button>
-
+<!-- <form action="">
+  <input type="number" name="num" value="10" onclick="this.form.submit()" >
+</form> -->
             <!-- Collapsible wrapper -->
             <div class="collapse navbar-collapse" id="navbarSupportedContent2">
+              <form>
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <!-- Link -->
-                <li class="nav-item acitve">
-                  <a class="nav-link text-white" href="#">All</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link text-white" href="#">jersey</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link text-white" href="#">shorts</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link text-white" href="#">sheos</a>
-                </li>
+                
+                  <!-- Link -->
+                  <li class="nav-item dropdown">
+                    <a
+                      class="nav-link dropdown-toggle text-dark"
+                      href="#"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      sort
+                    </a>
+                    <ul class="dropdown-menu">
+                      
+                      <li>
+                        <label
+                          class="dropdown-item"
+                          name="sort-1"
+                          type="radio"
+                          onclick="this.form.submit()"
+                          >price: low to high
+                          <input
+                            type="radio"
+                            hidden
+                            name="sort1"
+                            value="-1"
+                           
+                        /></label>
+                      </li>
+                      <li>
+                        <label
+                        class="dropdown-item"
+                        name="sort"
+                      
+                        onclick="this.form.submit()"
+                        >price:high to low
+                        <input
+                          type="radio"
+                          hidden
+                          name="sort1"
+                          value="1"
+                         
+                      /></label>
+                     
+                      </li>
+                      <li><hr class="dropdown-divider" /></li>
+                   
+                    </ul>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a
+                      class="nav-link dropdown-toggle text-dark"
+                      href="#"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      filter
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <label
+                        class="dropdown-item"
+                        name="jersey"
+                      
+                        onclick="this.form.submit()"
+                        >category:jersey
+                        <input
+                        type="radio"
+                        hidden
+                        name="filter"
+                        value="jersey"
+                         
+                      /></label>
+                     
+                        </li>
+                     <li>
+                      <label
+                      class="dropdown-item"
+                      name="shorts"
+                    
+                      onclick="this.form.submit()"
+                      >category:shorts
+                      <input
+                      type="radio"
+                      hidden
+                      name="filter"
+                      value="shorts"
+                       
+                    /></label>
+                     </li>
+                      <li> <a class="dropdown-item" href="#">jersey</a></li>
+                      <li><a class="dropdown-item" href="#">shorts</a></li>
+                      <li><a class="dropdown-item" href="#">socks</a></li>
+                      <li><hr class="dropdown-divider" /></li>
+                    </ul>
+                  </li>
+           
               </ul>
-
+            </form>
               <!-- Search -->
-              <form class="d-none d-md-flex input-group w-auto my-auto" action="/search" method="post">
-                        <input id="mdb-5-search-input" autocomplete="off" type="search" name="search" class="form-control rounded" placeholder='Search (ctrl + "/" to focus)' />
-                        <button class="input-group-text border-0" type="submit" ><i class="fas fa-search" id="mdb-5-search-icon"></i></button>
-                      </form>
+              <form
+                class="d-none d-md-flex input-group w-auto my-auto"
+                action="/search"
+                method="post"
+              >
+                <input
+                  id="mdb-5-search-input"
+                  autocomplete="off"
+                  type="search"
+                  name="search"
+                  class="form-control rounded"
+                  placeholder="Search"
+                />
+                <button class="input-group-text border-0" type="submit">
+                  <i class="fas fa-search" id="mdb-5-search-icon"></i>
+                </button>
+              </form>
             </div>
           </div>
           <!-- Container wrapper -->
@@ -279,71 +378,69 @@
     </main>
 
     <footer
-    class="text-center text-white mt-4"
-    style="background-color: #607d8b"
-  >
-    <hr class="text-dark" />
-
-    <div class="container" style="height: 50px">
-      <!-- Section: Social media -->
-      <section class="mb-3">
-        <!-- Facebook -->
-        <a
-          class="btn-link btn-floating btn-lg text-white"
-          href="#!"
-          role="button"
-          data-mdb-ripple-color="dark"
-          ><i class="fab fa-facebook-f"></i
-        ></a>
-
-        <!-- Twitter -->
-        <a
-          class="btn-link btn-floating btn-lg text-white"
-          href="#!"
-          role="button"
-          data-mdb-ripple-color="dark"
-          ><i class="fab fa-twitter"></i
-        ></a>
-
-        <!-- Google -->
-        <a
-          class="btn-link btn-floating btn-lg text-white"
-          href="#!"
-          role="button"
-          data-mdb-ripple-color="dark"
-          ><i class="fab fa-google"></i
-        ></a>
-
-        <!-- Instagram -->
-        <a
-          class="btn-link btn-floating btn-lg text-white"
-          href="#!"
-          role="button"
-          data-mdb-ripple-color="dark"
-          ><i class="fab fa-instagram"></i
-        ></a>
-
-        <!-- YouTube -->
-        <a
-          class="btn-link btn-floating btn-lg text-white"
-          href="#!"
-          role="button"
-          data-mdb-ripple-color="dark"
-          ><i class="fab fa-youtube"></i
-        ></a>
-      </section>
-   
-    </div>
-
-    <div
-      class="text-center p-3"
-      style="background-color: rgba(0, 0, 0, 0.2); color: #e0e0e0"
+      class="text-center text-white mt-4"
+      style="background-color: #607d8b"
     >
-      © 2022 Copyright:
-      <a class="text-white" href="https://mdbootstrap.com/">eshopsport.com</a>
-    </div>
+      <hr class="text-dark" />
 
-  </footer>
+      <div class="container" style="height: 50px">
+        <!-- Section: Social media -->
+        <section class="mb-3">
+          <!-- Facebook -->
+          <a
+            class="btn-link btn-floating btn-lg text-white"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-facebook-f"></i
+          ></a>
+
+          <!-- Twitter -->
+          <a
+            class="btn-link btn-floating btn-lg text-white"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-twitter"></i
+          ></a>
+
+          <!-- Google -->
+          <a
+            class="btn-link btn-floating btn-lg text-white"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-google"></i
+          ></a>
+
+          <!-- Instagram -->
+          <a
+            class="btn-link btn-floating btn-lg text-white"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-instagram"></i
+          ></a>
+
+          <!-- YouTube -->
+          <a
+            class="btn-link btn-floating btn-lg text-white"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-youtube"></i
+          ></a>
+        </section>
+      </div>
+
+      <div
+        class="text-center p-3"
+        style="background-color: rgba(0, 0, 0, 0.2); color: #e0e0e0"
+      >
+        © 2022 Copyright:
+        <a class="text-white" href="https://mdbootstrap.com/">eshopsport.com</a>
+      </div>
+    </footer>
     <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
     <script>
       function addtowishlist(data) {

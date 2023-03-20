@@ -254,10 +254,13 @@
 
             <% if (useraddress[0]) { %>
 
-            <h6>add address..........</h6>
+           
 
-            <% } else { %> <% useraddress.address.forEach((i) => { %>
             <h5 class="mt-5">Your Address</h5>
+            <% } else { %> 
+              <h5 class="mt-5">Your Address</h5>
+              <% useraddress.address.forEach((i) => { %>
+           
             <div class="d-flex radio border" id="deletefromaddress<%= i._id %>">
               <%= i.address %>
               <br />
