@@ -145,7 +145,7 @@
         <div class="row g-0">
           <div class="col-md-6 border-end">
             <div class="d-flex flex-column justify-content-center">
-              <div class="main_image">
+              <!-- <div class="main_image">
                 <img
                   src="/image/productImage/<%-productinfo.mainImage[0].filename %>"
                   id="main_product_image"
@@ -171,6 +171,25 @@
                   </li>
                   <% }) %>
                 </ul>
+              </div> -->
+
+              <div class="show" href="/image/productImage/<%-productinfo.mainImage[0].filename %>">
+                <img src="/image/productImage/<%-productinfo.mainImage[0].filename %>" id="show-img">
+              </div>
+         
+              <!-- Secondary carousel image thumbnail gallery -->
+         
+              <div class="small-img">
+               <img src="images/next-icon.png" class="icon-left" alt="" id="prev-img">
+                <div class="small-container">
+                 <div id="small-img-roll">
+                   <img src="/image/productImage/<%-productinfo.mainImage[0].filename %>" class="show-small-img" alt="">
+                   <img src="images/2.png" class="show-small-img" alt="">
+                   <img src="images/3.png" class="show-small-img" alt="">
+                   <img src="images/4.png" class="show-small-img" alt="">
+                 </div>
+                </div>
+               <img src="images/next-icon.png" class="icon-right" alt="" id="next-img">
               </div>
             </div>
           </div>
