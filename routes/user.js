@@ -97,7 +97,6 @@ router.get("/incdec", ifuser, incdec);
 router.get("/deletefromaddress/:data", ifuser, deletefromaddress);
 router.get("/promoCode", ifuser, promoCode);
 router.get("/productReturn", productReturn);
-
 router.post("/search", search);
 
 export default router;

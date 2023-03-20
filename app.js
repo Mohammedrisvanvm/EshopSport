@@ -41,7 +41,7 @@ app.use(
     saveUninitialized: true,
     cookie: { maxAge: oneDay },
     resave: false,
-   // store: MongoStore.create({ mongoUrl: process.env.MONGOOSE_CONNECT })   
+    store: MongoStore.create({ mongoUrl: process.env.MONGOOSE_CONNECT })   
   })
 );
 app.use((req, res, next) => {
