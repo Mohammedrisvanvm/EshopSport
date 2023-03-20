@@ -39,7 +39,7 @@ export async function guestpage(req, res) {
         { $limit: 4 },
       ])
       .exec();
-      const socksinfo = await products
+    const socksinfo = await products
       .aggregate([
         { $match: { category: "socks", list: true } },
         { $sort: { _id: -1 } },
@@ -49,23 +49,30 @@ export async function guestpage(req, res) {
 
     let cImage = await bannerimage.find();
     cImage = cImage.map((item) => item.mainImage[0]);
-
-    res.render("guest", { jerseyinfo, shortsinfo,socksinfo, cImage, ifuser });
+console.log(ifuser);
+    res.render("guest", { jerseyinfo, shortsinfo, socksinfo, cImage, ifuser });
   } catch (error) {
     console.log(error);
   }
 }
 export async function shop(req, res) {
+  console.log(req.session.searchdata);
   try {
-    let productinfo = await products.find({ list: true });
-    if (req.session.searchdata) {
+    
+    let productinfo 
+    if (!req.session.searchdata) {
+       productinfo = await products.find({ list: true });
+      console.log("433333333");
+      res.render("shop", { productinfo, ifuser });
+    } else {
+      console.log("11111111111");
       productinfo = req.session.searchdata;
       res.render("shop", { productinfo, ifuser });
-      req.session.searchdata = null;
-      console.log(req.session.searchdata);
-    } else {
-      res.render("shop", { productinfo, ifuser });
+      delete req.session.searchdata 
+      console.log("eeeeeeeee");
     }
+    console.log("3444444444");
+   
   } catch (error) {
     res.send(error);
   }
@@ -703,14 +710,12 @@ export async function newp(req, res) {
       productinfo = req.session.searchdata;
       res.render("new", { productinfo, ifuser });
       req.session.searchdata = null;
-    
     } else {
-      res.render("new",{ifuser,productinfo});
+      res.render("new", { ifuser, productinfo });
     }
   } catch (error) {
     res.send(error);
   }
-
 }
 
 //orderpage
@@ -881,7 +886,7 @@ export async function promoCode(req, res) {
 }
 export async function productReturn(req, res) {
   try {
-    let p=await orderModel.findOne({_id:req.query.data})
+    let p = await orderModel.findOne({ _id: req.query.data });
     console.log(p.quantity);
     await products.updateOne(
       {
@@ -917,5 +922,5 @@ export async function search(req, res) {
   });
   console.log(searchdata);
   req.session.searchdata = searchdata;
-  res.redirect("/new");
+  res.redirect("/shop");
 }

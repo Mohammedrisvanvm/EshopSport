@@ -150,40 +150,14 @@
       </div>
     </header>
 
-    <main>
-      <aside class="left-sidebar">
-        <div class="scroll-sidebar">
-          <nav class="sidebar-nav">
-            <div class="search-option">
-              <i class="bx bx-search-alt-2 first-search"></i>
-              <div class="inputs"><input type="text" name="" /></div>
-              <i class="bx bx-share-alt share"></i>
-            </div>
-            <ul id="sidebarnav">
-              <li class="nav-item acitve">
-                <a class="nav-link" href="#">All</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">jersey</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">shorts</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">sheos</a>
-              </li>
-            </ul>
-          </nav>
-          <!-- End Sidebar navigation -->
-        </div>
-        <!-- End Sidebar scroll-->
-      </aside>
+    <main >
+     
 
       <div class="container">
         <!-- Navbar -->
         <nav
-          class="navbar navbar-expand-lg navbar-dark mt-3 mb-5 shadow p-2"
-          style="background-color: #607d8b"
+          class="navbar navbar-fixed navbar-expand-lg navbar-dark mt-5 mb-5 shadow p-2"
+          style="background-color: #ffffff"
         >
           <!-- Container wrapper -->
           <div class="container-fluid">
@@ -222,21 +196,10 @@
               </ul>
 
               <!-- Search -->
-              <form
-                class="w-auto py-1"
-                action="/search"
-                method="post"
-                style="max-width: 12rem"
-              >
-                <input
-                  type="search"
-                  class="form-control rounded-0"
-                  placeholder="Search"
-                  aria-label="Search"
-                  name="search"
-                />
-                <button type="submit">search</button>
-              </form>
+              <form class="d-none d-md-flex input-group w-auto my-auto" action="/search" method="post">
+                        <input id="mdb-5-search-input" autocomplete="off" type="search" name="search" class="form-control rounded" placeholder='Search (ctrl + "/" to focus)' />
+                        <button class="input-group-text border-0" type="submit" ><i class="fas fa-search" id="mdb-5-search-icon"></i></button>
+                      </form>
             </div>
           </div>
           <!-- Container wrapper -->

@@ -1,20 +1,16 @@
-export function ifuser(req,res,next){
-    if(req.session.user){
-        user:true
-        next()
-    }else{
-        user:false
-        res.redirect('/login')
-    }
- 
+export function ifuser(req, res, next) {
+    console.log(req.session.user);
+  if (req.session.user) {
+    
+    next();
+  } else {
+    res.redirect("/login");
+  }
 }
-export function ifadmin(req,res,next){
-    if(req.session.admin){
-        admin:true
-        next()
-    }else{
-        admin:false
-        res.redirect('/admin')
-    }
-
+export function ifadmin(req, res, next) {
+  if (req.session.admin) {
+    next();
+  } else {
+    res.redirect("/admin");
+  }
 }
