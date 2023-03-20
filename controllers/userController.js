@@ -703,7 +703,7 @@ export async function newp(req, res) {
       productinfo = req.session.searchdata;
       res.render("new", { productinfo, ifuser });
       req.session.searchdata = null;
-      console.log(req.session.searchdata);
+    
     } else {
       res.render("new",{ifuser,productinfo});
     }
@@ -917,5 +917,5 @@ export async function search(req, res) {
   });
   console.log(searchdata);
   req.session.searchdata = searchdata;
-  res.redirect("/shop");
+  res.redirect("/new");
 }

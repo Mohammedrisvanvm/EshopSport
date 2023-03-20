@@ -176,10 +176,11 @@
               >
                 <ul class="sidenav-menu">
                   <li class="sidenav-item">
-                    <a class="sidenav-link">
-                      <i class="far fa-smile fa-fw me-3"></i
-                      ><span>Link 1</span></a
-                    >
+                    <form class="d-none d-md-flex input-group w-auto my-auto" action="/search" method="post">
+                        <input id="mdb-5-search-input" autocomplete="off" type="search" class="form-control rounded" placeholder='Search (ctrl + "/" to focus)' />
+                        <span class="input-group-text border-0"><button type="submit" class="text-decoration-none"><i class="fas fa-search" id="mdb-5-search-icon"></i></button></span>
+                      </form>
+                      
                   </li>
                   <li class="sidenav-item">
                     <a class="sidenav-link"
@@ -230,7 +231,7 @@
                       <div class="row">
                         <div class="row">
                           <% productinfo.forEach(i => { %>
-                          <div class="col-lg-3 col-md-6 mb-4">
+                          <div class="col-lg-3 col-md-6 col-md-3 mb-4">
                             <div class="card">
                               <div
                                 class="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
@@ -378,10 +379,6 @@
     ></script>
     <script src="https://mdbcdn.b-cdn.net/wp-content/themes/mdbootstrap4/docs-app/js/dist/main.min.js"></script>
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
-      integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
-      crossorigin="anonymous"
-    ></script>
+
   </body>
 </html>
