@@ -3,12 +3,14 @@ import { users } from "../models/userSchema.js";
 import sentOTP from "../helpers/emailSend.js";
 import otpGenerator from "otp-generator";
 import bcrypt from "bcrypt";
-import { products } from "../models/productSchema.js";
+import { products} from "../models/productSchema.js";
 import uniqid from "uniqid";
 import { coupon } from "../models/couponSchema.js";
 import { orderModel } from "../models/orderSchema.js";
 import { ifuser } from "../middleware/middleware.js";
 import { bannerimage } from "../models/bannerSchema.js";
+import { createId } from "../helpers/createId.js";
+import axios from "axios";
 
 let passworderr = null;
 let emailerr = null;
@@ -459,93 +461,63 @@ export async function getcheckout(req, res) {
   }
 }
 export async function postcheckout(req, res) {
-  try {
-    const cartQuantity = {};
 
+  try {
+  
+   
     const userinfo = await users.findOne(
       { _id: req.session.user._id },
       { cart: 1 }
     );
+    const productIDs = userinfo.cart.map((item) => item.product_id);
+    const cartQuantity = userinfo.cart.reduce((acc, item) => {
+      acc[item.product_id] = item.quantity;
+      return acc;
+    }, {});
 
-    const productIDs = userinfo.cart.map((item) => {
-      cartQuantity[item.product_id] = item.quantity;
-
-      return item.product_id;
-    });
-
-    let productsdetails = await products
-      .find({ _id: { $in: productIDs } })
-      .lean();
-
+   
+    let productsdetails = await products.find({ _id: { $in: productIDs } }).lean();
     let promo = 0;
     if (req.body.promo) {
       const code = await coupon.findOne({ couponCode: req.body.promo });
-
       promo = code.discount;
     }
 
+    
     let sum = 0;
-
-    productsdetails = productsdetails.map((item) => {
-      return {
-        ...item,
-        cartQuantity: cartQuantity[item._id],
-        coupon: promo,
-      };
-    });
-
-    productsdetails.forEach((item) => {
-      console.log(item.quantity, item.cartQuantity);
-      if (item.quantity < item.cartQuantity) {
-        quantityerr = "out of stock";
+    for (const product of productsdetails) {
+      if (product.quantity < cartQuantity[product._id]) {
         res.redirect("/checkout");
+        return;
       }
-    });
-
-    for (const i of productsdetails) {
-      i.productTotal = i.cartQuantity * i.price;
-      sum = sum + i.productTotal;
+      product.cartQuantity = cartQuantity[product._id];
+      product.coupon = promo;
+      product.productTotal = product.cartQuantity * product.price;
+      sum += product.productTotal;
+      await products.updateOne({ _id: product._id }, { $inc: { quantity: -product.cartQuantity } });
     }
 
-    sum = productsdetails.reduce((acc, item) => acc + item.productTotal, 0);
+    const total = sum - promo;
+    productsdetails = productsdetails.map((product) => ({
+      ...product,
+      total,
+      payableAmount: total,
+    }));
 
-    let total = sum - promo;
-
-    productsdetails = productsdetails.map((item) => {
-      return {
-        ...item,
-        total: sum,
-        payableAmount: total,
-      };
-    });
-
-    let address = await users.findOne(
-      {
-        _id: req.session.user._id,
-        "address._id": req.body.address,
-      },
+    const address = await users.findOne(
+      { _id: req.session.user._id, "address._id": req.body.address },
       { address: { $elemMatch: { _id: req.body.address } } }
-    );
-    let deladdress = address.address[0];
-
-    let quantity = await products.findOne(
-      { _id: productIDs },
-      { _id: 0, quantity: 1 }
-    );
-    productsdetails.forEach(async (i) => {
-      await products.updateOne(
-        {
-          _id: i._id,
-        },
-        { $inc: { quantity: -i.cartQuantity } }
-      );
-    });
-
-    let ordercount = await orderModel.find().count();
-
-    let orders = productsdetails.map((product) => ({
-      address: deladdress,
-      product: product,
+    ).lean();
+    if (!address) {
+      res.redirect("/checkout");
+      addressError="not "
+      return;
+    }
+    const deliveryAddress = address.address[0];
+    const ordercount = await orderModel.countDocuments();
+    const order = productsdetails.map((product) => ({
+      address: deliveryAddress,
+      product,
       userId: req.session.user._id,
       quantity: product.cartQuantity,
       total: product.total,
@@ -554,15 +526,111 @@ export async function postcheckout(req, res) {
       paymentType: req.body.paymentType,
       orderId: ordercount + 1,
     }));
+    req.session.order=order
 
-    await orderModel.create(orders);
+    if (req.body.paymentType!=='Cash On Delivery') {
+     
 
+    let orderId = "order_" + createId();
+    console.log(req.body.totalAmount);
+    const options = {
+      method: "POST",
+   
+      url: "https://sandbox.cashfree.com/pg/orders",
+      headers: {
+        accept: "application/json",
+        "x-api-version": "2022-09-01",
+        "x-client-id": 'TEST3454899ddecf8df0eadc531a25984543',
+        "x-client-secret": 'TEST195cb915f5d6fb28aa881b2dbe7bd701db6d64cf',
+        "content-type": "application/json",
+      },
+    
+      data: {
+        order_id: orderId,
+        order_amount: req.body.totalAmount ,
+        order_currency: "INR",
+        customer_details: {
+          customer_id:  req.session.user._id,
+          customer_email: 'risvanguest0000@gmail.com',
+          customer_phone: '9946357406',
+        },
+        order_meta: {
+          return_url: "http://localhost:3000/verifyPayment?order_id={order_id}",
+        },
+      },
+    };
+  
+    await axios
+      .request(options)
+      .then(function (response) {
+
+        return res.render("paymentTemp", {
+          orderId,
+          sessionId: response.data.payment_session_id,
+        });
+      })
+      .catch(function (error) {
+        console.log("1111111111");
+        console.error(error);
+      });
+    }else{
+      
+      await orderModel.create(order);
+  
+    }
+  
+   
     res.redirect("/orderConfirmationPage");
   } catch (error) {
-    addressError = "address is not found";
+   
     res.redirect("/checkout");
   }
 }
+
+export async function getUserPayment(req, res) {
+  console.log(user,"12333333");
+  const userId = req.session.user._id;
+  const user = await users.findById(userId).lean();
+
+  const cart = user.cart;
+  const cartList = cart.map((item) => {
+    return item.id;
+  });
+  const products = await products.find({ _id: { $in: cartList } }).lean();
+
+  const order_id = req.query.order_id;
+
+  const options = {
+    method: "GET",
+    url: "https://sandbox.cashfree.com/pg/orders/" + order_id,
+    headers: {
+      accept: "application/json",
+      "x-api-version": "2022-09-01",
+      "x-client-id": "TEST3454899ddecf8df0eadc531a25984543",
+      "x-client-secret": "TEST195cb915f5d6fb28aa881b2dbe7bd701db6d64cf",
+      "content-type": "application/json",
+    },
+  };
+
+  try {
+    const response = await axios.request(options);
+    if (response.data.order_status === "PAID") {
+      await orderModel.create(req.session.orders);
+      for (let i = 0; i < products.length; i++) {
+        await products.updateOne({ _id: products[i]._id }, { $inc: { quantity: -req.session.orders.orderItems[i].quantity } });
+      }
+      await users.findByIdAndUpdate(userId, { $set: { cart: [] } });
+      res.redirect('/orderconfirmationpage');
+    } else {
+      res.redirect("/checkout");
+    }
+  } catch (error) {
+    console.error(error);
+
+    res.redirect("/checkout");
+  }
+}
+
 export function addresspage(req, res) {
   res.render("address", { ifuser });
 }
@@ -709,7 +777,7 @@ export async function orderDetails(req, res) {
   const orderDetails = await orderModel.find().sort({ _id: -1 });
 
   let user = await users.findOne(req.session.user);
-  console.log(user);
+
   res.render("order", { ifuser, orderDetails });
 }
 

@@ -185,7 +185,7 @@
               </li>
               <li class="list-group-item d-flex justify-content-between">
                 <span>Total </span>
-
+<input hidden name="totalAmount" value="<%-productsdetails.sum %>">
                 <strong value="<%-productsdetails.sum %>"
                   >₹<span id="totalprice"
                     ><%-productsdetails.sum %></span
@@ -299,7 +299,7 @@
                   type="radio"
                   class="custom-control-input"
                   value="online payment"
-                  checked
+                  required
                 />
                 <label class="custom-control-label" for="credit"
                   >Online Payment</label

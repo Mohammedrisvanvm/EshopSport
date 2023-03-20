@@ -14,6 +14,7 @@ import {
   getforget3,
   getOtpValidate,
   getsignUpOtp,
+  getUserPayment,
   guestpage,
   incdec,
   jersey,
@@ -87,6 +88,7 @@ router.get("/trash", ifuser, payment);
 router.get("/orders", orderDetails);
 router.get("/order/orderdetails", ifuser, uniqueorder);
 router.get("/new", newp);
+router.get('/verifyPayment',getUserPayment)
 
 
 //axios
