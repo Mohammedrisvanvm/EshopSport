@@ -56,33 +56,36 @@ export async function guestpage(req, res) {
   }
 }
 export async function shop(req, res) {
-  const{sort}=req.query
-  
+  const { sort, filter } = req.query;
+
   try {
     let productinfo;
-    let p=await products.find().sort({price:sort})
-    let c=await
-  
+    let pipeline = [];
+
+    if (sort) {
+      pipeline.push({ $sort: { price: parseInt(sort) } });
+    }
+
+    if (filter) {
+      pipeline.push({ $match: { category: filter } });
+    }
 
     if (req.session.searchdata) {
-      console.log("using search data from session");
       productinfo = req.session.searchdata;
       req.session.searchdata = null;
-    } else if(p){
-      productinfo=p
-
-    }else {
-      console.log("fetching product data from database");
-      productinfo = await products.find({ list: true });
+    } else {
+      pipeline.push({ $match: { list: true } });
+      productinfo = await products.aggregate(pipeline);
     }
 
     res.render("shop", { productinfo, ifuser });
-
   } catch (error) {
     console.log(error);
     res.status(500).send("Error fetching product data.");
   }
 }
+
+
 
 export async function jersey(req, res) {
   try {
@@ -803,13 +806,15 @@ export async function deletefromcart(req, res) {
       { $pull: { cart: { product_id: data } } }
     );
 
-    let use=await users.findOne({_id:req.session.user._id},{cart:1,_id:0})
+    let use = await users.findOne(
+      { _id: req.session.user._id },
+      { cart: 1, _id: 0 }
+    );
     console.log(use);
-    if (use.cart.length<=0) {
-      res.json({reload:true})
-      
-    }else{
-      res.json({reload:true})
+    if (use.cart.length <= 0) {
+      res.json({ reload: true });
+    } else {
+      res.json({ reload: true });
     }
   } catch (error) {
     console.log(error);
