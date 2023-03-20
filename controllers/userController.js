@@ -56,16 +56,22 @@ export async function guestpage(req, res) {
   }
 }
 export async function shop(req, res) {
-  console.log(req.query);
+  const{sort}=req.query
   
   try {
     let productinfo;
+    let p=await products.find().sort({price:sort})
+    let c=await
+  
 
     if (req.session.searchdata) {
       console.log("using search data from session");
       productinfo = req.session.searchdata;
       req.session.searchdata = null;
-    } else {
+    } else if(p){
+      productinfo=p
+
+    }else {
       console.log("fetching product data from database");
       productinfo = await products.find({ list: true });
     }
