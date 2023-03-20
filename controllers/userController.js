@@ -803,7 +803,7 @@ export async function deletefromcart(req, res) {
       res.json({reload:true})
       
     }else{
-      res.json({reload:false})
+      res.json({reload:true})
     }
   } catch (error) {
     console.log(error);
