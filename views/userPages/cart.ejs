@@ -443,13 +443,20 @@
       function deletefromcart(data) {
         let quantity = document.getElementById("Qty" + data).value;
         console.log(quantity);
-        axios.get(`/deletefromcart?quantity=${quantity}&data=${data}`);
-
+        axios.get(`/deletefromcart?quantity=${quantity}&data=${data}`).then((result)=>{
+          console.log(result);
+          if(result.data.reload){
+            window.location.reload()
+          }else{
+            
         document.getElementById("cartProduct" + data).innerHTML = "";
         document.getElementById("delcart" + data).innerHTML = "";
         document.getElementById(
           "totalprice" + data
         ).innerHTML = `<%-productsdetails.sum %>`;
+          }
+        })
+
       }
       function inc(data, cond) {
         document.getElementById("message" + data).textContent = "";

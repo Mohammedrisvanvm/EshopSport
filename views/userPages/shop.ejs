@@ -164,7 +164,7 @@
 
             <!-- Toggle button -->
             <button
-              class="navbar-toggler"
+              class="navbar-toggler text-dark"
               type="button"
               data-mdb-toggle="collapse"
               data-mdb-target="#navbarSupportedContent2"
@@ -174,14 +174,13 @@
             >
               <i class="fas fa-bars"></i>
             </button>
-<!-- <form action="">
+            <!-- <form action="">
   <input type="number" name="num" value="10" onclick="this.form.submit()" >
 </form> -->
             <!-- Collapsible wrapper -->
             <div class="collapse navbar-collapse" id="navbarSupportedContent2">
               <form>
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                   <!-- Link -->
                   <li class="nav-item dropdown">
                     <a
@@ -194,7 +193,6 @@
                       sort
                     </a>
                     <ul class="dropdown-menu">
-                      
                       <li>
                         <label
                           class="dropdown-item"
@@ -202,32 +200,20 @@
                           type="radio"
                           onclick="this.form.submit()"
                           >price: low to high
-                          <input
-                            type="radio"
-                            hidden
-                            name="sort1"
-                            value="-1"
-                           
+                          <input type="radio" hidden name="sort" value="-1"
                         /></label>
                       </li>
                       <li>
                         <label
-                        class="dropdown-item"
-                        name="sort"
-                      
-                        onclick="this.form.submit()"
-                        >price:high to low
-                        <input
-                          type="radio"
-                          hidden
-                          name="sort1"
-                          value="1"
-                         
-                      /></label>
-                     
+                          class="dropdown-item"
+                          name="sort"
+                          onclick="this.form.submit()"
+                          >price:high to low
+                          <input type="radio" hidden name="sort" value="1"
+                        /></label>
                       </li>
+                    </form>
                       <li><hr class="dropdown-divider" /></li>
-                   
                     </ul>
                   </li>
                   <li class="nav-item dropdown">
@@ -241,46 +227,55 @@
                       filter
                     </a>
                     <ul class="dropdown-menu">
+                      <form action="">
                       <li>
                         <label
-                        class="dropdown-item"
-                        name="jersey"
-                      
-                        onclick="this.form.submit()"
-                        >category:jersey
-                        <input
-                        type="radio"
-                        hidden
-                        name="filter"
-                        value="jersey"
-                         
-                      /></label>
-                     
-                        </li>
-                     <li>
-                      <label
-                      class="dropdown-item"
-                      name="shorts"
-                    
-                      onclick="this.form.submit()"
-                      >category:shorts
-                      <input
-                      type="radio"
-                      hidden
-                      name="filter"
-                      value="shorts"
-                       
-                    /></label>
-                     </li>
-                      <li> <a class="dropdown-item" href="#">jersey</a></li>
+                          class="dropdown-item"
+                          name="jersey"
+                          onclick="this.form.submit()"
+                          >category:jersey
+                          <input
+                            type="radio"
+                            hidden
+                            name="filter"
+                            value="jersey"
+                        /></label>
+                      </li>
+                      <li>
+                        <label
+                          class="dropdown-item"
+                          name="shorts"
+                          onclick="this.form.submit()"
+                          >category:shorts
+                          <input
+                            type="radio"
+                            hidden
+                            name="filter"
+                            value="shorts"
+                        /></label>
+                      </li>
+                      <li>
+                        <label
+                          class="dropdown-item"
+                          name="socks"
+                          onclick="this.form.submit()"
+                          >category:socks
+                          <input
+                            type="radio"
+                            hidden
+                            name="filter"
+                            value="socks"
+                        /></label>
+                      </li>
+                      </form>
+                      <li><a class="dropdown-item" href="#">jersey</a></li>
                       <li><a class="dropdown-item" href="#">shorts</a></li>
                       <li><a class="dropdown-item" href="#">socks</a></li>
                       <li><hr class="dropdown-divider" /></li>
                     </ul>
                   </li>
-           
-              </ul>
-            </form>
+                </ul>
+            
               <!-- Search -->
               <form
                 class="d-none d-md-flex input-group w-auto my-auto"

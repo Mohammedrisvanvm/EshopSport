@@ -797,13 +797,14 @@ export async function deletefromcart(req, res) {
       { $pull: { cart: { product_id: data } } }
     );
 
-    await users.updateOne(
-      {
-        _id: req.session.user._id,
-        cart: { $elemMatch: { product_id: data } },
-      },
-      { $inc: { "cart.$.quantity": 1 } }
-    );
+    let use=await users.findOne({_id:req.session.user._id},{cart:1,_id:0})
+    console.log(use);
+    if (use.cart.length<=0) {
+      res.json({reload:true})
+      
+    }else{
+      res.json({reload:false})
+    }
   } catch (error) {
     console.log(error);
   }
