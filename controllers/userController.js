@@ -533,6 +533,7 @@ export async function postcheckout(req, res) {
 
     let orderId = "order_" + createId();
     console.log(req.body.totalAmount);
+   
     const options = {
       method: "POST",
    
@@ -563,6 +564,7 @@ export async function postcheckout(req, res) {
     await axios
       .request(options)
       .then(function (response) {
+        console.log(response.data.payment_session_id);
 
         return res.render("paymentTemp", {
           orderId,
@@ -594,9 +596,9 @@ export async function getUserPayment(req, res) {
 
   const cart = user.cart;
   const cartList = cart.map((item) => {
-    return item.id;
+    return item.product_id;
   });
-  const products = await products.find({ _id: { $in: cartList } }).lean();
+  const product = await products.find({ _id: { $in: cartList } }).lean();
 
   const order_id = req.query.order_id;
 
@@ -617,7 +619,7 @@ export async function getUserPayment(req, res) {
     if (response.data.order_status === "PAID") {
       await orderModel.create(req.session.orders);
       for (let i = 0; i < products.length; i++) {
-        await products.updateOne({ _id: products[i]._id }, { $inc: { quantity: -req.session.orders.orderItems[i].quantity } });
+        await products.updateOne({ _id: product[i]._id }, { $inc: { quantity: -req.session.orders.orderItems[i].quantity } });
       }
       await users.findByIdAndUpdate(userId, { $set: { cart: [] } });
       res.redirect('/orderconfirmationpage');
