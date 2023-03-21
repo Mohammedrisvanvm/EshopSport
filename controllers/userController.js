@@ -131,10 +131,15 @@ export async function userPostLogin(req, res) {
     const { email, password } = req.body;
 
     const userinfo = await users.findOne({ email });
+    console.log(userinfo);
 
     if (!userinfo) {
       emailerr = "not found email";
       res.redirect("/login");
+    }else if(userinfo.ban==false){
+      emailerr="you are banned"
+      res.redirect('/login')
+
     } else {
       bcrypt.compare(password, userinfo.password).then((result) => {
         if (email == userinfo.email && result == true) {
@@ -999,6 +1004,7 @@ export async function uniqueorder(req, res) {
   const user = await users.findOne({ _id: req.session.user });
   console.log(user.name);
   const orderDetails = await orderModel.findOne({ _id: req.query.data });
+  console.log(orderDetails);
 
   res.render("orderdetails", { ifuser, orderDetails, user });
 }
