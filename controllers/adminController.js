@@ -1,6 +1,6 @@
 import sharp from "sharp";
 import { admins } from "../models/adminSchema.js";
-import { categories, subCategories } from "../models/categorySchema.js";
+import { categories} from "../models/categorySchema.js";
 import { coupon } from "../models/couponSchema.js";
 import { products } from "../models/productSchema.js";
 import { users } from "../models/userSchema.js";

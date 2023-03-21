@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema({
   },
   ban: {
     type: Boolean,
-    default: false,
+    default: true,
   },
   cart: {
     type: Array,
