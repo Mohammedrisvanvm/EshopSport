@@ -78,7 +78,9 @@ export async function getProductManagement(req, res) {
 export async function getaddProduct(req, res) {
   try {
     const categoryinfo = await categories.find();
+    console.log(categoryinfo);
     res.render("addproduct", { producterr, imageerr, categoryinfo });
+
     producterr = null;
     imageerr = null;
   } catch (error) {
