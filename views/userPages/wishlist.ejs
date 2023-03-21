@@ -301,8 +301,10 @@
     <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
     <script>
       function deletefromwishlist(data) {
+        console.log("11111111111");
         axios.get("/deletefromwishlist/" + data);
         document.getElementById("wishlistProduct" + data).innerHTML = "";
+        window.location.reload()
         }
         function addtocart(data) {
           axios.get("/addtocart/" + data);

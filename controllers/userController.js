@@ -3,7 +3,7 @@ import { users } from "../models/userSchema.js";
 import sentOTP from "../helpers/emailSend.js";
 import otpGenerator from "otp-generator";
 import bcrypt from "bcrypt";
-import { products} from "../models/productSchema.js";
+import { products } from "../models/productSchema.js";
 import uniqid from "uniqid";
 import { coupon } from "../models/couponSchema.js";
 import { orderModel } from "../models/orderSchema.js";
@@ -86,8 +86,6 @@ export async function shop(req, res) {
     res.status(500).send("Error fetching product data.");
   }
 }
-
-
 
 export async function jersey(req, res) {
   try {
@@ -461,10 +459,10 @@ export async function getcheckout(req, res) {
   }
 }
 export async function postcheckout(req, res) {
-
+  console.log(req.body);
   try {
-  
-   
+    let {totalAmount,address} = req.body;
+
     const userinfo = await users.findOne(
       { _id: req.session.user._id },
       { cart: 1 }
@@ -474,123 +472,125 @@ export async function postcheckout(req, res) {
       acc[item.product_id] = item.quantity;
       return acc;
     }, {});
-
-   
-    let productsdetails = await products.find({ _id: { $in: productIDs } }).lean();
+    
+    let productsdetails = await products
+    .find({ _id: { $in: productIDs } })
+    .lean();
     let promo = 0;
     if (req.body.promo) {
       const code = await coupon.findOne({ couponCode: req.body.promo });
       promo = code.discount;
     }
-
     
     let sum = 0;
     for (const product of productsdetails) {
       if (product.quantity < cartQuantity[product._id]) {
+        console.log("1111");
         res.redirect("/checkout");
+        console.log("1111");
         return;
       }
       product.cartQuantity = cartQuantity[product._id];
       product.coupon = promo;
       product.productTotal = product.cartQuantity * product.price;
       sum += product.productTotal;
-      await products.updateOne({ _id: product._id }, { $inc: { quantity: -product.cartQuantity } });
-    }
-
-    const total = sum - promo;
-    productsdetails = productsdetails.map((product) => ({
-      ...product,
-      total,
-      payableAmount: total,
-    }));
-
-    const address = await users.findOne(
-      { _id: req.session.user._id, "address._id": req.body.address },
-      { address: { $elemMatch: { _id: req.body.address } } }
-    ).lean();
-    if (!address) {
-      res.redirect("/checkout");
-      addressError="not "
-      return;
-    }
-    const deliveryAddress = address.address[0];
-    const ordercount = await orderModel.countDocuments();
-    const order = productsdetails.map((product) => ({
-      address: deliveryAddress,
-      product,
-      userId: req.session.user._id,
-      quantity: product.cartQuantity,
-      total: product.total,
-      coupon: product.coupon,
-      amountPayable: product.payableAmount,
-      paymentType: req.body.paymentType,
-      orderId: ordercount + 1,
-    }));
-    req.session.order=order
-
-    if (req.body.paymentType!=='Cash On Delivery') {
-     
-
-    let orderId = "order_" + createId();
-    console.log(req.body.totalAmount);
-   
-    const options = {
-      method: "POST",
-   
-      url: "https://sandbox.cashfree.com/pg/orders",
-      headers: {
-        accept: "application/json",
-        "x-api-version": "2022-09-01",
-        "x-client-id": 'TEST3454899ddecf8df0eadc531a25984543',
-        "x-client-secret": 'TEST195cb915f5d6fb28aa881b2dbe7bd701db6d64cf',
-        "content-type": "application/json",
-      },
+      await products.updateOne(
+        { _id: product._id },
+        { $inc: { quantity: -product.cartQuantity } }
+        );
+      }
+      
+      const total = sum - promo;
+      productsdetails = productsdetails.map((product) => ({
+        ...product,
+        total,
+        payableAmount: total,
+      }));
+      
+      address = await users
+      .findOne(
+        { _id: req.session.user._id, "address._id": address },
+        { address: { $elemMatch: { _id: address } } }
+        )
+        .lean();
+        if (!address) {
+          res.redirect("/checkout");
+          addressError = "not ";
+          return;
+        }
+        const deliveryAddress = address.address[0];
+        const ordercount = await orderModel.countDocuments();
+        const order = productsdetails.map((product) => ({
+          address: deliveryAddress,
+          product,
+          userId: req.session.user._id,
+          quantity: product.cartQuantity,
+          total: product.total,
+          coupon: product.coupon,
+          amountPayable: product.payableAmount,
+          paymentType: req.body.paymentType,
+          orderId: ordercount + 1,
+        }));
+        req.session.order = order;
     
-      data: {
-        order_id: orderId,
-        order_amount: req.body.totalAmount ,
-        order_currency: "INR",
-        customer_details: {
-          customer_id:  req.session.user._id,
-          customer_email: 'risvanguest0000@gmail.com',
-          customer_phone: '9946357406',
+     totalAmount=parseInt(totalAmount)
+    // console.log(typeof(totalAmount)); 
+
+       
+    if (req.body.paymentType !== "Cash On Delivery") {
+      const orderId = `order_${createId()}`;
+
+      const options = {
+        method: "POST",
+        url: "https://sandbox.cashfree.com/pg/orders",
+        headers: {
+          accept: "application/json",
+          "x-api-version": "2022-09-01",
+          "x-client-id": "TEST3454899ddecf8df0eadc531a25984543",
+          "x-client-secret": "TEST195cb915f5d6fb28aa881b2dbe7bd701db6d64cf",
+          "content-type": "application/json",
         },
-        order_meta: {
-          return_url: "http://localhost:3000/verifyPayment?order_id={order_id}",
+        data: {
+          order_id: orderId,
+          order_amount:totalAmount,
+          order_currency: "INR",
+          customer_details: {
+            customer_id: req.session.user._id,
+            customer_email: "risvanguest0000@gmail.com",
+            customer_phone: "9946357406",
+          },
+          order_meta: {
+            return_url: `http://localhost:3000/verifyPayment?order_id=${orderId}`,
+          },
         },
-      },
-    };
-  
-    await axios
-      .request(options)
-      .then(function (response) {
+      };
+
+      try { 
+        
+        console.log("11111111111111111");
+        const response = await axios.request(options)
+       console.log(response);
         console.log(response.data.payment_session_id);
 
         return res.render("paymentTemp", {
           orderId,
           sessionId: response.data.payment_session_id,
         });
-      })
-      .catch(function (error) {
-        console.log("1111111111");
-        console.error(error);
-      });
-    }else{
-      
+      } catch (error) {
+      //  console.error(error);
+      }
+    } else {
       await orderModel.create(order);
-  
     }
-  
-   
+
     res.redirect("/orderConfirmationPage");
   } catch (error) {
-   
     res.redirect("/checkout");
   }
 }
 
 export async function getUserPayment(req, res) {
-  console.log(user,"12333333");
+  console.log(user, "12333333");
   const userId = req.session.user._id;
   const user = await users.findById(userId).lean();
 
@@ -619,10 +619,13 @@ export async function getUserPayment(req, res) {
     if (response.data.order_status === "PAID") {
       await orderModel.create(req.session.orders);
       for (let i = 0; i < products.length; i++) {
-        await products.updateOne({ _id: product[i]._id }, { $inc: { quantity: -req.session.orders.orderItems[i].quantity } });
+        await products.updateOne(
+          { _id: product[i]._id },
+          { $inc: { quantity: -req.session.orders.orderItems[i].quantity } }
+        );
       }
       await users.findByIdAndUpdate(userId, { $set: { cart: [] } });
-      res.redirect('/orderconfirmationpage');
+      res.redirect("/orderconfirmationpage");
     } else {
       res.redirect("/checkout");
     }
@@ -822,11 +825,13 @@ export async function addtowishlist(req, res) {
 }
 
 export async function deletefromwishlist(req, res) {
+  console.log(req.params);
   try {
-    users.updateOne(
+   await users.updateOne(
       { _id: req.session.user._id },
       { $pull: { wishlist: { product_id: req.params.data } } }
     );
+    
   } catch (error) {
     console.log(error);
   }
