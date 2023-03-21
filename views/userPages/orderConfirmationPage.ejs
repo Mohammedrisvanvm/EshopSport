@@ -6,6 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>order confirmation</title>
     <link
+      rel="canonical"
+      href="https://getbootstrap.com/docs/4.0/examples/carousel/"
+    />
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Custom styles for this template -->
+    <link href="/css/usercss.css" rel="stylesheet" />
+    <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
@@ -140,7 +150,6 @@
       </div>
     </header>
 
-
     <div class="container mt-5 mb-5">
       <div class="row d-flex justify-content-center">
         <div class="col-md-8">
@@ -152,7 +161,7 @@
             <div class="invoice p-5">
               <h5>Your order Confirmed!</h5>
 
-              <span class="font-weight-bold d-block mt-4">Hello, Chris</span>
+              <span class="font-weight-bold d-block text-success mt-4">Hello, <%-user.name %></span>
               <span
                 >You order has been confirmed and will be shipped in next two
                 days!</span
@@ -167,14 +176,14 @@
                       <td>
                         <div class="py-2">
                           <span class="d-block text-muted">Order Date</span>
-                          <span>12 Jan,2018</span>
+                          <span><%-orderDetails[0].createdAt.toLocaleString()%></span>
                         </div>
                       </td>
 
                       <td>
                         <div class="py-2">
                           <span class="d-block text-muted">Order No</span>
-                          <span>MT12332345</span>
+                          <span><%-orderDetails[0]._id%></span>
                         </div>
                       </td>
 
@@ -182,10 +191,7 @@
                         <div class="py-2">
                           <span class="d-block text-muted">Payment</span>
                           <span
-                            ><img
-                              src="https://img.icons8.com/color/48/000000/mastercard.png"
-                              width="20"
-                          /></span>
+                            ><%-orderDetails[0].paymentType%></span>
                         </div>
                       </td>
 
@@ -194,7 +200,40 @@
                           <span class="d-block text-muted"
                             >Shiping Address</span
                           >
-                          <span>414 Advert Avenue, NY,USA</span>
+                          <span><%-orderDetails[0].address.address%></span>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              
+            
+
+              <div
+                class="payment border-top mt-3 mb-3 border-bottom table-responsive"
+              >
+                <table class="table table-borderless">
+                  <tbody>
+                    <tr>
+                   
+
+                      
+
+                      <td>
+                        <div class="py-2">
+                          <span class="d-block text-muted">product Name</span>
+                          <span
+                            ><%-orderDetails[0].product[0].productName%></span>
+                        </div>
+                      </td>
+
+                      <td>
+                        <div class="py-2">
+                          <span class="d-block text-muted"
+                            >price</span
+                          >
+                          <span><%-orderDetails[0].amountPayable%></span>
                         </div>
                       </td>
                     </tr>
@@ -220,7 +259,7 @@
       </div>
     </div>
     <div class="d-flex justify-content-center">
-      <a href="/"><button>back to shop</button></a>
+      <a href="/order/orderdetails"><button class="btn btn-dark">back to orderDetails</button></a>
     </div>
     <footer
     class="text-center text-white mt-4"
@@ -288,5 +327,25 @@
     </div>
 
   </footer>
+  <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+      integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
+      integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"
+    ></script>
+
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>

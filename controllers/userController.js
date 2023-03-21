@@ -780,8 +780,11 @@ export async function editaddress(req, res) {
 export function payment(req, res) {
   res.render("address");
 }
-export function orderconfirmationpage(req, res) {
-  res.render("orderconfirmationpage", { ifuser });
+export async function orderconfirmationpage(req, res) {
+  const orderDetails = await orderModel.find().sort({ _id: -1 }).limit(1)
+  console.log(orderDetails);
+
+  res.render("orderconfirmationpage", { ifuser,orderDetails,user:req.session.user });
 }
 export async function orderDetails(req, res) {
   const orderDetails = await orderModel.find().sort({ _id: -1 });
