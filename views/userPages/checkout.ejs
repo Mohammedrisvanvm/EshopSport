@@ -241,7 +241,7 @@
               <li class="list-group-item">
                 <span>wallet amount bal: ₹ </span>
                 <span id="wallet"><%-userinfo.wallet %></span>
-                <div class="input-group mt-4">
+                <div class="input-group mt-4 d-flex">
                   <input
                     type="text"
                     placeholder="wallet"
@@ -250,16 +250,8 @@
                     class="rounded"
                     hidden
                   />
-
-                  <button
-                    type="button"
-                    onclick="walletpay()"
-                    class="btn btn-secondary ms-2"
-                   
-                    name="wallet"
-                  >
-                    wallet
-                  </button>
+                  <label for="vehicle1">wallet pay</label>
+                  <input type="checkbox" id="vehicle1" name="wishlist" value="Bike">
                 </div>
               </li>
             </ul>
@@ -602,6 +594,7 @@
         console.log(wallet.textContent,totalprice);
         axios.get(`/wallet?price=${totalprice}`).then((result)=>{
           console.log(result.data);
+          
            document.getElementById("wallet").textContent=result.data.wallet
            document.getElementById("totalprice").textContent=result.data.tp
         })

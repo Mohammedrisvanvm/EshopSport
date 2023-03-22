@@ -571,7 +571,16 @@ export async function postcheckout(req, res) {
       const code = await coupon.findOne({ couponCode: req.body.promo });
       promo = code.discount;
     }
-
+    let wallet = 0;
+    if (req.body.wallet) {
+      
+      const walletprice= await users.findOne(   { _id: req.session.user._id },
+        { wallet:1,_id:0 } );
+        console.log(walletprice);
+      wallet = walletprice.wallet;
+      
+    }
+    console.log(wallet);
     let sum = 0;
     for (const product of productsdetails) {
       if (product.quantity < cartQuantity[product._id]) {
@@ -582,6 +591,8 @@ export async function postcheckout(req, res) {
       }
       product.cartQuantity = cartQuantity[product._id];
       product.coupon = promo;
+      product.wallet = wallet;
+      
       product.productTotal = product.cartQuantity * product.price;
       sum += product.productTotal;
       await products.updateOne(
@@ -1091,8 +1102,9 @@ export async function promoCode(req, res) {
 export async function wallet(req, res) {
   console.log(req.query);
   try {
+  
     if (req.query.price==0 ) {
-      res.json({ success: false });
+      res.json({ success: true });
     } else {
       let user = await users.findOne({
         _id: req.session.user._id}
