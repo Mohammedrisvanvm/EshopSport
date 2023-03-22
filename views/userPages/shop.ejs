@@ -369,6 +369,13 @@
             </div>
           </div>
         </div>
+        <div class="flex-c-m flex-w w-full p-t-38">
+          <% pagination.forEach(function(page, index) { %>
+            <span onclick="filterPage('page', '<%= index + 1 %>')" class="flex-c-m how-pagination1 trans-04 m-all-7"><%= index + 1 %></span>
+        <% }); %>
+        
+       
+       </div>
       </section>
     </main>
 

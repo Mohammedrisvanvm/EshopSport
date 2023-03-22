@@ -80,11 +80,108 @@ export async function shop(req, res) {
       productinfo = await products.aggregate(pipeline);
     }
 
-    res.render("shop", { productinfo, ifuser });
+    // pagination
+    const page = req.query.page ? parseInt(req.query.page) : 1;
+    const limit = 4;
+    const skip = (page - 1) * limit;
+
+    let countPipeline = [...pipeline];
+    countPipeline.push({ $count: "total" });
+    const countResult = await products.aggregate(countPipeline);
+    const productCount = countResult.length > 0 ? countResult[0].total : 0;
+    const totalPage = Math.ceil(productCount / limit);
+    let pagination = [];
+
+    for (let i = 1; i <= totalPage; i++) {
+      pagination.push(i)
+    }
+
+    if (page > totalPage || page < 1) {
+      throw new Error("This Page does not exists");
+    }
+
+    pipeline.push({ $skip: skip }, { $limit: limit });
+    productinfo = await products.aggregate(pipeline);
+
+    res.render("shop", { productinfo, ifuser, pagination });
   } catch (error) {
     console.log(error);
     res.status(500).send("Error fetching product data.");
   }
+}
+
+
+export async function pp(req,res){
+  const shopPage = asyncHandler(async (req, res) => {
+
+    try {
+      // // Filtering 
+      // const queryObj = { ...req.query };
+      // const excludeFields = ["page", "sort", "limit", "fields", "search"];
+      // excludeFields.forEach((el) => delete queryObj[el]);
+  
+  
+      // let queryStr = JSON.stringify(queryObj);
+  
+      // queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
+  
+      // let query = Product.find({ ...JSON.parse(queryStr), unlist: false }).lean();
+      // // Searching
+      // if (req.query.search) {
+  
+      //   const searchRegex = new RegExp(req.query.search, "i");
+      //   query = query.find({ $or: [{ name: searchRegex }, { description: searchRegex }] });
+      // }
+  
+  
+      // // Sorting
+      // if (req.query.sort) {
+      //   const sortBy = req.query.sort.split(",").join(" ");
+      //   query = query.sort(sortBy);
+      // } else {
+      //   query = query.sort("-createdAt");
+      // }
+  
+      // // limiting the fields
+      // if (req.query.fields) {
+      //   const fields = req.query.fields.split(",").join(" ");
+      //   query = query.select(fields);
+      // } else {
+      //   query = query.select("-__v");
+      // }
+  
+      // pagination
+      const page = req.query.page;
+      const limit = 4;
+      const skip = (page - 1) * limit;
+      query = query.skip(skip).limit(limit);
+  
+      const productCount = await products.countDocuments({ list: true });
+      const totalPage = Math.ceil(productCount / limit);
+      let pagination = [];
+  
+      for (let i = 1; i <= totalPage; i++) {
+        pagination.push(i)
+      }
+  
+      if (req.query.page) {
+        if (skip >= productCount) throw new Error("This Page does not exists");
+      }
+  
+      const products = await query.lean();
+      const category = await category.find({ list: true }).lean();
+  
+  
+      res.render("shopPage", { products, category, pagination })
+  
+    } catch (error) {
+  
+      res.status(404)
+      throw new Error("not found");
+  
+    }
+  
+  })
 }
 
 export async function jersey(req, res) {
@@ -552,9 +649,10 @@ export async function postcheckout(req, res) {
       }
     }
     if (req.body.paymentType !== "Cash On Delivery" || req.body.paymentType !== "wallet") {
+     
     
       const orderId = `order_${createId()}`;
-
+      
       const options = {
         method: "POST",
         url: "https://sandbox.cashfree.com/pg/orders",
@@ -579,18 +677,23 @@ export async function postcheckout(req, res) {
           },
         },
       };
-
+      
       try {
-        const response = await axios.request(options);
+        console.log(orderId);
+        const response = await axios.request(options).then((response)=>{
+          return response, res.render("paymentTemp", {
+            orderId,
+            sessionId: response.data.payment_session_id,
+          });
+        })
+        console.log(orderId);
         console.log(response);
         console.log(response.data.payment_session_id);
 
-        return res.render("paymentTemp", {
-          orderId,
-          sessionId: response.data.payment_session_id,
-        });
+       
       } catch (error) {
         //  console.error(error);
+        console.log(error);
       }
     } else {
       await orderModel.create(order);
@@ -1000,14 +1103,14 @@ export async function productReturn(req, res) {
       },
       { $set: { orderStatus: "Returned", paid: false } }
     );
-    if (p.paymentType="wallet") {
+   
       await users.updateOne(
         {
           _id: req.session.user._id,
         },
         { $inc: { wallet: p.amountPayable } }
       );
-    }
+    
     res.json({ success: true });
   } catch (error) {
     res.send(error);

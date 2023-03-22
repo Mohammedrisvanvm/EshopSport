@@ -324,6 +324,11 @@ export async function ordermanagement(req, res) {
 
   res.render("orderManagement", { orderinfo });
 }
+export async function salesReport(req, res) {
+
+
+  res.render("salesReport");
+}
 
 export function adminlogout(req, res) {
   console.log("adminlogout");

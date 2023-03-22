@@ -23,6 +23,7 @@ import {
   postCouponManagement,
   posteditcategory,
   postEditProduct,
+  salesReport,
   unlistcategory,
   unlistproduct,
   userban,
@@ -52,6 +53,7 @@ router.post("/couponManagement", postCouponManagement);
 router.get("/banner",ifadmin, banner);
 router.post("/banner",multiuploadcaro,postBanner);
 router.get('/ordermanagement',ifadmin,ordermanagement)
+router.get('/salesReport',ifadmin,salesReport)
 router.get("/logout",ifadmin, adminlogout);
 //axios
 

@@ -237,7 +237,25 @@
               <li class="list-group-item d-flex justify-content-between">
                 
                   <span>wallet amount  </span> <span>₹<%-userinfo.wallet %></span>
-             
+                  <div class="input-group mt-4">
+                    <input
+                      type="text"
+                      placeholder="Promo code"
+                      id="promo"
+                      name="promo"
+                      class="rounded"
+                    />
+  
+                    <button
+                      type="button"
+                      onclick="promoCode()"
+                      class="btn btn-secondary ms-2"
+                      id="Redeemcode"
+                      name="Redeemed"
+                    >
+                      
+                    </button>
+                  </div>
 
                 </li>
             </ul>
