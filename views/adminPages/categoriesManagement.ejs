@@ -237,6 +237,7 @@
                     <th>sl</th>
                     <th>category name</th>
                     <th>list</th>
+                    <th>edit</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -254,6 +255,9 @@
                         <%-i.list %>
                       </button>
                     </td>
+                    <td><a href="/admin/editcategory/<%-i._id %>">
+                      <i class="ri-pencil-line mx-2 fs-4 text-dark"></i></a
+                    ></td>
                   </tr>
                   <% }) %>
                 </tbody>
