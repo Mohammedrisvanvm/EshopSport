@@ -987,7 +987,7 @@ export async function promoCode(req, res) {
 export async function productReturn(req, res) {
   try {
     let p = await orderModel.findOne({ _id: req.query.data });
-    console.log(p.quantity);
+    
     await products.updateOne(
       {
         _id: req.query.proid,
@@ -1000,6 +1000,14 @@ export async function productReturn(req, res) {
       },
       { $set: { orderStatus: "Returned", paid: false } }
     );
+    if (p.paymentType="wallet") {
+      await users.updateOne(
+        {
+          _id: req.session.user._id,
+        },
+        { $inc: { wallet: p.amountPayable } }
+      );
+    }
     res.json({ success: true });
   } catch (error) {
     res.send(error);
