@@ -55,6 +55,10 @@ const orderSchema = new mongoose.Schema(
       type: Object,
       default: { applied: false, price: 0, coupon: {} },
     },
+    wallet: {
+      type: Object,
+      default: { applied: false, price: 0,  },
+    },
     orderId: {
       type: Number,
       default: 0,

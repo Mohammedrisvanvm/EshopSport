@@ -617,6 +617,7 @@ export async function postcheckout(req, res) {
       quantity: product.cartQuantity,
       total: product.total,
       coupon: product.coupon,
+      wallet:product.wallet,
       amountPayable: product.payableAmount,
       paymentType: req.body.paymentType,
       orderId: ordercount + 1,
@@ -648,7 +649,7 @@ export async function postcheckout(req, res) {
         req.status(500).send("error wallet");
       }
     }
-    if (req.body.paymentType !== "Cash On Delivery" || req.body.paymentType !== "wallet") {
+    if (req.body.paymentType !== "Cash On Delivery" && req.body.paymentType !== "wallet") {
      
     
       const orderId = `order_${createId()}`;
@@ -1090,26 +1091,25 @@ export async function promoCode(req, res) {
 export async function wallet(req, res) {
   console.log(req.query);
   try {
-    if (!req.query.data) {
+    if (req.query.price==0 ) {
       res.json({ success: false });
     } else {
-      const wallet = await users.findOne({
-        couponCode: req.query.data,
-        list: true,
-      });
-      if (code) {
-        if (code.minamount <= req.query.price) {
-          await coupon.updateOne(
-            { couponCode: req.query.data },
-            { $set: { list: false } }
-          );
-          res.json({ success: true, code: code.discount });
+      let user = await users.findOne({
+        _id: req.session.user._id}
+
+      );
+      console.log(user.wallet);
+      if (user) {
+        let wallet=0
+        if (user.wallet>= req.query.price) {
+          wallet=user.wallet-req.query.price
+          console.log(wallet);
+         
+          res.json({ success: true, wallet: wallet });
         } else {
-          await coupon.updateOne(
-            { couponCode: req.query.data },
-            { $set: { list: true } }
-          );
-          res.json({ success: false });
+          let tp=0
+          tp=req.query.price-user.wallet
+          res.json({ success: true, wallet: wallet,tp:tp  });
         }
       } else {
         res.json({ success: false });

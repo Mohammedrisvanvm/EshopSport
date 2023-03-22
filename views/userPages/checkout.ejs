@@ -239,22 +239,23 @@
               </li>
               <h4 class="my-3">wallet</h4>
               <li class="list-group-item">
-                <span>wallet amount bal: </span>
-                <span>₹<%-userinfo.wallet %></span>
+                <span>wallet amount bal: ₹ </span>
+                <span id="wallet"><%-userinfo.wallet %></span>
                 <div class="input-group mt-4">
                   <input
                     type="text"
                     placeholder="wallet"
-                    id="wallet"
+                   value="<%-userinfo.wallet %>"
                     name="wallet"
                     class="rounded"
+                    hidden
                   />
 
                   <button
                     type="button"
                     onclick="walletpay()"
                     class="btn btn-secondary ms-2"
-                    id="wallet"
+                   
                     name="wallet"
                   >
                     wallet
@@ -596,10 +597,14 @@
         }
       }
       function walletpay(){
-        let wallet = document.getElementById("wallet").value;
+        let wallet = document.getElementById("wallet");
         let totalprice = document.getElementById("totalprice").textContent;
-        console.log(wallet,totalprice);
-        axios.get(`/wallet?data=${wallet}&price=${totalprice}`)
+        console.log(wallet.textContent,totalprice);
+        axios.get(`/wallet?price=${totalprice}`).then((result)=>{
+          console.log(result.data);
+           document.getElementById("wallet").textContent=result.data.wallet
+           document.getElementById("totalprice").textContent=result.data.tp
+        })
       }
       function deletefromaddress(data) {
         axios.get("/deletefromaddress/" + data);
