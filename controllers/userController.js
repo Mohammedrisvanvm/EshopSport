@@ -1087,6 +1087,39 @@ export async function promoCode(req, res) {
     console.log(error);
   }
 }
+export async function wallet(req, res) {
+  console.log(req.query);
+  try {
+    if (!req.query.data) {
+      res.json({ success: false });
+    } else {
+      const wallet = await users.findOne({
+        couponCode: req.query.data,
+        list: true,
+      });
+      if (code) {
+        if (code.minamount <= req.query.price) {
+          await coupon.updateOne(
+            { couponCode: req.query.data },
+            { $set: { list: false } }
+          );
+          res.json({ success: true, code: code.discount });
+        } else {
+          await coupon.updateOne(
+            { couponCode: req.query.data },
+            { $set: { list: true } }
+          );
+          res.json({ success: false });
+        }
+      } else {
+        res.json({ success: false });
+      }
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function productReturn(req, res) {
   try {
     let p = await orderModel.findOne({ _id: req.query.data });

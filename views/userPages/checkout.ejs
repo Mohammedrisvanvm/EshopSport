@@ -185,7 +185,11 @@
               </li>
               <li class="list-group-item d-flex justify-content-between">
                 <span>Total </span>
-<input hidden name="totalAmount" value="<%-productsdetails.sum %>">
+                <input
+                  hidden
+                  name="totalAmount"
+                  value="<%-productsdetails.sum %>"
+                />
                 <strong value="<%-productsdetails.sum %>"
                   >₹<span id="totalprice"
                     ><%-productsdetails.sum %></span
@@ -234,30 +238,29 @@
                 </div>
               </li>
               <h4 class="my-3">wallet</h4>
-              <li class="list-group-item d-flex justify-content-between">
-                
-                  <span>wallet amount  </span> <span>₹<%-userinfo.wallet %></span>
-                  <div class="input-group mt-4">
-                    <input
-                      type="text"
-                      placeholder="Promo code"
-                      id="promo"
-                      name="promo"
-                      class="rounded"
-                    />
-  
-                    <button
-                      type="button"
-                      onclick="promoCode()"
-                      class="btn btn-secondary ms-2"
-                      id="Redeemcode"
-                      name="Redeemed"
-                    >
-                      
-                    </button>
-                  </div>
+              <li class="list-group-item">
+                <span>wallet amount bal: </span>
+                <span>₹<%-userinfo.wallet %></span>
+                <div class="input-group mt-4">
+                  <input
+                    type="text"
+                    placeholder="wallet"
+                    id="wallet"
+                    name="wallet"
+                    class="rounded"
+                  />
 
-                </li>
+                  <button
+                    type="button"
+                    onclick="walletpay()"
+                    class="btn btn-secondary ms-2"
+                    id="wallet"
+                    name="wallet"
+                  >
+                    wallet
+                  </button>
+                </div>
+              </li>
             </ul>
           </div>
 
@@ -279,13 +282,11 @@
 
             <% if (!userinfo.address[0]) { %>
 
-           
-
             <h5 class="mt-5">Your Address</h5>
-            <% } else { %> 
-              <h5 class="mt-5">Your Address</h5>
-              <% userinfo.address.forEach((i) => { %>
-           
+            <% } else { %>
+            <h5 class="mt-5">Your Address</h5>
+            <% userinfo.address.forEach((i) => { %>
+
             <div class="d-flex radio border" id="deletefromaddress<%= i._id %>">
               <%= i.address %>
               <br />
@@ -330,33 +331,30 @@
                   >Online Payment</label
                 >
               </div>
-         
+
               <div class="custom-control custom-radio">
                 <input
-                id="cash"
-                name="paymentType"
-                type="radio"
-                value="Cash On Delivery"
-                required
+                  id="cash"
+                  name="paymentType"
+                  type="radio"
+                  value="Cash On Delivery"
+                  required
                 />
                 <label class="custom-control-label" for="cash"
-                >Cash on Delivery</label
+                  >Cash on Delivery</label
                 >
               </div>
               <div class="custom-control custom-radio">
                 <input
-                value="wallet"
-                required
+                  value="wallet"
+                  required
                   name="paymentType"
                   type="radio"
-                  
                 />
                 <label class="custom-control-label" for="paypal">wallet </label>
-                
               </div>
             </div>
-        
-          
+
             <hr class="mb-4" />
           </div>
         </div>
@@ -370,71 +368,69 @@
       </form>
     </div>
     <footer
-    class="text-center text-white mt-4"
-    style="background-color: #607d8b"
-  >
-    <hr class="text-dark" />
-
-    <div class="container" style="height: 50px">
-      <!-- Section: Social media -->
-      <section class="mb-3">
-        <!-- Facebook -->
-        <a
-          class="btn-link btn-floating btn-lg text-white"
-          href="#!"
-          role="button"
-          data-mdb-ripple-color="dark"
-          ><i class="fab fa-facebook-f"></i
-        ></a>
-
-        <!-- Twitter -->
-        <a
-          class="btn-link btn-floating btn-lg text-white"
-          href="#!"
-          role="button"
-          data-mdb-ripple-color="dark"
-          ><i class="fab fa-twitter"></i
-        ></a>
-
-        <!-- Google -->
-        <a
-          class="btn-link btn-floating btn-lg text-white"
-          href="#!"
-          role="button"
-          data-mdb-ripple-color="dark"
-          ><i class="fab fa-google"></i
-        ></a>
-
-        <!-- Instagram -->
-        <a
-          class="btn-link btn-floating btn-lg text-white"
-          href="#!"
-          role="button"
-          data-mdb-ripple-color="dark"
-          ><i class="fab fa-instagram"></i
-        ></a>
-
-        <!-- YouTube -->
-        <a
-          class="btn-link btn-floating btn-lg text-white"
-          href="#!"
-          role="button"
-          data-mdb-ripple-color="dark"
-          ><i class="fab fa-youtube"></i
-        ></a>
-      </section>
-   
-    </div>
-
-    <div
-      class="text-center p-3"
-      style="background-color: rgba(0, 0, 0, 0.2); color: #e0e0e0"
+      class="text-center text-white mt-4"
+      style="background-color: #607d8b"
     >
-      © 2022 Copyright:
-      <a class="text-white" href="https://mdbootstrap.com/">eshopsport.com</a>
-    </div>
+      <hr class="text-dark" />
 
-  </footer>
+      <div class="container" style="height: 50px">
+        <!-- Section: Social media -->
+        <section class="mb-3">
+          <!-- Facebook -->
+          <a
+            class="btn-link btn-floating btn-lg text-white"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-facebook-f"></i
+          ></a>
+
+          <!-- Twitter -->
+          <a
+            class="btn-link btn-floating btn-lg text-white"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-twitter"></i
+          ></a>
+
+          <!-- Google -->
+          <a
+            class="btn-link btn-floating btn-lg text-white"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-google"></i
+          ></a>
+
+          <!-- Instagram -->
+          <a
+            class="btn-link btn-floating btn-lg text-white"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-instagram"></i
+          ></a>
+
+          <!-- YouTube -->
+          <a
+            class="btn-link btn-floating btn-lg text-white"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-youtube"></i
+          ></a>
+        </section>
+      </div>
+
+      <div
+        class="text-center p-3"
+        style="background-color: rgba(0, 0, 0, 0.2); color: #e0e0e0"
+      >
+        © 2022 Copyright:
+        <a class="text-white" href="https://mdbootstrap.com/">eshopsport.com</a>
+      </div>
+    </footer>
     <section>
       <div
         class="modal fade"
@@ -599,7 +595,12 @@
           console.log(err);
         }
       }
-
+      function walletpay(){
+        let wallet = document.getElementById("wallet").value;
+        let totalprice = document.getElementById("totalprice").textContent;
+        console.log(wallet,totalprice);
+        axios.get(`/wallet?data=${wallet}&price=${totalprice}`)
+      }
       function deletefromaddress(data) {
         axios.get("/deletefromaddress/" + data);
         console.log(data);

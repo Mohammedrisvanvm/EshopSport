@@ -46,6 +46,7 @@ import {
   userPostLogin,
   userPostSignup,
   userprofile,
+  wallet,
   wishlist,
 } from "../controllers/userController.js";
 import { ifuser } from "../middleware/middleware.js";
@@ -99,6 +100,7 @@ router.get("/deletefromcart", ifuser, deletefromcart);
 router.get("/incdec", ifuser, incdec);
 router.get("/deletefromaddress/:data", ifuser, deletefromaddress);
 router.get("/promoCode", ifuser, promoCode);
+router.get("/wallet", ifuser, wallet);
 router.get("/productReturn", productReturn);
 router.post("/search", search);
 router.get('/sort',sort)
