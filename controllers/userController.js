@@ -144,7 +144,7 @@ export async function userPostLogin(req, res) {
       bcrypt.compare(password, userinfo.password).then((result) => {
         if (email == userinfo.email && result == true) {
           req.session.user = userinfo;
-          req.session.userid = userinfo.id;
+        
 
           res.redirect("/");
           console.log("postlogin");
@@ -307,11 +307,11 @@ export async function productPage(req, res) {
 }
 
 export async function wishlist(req, res) {
-  const userid = req.session.userid;
+ 
 
   try {
     const wishlistdetails = await users.findOne(
-      { _id: userid },
+      { _id: req.session.user._id },
       { wishlist: 1 }
     );
 
@@ -337,7 +337,7 @@ export async function cart(req, res) {
           { _id: req.session.user._id },
           { cart: 1 }
         );
-        console.log(userinfo);
+       
         let count = 0;
         const countf = userinfo.cart.map((item) => {
           count = count + 1;
@@ -382,7 +382,7 @@ export async function cart(req, res) {
 
 export async function userprofile(req, res) {
   try {
-    const userinfo = await users.findOne({ _id: req.session.userid });
+    const userinfo = await users.findOne({ _id: req.session.user._id });
     const useraddress = await users.findOne(
       { _id: req.session.user._id },
       { address: 1, _id: 0 }
@@ -543,6 +543,22 @@ export async function postcheckout(req, res) {
 
        
     if (req.body.paymentType !== "Cash On Delivery") {
+
+      if (req.body.paymentType == "wallet") {
+       
+        let user=await users.findOne({_id:req.session.user._id},{wallet:1,_id:0})
+       
+        if(totalAmount<=user.wallet){
+         let wallet=user.wallet-totalAmount
+          console.log(wallet);
+          await users.updateOne({_id:req.session.user._id},{$set:{wallet:wallet}})
+          await orderModel.create(order);
+          res.redirect("")
+          
+        }else{
+          console.log(wallet);
+        }
+      }
       const orderId = `order_${createId()}`;
 
       const options = {
@@ -782,7 +798,7 @@ export function payment(req, res) {
 }
 export async function orderconfirmationpage(req, res) {
   const orderDetails = await orderModel.find().sort({ _id: -1 }).limit(1)
-  console.log(orderDetails);
+ 
 
   res.render("orderconfirmationpage", { ifuser,orderDetails,user:req.session.user });
 }

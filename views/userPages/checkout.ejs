@@ -305,87 +305,32 @@
                   >Online Payment</label
                 >
               </div>
-              <!-- <div class="custom-control custom-radio">
-                <input
-                  id="debit"
-                  name="payment-option"
-                  type="radio"
-                  class="custom-control-input"
-                />
-                <label class="custom-control-label" for="debit"
-                  >Debit Card</label
-                >
-              </div> -->
-              <!-- <div class="custom-control custom-radio">
-                <input
-                  id="paypal"
-                  name="payment-option"
-                  type="radio"
-                  class="custom-control-input"
-                />
-                <label class="custom-control-label" for="paypal">PayPal</label>
-              </div> -->
+         
               <div class="custom-control custom-radio">
                 <input
-                  id="cash"
-                  name="paymentType"
-                  type="radio"
-                  value="Cash On Delivery"
-                  required
+                id="cash"
+                name="paymentType"
+                type="radio"
+                value="Cash On Delivery"
+                required
                 />
                 <label class="custom-control-label" for="cash"
-                  >Cash on Delivery</label
+                >Cash on Delivery</label
                 >
               </div>
+              <div class="custom-control custom-radio">
+                <input
+                value="wallet"
+                required
+                  name="paymentType"
+                  type="radio"
+                  
+                />
+                <label class="custom-control-label" for="paypal">wallet</label>
+              </div>
             </div>
-            <!-- <div class="row">
-              <div class="col-md-6 mb-3">
-                <label for="cc-name">Name on card</label>
-                <input type="text" class="form-control" id="cc-name" name="card
-                name" placeholder="" required= />
-                <small class="text-muted">Full name as displayed on card</small>
-                <div class="invalid-feedback">Name on card is required</div>
-              </div>
-              <div class="col-md-6 mb-3">
-                <label for="cc-number">Credit card number</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="cc-number"
-                  name="card number"
-                  placeholder=""
-                  required=""
-                />
-                <div class="invalid-feedback">
-                  Credit card number is required
-                </div>
-              </div>
-            </div> -->
-            <!-- <div class="row">
-              <div class="col-md-3 mb-3">
-                <label for="cc-expiration">Expiration</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="cc-expiration"
-                  name="cart exp"
-                  placeholder=""
-                  required=""
-                />
-                <div class="invalid-feedback">Expiration date required</div>
-              </div> -->
-            <!-- <div class="col-md-3 mb-3">
-                <label for="cc-cvv">CVV</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="cc-cvv"
-                  name="cvv"
-                  placeholder=""
-                  required=""
-                />
-               
-            </div> -->
+        
+          
             <hr class="mb-4" />
           </div>
         </div>
@@ -535,6 +480,7 @@
                     name="Email"
                     id="email"
                     placeholder="you@example.com"
+                    required
                   />
                 </div>
                 <div class="mb-3">

@@ -26,6 +26,10 @@ const userSchema = new mongoose.Schema({
   wishlist: {
     type: Array,
   },
+  wallet:{
+    type:Number,
+    default:0
+  },
   
   date: {
     type: Date,
