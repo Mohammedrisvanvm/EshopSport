@@ -136,15 +136,13 @@ export async function userPostLogin(req, res) {
     if (!userinfo) {
       emailerr = "not found email";
       res.redirect("/login");
-    }else if(userinfo.ban==false){
-      emailerr="you are banned"
-      res.redirect('/login')
-
+    } else if (userinfo.ban == false) {
+      emailerr = "you are banned";
+      res.redirect("/login");
     } else {
       bcrypt.compare(password, userinfo.password).then((result) => {
         if (email == userinfo.email && result == true) {
           req.session.user = userinfo;
-        
 
           res.redirect("/");
           console.log("postlogin");
@@ -307,8 +305,6 @@ export async function productPage(req, res) {
 }
 
 export async function wishlist(req, res) {
- 
-
   try {
     const wishlistdetails = await users.findOne(
       { _id: req.session.user._id },
@@ -337,7 +333,7 @@ export async function cart(req, res) {
           { _id: req.session.user._id },
           { cart: 1 }
         );
-       
+
         let count = 0;
         const countf = userinfo.cart.map((item) => {
           count = count + 1;
@@ -400,10 +396,7 @@ export function contactus(req, res) {
 export async function getcheckout(req, res) {
   try {
     const cartQuantity = {};
-    const userinfo = await users.findOne(
-      { _id: req.session.user._id },
-      { cart: 1 }
-    );
+    const userinfo = await users.findOne({ _id: req.session.user._id });
 
     const productIDs = userinfo.cart.map((item) => {
       cartQuantity[item.product_id] = item.quantity;
@@ -435,11 +428,6 @@ export async function getcheckout(req, res) {
 
     //address
 
-    const useraddress = await users.findOne(
-      { _id: req.session.user._id },
-      { address: 1, _id: 0 }
-    );
-
     const coupon1 = await coupon.findOne({ list: false });
 
     if (coupon1) {
@@ -451,7 +439,7 @@ export async function getcheckout(req, res) {
     res.render("checkout", {
       productsdetails,
       ifuser,
-      useraddress,
+      userinfo,
       count,
       coupons,
       addressError,
@@ -466,7 +454,7 @@ export async function getcheckout(req, res) {
 export async function postcheckout(req, res) {
   console.log(req.body);
   try {
-    let {totalAmount,address} = req.body;
+    let { totalAmount, address } = req.body;
 
     const userinfo = await users.findOne(
       { _id: req.session.user._id },
@@ -477,16 +465,16 @@ export async function postcheckout(req, res) {
       acc[item.product_id] = item.quantity;
       return acc;
     }, {});
-    
+
     let productsdetails = await products
-    .find({ _id: { $in: productIDs } })
-    .lean();
+      .find({ _id: { $in: productIDs } })
+      .lean();
     let promo = 0;
     if (req.body.promo) {
       const code = await coupon.findOne({ couponCode: req.body.promo });
       promo = code.discount;
     }
-    
+
     let sum = 0;
     for (const product of productsdetails) {
       if (product.quantity < cartQuantity[product._id]) {
@@ -502,63 +490,69 @@ export async function postcheckout(req, res) {
       await products.updateOne(
         { _id: product._id },
         { $inc: { quantity: -product.cartQuantity } }
-        );
-      }
-      
-      const total = sum - promo;
-      productsdetails = productsdetails.map((product) => ({
-        ...product,
-        total,
-        payableAmount: total,
-      }));
-      
-      address = await users
+      );
+    }
+
+    const total = sum - promo;
+    productsdetails = productsdetails.map((product) => ({
+      ...product,
+      total,
+      payableAmount: total,
+    }));
+
+    address = await users
       .findOne(
         { _id: req.session.user._id, "address._id": address },
         { address: { $elemMatch: { _id: address } } }
-        )
-        .lean();
-        if (!address) {
-          res.redirect("/checkout");
-          addressError = "not ";
-          return;
-        }
-        const deliveryAddress = address.address[0];
-        const ordercount = await orderModel.countDocuments();
-        const order = productsdetails.map((product) => ({
-          address: deliveryAddress,
-          product,
-          userId: req.session.user._id,
-          quantity: product.cartQuantity,
-          total: product.total,
-          coupon: product.coupon,
-          amountPayable: product.payableAmount,
-          paymentType: req.body.paymentType,
-          orderId: ordercount + 1,
-        }));
-        req.session.order = order;
-    
-     totalAmount=parseInt(totalAmount)
-    // console.log(typeof(totalAmount)); 
+      )
+      .lean();
+    if (!address) {
+      res.redirect("/checkout");
+      addressError = "create address ";
+      return;
+    }
+    const deliveryAddress = address.address[0];
+    const ordercount = await orderModel.countDocuments();
+    const order = productsdetails.map((product) => ({
+      address: deliveryAddress,
+      product,
+      userId: req.session.user._id,
+      quantity: product.cartQuantity,
+      total: product.total,
+      coupon: product.coupon,
+      amountPayable: product.payableAmount,
+      paymentType: req.body.paymentType,
+      orderId: ordercount + 1,
+    }));
+    req.session.order = order;
 
-       
-    if (req.body.paymentType !== "Cash On Delivery") {
+    totalAmount = parseInt(totalAmount);
+    // console.log(typeof(totalAmount));
+    if (req.body.paymentType == "wallet") {
+      try {
+        let user = await users.findOne(
+          { _id: req.session.user._id },
+          { wallet: 1, _id: 0 }
+        );
 
-      if (req.body.paymentType == "wallet") {
-       
-        let user=await users.findOne({_id:req.session.user._id},{wallet:1,_id:0})
-       
-        if(totalAmount<=user.wallet){
-         let wallet=user.wallet-totalAmount
+        if (totalAmount <= user.wallet) {
+          let wallet = user.wallet - totalAmount;
           console.log(wallet);
-          await users.updateOne({_id:req.session.user._id},{$set:{wallet:wallet}})
+          await users.updateOne(
+            { _id: req.session.user._id },
+            { $set: { wallet: wallet } }
+          );
           await orderModel.create(order);
-          res.redirect("")
-          
-        }else{
+          return res.redirect("/orderconfirmationpage");
+        } else {
           console.log(wallet);
         }
+      } catch (error) {
+        req.status(500).send("error wallet");
       }
+    }
+    if (req.body.paymentType !== "Cash On Delivery" || req.body.paymentType !== "wallet") {
+    
       const orderId = `order_${createId()}`;
 
       const options = {
@@ -573,7 +567,7 @@ export async function postcheckout(req, res) {
         },
         data: {
           order_id: orderId,
-          order_amount:totalAmount,
+          order_amount: totalAmount,
           order_currency: "INR",
           customer_details: {
             customer_id: req.session.user._id,
@@ -586,11 +580,9 @@ export async function postcheckout(req, res) {
         },
       };
 
-      try { 
-        
-        console.log("11111111111111111");
-        const response = await axios.request(options)
-       console.log(response);
+      try {
+        const response = await axios.request(options);
+        console.log(response);
         console.log(response.data.payment_session_id);
 
         return res.render("paymentTemp", {
@@ -598,7 +590,7 @@ export async function postcheckout(req, res) {
           sessionId: response.data.payment_session_id,
         });
       } catch (error) {
-      //  console.error(error);
+        //  console.error(error);
       }
     } else {
       await orderModel.create(order);
@@ -666,7 +658,6 @@ export async function postaddressprofile(req, res) {
       firstName,
       lastName,
       phonenumber,
-      Email,
       address,
       country,
       state,
@@ -679,7 +670,6 @@ export async function postaddressprofile(req, res) {
       firstName == "" ||
       lastName == "" ||
       phonenumber == "" ||
-      Email == "" ||
       address == "" ||
       country == "" ||
       state == "" ||
@@ -696,7 +686,6 @@ export async function postaddressprofile(req, res) {
               firstName,
               lastName,
               phonenumber,
-              Email,
               address,
               country,
               state,
@@ -724,7 +713,6 @@ export async function postaddresspage(req, res) {
       firstName,
       lastName,
       phonenumber,
-      Email,
       address,
       country,
       state,
@@ -738,7 +726,6 @@ export async function postaddresspage(req, res) {
       firstName == "" ||
       lastName == "" ||
       phonenumber == "" ||
-      Email == "" ||
       address == "" ||
       country == "" ||
       state == "" ||
@@ -756,7 +743,6 @@ export async function postaddresspage(req, res) {
                 firstName,
                 lastName,
                 phonenumber,
-                Email,
                 address,
                 country,
                 state,
@@ -797,10 +783,13 @@ export function payment(req, res) {
   res.render("address");
 }
 export async function orderconfirmationpage(req, res) {
-  const orderDetails = await orderModel.find().sort({ _id: -1 }).limit(1)
- 
+  const orderDetails = await orderModel.find().sort({ _id: -1 }).limit(1);
 
-  res.render("orderconfirmationpage", { ifuser,orderDetails,user:req.session.user });
+  res.render("orderconfirmationpage", {
+    ifuser,
+    orderDetails,
+    user: req.session.user,
+  });
 }
 export async function orderDetails(req, res) {
   const orderDetails = await orderModel.find().sort({ _id: -1 });
@@ -851,11 +840,10 @@ export async function addtowishlist(req, res) {
 export async function deletefromwishlist(req, res) {
   console.log(req.params);
   try {
-   await users.updateOne(
+    await users.updateOne(
       { _id: req.session.user._id },
       { $pull: { wishlist: { product_id: req.params.data } } }
     );
-    
   } catch (error) {
     console.log(error);
   }

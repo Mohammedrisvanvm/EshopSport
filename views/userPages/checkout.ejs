@@ -233,6 +233,13 @@
                   </button>
                 </div>
               </li>
+              <h4 class="my-3">wallet</h4>
+              <li class="list-group-item d-flex justify-content-between">
+                
+                  <span>wallet amount  </span> <span>₹<%-userinfo.wallet %></span>
+             
+
+                </li>
             </ul>
           </div>
 
@@ -252,14 +259,14 @@
 
             <!-- Modal -->
 
-            <% if (useraddress[0]) { %>
+            <% if (!userinfo.address[0]) { %>
 
            
 
             <h5 class="mt-5">Your Address</h5>
             <% } else { %> 
               <h5 class="mt-5">Your Address</h5>
-              <% useraddress.address.forEach((i) => { %>
+              <% userinfo.address.forEach((i) => { %>
            
             <div class="d-flex radio border" id="deletefromaddress<%= i._id %>">
               <%= i.address %>
@@ -326,7 +333,8 @@
                   type="radio"
                   
                 />
-                <label class="custom-control-label" for="paypal">wallet</label>
+                <label class="custom-control-label" for="paypal">wallet </label>
+                
               </div>
             </div>
         
@@ -467,19 +475,6 @@
                     name="phonenumber"
                     id="username"
                     placeholder="Phone Number"
-                    required
-                  />
-                </div>
-                <div class="mb-3">
-                  <label for="email" class="form-label"
-                    >Email <span class="text-muted">(Optional)</span></label
-                  >
-                  <input
-                    type="email"
-                    class="form-control"
-                    name="Email"
-                    id="email"
-                    placeholder="you@example.com"
                     required
                   />
                 </div>
