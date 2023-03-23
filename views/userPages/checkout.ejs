@@ -240,18 +240,12 @@
               <h4 class="my-3">wallet</h4>
               <li class="list-group-item">
                 <span>wallet amount bal: ₹ </span>
-                <span id="wallet"><%-userinfo.wallet %></span>
+                <span id="postwallet" ><%-userinfo.wallet %></span>
                 <div class="input-group mt-4 d-flex">
-                  <input
-                    type="text"
-                    placeholder="wallet"
-                   value="<%-userinfo.wallet %>"
-                    name="wallet"
-                    class="rounded"
-                    hidden
-                  />
-                  <label for="vehicle1">wallet pay</label>
-                  <input type="checkbox" id="vehicle1" name="wishlist" value="Bike">
+                 
+              
+                  <input type="checkbox" id="wallet" value="<%-userinfo.wallet %>" name="wallet" onclick="walletpay()">
+                  <label for="vehicle1" class="me-2">wallet pay</label>
                 </div>
               </li>
             </ul>
@@ -591,13 +585,20 @@
       function walletpay(){
         let wallet = document.getElementById("wallet");
         let totalprice = document.getElementById("totalprice").textContent;
-        console.log(wallet.textContent,totalprice);
-        axios.get(`/wallet?price=${totalprice}`).then((result)=>{
+       let pw= document.getElementById("postwallet").textContent
+        console.log(wallet.value,totalprice,pw);
+if (pw!=0 || totalprice==0) {
+  axios.get(`/wallet?price=${totalprice}&wallet=${wallet.value}`).then((result)=>{
           console.log(result.data);
           
-           document.getElementById("wallet").textContent=result.data.wallet
+           document.getElementById("postwallet").textContent=result.data.wallet
            document.getElementById("totalprice").textContent=result.data.tp
+         
         })
+}else{
+
+}
+    
       }
       function deletefromaddress(data) {
         axios.get("/deletefromaddress/" + data);
