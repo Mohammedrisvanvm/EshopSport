@@ -235,9 +235,9 @@
             <div style="margin-top: 50px" class="d-flex justify-content-center">
               <h1 class="my-5 justify-content-center">Sales Report</h1>
             </div>
-            <div class="container border border-dark ">
+            <div class="container">
               <div class="row justify-content-between">
-                <div class="col-lg-3" style="background-color: #c0e5f3">
+                <div class="col-lg-3 border" >
                   <h4 class="d-flex justify-content-center mb-4">
                     Sales Count
                   </h4>
@@ -245,13 +245,13 @@
                     <h5 class="d-flex justify-content-center mt-4">Count</h5>
                   </div>
                 </div>
-                <div class="col-lg-3" style="background-color: #c0e5f3">
+                <div class="col-lg-3 border" >
                   <h4 class="d-flex justify-content-center mb-4">Revenue</h4>
                   <div class="mb-4">
                     <h5 class="d-flex justify-content-center mt-4">Count</h5>
                   </div>
                 </div>
-                <div class="col-lg-3" style="background-color: #c0e5f3">
+                <div class="col-lg-3 border">
                   <h4 class="d-flex justify-content-center mb-4">Customers</h4>
                   <div class="mb-4">
                     <h5 class="d-flex justify-content-center mt-4">Count</h5>
@@ -260,6 +260,20 @@
               </div>
             </div>
           </section>
+          <div class="input-group">
+            <form  method="get">
+              <label class="text-danger" id="message"></label><br>
+                From: <input class="form-control" type="date" id="start" name="start"> To: <input id="end"
+                    class="form-control" type="date" name="end">
+                <button type="button" onclick="getReport()" class="btn btn-sm btn-dark rounded mt-4 mb-2">Filter</button>
+            </form>
+
+        </div>
+        <div class="d-flex justify-content-end" style="margin-right: 5rem;">
+          <button onclick=" downloadPdf()" class="btn btn-sm btn-dark rounded">Download as PDF</button>
+          <button onclick=" downloadExcel()" class="ms-3 btn btn-sm btn-dark rounded">Download as
+              Excel</button>
+      </div>
 
           <footer class="footer">
             © 2023 eshop sport by
