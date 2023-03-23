@@ -274,7 +274,45 @@
           <button onclick=" downloadExcel()" class="ms-3 btn btn-sm btn-dark rounded">Download as
               Excel</button>
       </div>
+      <h3 class="text-dark mt-4">Orders</h3>
+      <div class="card mt-3" style="margin-right: 2rem;">
+          <div class="card-body pt-2">
+              <div style="overflow: scroll;">
+              <table class="table table-hover table-borderless mt-2 ">
+                  <thead>
+                      <tr>
+                          <th scope="col">Id</th>
+                          <th scope="col">User</th>
+                          <th scope="col">Product</th>
+                          <th scope="col">Order Date</th>
+                          <th scope="col">Price</th>
+                          <th scope="col">Quantity</th>
+                          <th scope="col">TotalAmount</th>
+                          <th scope="col">Status</th>
+                          <th scope="col">Payment Status</th>
 
+                      </tr>
+                  </thead>
+                  <tbody id="tableBody">
+                      {{#each products}}
+                      <tr>
+                          <th scope="row">{{inc @index}}</th>
+                          <td>{{this.name}}</td>
+                          <td>{{this.orders.productName}}</td>
+                          <td>{{this.orders.orderDate}}</td>
+                          <td>{{this.orders.price}}</td>
+                          <td>{{this.orders.quantity}}</td>
+                          <td>{{this.orders.totalOrderAmount}}</td>
+                          <td> <span class="badge text-bg-success">{{this.orders.orderStatus}}</span></td>
+                          <td>Paid</td>
+                      </tr>
+                      {{/each}}
+                      <tr>
+                  </tbody>
+              </table>
+              </div>
+          </div>
+      </div>
           <footer class="footer">
             © 2023 eshop sport by
             <a href="#">eshop sport.com</a>
