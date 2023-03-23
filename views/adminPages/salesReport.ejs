@@ -282,31 +282,37 @@
                   <thead>
                       <tr>
                           <th scope="col">Id</th>
-                          <th scope="col">User</th>
+                          <th scope="col">UserId</th>
                           <th scope="col">Product</th>
                           <th scope="col">Order Date</th>
                           <th scope="col">Price</th>
                           <th scope="col">Quantity</th>
-                          <th scope="col">TotalAmount</th>
+                          <th scope="col">Amount Payable</th>
                           <th scope="col">Status</th>
                           <th scope="col">Payment Status</th>
 
                       </tr>
                   </thead>
                   <tbody id="tableBody">
-                      {{#each products}}
+                     <% orderinfo.forEach((i,index) => { %>
+                      
+                
                       <tr>
-                          <th scope="row">{{inc @index}}</th>
-                          <td>{{this.name}}</td>
-                          <td>{{this.orders.productName}}</td>
-                          <td>{{this.orders.orderDate}}</td>
-                          <td>{{this.orders.price}}</td>
-                          <td>{{this.orders.quantity}}</td>
-                          <td>{{this.orders.totalOrderAmount}}</td>
-                          <td> <span class="badge text-bg-success">{{this.orders.orderStatus}}</span></td>
-                          <td>Paid</td>
+                          <th scope="row"><%-index+1 %></th>
+                          <td><%-i.userId%></td>
+                          <td><%-i.product[0].productName %></td>
+                          <td><%-i.createdAt.toLocaleString() %></td>
+                          <td><%-i.product[0].price %></td>
+                          <td><%-i.quantity %></td>
+                          <td><%-i.amountPayable%></td>
+                          <td> <span class="badge text-bg-success"><%-i.orderStatus%></span></td>
+                          <td><% if (i.paid==true) { %>
+                            paid
+                           
+                         <% } else { %>
+                          not paid  <% } %></td>
                       </tr>
-                      {{/each}}
+                      <% }) %>
                       <tr>
                   </tbody>
               </table>

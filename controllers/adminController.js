@@ -325,9 +325,9 @@ export async function ordermanagement(req, res) {
   res.render("orderManagement", { orderinfo });
 }
 export async function salesReport(req, res) {
+  const orderinfo = await orderModel.find().sort({ _id: -1 });
 
-
-  res.render("salesReport");
+  res.render("salesReport",{orderinfo});
 }
 
 export function adminlogout(req, res) {
