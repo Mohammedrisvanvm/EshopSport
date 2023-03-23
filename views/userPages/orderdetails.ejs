@@ -429,25 +429,34 @@
   </footer>
     <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
     <script>
-      function returnProduct(data,proid){
-        console.log(data,proid,"233333333333");
-axios.get(`/productReturn?data=${data}&proid=${proid}`).then((result)=>{
-  if(result.data.success){
-    let r=document.getElementById('prostatus'+data).innerHTML=`Order Status:<span class="text-danger">Returned</span>`
-    console.log(r);
+// A function to return a product by sending an HTTP GET request to the server
+async function returnProduct(data, proid) {
+  try {
+    const response = await axios.get(`/productReturn?data=${data}&proid=${proid}`);
+    if (response.data.success) {
+      const status = document.getElementById(`prostatus${data}`);
+      status.innerHTML = `Order Status: <span class="text-danger">Returned</span>`;
+      console.log(status.innerHTML);
+    }
+  } catch (error) {
+    console.error(error);
   }
-})
-      }
-      function cancelProduct(data,proid){
-        axios.get(`/cancelProduct?data=${data}&proid=${proid}`).then((result)=>{
-  if(result.data.success){
-    console.log("34222222");
-    let r=document.getElementById('prostatus'+data).innerHTML=`Order Status:<span class="text-danger">cancelled</span>`
-    console.log(r);
-  }
-})
+}
 
-      }
+// A function to cancel a product by sending an HTTP GET request to the server
+async function cancelProduct(data, proid) {
+  try {
+    const response = await axios.get(`/cancelProduct?data=${data}&proid=${proid}`);
+    if (response.data.success) {
+      const status = document.getElementById(`prostatus${data}`);
+      status.innerHTML = `Order Status: <span class="text-danger">Cancelled</span>`;
+      console.log(status.innerHTML);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
     </script>
   </body>
 </html>
