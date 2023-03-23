@@ -205,11 +205,16 @@
                         <h1 class="d-flex justify-content-center" id="return<%= orderDetails._id %>">
                           Order Status:
                           <% if (orderDetails.orderStatus === 'pending') { %>
-                            <span class="text-warning"> <%= orderDetails.orderStatus %> </span>
+                            <span class="text-warning"> <%= orderDetails.orderStatus %>
+                              <button onclick="cancelProduct('<%= orderDetails._id %>','<%=orderDetails.product[0]._id %>')">cancel</button> </span>
                           <% } else if (orderDetails.orderStatus === 'shipped') { %>
                             <span class="text-primary"> <%= orderDetails.orderStatus %> </span>
+                            <button onclick="cancelProduct('<%= orderDetails._id %>','<%=orderDetails.product[0]._id %>')">cancel</button> </span>
+
                           <% } else if (orderDetails.orderStatus === 'out for delivery') { %>
                             <span class="text-warning"> <%= orderDetails.orderStatus %> </span>
+                            <button onclick="cancelProduct('<%= orderDetails._id %>','<%=orderDetails.product[0]._id %>')">cancel</button> </span>
+
                           <% } else if (orderDetails.orderStatus === 'delivered') { %>
                             <span class="text-success"> <%= orderDetails.orderStatus %> </span>
                             <button onclick="returnProduct('<%= orderDetails._id %>','<%=orderDetails.product[0]._id %>')">Return</button>
@@ -426,12 +431,23 @@
     <script>
       function returnProduct(data,proid){
         console.log(data,proid,"233333333333");
+        let value="return"
 axios.get(`/productReturn?data=${data}&proid=${proid}`).then((result)=>{
   if(result.data.success){
     let r=document.getElementById('return'+data).innerHTML=`Order Status:<span class="text-danger">Returned</span>`
     console.log(r);
   }
 })
+      }
+      function cancelProduct(data,proid){
+        let value="cancel"
+        axios.get(`/productReturn?data=${data}&proid=${proid}&value=${value}`).then((result)=>{
+  if(result.data.success){
+    let r=document.getElementById('return'+data).innerHTML=`Order Status:<span class="text-danger">cancelled</span>`
+    console.log(r);
+  }
+})
+
       }
     </script>
   </body>

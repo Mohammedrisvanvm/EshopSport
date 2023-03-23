@@ -1137,35 +1137,91 @@ export async function wallet(req, res) {
   }
 }
 
+// export async function productReturn(req, res) {
+//   try {
+//     let p = await orderModel.findOne({ _id: req.query.data });
+    
+//     await products.updateOne(
+//       {
+//         _id: req.query.proid,
+//       },
+//       { $inc: { quantity: p.quantity } }
+//     );
+//     await orderModel.updateOne(
+//       {
+//         _id: req.query.data,
+//       },
+//       { $set: { orderStatus: "Returned", paid: false } }
+//     );
+//    if (p.wallet!=0) {
+//     await users.updateOne(
+//       {
+//         _id: req.session.user._id,
+//       },
+//       { $inc: { wallet: p.amountPayable,p.wallet } }
+//     );
+//    } else {
+//     await users.updateOne(
+//       {
+//         _id: req.session.user._id,
+//       },
+//       { $inc: { wallet: p.amountPayable } }
+//     );
+//    }
+    
+    
+//     res.json({ success: true });
+//   } catch (error) {
+//     res.send(error);
+//   }
+// }
 export async function productReturn(req, res) {
   try {
-    let p = await orderModel.findOne({ _id: req.query.data });
-    
-    await products.updateOne(
-      {
-        _id: req.query.proid,
-      },
-      { $inc: { quantity: p.quantity } }
-    );
-    await orderModel.updateOne(
-      {
-        _id: req.query.data,
-      },
-      { $set: { orderStatus: "Returned", paid: false } }
-    );
+    const order = await orderModel.findOne({ _id: req.query.data });
+    const productId = req.query.proid;
+    if (req.query.cancel) {
+      const cancel=req.query.cancel
+    }
    
-      await users.updateOne(
-        {
-          _id: req.session.user._id,
-        },
-        { $inc: { wallet: p.amountPayable } }
+
+
+    // Increase the product quantity by the returned quantity
+    await products.updateOne(
+      { _id: productId },
+      { $inc: { quantity: order.quantity } }
+    );
+
+    // Update the order status to "Returned" and mark it as unpaid
+    if (!cancel) {
+      await orderModel.updateOne(
+        { _id: req.query.data },
+        { $set: { orderStatus: "Returned", paid: false } }
       );
-    
+    }else{
+      await orderModel.updateOne(
+        { _id: req.query.data },
+        { $set: { orderStatus: "cancelled", paid: false } }
+      );
+      console.log("cancel");
+    }
+ 
+
+    // Refund the customer's wallet if applicable
+    const walletUpdate = { $inc: { wallet: order.amountPayable } };
+    if (order.wallet !== 0) {
+      walletUpdate.$inc.wallet += order.wallet;
+    }
+    await users.updateOne(
+      { _id: req.session.user._id },
+      walletUpdate
+    );
+
     res.json({ success: true });
   } catch (error) {
     res.send(error);
   }
 }
+
 
 //axios function end
 export async function uniqueorder(req, res) {
