@@ -209,7 +209,7 @@ export async function posteditcategory(req, res) {
       );
       res.redirect("/admin/categoriesManagement");
     } else {
-      res.redirect("/admin/editcategory/");
+      res.redirect(304,"/admin/editcategory");
     }
   } catch (error) {
     res.send(error);

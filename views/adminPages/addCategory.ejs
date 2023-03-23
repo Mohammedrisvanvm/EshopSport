@@ -232,6 +232,9 @@
         }else if(CategoryName.value==""){
           showErrorMessage("category name is null");
           return false;
+        }else if (CategoryName.value==0) {
+          showErrorMessage("zero is not allowed");
+          return false;
         } else {
     hideErrorMessage();
         return true;
