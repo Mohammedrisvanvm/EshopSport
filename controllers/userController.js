@@ -580,6 +580,10 @@ export async function postcheckout(req, res) {
       wallet = walletprice.wallet;
       
     }
+    await users.updateOne(
+      { _id: req.session.user._id },
+      { $inc: { wallet: -wallet } }
+    );
     console.log(wallet);
     let sum = 0;
     for (const product of productsdetails) {
@@ -601,7 +605,7 @@ export async function postcheckout(req, res) {
       );
     }
 
-    const total = sum - promo;
+    const total = sum - promo-wallet;
     productsdetails = productsdetails.map((product) => ({
       ...product,
       total,
@@ -619,6 +623,7 @@ export async function postcheckout(req, res) {
       addressError = "create address ";
       return;
     }
+    console.log(productsdetails);
     const deliveryAddress = address.address[0];
     const ordercount = await orderModel.countDocuments();
     const order = productsdetails.map((product) => ({
