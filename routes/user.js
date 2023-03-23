@@ -29,6 +29,7 @@ import {
   postForgottenPassword,
   postOtpValidate,
   postsignUpOtp,
+  productCancel,
   productPage,
   productReturn,
   promoCode,
@@ -102,7 +103,7 @@ router.get("/deletefromaddress/:data", ifuser, deletefromaddress);
 router.get("/promoCode", ifuser, promoCode);
 router.get("/wallet", ifuser, wallet);
 router.get("/productReturn", productReturn);
-
+router.get("/cancelProduct", productCancel);
 router.post("/search", search);
 router.get('/sort',sort)
 

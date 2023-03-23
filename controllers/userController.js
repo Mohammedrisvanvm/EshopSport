@@ -1179,11 +1179,6 @@ export async function productReturn(req, res) {
   try {
     const order = await orderModel.findOne({ _id: req.query.data });
     const productId = req.query.proid;
-    if (req.query.cancel) {
-      const cancel=req.query.cancel
-    }
-   
-
 
     // Increase the product quantity by the returned quantity
     await products.updateOne(
@@ -1192,19 +1187,42 @@ export async function productReturn(req, res) {
     );
 
     // Update the order status to "Returned" and mark it as unpaid
-    if (!cancel) {
-      await orderModel.updateOne(
-        { _id: req.query.data },
-        { $set: { orderStatus: "Returned", paid: false } }
-      );
-    }else{
-      await orderModel.updateOne(
-        { _id: req.query.data },
-        { $set: { orderStatus: "cancelled", paid: false } }
-      );
-      console.log("cancel");
+    await orderModel.updateOne(
+      { _id: req.query.data },
+      { $set: { orderStatus: "Returned", paid: false } }
+    );
+
+    // Refund the customer's wallet if applicable
+    const walletUpdate = { $inc: { wallet: order.amountPayable } };
+    if (order.wallet !== 0) {
+      walletUpdate.$inc.wallet += order.wallet;
     }
- 
+    await users.updateOne(
+      { _id: req.session.user._id },
+      walletUpdate
+    );
+
+    res.json({ success: true });
+  } catch (error) {
+    res.send(error);
+  }
+}
+export async function productCancel(req, res) {
+  try {
+    const order = await orderModel.findOne({ _id: req.query.data });
+    const productId = req.query.proid;
+
+    // Increase the product quantity by the returned quantity
+    await products.updateOne(
+      { _id: productId },
+      { $inc: { quantity: order.quantity } }
+    );
+
+    // Update the order status to "Returned" and mark it as unpaid
+    await orderModel.updateOne(
+      { _id: req.query.data },
+      { $set: { orderStatus: "cancelled", paid: false } }
+    );
 
     // Refund the customer's wallet if applicable
     const walletUpdate = { $inc: { wallet: order.amountPayable } };

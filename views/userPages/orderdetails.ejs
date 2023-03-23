@@ -202,7 +202,7 @@
                   <tbody>
                     <tr>
                       <td>
-                        <h1 class="d-flex justify-content-center" id="return<%= orderDetails._id %>">
+                        <h1 class="d-flex justify-content-center" id="prostatus<%= orderDetails._id %>">
                           Order Status:
                           <% if (orderDetails.orderStatus === 'pending') { %>
                             <span class="text-warning"> <%= orderDetails.orderStatus %>
@@ -431,19 +431,18 @@
     <script>
       function returnProduct(data,proid){
         console.log(data,proid,"233333333333");
-        let value="return"
 axios.get(`/productReturn?data=${data}&proid=${proid}`).then((result)=>{
   if(result.data.success){
-    let r=document.getElementById('return'+data).innerHTML=`Order Status:<span class="text-danger">Returned</span>`
+    let r=document.getElementById('prostatus'+data).innerHTML=`Order Status:<span class="text-danger">Returned</span>`
     console.log(r);
   }
 })
       }
       function cancelProduct(data,proid){
-        let value="cancel"
-        axios.get(`/productReturn?data=${data}&proid=${proid}&value=${value}`).then((result)=>{
+        axios.get(`/cancelProduct?data=${data}&proid=${proid}`).then((result)=>{
   if(result.data.success){
-    let r=document.getElementById('return'+data).innerHTML=`Order Status:<span class="text-danger">cancelled</span>`
+    console.log("34222222");
+    let r=document.getElementById('prostatus'+data).innerHTML=`Order Status:<span class="text-danger">cancelled</span>`
     console.log(r);
   }
 })
