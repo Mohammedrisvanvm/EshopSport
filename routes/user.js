@@ -90,7 +90,7 @@ router.get("/trash", ifuser, payment);
 router.get("/orders", orderDetails);
 router.get("/order/orderdetails", ifuser, uniqueorder);
 router.get("/new", newp);
-router.get('/verifyPayment',getUserPayment)
+
 
 
 //axios
@@ -106,5 +106,6 @@ router.get("/productReturn", productReturn);
 router.get("/cancelProduct", productCancel);
 router.post("/search", search);
 router.get('/sort',sort)
+router.post('/verifyPayment',getUserPayment)
 
 export default router;

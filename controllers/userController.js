@@ -10,7 +10,7 @@ import { orderModel } from "../models/orderSchema.js";
 import { ifuser } from "../middleware/middleware.js";
 import { bannerimage } from "../models/bannerSchema.js";
 import { createId } from "../helpers/createId.js";
-import axios from "axios";
+import Razorpay from "razorpay"
 
 let passworderr = null;
 let emailerr = null;
@@ -24,7 +24,10 @@ let otp = otpGenerator.generate(6, {
   upperCaseAlphabets: false,
   specialChars: false,
 });
-
+var instance = new Razorpay({
+ key_id: process.env.KEY_ID,
+ key_secret: process.env.KEY_SECRET,
+});
 export async function guestpage(req, res) {
   try {
     const jerseyinfo = await products
@@ -93,7 +96,7 @@ export async function shop(req, res) {
     let pagination = [];
 
     for (let i = 1; i <= totalPage; i++) {
-      pagination.push(i)
+      pagination.push(i);
     }
 
     if (page > totalPage || page < 1) {
@@ -110,30 +113,26 @@ export async function shop(req, res) {
   }
 }
 
-
-export async function pp(req,res){
+export async function pp(req, res) {
   const shopPage = asyncHandler(async (req, res) => {
-
     try {
-      // // Filtering 
+      // // Filtering
       // const queryObj = { ...req.query };
       // const excludeFields = ["page", "sort", "limit", "fields", "search"];
       // excludeFields.forEach((el) => delete queryObj[el]);
-  
-  
+
       // let queryStr = JSON.stringify(queryObj);
-  
+
       // queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
-  
+
       // let query = Product.find({ ...JSON.parse(queryStr), unlist: false }).lean();
       // // Searching
       // if (req.query.search) {
-  
+
       //   const searchRegex = new RegExp(req.query.search, "i");
       //   query = query.find({ $or: [{ name: searchRegex }, { description: searchRegex }] });
       // }
-  
-  
+
       // // Sorting
       // if (req.query.sort) {
       //   const sortBy = req.query.sort.split(",").join(" ");
@@ -141,7 +140,7 @@ export async function pp(req,res){
       // } else {
       //   query = query.sort("-createdAt");
       // }
-  
+
       // // limiting the fields
       // if (req.query.fields) {
       //   const fields = req.query.fields.split(",").join(" ");
@@ -149,39 +148,34 @@ export async function pp(req,res){
       // } else {
       //   query = query.select("-__v");
       // }
-  
+
       // pagination
       const page = req.query.page;
       const limit = 4;
       const skip = (page - 1) * limit;
       query = query.skip(skip).limit(limit);
-  
+
       const productCount = await products.countDocuments({ list: true });
       const totalPage = Math.ceil(productCount / limit);
       let pagination = [];
-  
+
       for (let i = 1; i <= totalPage; i++) {
-        pagination.push(i)
+        pagination.push(i);
       }
-  
+
       if (req.query.page) {
         if (skip >= productCount) throw new Error("This Page does not exists");
       }
-  
+
       const products = await query.lean();
       const category = await category.find({ list: true }).lean();
-  
-  
-      res.render("shopPage", { products, category, pagination })
-  
+
+      res.render("shopPage", { products, category, pagination });
     } catch (error) {
-  
-      res.status(404)
+      res.status(404);
       throw new Error("not found");
-  
     }
-  
-  })
+  });
 }
 
 export async function jersey(req, res) {
@@ -573,18 +567,18 @@ export async function postcheckout(req, res) {
     }
     let wallet = 0;
     if (req.body.wallet) {
-      
-      const walletprice= await users.findOne(   { _id: req.session.user._id },
-        { wallet:1,_id:0 } );
-        console.log(walletprice);
+      const walletprice = await users.findOne(
+        { _id: req.session.user._id },
+        { wallet: 1, _id: 0 }
+      );
+      console.log(walletprice);
       wallet = walletprice.wallet;
-      
     }
     await users.updateOne(
       { _id: req.session.user._id },
       { $inc: { wallet: -wallet } }
     );
-    console.log(wallet);
+
     let sum = 0;
     for (const product of productsdetails) {
       if (product.quantity < cartQuantity[product._id]) {
@@ -596,7 +590,7 @@ export async function postcheckout(req, res) {
       product.cartQuantity = cartQuantity[product._id];
       product.coupon = promo;
       product.wallet = wallet;
-      
+
       product.productTotal = product.cartQuantity * product.price;
       sum += product.productTotal;
       await products.updateOne(
@@ -605,7 +599,7 @@ export async function postcheckout(req, res) {
       );
     }
 
-    const total = sum - promo-wallet;
+    const total = sum - promo - wallet;
     productsdetails = productsdetails.map((product) => ({
       ...product,
       total,
@@ -623,7 +617,7 @@ export async function postcheckout(req, res) {
       addressError = "create address ";
       return;
     }
-    console.log(productsdetails);
+
     const deliveryAddress = address.address[0];
     const ordercount = await orderModel.countDocuments();
     const order = productsdetails.map((product) => ({
@@ -633,135 +627,109 @@ export async function postcheckout(req, res) {
       quantity: product.cartQuantity,
       total: product.total,
       coupon: product.coupon,
-      wallet:product.wallet,
+      wallet: product.wallet,
       amountPayable: product.payableAmount,
       paymentType: req.body.paymentType,
       orderId: ordercount + 1,
     }));
     req.session.order = order;
 
-    totalAmount = parseInt(totalAmount);
-    // console.log(typeof(totalAmount));
-    if (req.body.paymentType == "wallet") {
-      try {
-        let user = await users.findOne(
-          { _id: req.session.user._id },
-          { wallet: 1, _id: 0 }
-        );
+    // if (req.body.paymentType == "wallet") {
+    //   try {
+    //     let user = await users.findOne(
+    //       { _id: req.session.user._id },
+    //       { wallet: 1, _id: 0 }
+    //     );
 
-        if (totalAmount <= user.wallet) {
-          let wallet = user.wallet - totalAmount;
-          console.log(wallet);
-          await users.updateOne(
-            { _id: req.session.user._id },
-            { $set: { wallet: wallet } }
-          );
-          await orderModel.create(order);
-          return res.redirect("/orderconfirmationpage");
-        } else {
-          console.log(wallet);
-        }
-      } catch (error) {
-        req.status(500).send("error wallet");
-      }
-    }
-    if (req.body.paymentType !== "Cash On Delivery" && req.body.paymentType !== "wallet") {
-     
-    
-      const orderId = `order_${createId()}`;
-      
-      const options = {
-        method: "POST",
-        url: "https://sandbox.cashfree.com/pg/orders",
-        headers: {
-          accept: "application/json",
-          "x-api-version": "2022-09-01",
-          "x-client-id": "TEST3454899ddecf8df0eadc531a25984543",
-          "x-client-secret": "TEST195cb915f5d6fb28aa881b2dbe7bd701db6d64cf",
-          "content-type": "application/json",
-        },
-        data: {
-          order_id: orderId,
-          order_amount: totalAmount,
-          order_currency: "INR",
-          customer_details: {
-            customer_id: req.session.user._id,
-            customer_email: "risvanguest0000@gmail.com",
-            customer_phone: "9946357406",
-          },
-          order_meta: {
-            return_url: `http://localhost:3000/verifyPayment?order_id=${orderId}`,
-          },
-        },
-      };
-      
-      try {
-        console.log(orderId);
-        const response = await axios.request(options).then((response)=>{
-          return response, res.render("paymentTemp", {
-            orderId,
-            sessionId: response.data.payment_session_id,
-          });
-        })
-        console.log(orderId);
-        console.log(response);
-        console.log(response.data.payment_session_id);
-
-       
-      } catch (error) {
-        //  console.error(error);
-        console.log(error);
-      }
-    } else {
+    //     if (totalAmount <= user.wallet) {
+    //       let wallet = user.wallet - totalAmount;
+    //       console.log(wallet);
+    //       await users.updateOne(
+    //         { _id: req.session.user._id },
+    //         { $set: { wallet: wallet } }
+    //       );
+    //       await orderModel.create(order);
+    //       return res.redirect("/orderconfirmationpage");
+    //     } else {
+    //       console.log(wallet);
+    //     }
+    //   } catch (error) {
+    //     req.status(500).send("error wallet");
+    //   }
+    // }
+    if (req.body.paymentType == "Cash On Delivery") {
       await orderModel.create(order);
+      res.redirect("/orderConfirmationPage");
+    } else {
+      res.render("paymentTemp");
     }
 
-    res.redirect("/orderConfirmationPage");
+    //   const orderId = `order_${createId()}`;
+
+    //   const options = {
+    //     method: "POST",
+    //     url: "https://sandbox.cashfree.com/pg/orders",
+    //     headers: {
+    //       accept: "application/json",
+    //       "x-api-version": "2022-09-01",
+    //       "x-client-id": "TEST3454899ddecf8df0eadc531a25984543",
+    //       "x-client-secret": "TEST195cb915f5d6fb28aa881b2dbe7bd701db6d64cf",
+    //       "content-type": "application/json",
+    //     },
+    //     data: {
+    //       order_id: orderId,
+    //       order_amount: totalAmount,
+    //       order_currency: "INR",
+    //       customer_details: {
+    //         customer_id: req.session.user._id,
+    //         customer_email: "risvanguest0000@gmail.com",
+    //         customer_phone: "9946357406",
+    //       },
+    //       order_meta: {
+    //         return_url: `http://localhost:3000/verifyPayment?order_id=${orderId}`,
+    //       },
+    //     },
+    //   };
+
+    //   try {
+    //     console.log(orderId);
+    //     const response = await axios.request(options).then((response)=>{
+    //       return response, res.render("paymentTemp", {
+    //         orderId,
+    //         sessionId: response.data.payment_session_id,
+    //       });
+    //     })
+    //     console.log(orderId);
+    //     console.log(response);
+    //     console.log(response.data.payment_session_id);
+
+    //   } catch (error) {
+    //     //  console.error(error);
+    //     console.log(error);
+    //   }
+    // } else {
+    //   await orderModel.create(order);
+    // }
+
+    // res.redirect("/orderConfirmationPage");
   } catch (error) {
     res.redirect("/checkout");
   }
 }
 
 export async function getUserPayment(req, res) {
-  console.log(user, "12333333");
-  const userId = req.session.user._id;
-  const user = await users.findById(userId).lean();
-
-  const cart = user.cart;
-  const cartList = cart.map((item) => {
-    return item.product_id;
-  });
-  const product = await products.find({ _id: { $in: cartList } }).lean();
-
-  const order_id = req.query.order_id;
-
-  const options = {
-    method: "GET",
-    url: "https://sandbox.cashfree.com/pg/orders/" + order_id,
-    headers: {
-      accept: "application/json",
-      "x-api-version": "2022-09-01",
-      "x-client-id": "TEST3454899ddecf8df0eadc531a25984543",
-      "x-client-secret": "TEST195cb915f5d6fb28aa881b2dbe7bd701db6d64cf",
-      "content-type": "application/json",
-    },
-  };
-
+  console.log("2344444", req.session.order[0].amountPayable, "23444444444");
   try {
-    const response = await axios.request(options);
-    if (response.data.order_status === "PAID") {
-      await orderModel.create(req.session.orders);
-      for (let i = 0; i < products.length; i++) {
-        await products.updateOne(
-          { _id: product[i]._id },
-          { $inc: { quantity: -req.session.orders.orderItems[i].quantity } }
-        );
-      }
-      await users.findByIdAndUpdate(userId, { $set: { cart: [] } });
-      res.redirect("/orderconfirmationpage");
-    } else {
-      res.redirect("/checkout");
-    }
+    let amount = req.session.order.amountPayable * 100;
+    let receiptId = Math.floor(Math.random() * 100000) + Date.now();
+    let options = {
+      amount: amount, // amount in the smallest currency unit
+      currency: "INR",
+      receipt: receiptId,
+    };
+    instance.order.create(options, function (err, order) {
+      res.json({ success: true, key: process.env.KEY_ID, order });
+    });
   } catch (error) {
     console.error(error);
 
@@ -1107,26 +1075,24 @@ export async function promoCode(req, res) {
 export async function wallet(req, res) {
   console.log(req.query);
   try {
-  
-    if (req.query.price==0 ) {
+    if (req.query.price == 0) {
       res.json({ success: true });
     } else {
       let user = await users.findOne({
-        _id: req.session.user._id}
-
-      );
+        _id: req.session.user._id,
+      });
       console.log(user.wallet);
       if (user) {
-        let wallet=0
-        if (user.wallet>= req.query.price) {
-          wallet=user.wallet-req.query.price
+        let wallet = 0;
+        if (user.wallet >= req.query.price) {
+          wallet = user.wallet - req.query.price;
           console.log(wallet);
-         
+
           res.json({ success: true, wallet: wallet });
         } else {
-          let tp=0
-          tp=req.query.price-user.wallet
-          res.json({ success: true, wallet: wallet,tp:tp  });
+          let tp = 0;
+          tp = req.query.price - user.wallet;
+          res.json({ success: true, wallet: wallet, tp: tp });
         }
       } else {
         res.json({ success: false });
@@ -1140,7 +1106,7 @@ export async function wallet(req, res) {
 // export async function productReturn(req, res) {
 //   try {
 //     let p = await orderModel.findOne({ _id: req.query.data });
-    
+
 //     await products.updateOne(
 //       {
 //         _id: req.query.proid,
@@ -1168,8 +1134,7 @@ export async function wallet(req, res) {
 //       { $inc: { wallet: p.amountPayable } }
 //     );
 //    }
-    
-    
+
 //     res.json({ success: true });
 //   } catch (error) {
 //     res.send(error);
@@ -1197,10 +1162,7 @@ export async function productReturn(req, res) {
     if (order.wallet !== 0) {
       walletUpdate.$inc.wallet += order.wallet;
     }
-    await users.updateOne(
-      { _id: req.session.user._id },
-      walletUpdate
-    );
+    await users.updateOne({ _id: req.session.user._id }, walletUpdate);
 
     res.json({ success: true });
   } catch (error) {
@@ -1229,17 +1191,13 @@ export async function productCancel(req, res) {
     if (order.wallet !== 0) {
       walletUpdate.$inc.wallet += order.wallet;
     }
-    await users.updateOne(
-      { _id: req.session.user._id },
-      walletUpdate
-    );
+    await users.updateOne({ _id: req.session.user._id }, walletUpdate);
 
     res.json({ success: true });
   } catch (error) {
     res.send(error);
   }
 }
-
 
 //axios function end
 export async function uniqueorder(req, res) {
