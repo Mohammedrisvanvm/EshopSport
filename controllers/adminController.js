@@ -13,10 +13,19 @@ let producterr = null;
 let categorieserr = null;
 let imageerr = null;
 
-export function getAdminPage(req, res) {
+export async function getAdminPage(req, res) {
   try {
     if (req.session.admin) {
-      res.render("index");
+      let monthlyData=await orderModel.aggregate([
+        {$match:{orderStatus:'delivered'}},
+        
+         { $group: {
+            _id: { $month: "$createdAt" },
+            revenue: { $sum: "$total" },
+          }},
+      ])
+     
+      res.render("index",{monthlyData});
     } else {
       res.render("adminLogin", { error: emailerr });
 
@@ -53,9 +62,7 @@ export async function postAdminPage(req, res) {
     console.log(error);
   }
 }
-export function getdashboard(req, res) {
-  res.redirect("/admin");
-}
+
 export async function getuserManagement(req, res) {
   try {
     const userinfo = await users.find().lean();

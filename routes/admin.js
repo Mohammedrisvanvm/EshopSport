@@ -9,7 +9,7 @@ import {
   getaddcategories,
   getaddProduct,
   getAdminPage,
-  getdashboard,
+
   getEditProduct,
   getgategoriesManagemenet,
   getProductManagement,
@@ -35,7 +35,7 @@ var router = Express.Router();
 
 router.get("/",getAdminPage);
 router.post("/", postAdminPage);
-router.get("/dashboard",ifadmin, getdashboard);
+
 router.get("/userManagement",ifadmin, getuserManagement);
 router.get("/categoriesManagement",ifadmin, getgategoriesManagemenet);
 router.get("/productManagement",ifadmin,getProductManagement);

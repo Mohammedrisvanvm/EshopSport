@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
@@ -295,74 +296,58 @@
     </script> -->
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script>
-      function chart() {
-        var options = {
-          series: [
-            {
-              name: "Net Profit",
-              data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
-            },
-            {
-              name: "Revenue",
-              data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
-            },
-            {
-              name: "Free Cash Flow",
-              data: [35, 41, 36, 26, 45, 48, 52, 53, 41],
-            },
+      var monthlyData ='<%= JSON.stringify(monthlyData)%>'
+      var options = {
+        series: [
+          {
+            name: 'revenue',
+            data: JSON.parse(monthlyData),
+          },
+        ],
+        chart: {
+          height: 350,
+          type: "bar",
+        },
+        plotOptions: {
+          bar: {
+            columnWidth: "45%",
+            distributed: true,
+          },
+        },
+        dataLabels: {
+          enabled: false,
+        },
+        legend: {
+          show: false,
+        },
+        theme: {
+          palette: 'palette2'
+        },
+        xaxis: {
+          categories: [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec",
           ],
-          chart: {
-            type: "bar",
-            height: 350,
-          },
-          plotOptions: {
-            bar: {
-              horizontal: false,
-              columnWidth: "55%",
-              endingShape: "rounded",
+          labels: {
+            style: {
+              fontSize: "14px",
             },
           },
-          dataLabels: {
-            enabled: false,
-          },
-          stroke: {
-            show: true,
-            width: 2,
-            colors: ["transparent"],
-          },
-          xaxis: {
-            categories: [
-              "Feb",
-              "Mar",
-              "Apr",
-              "May",
-              "Jun",
-              "Jul",
-              "Aug",
-              "Sep",
-              "Oct",
-            ],
-          },
-          yaxis: {
-            title: {
-              text: "$ (thousands)",
-            },
-          },
-          fill: {
-            opacity: 1,
-          },
-          tooltip: {
-            y: {
-              formatter: function (val) {
-                return "$ " + val + " thousands";
-              },
-            },
-          },
-        };
-
-        var chart = new ApexCharts(document.querySelector("#chart"), options);
-        chart.render();
-      }
+        },
+      };
+      var chart = new ApexCharts(document.querySelector("#chart"), options);
+      chart.render();
     </script>
+
   </body>
 </html>
