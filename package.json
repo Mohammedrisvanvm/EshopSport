@@ -28,7 +28,7 @@
     "nodemailer": "^6.9.1",
     "nodemon": "^2.0.20",
     "otp-generator": "^4.0.1",
-    "razorpay": "^0.0.0",
+    "razorpay": "^2.8.6",
     "sharp": "^0.31.3",
     "uniqid": "^5.4.0"
   },

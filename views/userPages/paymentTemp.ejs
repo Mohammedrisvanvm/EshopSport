@@ -57,7 +57,7 @@
         <div class="container">
             <div class="row d-flex flex-column align-items-center justify-content-center">
                 <h3 class="text-center mt-5">Payment Gateway</h3>
-                <form action="/payment" id="paymentForm" method="post" class="cart-price-details w-75">
+                <form action="/verifyPayment" id="paymentForm" method="post" class="cart-price-details w-75">
 
                     <div class="price-item">
                         <label for="">Total amount</label>
@@ -88,6 +88,7 @@
 	document.getElementById('rzp-button1').onclick = async function (e) {
 		e.preventDefault();
 		 await axios.post('/verifyPayment').then((response)=>{
+		
 			if (response.data.success) {
 			let orderData = response.data.order
 			let id = orderData.id
@@ -95,7 +96,7 @@
 			let amount = orderData.amount 
 			var options = {
 				"key": key, // Enter the Key ID generated from the Dashboard
-				"name": "BookNook",
+				"name": "Eshop sport",
 				"amount": amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
 				"currency": "INR",
 				"description": "Test Transaction",

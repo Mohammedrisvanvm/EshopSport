@@ -664,70 +664,26 @@ export async function postcheckout(req, res) {
       res.render("paymentTemp");
     }
 
-    //   const orderId = `order_${createId()}`;
-
-    //   const options = {
-    //     method: "POST",
-    //     url: "https://sandbox.cashfree.com/pg/orders",
-    //     headers: {
-    //       accept: "application/json",
-    //       "x-api-version": "2022-09-01",
-    //       "x-client-id": "TEST3454899ddecf8df0eadc531a25984543",
-    //       "x-client-secret": "TEST195cb915f5d6fb28aa881b2dbe7bd701db6d64cf",
-    //       "content-type": "application/json",
-    //     },
-    //     data: {
-    //       order_id: orderId,
-    //       order_amount: totalAmount,
-    //       order_currency: "INR",
-    //       customer_details: {
-    //         customer_id: req.session.user._id,
-    //         customer_email: "risvanguest0000@gmail.com",
-    //         customer_phone: "9946357406",
-    //       },
-    //       order_meta: {
-    //         return_url: `http://localhost:3000/verifyPayment?order_id=${orderId}`,
-    //       },
-    //     },
-    //   };
-
-    //   try {
-    //     console.log(orderId);
-    //     const response = await axios.request(options).then((response)=>{
-    //       return response, res.render("paymentTemp", {
-    //         orderId,
-    //         sessionId: response.data.payment_session_id,
-    //       });
-    //     })
-    //     console.log(orderId);
-    //     console.log(response);
-    //     console.log(response.data.payment_session_id);
-
-    //   } catch (error) {
-    //     //  console.error(error);
-    //     console.log(error);
-    //   }
-    // } else {
-    //   await orderModel.create(order);
-    // }
-
-    // res.redirect("/orderConfirmationPage");
   } catch (error) {
     res.redirect("/checkout");
   }
 }
 
 export async function getUserPayment(req, res) {
-  console.log("2344444", req.session.order[0].amountPayable, "23444444444");
+  console.log("2344444", req.session.order, "23444444444");
   try {
-    let amount = req.session.order.amountPayable * 100;
+   
+    let amount =Number(req.session.order[0].amountPayable * 100) 
+    console.log(amount);
     let receiptId = Math.floor(Math.random() * 100000) + Date.now();
     let options = {
       amount: amount, // amount in the smallest currency unit
       currency: "INR",
       receipt: receiptId,
     };
-    instance.order.create(options, function (err, order) {
+    
+    instance.orders.create(options, function (err, order) {
+
       res.json({ success: true, key: process.env.KEY_ID, order });
     });
   } catch (error) {
