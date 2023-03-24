@@ -19,6 +19,7 @@ import {
   incdec,
   jersey,
   newp,
+  onlineorderconfirm,
   orderconfirmationpage,
   orderDetails,
   payment,
@@ -90,6 +91,8 @@ router.get("/trash", ifuser, payment);
 router.get("/orders", orderDetails);
 router.get("/order/orderdetails", ifuser, uniqueorder);
 router.get("/new", newp);
+router.post("/onlineorderconfirm", onlineorderconfirm);
+
 
 
 

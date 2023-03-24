@@ -674,7 +674,7 @@ export async function getUserPayment(req, res) {
   try {
    
     let amount =Number(req.session.order[0].amountPayable * 100) 
-    console.log(amount);
+   
     let receiptId = Math.floor(Math.random() * 100000) + Date.now();
     let options = {
       amount: amount, // amount in the smallest currency unit
@@ -692,7 +692,11 @@ export async function getUserPayment(req, res) {
     res.redirect("/checkout");
   }
 }
+export async function onlineorderconfirm(req,res){
+  console.log(req.body);
+  res.redirect("/orderconfirmationpage")
 
+}
 export function addresspage(req, res) {
   res.render("address", { ifuser });
 }
