@@ -1012,13 +1012,13 @@ export async function promoCode(req, res) {
   }
 }
 export async function wallet(req, res) {
-  console.log(req.query);
+
   try {
     if (req.query.price == 0 ||req.query.price == "" ) {
       res.json({ success: true});
-      console.log("111111");
+   
     } else {
-      console.log("654");
+    
       let user = await users.findOne({
         _id: req.session.user._id,
       });
@@ -1045,43 +1045,7 @@ export async function wallet(req, res) {
   }
 }
 
-// export async function productReturn(req, res) {
-//   try {
-//     let p = await orderModel.findOne({ _id: req.query.data });
 
-//     await products.updateOne(
-//       {
-//         _id: req.query.proid,
-//       },
-//       { $inc: { quantity: p.quantity } }
-//     );
-//     await orderModel.updateOne(
-//       {
-//         _id: req.query.data,
-//       },
-//       { $set: { orderStatus: "Returned", paid: false } }
-//     );
-//    if (p.wallet!=0) {
-//     await users.updateOne(
-//       {
-//         _id: req.session.user._id,
-//       },
-//       { $inc: { wallet: p.amountPayable,p.wallet } }
-//     );
-//    } else {
-//     await users.updateOne(
-//       {
-//         _id: req.session.user._id,
-//       },
-//       { $inc: { wallet: p.amountPayable } }
-//     );
-//    }
-
-//     res.json({ success: true });
-//   } catch (error) {
-//     res.send(error);
-//   }
-// }
 export async function productReturn(req, res) {
   try {
     const order = await orderModel.findOne({ _id: req.query.data });

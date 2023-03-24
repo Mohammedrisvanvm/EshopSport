@@ -51,6 +51,9 @@
       href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+  
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
   </head>
 
   <body class="fix-header fix-sidebar card-no-border">
@@ -275,7 +278,9 @@
         </div>
       </div>
     </div>
-
+<script>$(document).ready( function () {
+  $('#myTable').DataTable();
+} );</script>
     <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
     <script>
       function unlist(data) {
