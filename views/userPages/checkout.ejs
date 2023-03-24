@@ -240,11 +240,15 @@
               <h4 class="my-3">wallet</h4>
               <li class="list-group-item">
                 <span>wallet amount bal: ₹ </span>
-                <span id="postwallet" ><%-userinfo.wallet %></span>
+                <span id="postwallet"><%-userinfo.wallet %></span>
                 <div class="input-group mt-4 d-flex">
-                 
-              
-                  <input type="checkbox" id="wallet" value="<%-userinfo.wallet %>" name="wallet" onclick="walletpay()">
+                  <input
+                    type="checkbox"
+                    id="wallet"
+                    value="<%-userinfo.wallet %>"
+                    name="wallet"
+                    onclick="walletpay()"
+                  />
                   <label for="vehicle1" class="me-2">wallet pay</label>
                 </div>
               </li>
@@ -331,7 +335,6 @@
                   >Cash on Delivery</label
                 >
               </div>
-            
             </div>
 
             <hr class="mb-4" />
@@ -539,66 +542,73 @@
       function promoCode() {
         let promo = document.getElementById("promo").value;
         let totalprice = document.getElementById("totalprice").textContent;
-
-        if (promo) {
-          axios
-            .get(`/promoCode?data=${promo}&price=${totalprice}`)
-            .then((result) => {
-              console.log(result);
-              let newPrice;
-              let total = result.data.code;
-
-              if (!result.data.success) {
-                const promoCodeEl = document.getElementById("promoCode");
-                promoCodeEl.innerHTML = "invalid code";
-                promoCodeEl.classList.add("text-danger");
-
-                console.log("222222222222");
-              } else {
-                const promoCodeEl = document.getElementById("promoCode");
-
-                promoCodeEl.innerHTML = -result.data.code;
-                let currentPrice = 0;
-
-                const tp = document.getElementById("totalprice");
-                currentPrice = Number(tp.innerHTML.replace(/[^0-9]+/g, ""));
-                newPrice = currentPrice - result.data.code;
-                tp.innerHTML = newPrice;
-
-                promoCodeEl.classList.remove("text-danger");
-
-                promoCodeEl.classList.add("text-success");
-              }
-            });
+        if (promo == "") {
+          document.getElementById("promoCode").innerHTML = "invalid code";
+          document.getElementById("promoCode").classList.add("text-danger");
         } else {
-          console.log(err);
+          if (promo) {
+            axios
+              .get(`/promoCode?data=${promo}&price=${totalprice}`)
+              .then((result) => {
+                console.log(result);
+                let newPrice;
+                let total = result.data.code;
+
+                if (!result.data.success) {
+                  const promoCodeEl = document.getElementById("promoCode");
+                  promoCodeEl.innerHTML = "invalid code";
+                  promoCodeEl.classList.add("text-danger");
+
+                  console.log("222222222222");
+                } else {
+                  const promoCodeEl = document.getElementById("promoCode");
+
+                  promoCodeEl.innerHTML = -result.data.code;
+                  let currentPrice = 0;
+
+                  const tp = document.getElementById("totalprice");
+                  currentPrice = Number(tp.innerHTML.replace(/[^0-9]+/g, ""));
+                  newPrice = currentPrice - result.data.code;
+                  tp.innerHTML = newPrice;
+
+                  promoCodeEl.classList.remove("text-danger");
+
+                  promoCodeEl.classList.add("text-success");
+                }
+              });
+          } else {
+            console.log(err);
+          }
         }
       }
       function walletpay() {
-  let walletInput = document.getElementById("wallet");
-  let isInputClicked = walletInput.disabled;
-  let totalprice = document.getElementById("totalprice").textContent;
-  let pw = document.getElementById("postwallet").textContent;
+        let walletInput = document.getElementById("wallet");
+        let isInputClicked = walletInput.disabled;
+        let totalprice = document.getElementById("totalprice").textContent;
+        let pw = document.getElementById("postwallet").textContent;
 
-  console.log(walletInput, totalprice, pw);
+        console.log(walletInput, totalprice, pw);
 
-  if (!isInputClicked) {
-    axios.get(`/wallet?price=${totalprice}&wallet=${walletInput.value}`)
-      .then((result) => {
-        console.log(result.data);
+        if (!isInputClicked) {
+          axios
+            .get(`/wallet?price=${totalprice}&wallet=${walletInput.value}`)
+            .then((result) => {
+              console.log(result.data);
 
-        document.getElementById("postwallet").textContent = result.data.wallet;
-        document.getElementById("totalprice").textContent = result.data.tp;
+              document.getElementById("postwallet").textContent =
+                result.data.wallet;
+              document.getElementById("totalprice").textContent =
+                result.data.tp;
 
-        walletInput.disabled = true;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  } else {
-    window.location.reload();
-  }
-}
+              walletInput.disabled = true;
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        } else {
+          window.location.reload();
+        }
+      }
 
       function deletefromaddress(data) {
         axios.get("/deletefromaddress/" + data);
