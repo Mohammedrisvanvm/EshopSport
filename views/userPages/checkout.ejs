@@ -331,15 +331,7 @@
                   >Cash on Delivery</label
                 >
               </div>
-              <div class="custom-control custom-radio">
-                <input
-                  value="wallet"
-                  required
-                  name="paymentType"
-                  type="radio"
-                />
-                <label class="custom-control-label" for="paypal">wallet </label>
-              </div>
+            
             </div>
 
             <hr class="mb-4" />
@@ -582,24 +574,32 @@
           console.log(err);
         }
       }
-      function walletpay(){
-        let wallet = document.getElementById("wallet");
-        let totalprice = document.getElementById("totalprice").textContent;
-       let pw= document.getElementById("postwallet").textContent
-        console.log(wallet.value,totalprice,pw);
-if (pw!=0 || totalprice==0) {
-  axios.get(`/wallet?price=${totalprice}&wallet=${wallet.value}`).then((result)=>{
-          console.log(result.data);
-          
-           document.getElementById("postwallet").textContent=result.data.wallet
-           document.getElementById("totalprice").textContent=result.data.tp
-         
-        })
-}else{
-  window.location.reload()
+      function walletpay() {
+  let walletInput = document.getElementById("wallet");
+  let isInputClicked = walletInput.disabled;
+  let totalprice = document.getElementById("totalprice").textContent;
+  let pw = document.getElementById("postwallet").textContent;
+
+  console.log(walletInput, totalprice, pw);
+
+  if (!isInputClicked) {
+    axios.get(`/wallet?price=${totalprice}&wallet=${walletInput.value}`)
+      .then((result) => {
+        console.log(result.data);
+
+        document.getElementById("postwallet").textContent = result.data.wallet;
+        document.getElementById("totalprice").textContent = result.data.tp;
+
+        walletInput.disabled = true;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  } else {
+    window.location.reload();
+  }
 }
-    
-      }
+
       function deletefromaddress(data) {
         axios.get("/deletefromaddress/" + data);
         console.log(data);

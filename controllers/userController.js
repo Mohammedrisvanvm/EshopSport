@@ -634,29 +634,7 @@ export async function postcheckout(req, res) {
     }));
     req.session.order = order;
 
-    // if (req.body.paymentType == "wallet") {
-    //   try {
-    //     let user = await users.findOne(
-    //       { _id: req.session.user._id },
-    //       { wallet: 1, _id: 0 }
-    //     );
 
-    //     if (totalAmount <= user.wallet) {
-    //       let wallet = user.wallet - totalAmount;
-    //       console.log(wallet);
-    //       await users.updateOne(
-    //         { _id: req.session.user._id },
-    //         { $set: { wallet: wallet } }
-    //       );
-    //       await orderModel.create(order);
-    //       return res.redirect("/orderconfirmationpage");
-    //     } else {
-    //       console.log(wallet);
-    //     }
-    //   } catch (error) {
-    //     req.status(500).send("error wallet");
-    //   }
-    // }
     if (req.body.paymentType == "Cash On Delivery") {
       await orderModel.create(order);
       res.redirect("/orderConfirmationPage");
@@ -694,6 +672,7 @@ export async function getUserPayment(req, res) {
 }
 export async function onlineorderconfirm(req,res){
   console.log(req.body);
+  await orderModel.create(order);
   res.redirect("/orderconfirmationpage")
 
 }
@@ -1035,20 +1014,23 @@ export async function promoCode(req, res) {
 export async function wallet(req, res) {
   console.log(req.query);
   try {
-    if (req.query.price == 0) {
-      res.json({ success: true });
+    if (req.query.price == 0 ||req.query.price == "" ) {
+      res.json({ success: true});
+      console.log("111111");
     } else {
+      console.log("654");
       let user = await users.findOne({
         _id: req.session.user._id,
       });
-      console.log(user.wallet);
+ 
       if (user) {
         let wallet = 0;
         if (user.wallet >= req.query.price) {
           wallet = user.wallet - req.query.price;
           console.log(wallet);
-
-          res.json({ success: true, wallet: wallet });
+          let tp=0
+       
+          res.json({ success: true, wallet: wallet,tp});
         } else {
           let tp = 0;
           tp = req.query.price - user.wallet;

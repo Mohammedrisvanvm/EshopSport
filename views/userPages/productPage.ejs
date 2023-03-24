@@ -216,7 +216,9 @@
                   <i class="bx bx-star"></i>
                 </div>
                 <div class="mt-2 pr-3 content">
-                  <span class="text-danger">only <%-productinfo.quantity%> is left</span>
+                  <% if (productinfo.quantity<5) { %>
+                    <span class="text-danger">only <%-productinfo.quantity%> is left</span>
+                  <% } %>
                 </div>
                 <!-- <span>441 reviews</span> -->
               </div>
