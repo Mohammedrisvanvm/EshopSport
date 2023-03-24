@@ -16,7 +16,7 @@ let imageerr = null;
 export async function getAdminPage(req, res) {
   try {
     if (req.session.admin) {
-      let monthlyData=await orderModel.aggregate([
+      let monthlyDataArray=await orderModel.aggregate([
         {$match:{orderStatus:'delivered'}},
         
          { $group: {
@@ -24,7 +24,17 @@ export async function getAdminPage(req, res) {
             revenue: { $sum: "$total" },
           }},
       ])
-     
+
+      let monthlyDataObject = {};
+      monthlyDataArray.map((item) => {
+        monthlyDataObject[item._id] = item.revenue;
+      });
+      console.log(monthlyDataArray,monthlyDataObject);
+      let monthlyData = [];
+      for (let i = 1; i <= 12; i++) {
+        monthlyData[i - 1] = monthlyDataObject[i] ?? 0;
+      }
+      console.log(monthlyData);
       res.render("index",{monthlyData});
     } else {
       res.render("adminLogin", { error: emailerr });

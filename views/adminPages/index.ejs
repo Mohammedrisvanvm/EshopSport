@@ -239,65 +239,29 @@
               </ol>
             </div>
           </div>
-          <div class="d-flex">
-            <!-- <div id="piechart"></div> -->
+        
             <div id="chart"></div>
-          </div>
+       
           <footer class="footer">
             © 2023 eshopsport by
-            <a href="/views/adminPages/adminHome.ejs">eshopsport.com</a>
+            <a href="/admin">eshopsport.com</a>
           </footer>
         </div>
       </div>
     </div>
 
-    <script src="/assets/node_modules/jquery/jquery.min.js"></script>
-    <!-- Bootstrap popper Core JavaScript -->
-    <script src="/assets/node_modules/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- slimscrollbar scrollbar JavaScript -->
-
-    <script src="/assets/node_modules/raphael/raphael-min.js"></script>
-    <script src="/assets/node_modules/morrisjs/morris.min.js"></script>
+   
+   
+   
     <!--c3 JavaScript -->
-    <script src="/assets/node_modules/d3/d3.min.js"></script>
-    <script src="/assets/node_modules/c3-master/c3.min.js"></script>
+  
+
     <!-- Chart JS -->
 
-    <!-- <script
-      type="text/javascript"
-      src="https://www.gstatic.com/charts/loader.js"
-    ></script>
-
-    <script type="text/javascript">
-      // Load google charts
-      google.charts.load("current", { packages: ["corechart"] });
-      google.charts.setOnLoadCallback(drawChart);
-
-      // Draw the chart and set the chart values
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ["profit", "Hours per Day"],
-          ["revenue", 8],
-          ["netprofit", 2],
-          ["expense", 4],
-          ["ongoing", 2],
-          ["non", 8],
-        ]);
-
-        // Optional; add a title and set the width and height of the chart
-        var options = { title: "My Average Day", width: 550, height: 400 };
-
-        // Display the chart inside the <div> element with id="piechart"
-        var chart = new google.visualization.PieChart(
-          document.getElementById("piechart")
-        );
-        chart.draw(data, options);
-      }
-    </script> -->
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script>
-      var monthlyData ='<%= JSON.stringify(monthlyData)%>'
-      var options = {
+          var monthlyData ='<%= JSON.stringify(monthlyData)%>'
+      const options = {
         series: [
           {
             name: 'revenue',
@@ -321,7 +285,7 @@
           show: false,
         },
         theme: {
-          palette: 'palette2'
+          palette: 'palette4'
         },
         xaxis: {
           categories: [
@@ -345,9 +309,9 @@
           },
         },
       };
-      var chart = new ApexCharts(document.querySelector("#chart"), options);
+      const chart = new ApexCharts(document.querySelector("#chart"), options);
       chart.render();
     </script>
-
+    
   </body>
 </html>
