@@ -61,13 +61,105 @@
   
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
   </head>
+  <style>
+    /* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+  .page-wrapper {
+    padding: 0 15px;
+  }
+}
 
-  <body class="fix-header fix-sidebar card-no-border">
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .page-wrapper {
+    padding: 0 30px;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .page-wrapper {
+    padding: 0 45px;
+  }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .page-wrapper {
+    padding: 0 60px;
+  }
+}
+
+/* Navbar */
+.navbar {
+  padding: 10px;
+  background-color: #f5f5f5;
+}
+
+/* Sales Report section */
+section {
+  padding: 20px;
+}
+
+/* Input group */
+.input-group {
+  margin-bottom: 20px;
+}
+
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #f5f5f5;
+}
+h1 {
+  font-size: 2.5rem;
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+h4 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+h5 {
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+}
+
+
+  </style>
+
+  <body class="">
     <div id="main-wrapper">
       <header class="topbar">
         <nav class="navbar top-navbar navbar-expand-md navbar-light">
           <div class="navbar-header">
-            <a class="navbar-brand" href="index.ejs">
+            <a class="navbar-brand">
               <!-- Logo icon --><b>
                 <img
                   src="/assets/images/logo-icon.png"
@@ -150,7 +242,7 @@
 
       <aside class="left-sidebar">
         <div class="scroll-sidebar">
-          <nav class="sidebar-nav">
+          <nav class="sidebar-nav ">
             <ul id="sidebarnav">
               <li>
                 <a
@@ -245,19 +337,19 @@
                     Sales Count
                   </h4>
                   <div class="mb-4">
-                    <h5 class="d-flex justify-content-center mt-4">Count</h5>
+                    <h5 class="d-flex justify-content-center mt-4"><%- revenue[0].count %></h5>
                   </div>
                 </div>
                 <div class="col-lg-3 border" >
                   <h4 class="d-flex justify-content-center mb-4">Revenue</h4>
                   <div class="mb-4">
-                    <h5 class="d-flex justify-content-center mt-4">Count</h5>
+                    <h5 class="d-flex justify-content-center mt-4">₹ <%- revenue[0].revenue %></h5>
                   </div>
                 </div>
                 <div class="col-lg-3 border">
                   <h4 class="d-flex justify-content-center mb-4">Customers</h4>
                   <div class="mb-4">
-                    <h5 class="d-flex justify-content-center mt-4">Count</h5>
+                    <h5 class="d-flex justify-content-center mt-4"><%- revenue[0].users %></h5>
                   </div>
                 </div>
               </div>

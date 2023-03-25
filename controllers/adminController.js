@@ -17,11 +17,11 @@ export async function getAdminPage(req, res) {
   try {
     if (req.session.admin) {
       let monthlyDataArray=await orderModel.aggregate([
-        {$match:{orderStatus:'delivered'}},
+        {$match:{paid:true}},
         
          { $group: {
             _id: { $month: "$createdAt" },
-            revenue: { $sum: "$total" },
+            revenue: { $sum: "$amountPayable" },
           }},
       ])
 
@@ -343,8 +343,20 @@ export async function ordermanagement(req, res) {
 }
 export async function salesReport(req, res) {
   const orderinfo = await orderModel.find().sort({ _id: -1 });
+  let revenue=await orderModel.aggregate([
+    {$match:{paid:true}},
+    
+     { $group: {
+        _id: "",
+        users:{$sum:"$userId"},
+        revenue: { $sum: "$amountPayable" },
+        count:{$sum:1}
+      }},
+      {$project:{_id:0}}
+  ])
+console.log(revenue[0]);
 
-  res.render("salesReport",{orderinfo});
+  res.render("salesReport",{orderinfo,revenue});
 }
 
 export function adminlogout(req, res) {
