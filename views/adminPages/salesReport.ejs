@@ -491,11 +491,16 @@ let Customers = `${`<%-result[0].usersCount%>`}`;
 console.log(`Total revenue: ${totalRevenue}`);
 console.log(`Total orders: ${totalOrders}`);
 console.log(`Customers: ${Customers}`);
+// let orders = [];
+//    ` <% orderinfo.forEach(function(i) { %>
+//         orders.push([<%= i.userId %>','<%= i.address %>','<%= i.product[0].productName  %>','<%= i.product[0].price %>','<%= i.quantity %>','<%=  i.amountPayable %>','<%= i.orderStatus %>']);
+//         console.log(i)
+//     <% }) %>`
+//     console.log(orders);
 let orders = [];
-   ` <% orderinfo.forEach(function(i) { %>
-        orders.push([<%= i.userId %>','<%= i.address %>','<%= i.product[0].productName  %>','<%= i.product[0].price %>','<%= i.quantity %>','<%=  i.amountPayable %>','<%= i.orderStatus %>']);
-        console.log(i)
-    <% }) %>`
+    '<% orderinfo.forEach(function(i) { %>'
+        orders.push(['<%= i.userId %>','<%= i.product[0].productName  %>','<%= i.createdAt.toLocaleDateString() %>','<%= i.product[0].price %>','<%= i.quantity %>','<%=  i.amountPayable %>','<%= i.orderStatus %>','<%= i.paymentType %>']);
+   ' <% }) %>'
     console.log(orders);
 
                 const { jsPDF } = window.jspdf;
