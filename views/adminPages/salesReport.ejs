@@ -491,20 +491,16 @@ let Customers = `${`<%-result[0].usersCount%>`}`;
 console.log(`Total revenue: ${totalRevenue}`);
 console.log(`Total orders: ${totalOrders}`);
 console.log(`Customers: ${Customers}`);
-// let orders = [];
-//    ` <% orderinfo.forEach(function(i) { %>
-//         orders.push([<%= i.userId %>','<%= i.address %>','<%= i.product[0].productName  %>','<%= i.product[0].price %>','<%= i.quantity %>','<%=  i.amountPayable %>','<%= i.orderStatus %>']);
-//         console.log(i)
-//     <% }) %>`
-//     console.log(orders);
+
 let orders = [];
     '<% orderinfo.forEach(function(i) { %>'
         orders.push(['<%= i.userId %>','<%= i.product[0].productName  %>','<%= i.createdAt.toLocaleDateString() %>','<%= i.product[0].price %>','<%= i.quantity %>','<%=  i.amountPayable %>','<%= i.orderStatus %>','<%= i.paymentType %>']);
    ' <% }) %>'
-    console.log(orders);
+  
 
                 const { jsPDF } = window.jspdf;
                 function downloadPdf() {
+                  
                     const doc = new jsPDF();
                     doc.text(15, 20, "eshopsport Sales Report");
                     doc.autoTable({
@@ -525,13 +521,12 @@ let orders = [];
                     doc.save('sales-report.pdf');
                 }
                 function downloadExcel() {
-                    let report = [
-                        { type: "Total Sales", value: totalOrders },
-                        { type: "Total Revenue", value: totalRevenue },
-                        { type: "Total Customers", value: Customers },
-                    ]
+                  let orders = [];
+    '<% orderinfo.forEach(function(i) { %>'
+        orders.push(['<%= i.userId %>','<%= i.product[0].productName  %>','<%= i.createdAt.toLocaleDateString() %>','<%= i.product[0].price %>','<%= i.quantity %>','<%=  i.amountPayable %>','<%= i.orderStatus %>','<%= i.paymentType %>']);
+   ' <% }) %>'
 
-                    var sheet1 = XLSX.utils.json_to_sheet(report);
+                    var sheet1 = XLSX.utils.json_to_sheet(orders);
                     var wb = XLSX.utils.book_new();
                     XLSX.utils.book_append_sheet(wb, sheet1, "Sales Report");
 
