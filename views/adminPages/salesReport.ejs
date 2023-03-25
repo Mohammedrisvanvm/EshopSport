@@ -400,7 +400,21 @@ h5 {
                           <td><%-i.product[0].price %></td>
                           <td><%-i.quantity %></td>
                           <td><%-i.amountPayable%></td>
-                          <td> <span class="badge text-bg-success"><%-i.orderStatus%></span></td>
+                          <td>
+                            <% if (i.orderStatus === 'pending') { %>
+                              <span class="text-warning"> <%= i.orderStatus %>
+                               
+                            <% } else if (i.orderStatus === 'shipped') { %>
+                              <span class="text-primary"> <%= i.orderStatus %> </span>
+  
+                            <% } else if (i.orderStatus === 'out for delivery') { %>
+                              <span class="text-warning"> <%= i.orderStatus %> </span>
+  
+                            <% } else if (i.orderStatus === 'delivered') { %>
+                              <span class="text-success"> <%= i.orderStatus %> </span>
+                            <% } else { %>
+                              <span class="text-danger">  <%= i.orderStatus %></span>
+                            <% } %></td>
                           <td><% if (i.paid==true) { %>
                             paid
                            
