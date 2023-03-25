@@ -551,3 +551,6 @@ export async function deletecoupon(req,res){
   await coupon.findByIdAndDelete({_id:req.params.id}).then((result)=>console.log(result))
   res.json({success:true})
 }
+export async function salesReportData(req,res){
+  
+}

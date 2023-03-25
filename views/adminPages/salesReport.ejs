@@ -441,22 +441,13 @@ h5 {
 } );</script>
     <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
     <script>
-      function unlist(data) {
-        axios.get("/admin/categoryunlist/" + data).then((result) => {
-          let value = document.getElementById("listbtn" + data);
-
-          if (result.data.success == true) {
-            value.textContent = "false";
-          } else {
-            value.textContent = "true";
-          }
-        });
-      }
       function getReport() {
+        console.log("gggggggggggjk");
         let start=document.getElementById('start').value
         let end=document.getElementById('end').value
-
-        console.log(start,end);
+axios.get('/salesReportData?start={start}&end={end}').then((Response)=>{
+  console.log(Response);
+})
         
       }
     </script>

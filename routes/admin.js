@@ -66,6 +66,7 @@ router.get("/deleteFromProductEdit",deleteFromProductEdit);
 router.get("/changestatus",ifadmin,changestatus );
 router.get("/listcoupon/:id",ifadmin,listCoupon );
 router.get("/deletecoupon/:id",deletecoupon)
+router.get('/salesReportData',)
 
 
 
