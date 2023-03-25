@@ -361,6 +361,7 @@ h5 {
                 From: <input class="form-control" type="date" id="start" name="start"> To: <input id="end"
                     class="form-control" type="date" name="end">
                 <button type="button" onclick="getReport()" class="btn btn-sm btn-dark rounded mt-4 mb-2">Filter</button>
+                <div id="error"></div>
             </form>
 
         </div>
@@ -445,9 +446,17 @@ h5 {
         console.log("gggggggggggjk");
         let start=document.getElementById('start').value
         let end=document.getElementById('end').value
-axios.get('/salesReportData?start={start}&end={end}').then((Response)=>{
+        if (start&&end&&start<end){
+          console.log(start,end);
+          axios.get(`/admin/salesReportData?start=${start}&end=${end}`).then((Response)=>{
   console.log(Response);
 })
+        }else{
+          let error=document.getElementById('error')
+         error.textContent="enter valid Date"
+         error.className="text-danger"
+        }
+
         
       }
     </script>

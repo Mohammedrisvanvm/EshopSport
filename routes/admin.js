@@ -25,6 +25,7 @@ import {
   posteditcategory,
   postEditProduct,
   salesReport,
+  salesReportData,
   unlistcategory,
   unlistproduct,
   userban,
@@ -66,7 +67,7 @@ router.get("/deleteFromProductEdit",deleteFromProductEdit);
 router.get("/changestatus",ifadmin,changestatus );
 router.get("/listcoupon/:id",ifadmin,listCoupon );
 router.get("/deletecoupon/:id",deletecoupon)
-router.get('/salesReportData',)
+router.get('/salesReportData',salesReportData)
 
 
 

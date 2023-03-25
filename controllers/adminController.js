@@ -552,5 +552,5 @@ export async function deletecoupon(req,res){
   res.json({success:true})
 }
 export async function salesReportData(req,res){
-  
+  console.log(req.query);
 }
