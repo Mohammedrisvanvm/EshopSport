@@ -56,11 +56,9 @@
       rel="stylesheet"
       integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
       crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
-  
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
-  </head>
+    /> <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </head>
   <style>
     /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {
@@ -331,7 +329,7 @@ h5 {
               <h1 class="my-5 justify-content-center">Sales Report</h1>
             </div>
             <% if (!revenue[0]) { %>
-              not revenue                   
+       
               <% } else { %>
                  
             <div class="container">
@@ -382,10 +380,11 @@ h5 {
           <div class="card-body pt-2">
               <div style="overflow: scroll;">
                 <% if (!orderinfo[0]) { %>
-                  no order t this moment
+        
                   <% } else { %>
                    
-              <table class="table table-hover table-borderless mt-2 " id="table">
+                    <table class="display" id="myTable">
+                    
                   <thead>
                       <tr>
                           <th scope="col">Id</th>
@@ -400,46 +399,47 @@ h5 {
 
                       </tr>
                   </thead>
+                  
+               
                   <tbody id="tableBody">
-                   
+                    <% orderinfo.forEach((i,index) => { %>
                  
-                     <% orderinfo.forEach((i,index) => { %>
                       
                 
                       <tr>
-                          <th scope="row"><%-index+1 %></th>
-                          <td><%-i.userId%></td>
-                          <td><%-i.product[0].productName %></td>
-                          <td><%-i.createdAt.toLocaleDateString() %></td>
-                          <td><%-i.product[0].price %></td>
-                          <td><%-i.quantity %></td>
-                          <td><%-i.amountPayable%></td>
-                          <td>
-                            <% if (i.orderStatus === 'pending') { %>
-                              <span class="text-warning"> <%= i.orderStatus %>
-                               
-                            <% } else if (i.orderStatus === 'shipped') { %>
-                              <span class="text-primary"> <%= i.orderStatus %> </span>
-  
-                            <% } else if (i.orderStatus === 'out for delivery') { %>
-                              <span class="text-warning"> <%= i.orderStatus %> </span>
-  
-                            <% } else if (i.orderStatus === 'delivered') { %>
-                              <span class="text-success"> <%= i.orderStatus %> </span>
-                            <% } else { %>
-                              <span class="text-danger">  <%= i.orderStatus %></span>
-                            <% } %></td>
-                          <td><% if (i.paid==true) { %>
-                            paid
-                           
-                         <% } else { %>
-                          not paid  <% } %></td>
+                        <td><%- index + 1 %></td>
+                        <td><%- i.userId %></td>
+                        <td><%- i.product[0].productName %></td>
+                        <td><%- i.createdAt.toLocaleDateString() %></td>
+                        <td><%- i.product[0].price %></td>
+                        <td><%- i.quantity %></td>
+                        <td><%- i.amountPayable %></td>
+                        <td>
+                          <% switch (i.orderStatus) {
+                            case 'pending':
+                              %><span class="text-warning"><%= i.orderStatus %></span><%
+                              break;
+                            case 'shipped':
+                              %><span class="text-primary"><%= i.orderStatus %></span><%
+                              break;
+                            case 'out for delivery':
+                              %><span class="text-warning"><%= i.orderStatus %></span><%
+                              break;
+                            case 'delivered':
+                              %><span class="text-success"><%= i.orderStatus %></span><%
+                              break;
+                            default:
+                              %><span class="text-danger"><%= i.orderStatus %></span><%
+                          } %>
+                        </td>
+                        <td><%= i.paid ? 'paid' : 'not paid' %></td>
                       </tr>
+                      
+                         
                       <% }) %>
-                      <tr>
-                        <% } %>
                   </tbody>
               </table>
+              <% } %>
               </div>
           </div>
       </div>
@@ -491,5 +491,11 @@ h5 {
       integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
       crossorigin="anonymous"
     ></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+    <script>
+      $(document).ready( function () {
+    $('#myTable').DataTable();
+} );
+    </script>
   </body>
 </html>
