@@ -343,17 +343,24 @@ export async function ordermanagement(req, res) {
 }
 export async function salesReport(req, res) {
   const orderinfo = await orderModel.find().sort({ _id: -1 });
-  let revenue=await orderModel.aggregate([
-    {$match:{paid:true}},
-    
-     { $group: {
+  let revenue = await orderModel.aggregate([
+    { $match: { paid: true } },
+    {
+      $group: {
         _id: "",
-        users:{$sum:"$userId"},
+        users: { $addToSet: "$userId" },
+        usersCount: { $sum: { $cond: [{ $eq: ["$userId", null] }, 0, 1] } },
         revenue: { $sum: "$amountPayable" },
-        count:{$sum:1}
-      }},
-      {$project:{_id:0}}
-  ])
+        count: { $sum: 1 }
+      }
+    },
+    { $project: { _id: 0,revenue:1,count:1, usersCount: { $size: "$users" } } }
+  ]);
+  
+ 
+  
+
+  
 console.log(revenue[0]);
 
   res.render("salesReport",{orderinfo,revenue});
