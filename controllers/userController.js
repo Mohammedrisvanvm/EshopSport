@@ -680,13 +680,13 @@ export async function getUserPayment(req, res) {
 }
 export async function onlineorderconfirm(req, res) {
   try {
-    log
+   
     const paymentDocument = await instance.payments.fetch(req.body.razorpay_payment_id);
     console.log(paymentDocument);
 
     if (paymentDocument.status === "captured") {
       const order = req.session.order;
-      
+      const productsdetails =req.session.productsdetails
       await orderModel.create(order);
       let orderup= await orderModel.aggregate([{$sort:{_id:-1}},{$limit:1}])
       for (const product of productsdetails) {
