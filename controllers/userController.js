@@ -571,7 +571,7 @@ export async function postcheckout(req, res) {
         { _id: req.session.user._id },
         { wallet: 1, _id: 0 }
       );
-      console.log(walletprice);
+    
       wallet = walletprice.wallet;
     }
     await users.updateOne(
@@ -593,10 +593,7 @@ export async function postcheckout(req, res) {
 
       product.productTotal = product.cartQuantity * product.price;
       sum += product.productTotal;
-      await products.updateOne(
-        { _id: product._id },
-        { $inc: { quantity: -product.cartQuantity } }
-      );
+    req.session.quantity=product.cartQuantity
     }
 
     const total = sum - promo - wallet;
@@ -633,9 +630,18 @@ export async function postcheckout(req, res) {
       orderId: ordercount + 1,
     }));
     req.session.order = order;
+    req.session.productsdetails = productsdetails;
 
 
+ 
     if (req.body.paymentType == "Cash On Delivery") {
+      for (const product of productsdetails) {
+       
+      await products.updateOne(
+        { _id: product._id },
+        { $inc: { quantity: -product.cartQuantity } }
+      );
+      }
       await orderModel.create(order);
       res.redirect("/orderConfirmationPage");
     } else {
@@ -643,7 +649,9 @@ export async function postcheckout(req, res) {
     }
 
   } catch (error) {
+    console.log(error);
     res.redirect("/checkout");
+    
   }
 }
 
@@ -670,12 +678,40 @@ export async function getUserPayment(req, res) {
     res.redirect("/checkout");
   }
 }
-export async function onlineorderconfirm(req,res){
-  console.log(req.body);
-  await orderModel.create(order);
-  res.redirect("/orderconfirmationpage")
+export async function onlineorderconfirm(req, res) {
+  try {
+    log
+    const paymentDocument = await instance.payments.fetch(req.body.razorpay_payment_id);
+    console.log(paymentDocument);
 
+    if (paymentDocument.status === "captured") {
+      const order = req.session.order;
+      
+      await orderModel.create(order);
+      let orderup= await orderModel.aggregate([{$sort:{_id:-1}},{$limit:1}])
+      for (const product of productsdetails) {
+       
+        await products.updateOne(
+          { _id: product._id },
+          { $inc: { quantity: -product.cartQuantity } }
+        );
+        }
+      const updateResult = await orderModel.updateOne(
+        { _id: orderup[0]._id },
+        { $set: { paid: true, orderId: paymentDocument.id } },
+      
+      );
+      console.log(updateResult);
+
+      res.redirect("/orderconfirmationpage");
+    }else{
+      res.redirect("/checkout");
+    }
+  } catch (error) {
+    console.log(error);
+  }
 }
+
 export function addresspage(req, res) {
   res.render("address", { ifuser });
 }
@@ -810,6 +846,7 @@ export function payment(req, res) {
   res.render("address");
 }
 export async function orderconfirmationpage(req, res) {
+  req.session.order=null
   const orderDetails = await orderModel.find().sort({ _id: -1 }).limit(1);
 
   res.render("orderconfirmationpage", {

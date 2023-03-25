@@ -49,7 +49,7 @@ const orderSchema = new mongoose.Schema(
     },
     amountPayable: {
       type: Number,
-      required:true,
+      default:0,
     },
     coupon: {
       type: Object,
@@ -60,7 +60,7 @@ const orderSchema = new mongoose.Schema(
       default: { applied: false, price: 0,  },
     },
     orderId: {
-      type: Number,
+      type: Object,
       default: 0,
     },
     deliveredDate:{

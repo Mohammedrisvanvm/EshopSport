@@ -304,7 +304,7 @@
                           <th scope="row"><%-index+1 %></th>
                           <td><%-i.userId%></td>
                           <td><%-i.product[0].productName %></td>
-                          <td><%-i.createdAt.toLocaleString() %></td>
+                          <td><%-i.createdAt.toLocaleDateString() %></td>
                           <td><%-i.product[0].price %></td>
                           <td><%-i.quantity %></td>
                           <td><%-i.amountPayable%></td>
@@ -345,6 +345,13 @@
             value.textContent = "true";
           }
         });
+      }
+      function getReport() {
+        let start=document.getElementById('start').value
+        let end=document.getElementById('end').value
+
+        console.log(start,end);
+        
       }
     </script>
 
