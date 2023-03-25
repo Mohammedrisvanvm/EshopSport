@@ -50,6 +50,9 @@
     href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css"
     rel="stylesheet"
   />
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
   </head>
 
   <body class="fix-header fix-sidebar card-no-border">
@@ -234,7 +237,7 @@
           </div>
 
           <section>
-            <table class="table  table-success table-striped table-hover">
+            <table id="myTable" class="display">
               <thead>
                 <tr>
                   <th scope="col">number</th>
@@ -348,5 +351,11 @@
           });
       }
     </script>
+     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+     <script>
+       $(document).ready( function () {
+     $('#myTable').DataTable();
+ } );
+     </script>
   </body>
 </html>
