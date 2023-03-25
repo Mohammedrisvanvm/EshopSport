@@ -328,7 +328,7 @@ h5 {
             <div style="margin-top: 50px" class="d-flex justify-content-center">
               <h1 class="my-5 justify-content-center">Sales Report</h1>
             </div>
-            <% if (!revenue[0]) { %>
+            <% if (!result[0]) { %>
        
               <% } else { %>
                  
@@ -341,19 +341,19 @@ h5 {
                   <div class="mb-4">
                  
                 
-                    <h5 class="d-flex justify-content-center mt-4"><%- revenue[0].count %></h5>
+                    <h5 class="d-flex justify-content-center mt-4"><%- result[0].count %></h5>
                   </div>
                 </div>
                 <div class="col-lg-3 border" >
                   <h4 class="d-flex justify-content-center mb-4">Revenue</h4>
                   <div class="mb-4">
-                    <h5 class="d-flex justify-content-center mt-4">₹ <%- revenue[0].revenue %></h5>
+                    <h5 class="d-flex justify-content-center mt-4">₹ <%- result[0].revenue %></h5>
                   </div>
                 </div>
                 <div class="col-lg-3 border">
                   <h4 class="d-flex justify-content-center mb-4">Customers</h4>
                   <div class="mb-4">
-                    <h5 class="d-flex justify-content-center mt-4"><%- revenue[0].usersCount %></h5>
+                    <h5 class="d-flex justify-content-center mt-4"><%- result[0].usersCount %></h5>
                   </div>
                 </div>
               </div>
@@ -454,6 +454,8 @@ h5 {
    <script>$(document).ready( function () {
     $('#myTable').DataTable();
 } );</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.0/jspdf.umd.min.js"></script>
+
     <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
     <script>
       function getReport() {
@@ -463,16 +465,66 @@ h5 {
         if (start&&end&&start<end){
           console.log(start,end);
           axios.get(`/admin/salesReportData?startDate=${start}&endDate=${end}`).then((Response)=>{
-  console.log(Response);
+  console.log(Response.data.data[0]);
+  
 })
         }else{
-          let error=document.getElementById('error')
-         error.textContent="enter valid Date"
-         error.className="text-danger"
+          let error = document.getElementById('error');
+error.textContent = 'enter valid Date';
+error.className = 'text-danger';
+
+setTimeout(() => {
+  error.textContent = '';
+  error.className = '';
+}, 3000);
         }
 
         
       }
+      let totalRevenue = `${`<%-result[0].revenue%>`}`;
+let totalOrders = `${`<%-result[0].count%>`}`;
+let Customers = `${`<%-result[0].usersCount%>`}`;
+
+console.log(`Total revenue: ${totalRevenue}`);
+console.log(`Total orders: ${totalOrders}`);
+console.log(`Customers: ${Customers}`);
+
+                const { jsPDF } = window.jspdf;
+                function downloadPdf() {
+                    const doc = new jsPDF();
+                    doc.text(15, 20, "eshopsport Sales Report");
+                    doc.autoTable({
+                        head: [['Type', 'Details']],
+                        body: [
+                            ['Total Sales', totalOrders],
+                            ['Total Revenue', totalRevenue],
+                            ['Total Customers', Customers],
+                        ],
+                        startY: 40
+                    })
+                    doc.text(15, doc.lastAutoTable.finalY + 20, "order info");
+                    doc.autoTable({
+                        head: [['User Name', 'Product', 'Odrer Date', 'Quantity', 'Total Amount', "Status"]],
+                        body: orders,
+                        startY: doc.lastAutoTable.finalY + 30
+                    })
+                    doc.save('sales-report.pdf');
+                }
+                function downloadExcel() {
+                    let report = [
+                        { type: "Total Sales", value: totalOrders },
+                        { type: "Total Revenue", value: totalRevenue },
+                        { type: "Total Customers", value: Customers },
+                    ]
+
+                    var sheet1 = XLSX.utils.json_to_sheet(report);
+                    var wb = XLSX.utils.book_new();
+                    XLSX.utils.book_append_sheet(wb, sheet1, "Sales Report");
+
+
+                    XLSX.writeFile(wb, 'sales-report.xlsx');
+                }
+
     </script>
 
     <script src="/assets/node_modules/jquery/jquery.min.js"></script>

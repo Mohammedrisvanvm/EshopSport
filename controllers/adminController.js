@@ -343,7 +343,7 @@ export async function ordermanagement(req, res) {
 }
 export async function salesReport(req, res) {
   const orderinfo = await orderModel.find().sort({ _id: -1 });
-  let revenue = await orderModel.aggregate([
+  let result = await orderModel.aggregate([
     { $match: { paid: true } },
     {
       $group: {
@@ -361,9 +361,9 @@ export async function salesReport(req, res) {
   
 
   
-console.log(revenue[0]);
 
-  res.render("salesReport",{orderinfo,revenue});
+
+  res.render("salesReport",{orderinfo,result});
 }
 
 export function adminlogout(req, res) {
@@ -557,6 +557,6 @@ export async function salesReportData(req,res){
  
   let datedata = await orderModel.find({ createdAt: { $gte: startDate, $lt: endDate } }).lean()
   
- 
+ res.json({success:true,data:datedata})
 console.log(datedata[0]);
 }
