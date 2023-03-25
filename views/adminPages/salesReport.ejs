@@ -330,6 +330,10 @@ h5 {
             <div style="margin-top: 50px" class="d-flex justify-content-center">
               <h1 class="my-5 justify-content-center">Sales Report</h1>
             </div>
+            <% if (!revenue[0]) { %>
+              not revenue                   
+              <% } else { %>
+                 
             <div class="container">
               <div class="row justify-content-between">
                 <div class="col-lg-3 border" >
@@ -337,6 +341,8 @@ h5 {
                     Sales Count
                   </h4>
                   <div class="mb-4">
+                 
+                
                     <h5 class="d-flex justify-content-center mt-4"><%- revenue[0].count %></h5>
                   </div>
                 </div>
@@ -354,6 +360,7 @@ h5 {
                 </div>
               </div>
             </div>
+            <% } %>
           </section>
           <div class="input-group">
             <form  method="get">
@@ -374,6 +381,10 @@ h5 {
       <div class="card mt-3" style="margin-right: 2rem;">
           <div class="card-body pt-2">
               <div style="overflow: scroll;">
+                <% if (!orderinfo[0]) { %>
+                  no order t this moment
+                  <% } else { %>
+                   
               <table class="table table-hover table-borderless mt-2 " id="table">
                   <thead>
                       <tr>
@@ -390,6 +401,8 @@ h5 {
                       </tr>
                   </thead>
                   <tbody id="tableBody">
+                   
+                 
                      <% orderinfo.forEach((i,index) => { %>
                       
                 
@@ -424,6 +437,7 @@ h5 {
                       </tr>
                       <% }) %>
                       <tr>
+                        <% } %>
                   </tbody>
               </table>
               </div>
