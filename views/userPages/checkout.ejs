@@ -213,6 +213,10 @@
                   <small class="text-muted"
                     >Minimum purchase:₹<%-i.minamount %></small
                   >
+                  <br>
+                  <small class="text-muted"
+                  >Expiry Date:<%-i.expiry.toLocaleDateString() %></small
+                >
                 </div>
               </li>
               <% }) %>
@@ -560,7 +564,13 @@
                   promoCodeEl.classList.add("text-danger");
 
                   console.log("222222222222");
-                } else {
+                } else if(result.data.success&&!result.data.exp){
+                  const promoCodeEl = document.getElementById("promoCode");
+                  promoCodeEl.innerHTML = "code expired";
+                  promoCodeEl.classList.add("text-danger");
+
+                  console.log("45455454");
+                }else {
                   const promoCodeEl = document.getElementById("promoCode");
 
                   promoCodeEl.innerHTML = -result.data.code;

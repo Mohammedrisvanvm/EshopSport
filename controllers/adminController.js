@@ -527,3 +527,8 @@ export async function changestatus(req, res) {
     res.send(error);
   }
 }
+export async function deletecoupon(req,res){
+  console.log(req.params.id);
+  await coupon.findByIdAndDelete({_id:req.params.id}).then((result)=>console.log(result))
+  res.json({success:true})
+}

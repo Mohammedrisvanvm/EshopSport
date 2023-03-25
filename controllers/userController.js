@@ -1026,6 +1026,14 @@ export async function promoCode(req, res) {
         couponCode: req.query.data,
         list: true,
       });
+      let toDayDate=new Date().toDateString()
+      console.log(code.expiry.toDateString(),toDayDate);
+      if(code.expiry.toDateString()>toDayDate){
+        res.json({ success: true,exp:false });
+
+      }else{
+        
+    
       if (code) {
         if (code.minamount <= req.query.price) {
           await coupon.updateOne(
@@ -1044,6 +1052,7 @@ export async function promoCode(req, res) {
         res.json({ success: false });
       }
     }
+  }
   } catch (error) {
     console.log(error);
   }

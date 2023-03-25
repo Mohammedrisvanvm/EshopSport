@@ -4,6 +4,7 @@ import {
   banner,
   changestatus,
   couponManagement,
+  deletecoupon,
   deleteFromProductEdit,
   editcategory,
   getaddcategories,
@@ -64,7 +65,7 @@ router.get("/userban/:id",ifadmin, userban);
 router.get("/deleteFromProductEdit",deleteFromProductEdit);
 router.get("/changestatus",ifadmin,changestatus );
 router.get("/listcoupon/:id",ifadmin,listCoupon );
-
+router.get("/deletecoupon/:id",deletecoupon)
 
 
 
