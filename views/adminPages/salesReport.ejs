@@ -458,7 +458,7 @@ h5 {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
     <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.1/xlsx.full.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.1/xlsx.full.min.js"></script>
     <script>
       function getReport() {
         console.log("gggggggggggjk");
@@ -491,6 +491,12 @@ let Customers = `${`<%-result[0].usersCount%>`}`;
 console.log(`Total revenue: ${totalRevenue}`);
 console.log(`Total orders: ${totalOrders}`);
 console.log(`Customers: ${Customers}`);
+let orders = [];
+   ` <% orderinfo.forEach(function(i) { %>
+        orders.push([<%= i.userId %>','<%= i.address %>','<%= i.product[0].productName  %>','<%= i.product[0].price %>','<%= i.quantity %>','<%=  i.amountPayable %>','<%= i.orderStatus %>']);
+        console.log(i)
+    <% }) %>`
+    console.log(orders);
 
                 const { jsPDF } = window.jspdf;
                 function downloadPdf() {
@@ -507,7 +513,7 @@ console.log(`Customers: ${Customers}`);
                     })
                     doc.text(15, doc.lastAutoTable.finalY + 20, "order info");
                     doc.autoTable({
-                        head: [['User Name', 'userId','Product', 'Order Date','Price', 'Quantity', ' Amount payable', "Status","Payment Status"]],
+                        head: [['userId','Product', 'Order Date','Price', 'Quantity', ' Amount payable', "Status","Payment Status"]],
                         body: orders,
                         startY: doc.lastAutoTable.finalY + 30
                     })
