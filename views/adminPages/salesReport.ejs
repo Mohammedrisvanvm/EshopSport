@@ -448,7 +448,7 @@ h5 {
         let end=document.getElementById('end').value
         if (start&&end&&start<end){
           console.log(start,end);
-          axios.get(`/admin/salesReportData?start=${start}&end=${end}`).then((Response)=>{
+          axios.get(`/admin/salesReportData?startDate=${start}&endDate=${end}`).then((Response)=>{
   console.log(Response);
 })
         }else{

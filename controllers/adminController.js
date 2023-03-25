@@ -553,4 +553,10 @@ export async function deletecoupon(req,res){
 }
 export async function salesReportData(req,res){
   console.log(req.query);
+  const{startDate,endDate}=req.query
+ 
+  let datedata = await orderModel.find({ createdAt: { $gte: startDate, $lt: endDate } }).lean()
+  
+ 
+console.log(datedata[0]);
 }
