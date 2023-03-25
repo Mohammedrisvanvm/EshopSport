@@ -77,7 +77,7 @@
                   class="light-logo"
                 />
               </b>
-              ><span>
+              <span>
                 <img
                   src="../assets/images/logo-text.png"
                   alt="homepage"
@@ -336,7 +336,7 @@
 
                       <div class="d-flex justify-content-center my-5">
                         <button class="btn btn-primary" type="submit">
-                          add address
+                          add Coupon
                         </button>
                       </div>
                     </form>
@@ -383,7 +383,7 @@
                     <%-i.list %>
                   </button>
                 </td>
-                <td><%- i.expiry.toLocaleString() %></td>
+                <td><%- i.expiry.toLocaleDateString() %></td>
                 <td class="d-flex">
                   <a href="/admin/editproduct/<%-i._id %>">
                     <i class="ri-pencil-line mx-2 fs-4 text-dark"></i></a
