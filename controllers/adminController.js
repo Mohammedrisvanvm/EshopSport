@@ -12,6 +12,7 @@ let emailerr = null;
 let producterr = null;
 let categorieserr = null;
 let imageerr = null;
+let couponErr = null;
 
 export async function getAdminPage(req, res) {
   try {
@@ -294,13 +295,19 @@ export async function couponManagement(req, res) {
   try {
     const couponinfo = await coupon.find();
 
-    res.render("couponManagement", { couponinfo });
+    res.render("couponManagement", { couponinfo,couponErr });
+    couponErr=null
   } catch (error) {
     console.log(error);
   }
 }
 export async function postCouponManagement(req, res) {
   try {
+    let couponinfo=await coupon.findOne({couponCode:req.body.couponCode})
+ 
+    if (!couponinfo) {
+      
+   
     let addcoupon = new coupon({
       name: req.body.name,
       couponCode: req.body.couponCode,
@@ -311,6 +318,10 @@ export async function postCouponManagement(req, res) {
     });
     await addcoupon.save();
     res.redirect("/admin/couponManagement");
+  }else{
+    couponErr="couponcode is already created"
+    res.redirect("/admin/couponManagement");
+  }
   } catch (error) {
     console.log(error);
   }
