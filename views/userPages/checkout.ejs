@@ -222,40 +222,23 @@
               <% }) %>
               <li class="list-group-item d-flex justify-content-between">
                 <div class="input-group mt-4">
-                  <input
-                    type="text"
-                    placeholder="Promo code"
-                    id="promo"
-                    name="promo"
-                    class="rounded"
-                  />
-
-                  <button
-                    type="button"
-                    onclick="promoCode()"
-                    class="btn btn-secondary ms-2"
-                    id="Redeemcode"
-                    name="Redeemed"
-                  >
+                  <input type="text" placeholder="Enter promo code" id="promo" name="promo" class="rounded" />
+                  <button type="button" onclick="promoCode()" class="btn btn-secondary ms-2" id="Redeemcode" name="Redeemed">
                     Redeem
                   </button>
                 </div>
               </li>
-              <h4 class="my-3">wallet</h4>
+              
+              <h4 class="my-3">Wallet</h4>
               <li class="list-group-item">
-                <span>wallet amount bal: ₹ </span>
-                <span id="postwallet"><%-userinfo.wallet %></span>
+                <span>Wallet balance: ₹</span>
+                <span id="postwallet"><%- userinfo.wallet %></span>
                 <div class="input-group mt-4 d-flex">
-                  <input
-                    type="checkbox"
-                    id="wallet"
-                    value="<%-userinfo.wallet %>"
-                    name="wallet"
-                    onclick="walletpay()"
-                  />
-                  <label for="vehicle1" class="me-2">wallet pay</label>
+                  <input type="checkbox" id="wallet" name="wallet" value="<%- userinfo.wallet %>" onclick="walletpay()" />
+                  <label for="wallet" class="me-2">Pay with wallet</label>
                 </div>
               </li>
+              
             </ul>
           </div>
 
@@ -596,6 +579,7 @@
 
               document.getElementById("postwallet").textContent =
                 result.data.wallet;
+                document.getElementById("wallet").value=  result.data.wallet
               document.getElementById("totalprice").textContent =
                 result.data.tp;
 

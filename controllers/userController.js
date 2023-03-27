@@ -112,7 +112,6 @@ export async function shop(req, res) {
   }
 }
 
-
 export async function pp(req, res) {
   const shopPage = asyncHandler(async (req, res) => {
     try {
@@ -1050,31 +1049,38 @@ export async function promoCode(req, res) {
         couponCode: req.query.data,
         list: true,
       });
-      let toDayDate=new Date().toDateString()
-      console.log(code.expiry.toDateString(),toDayDate);
-      if(code.expiry.toDateString()>toDayDate){
-        res.json({ success: true,exp:false });
+      console.log(code);
+      let todayDate = new Date();
+let expiryDate = new Date(code.expiry);
 
-      }else{
+
+
+     
+      if (code) {
+        if (expiryDate.getTime() < todayDate.getTime()) {
+          console.log("Expiry date has passed.");
+          res.json({ success: true, exp: false });
+        }
+    
+      else{
         
     
-      if (code) {
+     
         if (code.minamount <= req.query.price) {
-          await coupon.updateOne(
-            { couponCode: req.query.data },
-            { $set: { list: false } }
-          );
-          res.json({ success: true, code: code.discount });
+          console.log("233");
+        
+          res.json({ success: true, code: code.discount ,exp:true});
         } else {
-          await coupon.updateOne(
-            { couponCode: req.query.data },
-            { $set: { list: true } }
-          );
+          console.log(1111);
+        
           res.json({ success: false });
         }
-      } else {
-        res.json({ success: false });
       }
+    } else {
+      console.log(
+        '0000000'
+      );
+      res.json({ success: false });
     }
   }
   } catch (error) {
