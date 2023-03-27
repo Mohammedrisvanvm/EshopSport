@@ -262,87 +262,76 @@
           <div class="col-md-8 order-md-1" id="exampleModalCenter">
             <h4 class="mb-3">Billing address</h4>
             <!-- Button trigger modal -->
-
             <button
               type="button"
               class="btn btn-primary"
               data-bs-toggle="modal"
               data-bs-target="#exampleModal"
             >
-              add address
+              Add address
             </button>
-            <label class="text-danger"><%-addressError %></label>
-
+            <label class="text-danger"><%- addressError %></label>
+          
             <!-- Modal -->
-
             <% if (!userinfo.address[0]) { %>
-
             <h5 class="mt-5">Your Address</h5>
             <% } else { %>
             <h5 class="mt-5">Your Address</h5>
             <% userinfo.address.forEach((i) => { %>
-
             <div class="d-flex radio border" id="deletefromaddress<%= i._id %>">
-              <%= i.address %>
-              <br />
-              <%= i.country %>
-              <br />
-              <%= i.state %>
-              <br />
-
-              <input
-                type="radio"
-                id="address<%= i.id %>"
-                name="address"
-                value="<%= i._id %>"
-                required
-              />
+              <%= i.address %><br />
+              <%= i.country %><br />
+              <%= i.state %><br />
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="address"
+                  id="address<%= i.id %>"
+                  value="<%= i._id %>"
+                  required
+                />
+              </div>
+              <br>
               <button
                 type="button"
-                onclick=" deletefromaddress(`<%-i._id %>`,`del`)"
+                onclick="deletefromaddress('<%-i._id %>', 'del')"
                 class="btn btn-outline-none border-0"
               >
-                <i
-                  title="delete address"
-                  class="ri-delete-bin-6-fill fs-4 text-danger"
-                ></i>
+                <i class="ri-delete-bin-6-fill fs-4 text-danger" title="Delete address"></i>
               </button>
             </div>
             <% }) %> <% } %>
-
+          
             <hr class="mb-4" />
             <h4 class="mb-3">Payment Options:</h4>
             <div class="d-block my-3">
-              <div class="custom-control custom-radio">
+              <div class="form-check">
                 <input
-                  id="credit"
-                  name="paymentType"
+                  class="form-check-input"
                   type="radio"
-                  class="custom-control-input"
+                  name="paymentType"
+                  id="credit"
                   value="online payment"
                   required
                 />
-                <label class="custom-control-label" for="credit"
-                  >Online Payment</label
-                >
+                <label class="form-check-label" for="credit">Online Payment</label>
               </div>
-
-              <div class="custom-control custom-radio">
+              <div class="form-check">
                 <input
-                  id="cash"
-                  name="paymentType"
+                  class="form-check-input"
                   type="radio"
+                  name="paymentType"
+                  id="cash"
                   value="Cash On Delivery"
                   required
                 />
-                <label class="custom-control-label" for="cash"
-                  >Cash on Delivery</label
-                >
+                <label class="form-check-label" for="cash">Cash on Delivery</label>
               </div>
             </div>
-
             <hr class="mb-4" />
           </div>
+          
         </div>
         <button
           class="btn btn-primary btn-lg btn-block form-control"

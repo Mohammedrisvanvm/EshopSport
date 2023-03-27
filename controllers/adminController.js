@@ -568,6 +568,6 @@ export async function salesReportData(req,res){
  
   let datedata = await orderModel.find({ createdAt: { $gte: startDate, $lt: endDate } }).lean()
   
- res.json({success:true,data:datedata})
-console.log(datedata[0]);
+ res.json({success:true,orderinfo:datedata})
+
 }

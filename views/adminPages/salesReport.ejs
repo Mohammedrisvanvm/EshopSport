@@ -378,7 +378,7 @@ h5 {
       <h3 class="text-dark mt-4">Orders</h3>
       <div class="card mt-3" style="margin-right: 2rem;">
           <div class="card-body pt-2">
-              <div style="overflow: scroll;">
+              <div style="overflow: scroll;" id="salesChart">
                 <% if (!orderinfo[0]) { %>
         
                   <% } else { %>
@@ -460,17 +460,61 @@ h5 {
     <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.1/xlsx.full.min.js"></script>
     <script>
-      function getReport() {
-        console.log("gggggggggggjk");
-        let start=document.getElementById('start').value
-        let end=document.getElementById('end').value
-        if (start&&end&&start<end){
-          console.log(start,end);
-          axios.get(`/admin/salesReportData?startDate=${start}&endDate=${end}`).then((Response)=>{
-  console.log(Response.data.data[0]);
-  
-})
-        }else{
+      async function getReport() {
+  const start = document.getElementById('start').value;
+  const end = document.getElementById('end').value;
+  if (start && end && start < end) {
+    try {
+      const response = await axios.get(`/admin/salesReportData?startDate=${start}&endDate=${end}`);
+      const {orderinfo} = response.data;
+      const salesChart = document.getElementById('salesChart');
+      if (!orderinfo.length) {
+        salesChart.innerHTML = '<p>No orders found</p>';
+      } else {
+        const tableBody = orderinfo.map((order, index) => {
+          const { userId, product, createdAt, quantity, amountPayable, orderStatus, paid } = order;
+          return `
+            <tr>
+              <td>${index + 1}</td>
+              <td>${userId}</td>
+              <td>${product[0].productName}</td>
+              <td>${new Date(createdAt).toLocaleDateString()}</td>
+              <td>${product[0].price}</td>
+              <td>${quantity}</td>
+              <td>${amountPayable}</td>
+              <td><span class="text-${orderStatus === 'delivered' ? 'success' : 'warning'}">${orderStatus}</span></td>
+              <td>${paid ? 'paid' : 'not paid'}</td>
+            </tr>
+          `;
+        }).join('');
+        salesChart.innerHTML = `
+          <div style="overflow: scroll;">
+            <table class="display" id="myTable">
+              <thead>
+                <tr>
+                  <th scope="col">Id</th>
+                  <th scope="col">UserId</th>
+                  <th scope="col">Product</th>
+                  <th scope="col">Order Date</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Amount Payable</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Payment Status</th>
+                </tr>
+              </thead>
+              <tbody id="tableBody">
+                ${tableBody}
+              </tbody>
+            </table>
+          </div>
+        `;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+        else{
           let error = document.getElementById('error');
 error.textContent = 'enter valid Date';
 error.className = 'text-danger';
@@ -482,7 +526,9 @@ setTimeout(() => {
         }
 
         
-      }
+}
+
+      
       let totalRevenue = `${`<%-result[0].revenue%>`}`;
 let totalOrders = `${`<%-result[0].count%>`}`;
 let Customers = `${`<%-result[0].usersCount%>`}`;

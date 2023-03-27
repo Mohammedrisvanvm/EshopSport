@@ -445,7 +445,7 @@ export async function cart(req, res) {
         productsdetails = productsdetails.map((item) => {
           return { ...item, cartQuantity: cartQuantity[item._id] };
         });
-        console.log(productsdetails);
+      
         let sum = 0;
         for (const i of productsdetails) {
           i.productTotal = i.cartQuantity * i.price;
@@ -485,6 +485,7 @@ export function contactus(req, res) {
 }
 
 export async function getcheckout(req, res) {
+  console.log("wqe");
   try {
     const cartQuantity = {};
     const userinfo = await users.findOne({ _id: req.session.user._id });
@@ -533,8 +534,8 @@ export async function getcheckout(req, res) {
       userinfo,
       count,
       coupons,
-      addressError,
       quantityerr,
+      addressError
     });
     addressError = null;
     quantityerr = null;
@@ -609,10 +610,12 @@ export async function postcheckout(req, res) {
         { address: { $elemMatch: { _id: address } } }
       )
       .lean();
+      console.log("2341");
     if (!address) {
+      console.log("666");
       res.redirect("/checkout");
       addressError = "create address ";
-      return;
+      
     }
 
     const deliveryAddress = address.address[0];
@@ -650,7 +653,7 @@ export async function postcheckout(req, res) {
 
   } catch (error) {
     console.log(error);
-    res.redirect("/checkout");
+   
     
   }
 }
