@@ -53,7 +53,7 @@ export async function guestpage(req, res) {
       .exec();
 
     let banner = await bannerModel.find({list:true});
-   console.log(banner[0].mainImage);
+
     res.render("guest", { jerseyinfo, shortsinfo, socksinfo, banner, ifuser });
   } catch (error) {
     console.log(error);
@@ -111,6 +111,7 @@ export async function shop(req, res) {
     res.status(500).send("Error fetching product data.");
   }
 }
+
 
 export async function pp(req, res) {
   const shopPage = asyncHandler(async (req, res) => {
