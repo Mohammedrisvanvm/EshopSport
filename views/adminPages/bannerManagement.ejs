@@ -16,40 +16,44 @@
     <meta name="robots" content="noindex,nofollow" />
     <title>dashboard</title>
     <link
-      rel="canonical"
-      href="https://www.wrappixel.com/templates/adminwrap-lite/"
-    />
-    <!-- Favicon icon -->
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="/assets/images/favicon.png"
-    />
-    <!-- Bootstrap Core CSS -->
-    <link
-      href="/assets/node_modules/bootstrap/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="/assets/node_modules/perfect-scrollbar/css/perfect-scrollbar.css"
-      rel="stylesheet"
-    />
-    <!-- This page CSS -->
-    <!-- chartist CSS -->
-    <link href="/assets/node_modules/morrisjs/morris.css" rel="stylesheet" />
-    <!--c3 CSS -->
-    <link href="/assets/node_modules/c3-master/c3.min.css" rel="stylesheet" />
-    <!-- Custom CSS -->
-    <link href="/css/style.css" rel="stylesheet" />
-    <!-- Dashboard 1 Page CSS -->
-    <link href="/css/pages/dashboard1.css" rel="stylesheet" />
-    <!-- You can change the theme colors from here -->
-    <link href="/css/colors/default.css" id="theme" rel="stylesheet" />
-    <link
-    href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css"
+    rel="canonical"
+    href="https://www.wrappixel.com/templates/adminwrap-lite/"
+  />
+  <!-- Favicon icon -->
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="16x16"
+    href="/assets/images/favicon.png"
+  />
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     rel="stylesheet"
   />
+  <!-- Bootstrap Core CSS -->
+  <link
+    href="/assets/node_modules/bootstrap/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <link
+    href="/assets/node_modules/perfect-scrollbar/css/perfect-scrollbar.css"
+    rel="stylesheet"
+  />
+  <!-- This page CSS -->
+  <!-- chartist CSS -->
+  <link href="/assets/node_modules/morrisjs/morris.css" rel="stylesheet" />
+  <!--c3 CSS -->
+  <link href="/assets/node_modules/c3-master/c3.min.css" rel="stylesheet" />
+  <!-- Custom CSS -->
+  <link href="/css/style.css" rel="stylesheet" />
+  <!-- Dashboard 1 Page CSS -->
+  <link href="/css/pages/dashboard1.css" rel="stylesheet" />
+  <!-- You can change the theme colors from here -->
+  <link href="/css/colors/default.css" id="theme" rel="stylesheet" />
+  <link
+  href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css"
+  rel="stylesheet"
+/>
    </head>
 
   <body class="fix-header fix-sidebar card-no-border">
@@ -84,13 +88,7 @@
               /></span>
             </a>
           </div>
-          <!-- ============================================================== -->
-          <!-- End Logo -->
-          <!-- ============================================================== -->
-          <div class="navbar-collapse">
-            <!-- ============================================================== -->
-            <!-- toggle and nav items -->
-            <!-- ============================================================== -->
+         <div class="navbar-collapse">
             <ul class="navbar-nav me-auto">
               <li class="nav-item">
                 <a
@@ -99,10 +97,7 @@
                   ><i class="fa fa-bars"></i
                 ></a>
               </li>
-              <!-- ============================================================== -->
-              <!-- Search -->
-              <!-- ============================================================== -->
-              <li class="nav-item hidden-xs-down search-box">
+               <li class="nav-item hidden-xs-down search-box">
                 <a
                   class="nav-link hidden-sm-down waves-effect waves-dark"
                   href="javascript:void(0)"
@@ -118,14 +113,8 @@
                 </form>
               </li>
             </ul>
-            <!-- ============================================================== -->
-            <!-- User profile and search -->
-            <!-- ============================================================== -->
             <ul class="navbar-nav my-lg-0">
-              <!-- ============================================================== -->
-              <!-- Profile -->
-              <!-- ============================================================== -->
-              <li class="nav-item dropdown u-pro">
+             <li class="nav-item dropdown u-pro">
                 <a
                   class="nav-link dropdown-toggle waves-effect waves-dark profile-pic"
                   href="#"
@@ -257,7 +246,7 @@
            
        
           <div
-            class="col-lg-4 col-md-12 mb-2 bg-image hover-zoom ripple ripple-surface ripple-surface-light"
+            class="col-lg-4 col-md-12 mb-2 bg-image hover-zoom ripple ripple-surface ripple-surface-light" id="Image<%-i.filename %>"
           >
             <img
               src="/image/carousel image/<%-i.filename %>"
@@ -266,6 +255,15 @@
               style="height: 60px
               ;width: 80px;"
             />
+            <button
+            type="button"
+            class="btn btn-primary btn-sm me-1 mb-2"
+            data-mdb-toggle="tooltip"
+            title="Remove item"
+            onclick=" deleteBanner(`<%-i.filename %>`,`<%-i._id %>`)"
+          >
+            <i class="fas fa-trash"></i>
+          </button>
           </div>
         
           <% }) %>
@@ -288,27 +286,27 @@
     <!-- Bootstrap popper Core JavaScript -->
     <script src="/assets/node_modules/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- slimscrollbar scrollbar JavaScript -->
-    <script src="js/perfect-scrollbar.jquery.min.js"></script>
-    <!--Wave Effects -->
-    <script src="js/waves.js"></script>
-    <!--Menu sidebar -->
-    <script src="js/sidebarmenu.js"></script>
-    <!--Custom JavaScript -->
-    <script src="js/custom.min.js"></script>
-    <!-- ============================================================== -->
-    <!-- This page plugins -->
-    <!-- ============================================================== -->
-    <!--morris JavaScript -->
+   
     <script src="/assets/node_modules/raphael/raphael-min.js"></script>
     <script src="/assets/node_modules/morrisjs/morris.min.js"></script>
     <!--c3 JavaScript -->
     <script src="/assets/node_modules/d3/d3.min.js"></script>
     <script src="/assets/node_modules/c3-master/c3.min.js"></script>
-    <!-- Chart JS -->
-    <script src="js/dashboard1.js"></script>
+ 
 
-   
-    ></script>
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+<script>
+    function deleteBanner(data,pId) {
+        console.log('22222',data,pId);
+        axios.get(`/admin/deleteBanner?data=${data}&pId=${pId}`).then((result)=>{
+          if(result.data.success){
+document.getElementById('Image' +data).textContent=""
+          }
+        })
+       
+        
+      }
+</script>
 
   </body>
 </html>
