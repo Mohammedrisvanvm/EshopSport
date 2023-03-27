@@ -707,8 +707,8 @@
            function submitform(data){
              var startsWithSpace = /^\s/;
              var isNegativeNumber = /^-\d/;
-             var numberRegex = /\d/;
-            var specialCharRegex = /[@#$!%*?&]/
+             
+          
 
              if ( HouseName.value.match(startsWithSpace)||phonenumber.value.match(startsWithSpace)||place.value.match(startsWithSpace)||District.value.match(startsWithSpace)||state.value.match(startsWithSpace)||pincode.value.match(startsWithSpace)) {
                showErrorMessage("space is not allowed");
@@ -723,22 +723,25 @@
             showErrorMessage("0 is not allowed");
                 return false;
             }
-            else if (HouseName.value.match(specialCharRegex)||phonenumber.value.match(specialCharRegex)||place.value.match(specialCharRegex)||District.value.match(specialCharRegex)||state.value.match(specialCharRegex)||pincode.value.match(specialCharRegex)) {
+var fields = [HouseName, place, District, state];
+var numberRegex = /\d/;
 
-            showErrorMessage("special character is not allowed");
-                 return false;
-            }
-           else if (HouseName.value.match(numberRegex)||place.value.match(numberRegex)||District.value.match(numberRegex)||state.value.match(numberRegex)) {
+for (var i = 0; i < fields.length; i++) {
+  if (fields[i].value.match(numberRegex)) {
+    showErrorMessage("Number is not allowed");
+    return false;
+  }
+}
 
-            showErrorMessage("number is not allowed");
-                 return false;
-            }
-             else if (MRP.value<price.value){
-      showErrorMessage("price is not allow morethan MRP");
-          return false;
-      }
+            var specialCharRegex = /[@#$!%*?&]/;
+if (HouseName.value.match(specialCharRegex) || phonenumber.value.match(specialCharRegex) || place.value.match(specialCharRegex) || District.value.match(specialCharRegex) || state.value.match(specialCharRegex) || pincode.value.match(specialCharRegex)) {
+    showErrorMessage("Special characters are not allowed");
+    return false;
+}
 
-       else {
+
+           
+ else {
          hideErrorMessage();
              return true;
        }
