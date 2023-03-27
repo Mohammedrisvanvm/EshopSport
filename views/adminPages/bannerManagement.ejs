@@ -243,19 +243,21 @@
           <div> <a href="/admin/addbanner"><button class="btn btn-info text-white">add banner</button> </a></div>
        
           <section>
-            <table class="display" id="myTable">
+            <table class="display" id="myTable" >
               <thead>
                 <tr>
                   <th scope="col">number</th>
                   <th scope="col">name</th>
                   <th scope="col">mainImage</th>
+                  <th scope="col">list</th>
+                  
                   <th scope="col">delete</th>
                 
                 </tr>
               </thead>
               <tbody>
                 <% banner.forEach((bannerItem, index) => { %>
-                  <tr>
+                  <tr id="Doc<%- bannerItem._id %>">
                     <td><%- index + 1 %></td>
                     <td><%- bannerItem.Name %></td>
                     <td>
@@ -265,6 +267,7 @@
                         height="26"
                       />
                     </td>
+                    <td><button class="btn-success"><%- bannerItem.list %></button></td>
                     <td>
                       <button
                         type="button"
@@ -317,7 +320,7 @@
         console.log('22222',data,pId);
         axios.get(`/admin/deleteBanner?data=${data}&pId=${pId}`).then((result)=>{
           if(result.data.success){
-document.getElementById('Image' +data).textContent=""
+window.location.reload()
           }
         })
        

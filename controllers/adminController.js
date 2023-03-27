@@ -490,11 +490,10 @@ export async function deleteBanner(req, res) {
   const { pId, data } = req.query;
   try {
     const productinfo = await bannerModel
-      .updateOne(
+      .deleteOne(
         {
           _id: pId,
-        },
-        { $pull: { mainImages: { filename: data } } }
+        }
       )
       .then((result) => {
         console.log(result);
