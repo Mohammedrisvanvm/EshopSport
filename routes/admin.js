@@ -5,6 +5,7 @@ import {
   banner,
   changestatus,
   couponManagement,
+  deleteBanner,
   deletecoupon,
   deleteFromProductEdit,
   editcategory,
@@ -71,7 +72,7 @@ router.get("/changestatus",ifadmin,changestatus );
 router.get("/listcoupon/:id",ifadmin,listCoupon );
 router.get("/deletecoupon/:id",deletecoupon)
 router.get('/salesReportData',salesReportData)
-
+router.get("/deletebanner",deleteBanner)
 
 
 export default router;

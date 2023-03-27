@@ -5,7 +5,7 @@ import { coupon } from "../models/couponSchema.js";
 import { products } from "../models/productSchema.js";
 import { users } from "../models/userSchema.js";
 
-import { bannerimage } from "../models/bannerSchema.js";
+import { bannerModel } from "../models/bannerSchema.js";
 import { orderModel } from "../models/orderSchema.js";
 
 let emailerr = null;
@@ -327,11 +327,11 @@ export async function postCouponManagement(req, res) {
   }
 }
 export async function banner(req, res) {
-  let banner = await bannerimage.find();
+  let banner = await bannerModel.find();
 
-  let bannerimage1 = banner.map((item) => item.mainImage[0]);
 
-  res.render("bannerManagement", { bannerimage1 });
+
+  res.render("bannerManagement", { banner });
 }
 export async function addBanner(req, res) {
 
@@ -340,7 +340,8 @@ export async function addBanner(req, res) {
 }
 export async function postBanner(req, res) {
   try {
-    const imageadd = new bannerimage({
+    const imageadd = new bannerModel({
+      Name:req.body.Name,
       mainImage: req.files.mainImage,
     });
     await imageadd.save();
@@ -477,6 +478,23 @@ export async function deleteFromProductEdit(req, res) {
           _id: pId,
         },
         { $pull: { subImages: { filename: req.query.data } } }
+      )
+      .then((result) => {
+        console.log(result);
+      });
+    res.json({ success: true });
+  } catch (error) {}
+}
+export async function deleteBanner(req, res) {
+  console.log(req.query);
+  const { pId, data } = req.query;
+  try {
+    const productinfo = await bannerModel
+      .updateOne(
+        {
+          _id: pId,
+        },
+        { $pull: { mainImages: { filename: data } } }
       )
       .then((result) => {
         console.log(result);

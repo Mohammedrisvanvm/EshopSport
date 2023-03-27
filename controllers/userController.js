@@ -8,7 +8,7 @@ import uniqid from "uniqid";
 import { coupon } from "../models/couponSchema.js";
 import { orderModel } from "../models/orderSchema.js";
 import { ifuser } from "../middleware/middleware.js";
-import { bannerimage } from "../models/bannerSchema.js";
+import { bannerModel } from "../models/bannerSchema.js";
 import { createId } from "../helpers/createId.js";
 import Razorpay from "razorpay"
 

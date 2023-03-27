@@ -13,4 +13,4 @@ const bannerSchema = new mongoose.Schema({
     required: true,
   },
 });
-export const bannerimage = new mongoose.model("banner", bannerSchema);
+export const bannerModel = new mongoose.model("banner", bannerSchema);
