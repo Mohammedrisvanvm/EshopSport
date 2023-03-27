@@ -267,14 +267,23 @@
                         height="26"
                       />
                     </td>
-                    <td><button class="btn-success"><%- bannerItem.list %></button></td>
                     <td>
+                      <button
+                        class="btn btn-success btn-sm"
+                        id="listbtn<%-bannerItem._id %>"
+                        onclick="list(`<%-bannerItem._id %>`)"
+                        value="<%-bannerItem.list %>"
+                      >
+                        <%-bannerItem.list %>
+                      </button>
+                    </td>
+                                        <td>
                       <button
                         type="button"
                         class="btn btn-primary btn-sm me-1 mb-2"
                         data-mdb-toggle="tooltip"
                         title="Remove item"
-                        onclick="deleteBanner('<%- bannerItem.filename %>','<%- bannerItem._id %>')"
+                        onclick="return confirm('are you sure you want to delete?'),deleteBanner('<%- bannerItem.filename %>','<%- bannerItem._id %>')"
                       >
                         <i class="fas fa-trash"></i>
                       </button>
@@ -323,9 +332,24 @@
 window.location.reload()
           }
         })
+      }
+        function list(data) {
+          console.log(1);
+        let value = document.getElementById("listbtn" + data);
+        axios.get(`/admin/listBanner?id=${data}` ).then((response) => {
+        
+          if (response.data.success == true) {
+            value.textContent ="true";
+    
+          } else {
+            value.textContent ="false";
+           
+          }
+        });
+      }
        
         
-      }
+      
 </script>
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
 <script>

@@ -1,6 +1,6 @@
 import sharp from "sharp";
 import { admins } from "../models/adminSchema.js";
-import { categories} from "../models/categorySchema.js";
+import { categories } from "../models/categorySchema.js";
 import { coupon } from "../models/couponSchema.js";
 import { products } from "../models/productSchema.js";
 import { users } from "../models/userSchema.js";
@@ -17,26 +17,28 @@ let couponErr = null;
 export async function getAdminPage(req, res) {
   try {
     if (req.session.admin) {
-      let monthlyDataArray=await orderModel.aggregate([
-        {$match:{paid:true}},
-        
-         { $group: {
+      let monthlyDataArray = await orderModel.aggregate([
+        { $match: { paid: true } },
+
+        {
+          $group: {
             _id: { $month: "$createdAt" },
             revenue: { $sum: "$amountPayable" },
-          }},
-      ])
+          },
+        },
+      ]);
 
       let monthlyDataObject = {};
       monthlyDataArray.map((item) => {
         monthlyDataObject[item._id] = item.revenue;
       });
-      console.log(monthlyDataArray,monthlyDataObject);
+      console.log(monthlyDataArray, monthlyDataObject);
       let monthlyData = [];
       for (let i = 1; i <= 12; i++) {
         monthlyData[i - 1] = monthlyDataObject[i] ?? 0;
       }
       console.log(monthlyData);
-      res.render("index",{monthlyData});
+      res.render("index", { monthlyData });
     } else {
       res.render("adminLogin", { error: emailerr });
 
@@ -227,7 +229,7 @@ export async function posteditcategory(req, res) {
       );
       res.redirect("/admin/categoriesManagement");
     } else {
-      res.redirect(304,"/admin/editcategory");
+      res.redirect(304, "/admin/editcategory");
     }
   } catch (error) {
     res.send(error);
@@ -295,33 +297,31 @@ export async function couponManagement(req, res) {
   try {
     const couponinfo = await coupon.find();
 
-    res.render("couponManagement", { couponinfo,couponErr });
-    couponErr=null
+    res.render("couponManagement", { couponinfo, couponErr });
+    couponErr = null;
   } catch (error) {
     console.log(error);
   }
 }
 export async function postCouponManagement(req, res) {
   try {
-    let couponinfo=await coupon.findOne({couponCode:req.body.couponCode})
- 
+    let couponinfo = await coupon.findOne({ couponCode: req.body.couponCode });
+
     if (!couponinfo) {
-      
-   
-    let addcoupon = new coupon({
-      name: req.body.name,
-      couponCode: req.body.couponCode,
-      minamount: req.body.minamount,
-      discount: req.body.discount,
-      maxdiscount: req.body.maxdiscount,
-      expiry: req.body.expiry,
-    });
-    await addcoupon.save();
-    res.redirect("/admin/couponManagement");
-  }else{
-    couponErr="couponcode is already created"
-    res.redirect("/admin/couponManagement");
-  }
+      let addcoupon = new coupon({
+        name: req.body.name,
+        couponCode: req.body.couponCode,
+        minamount: req.body.minamount,
+        discount: req.body.discount,
+        maxdiscount: req.body.maxdiscount,
+        expiry: req.body.expiry,
+      });
+      await addcoupon.save();
+      res.redirect("/admin/couponManagement");
+    } else {
+      couponErr = "couponcode is already created";
+      res.redirect("/admin/couponManagement");
+    }
   } catch (error) {
     console.log(error);
   }
@@ -329,19 +329,15 @@ export async function postCouponManagement(req, res) {
 export async function banner(req, res) {
   let banner = await bannerModel.find();
 
-
-
   res.render("bannerManagement", { banner });
 }
 export async function addBanner(req, res) {
-
-
   res.render("addBanner");
 }
 export async function postBanner(req, res) {
   try {
     const imageadd = new bannerModel({
-      Name:req.body.Name,
+      Name: req.body.Name,
       mainImage: req.files.mainImage,
     });
     await imageadd.save();
@@ -368,19 +364,20 @@ export async function salesReport(req, res) {
         users: { $addToSet: "$userId" },
         usersCount: { $sum: { $cond: [{ $eq: ["$userId", null] }, 0, 1] } },
         revenue: { $sum: "$amountPayable" },
-        count: { $sum: 1 }
-      }
+        count: { $sum: 1 },
+      },
     },
-    { $project: { _id: 0,revenue:1,count:1, usersCount: { $size: "$users" } } }
+    {
+      $project: {
+        _id: 0,
+        revenue: 1,
+        count: 1,
+        usersCount: { $size: "$users" },
+      },
+    },
   ]);
-  
- 
-  
 
-  
-
-
-  res.render("salesReport",{orderinfo,result});
+  res.render("salesReport", { orderinfo, result });
 }
 
 export function adminlogout(req, res) {
@@ -490,16 +487,45 @@ export async function deleteBanner(req, res) {
   const { pId, data } = req.query;
   try {
     const productinfo = await bannerModel
-      .deleteOne(
-        {
-          _id: pId,
-        }
-      )
+      .deleteOne({
+        _id: pId,
+      })
       .then((result) => {
         console.log(result);
       });
     res.json({ success: true });
   } catch (error) {}
+}
+export async function listBanner(req, res) {
+  console.log(req.query);
+  try {
+    const bannerinfo = await bannerModel.findById({
+      _id: req.query.id,
+    });
+    console.log(bannerinfo);
+
+    if (bannerinfo.list == false) {
+      await bannerModel.updateOne(
+        {
+          _id: req.query.id,
+        },
+        { $set: { list: true } }
+      );
+
+      res.json({ success: true });
+    } else {
+      await bannerModel.updateOne(
+        {
+          _id: req.query.id,
+        },
+        { $set: { list: false } }
+      );
+
+      res.json({ success: false });
+    }
+  } catch (error) {
+    res.send(error);
+  }
 }
 export async function listCoupon(req, res) {
   try {
@@ -579,17 +605,20 @@ export async function changestatus(req, res) {
     res.send(error);
   }
 }
-export async function deletecoupon(req,res){
+export async function deletecoupon(req, res) {
   console.log(req.params.id);
-  await coupon.findByIdAndDelete({_id:req.params.id}).then((result)=>console.log(result))
-  res.json({success:true})
+  await coupon
+    .findByIdAndDelete({ _id: req.params.id })
+    .then((result) => console.log(result));
+  res.json({ success: true });
 }
-export async function salesReportData(req,res){
+export async function salesReportData(req, res) {
   console.log(req.query);
-  const{startDate,endDate}=req.query
- 
-  let datedata = await orderModel.find({ createdAt: { $gte: startDate, $lt: endDate } }).lean()
-  
- res.json({success:true,orderinfo:datedata})
+  const { startDate, endDate } = req.query;
 
+  let datedata = await orderModel
+    .find({ createdAt: { $gte: startDate, $lt: endDate } })
+    .lean();
+
+  res.json({ success: true, orderinfo: datedata });
 }
