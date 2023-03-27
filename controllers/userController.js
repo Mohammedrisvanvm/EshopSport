@@ -481,13 +481,25 @@ export async function userprofile(req, res) {
   }
 }
 export async function editProfile(req, res) {
-  const{Name,Email,Phone,Mobile}=req.body
-  if (Name&&Email&&Phone&&Mobile) {
-    await users.findByIdAndUpdate({_id:req.session.user._id},{$addToSet:{}})
-    
+  const { Name, Email, Phone, Mobile } = req.body;
+  if (Name && Email && Phone && Mobile) {
+    try {
+      await users.findByIdAndUpdate(req.session.user._id, {
+        name: Name,
+        email: Email,
+        phone: Phone,
+        mobile: Mobile,
+      });
+      res.redirect("/profile");
+    } catch (error) {
+      console.log(error);
+      res.status(500).send("An error occurred while updating the user profile");
+    }
+  } else {
+    res.status(400).send("All fields are required");
   }
-  res.redirect("/profile");
 }
+
 
 export function contactus(req, res) {
   res.render("contactus", { ifuser });
