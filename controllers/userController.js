@@ -52,10 +52,9 @@ export async function guestpage(req, res) {
       ])
       .exec();
 
-    let cImage = await bannerimage.find();
-    cImage = cImage.map((item) => item.mainImage[0]);
-    console.log(ifuser);
-    res.render("guest", { jerseyinfo, shortsinfo, socksinfo, cImage, ifuser });
+    let banner = await bannerModel.find({list:true});
+   console.log(banner[0].mainImage);
+    res.render("guest", { jerseyinfo, shortsinfo, socksinfo, banner, ifuser });
   } catch (error) {
     console.log(error);
   }
