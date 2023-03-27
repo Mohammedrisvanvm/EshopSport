@@ -333,6 +333,11 @@ export async function banner(req, res) {
 
   res.render("bannerManagement", { bannerimage1 });
 }
+export async function addBanner(req, res) {
+
+
+  res.render("addBanner");
+}
 export async function postBanner(req, res) {
   try {
     const imageadd = new bannerimage({

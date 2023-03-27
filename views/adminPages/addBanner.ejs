@@ -1,20 +1,345 @@
-<form   action="/admin/banner"
-method="post"
-enctype="multipart/form-data">
-<div class="form-group">
-  <label for="exampleFormControlFile1">main image</label>
-  <input
-    type="file"
-    required
-    name="mainImage"
-    class="form-control-file"
-    id="exampleFormControlFile1"
-  />
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="keywords"
+      content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, AdminWrap lite admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, AdminWrap lite design, AdminWrap lite dashboard bootstrap 5 dashboard template"
+    />
+    <meta
+      name="description"
+      content="AdminWrap Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework"
+    />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>dashboard</title>
+    <link
+      rel="canonical"
+      href="https://www.wrappixel.com/templates/adminwrap-lite/"
+    />
+    <!-- Favicon icon -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/assets/images/favicon.png"
+    />
+    <!-- Bootstrap Core CSS -->
+    <link
+      href="/assets/node_modules/bootstrap/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="/assets/node_modules/perfect-scrollbar/css/perfect-scrollbar.css"
+      rel="stylesheet"
+    />
+    <!-- This page CSS -->
+    <!-- chartist CSS -->
+    <link href="/assets/node_modules/morrisjs/morris.css" rel="stylesheet" />
+    <!--c3 CSS -->
+    <link href="/assets/node_modules/c3-master/c3.min.css" rel="stylesheet" />
+    <!-- Custom CSS -->
+    <link href="/css/style.css" rel="stylesheet" />
+    <!-- Dashboard 1 Page CSS -->
+    <link href="/css/pages/dashboard1.css" rel="stylesheet" />
+    <!-- You can change the theme colors from here -->
+    <link href="/css/colors/default.css" id="theme" rel="stylesheet" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+  </head>
 
-</div>
-<div>
-  <button type="submit" class="btn btn-primary">
-    submit
-  </button>
-</div>
-</form>
+  <body class="fix-header fix-sidebar card-no-border">
+    <div id="main-wrapper">
+      <header class="topbar">
+        <nav class="navbar top-navbar navbar-expand-md navbar-light">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="index.ejs">
+              <img
+                src="/assets/images/logo-icon.png"
+                alt="homepage"
+                class="dark-logo"
+              />
+              <!-- Light Logo icon -->
+              <img
+                src="/assets/images/logo-light-icon.png"
+                alt="homepage"
+                class="light-logo"
+              />
+
+              <span>
+                <!-- dark Logo text -->
+                <img
+                  src="../assets/images/logo-text.png"
+                  alt="homepage"
+                  class="dark-logo" />
+                <!-- Light Logo text -->
+                <img
+                  src="../assets/images/logo-light-text.png"
+                  class="light-logo"
+                  alt="homepage"
+              /></span>
+            </a>
+          </div>
+          <!-- ============================================================== -->
+          <!-- End Logo -->
+          <!-- ============================================================== -->
+          <div class="navbar-collapse">
+            <!-- ============================================================== -->
+            <!-- toggle and nav items -->
+            <!-- ============================================================== -->
+            <ul class="navbar-nav me-auto">
+              <li class="nav-item">
+                <a
+                  class="nav-link nav-toggler hidden-md-up waves-effect waves-dark"
+                  href="javascript:void(0)"
+                  ><i class="fa fa-bars"></i
+                ></a>
+              </li>
+              <!-- ============================================================== -->
+              <!-- Search -->
+              <!-- ============================================================== -->
+              <li class="nav-item hidden-xs-down search-box">
+                <a
+                  class="nav-link hidden-sm-down waves-effect waves-dark"
+                  href="javascript:void(0)"
+                  ><i class="fa fa-search"></i
+                ></a>
+                <form class="app-search">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Search & enter"
+                  />
+                  <a class="srh-btn"><i class="fa fa-times"></i></a>
+                </form>
+              </li>
+            </ul>
+            <!-- ============================================================== -->
+            <!-- User profile and search -->
+            <!-- ============================================================== -->
+            <ul class="navbar-nav my-lg-0">
+              <!-- ============================================================== -->
+              <!-- Profile -->
+              <!-- ============================================================== -->
+              <li class="nav-item dropdown u-pro">
+                <a
+                  class="nav-link dropdown-toggle waves-effect waves-dark profile-pic"
+                  href="#"
+                  id="navbarDropdown"
+                  data-bs-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  ><img
+                    src="../assets/images/users/1.jpg"
+                    alt="user"
+                    class=""
+                  />
+                  <span class="hidden-md-down">Mohammed Risvan &nbsp;</span>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li>
+                    <a class="dropdown-item" href="/admin/logout"
+                      ><button class="btn btn-dark">logout</button></a
+                    >
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+
+      <aside class="left-sidebar">
+        <!-- Sidebar scroll-->
+        <div class="scroll-sidebar">
+          <!-- Sidebar navigation-->
+          <nav class="sidebar-nav">
+            <ul id="sidebarnav">
+              <li>
+                <a
+                  class="waves-effect waves-dark"
+                  href="/admin"
+                  aria-expanded="false"
+                  ><i class="fa fa-home"></i
+                  ><span class="hide-menu">Dashboard</span></a
+                >
+              </li>
+              <li>
+                <a
+                  class="waves-effect waves-dark"
+                  href="/admin/userManagement"
+                  aria-expanded="false"
+                  ><i class="fa fa-users"></i
+                  ><span class="hide-menu">user management</span></a
+                >
+              </li>
+              <li>
+                <a
+                  class="waves-effect waves-dark"
+                  href="/admin/categoriesManagement"
+                  aria-expanded="false"
+                  ><i class="fa fa-list"></i
+                  ><span class="hide-menu">categories</span></a
+                >
+              </li>
+              <li>
+                <a
+                  class="waves-effect waves-dark"
+                  href="/admin/productManagement"
+                  aria-expanded="false"
+                  ><i class="fa fa-shopping-cart"></i
+                  ><span class="hide-menu">Product</span></a
+                >
+              </li>
+              <li>
+                <a
+                  class="waves-effect waves-dark"
+                  href="/admin/banner"
+                  aria-expanded="false"
+                >
+                  <i class="fa fa-bookmark-o"></i
+                  ><span class="hide-menu">banner</span></a
+                >
+              </li>
+              <li>
+                <a
+                  class="waves-effect waves-dark"
+                  href="/admin/couponManagement"
+                  aria-expanded="false"
+                  ><i class="ri-coupon-3-fill"></i
+                  ><span class="hide-menu">coupon </span></a
+                >
+              </li>
+              <li>
+                <a
+                  class="waves-effect waves-dark"
+                  href="/admin/orderManagement"
+                  aria-expanded="false"
+                  ><i class="ri-list-unordered"></i
+                  ><span class="hide-menu">order Management</span></a
+                >
+              </li>
+              <li>
+                <a
+                  class="waves-effect waves-dark"
+                  href="/admin/salesReport"
+                  aria-expanded="false"
+                  ><i class="ri-file-chart-line"></i
+                  ><span class="hide-menu">sales report</span></a
+                >
+              </li>
+            </ul>
+          </nav>
+          <!-- End Sidebar navigation -->
+        </div>
+        <!-- End Sidebar scroll-->
+      </aside>
+      <div class="page-wrapper">
+        <div class="container-fluid">
+          <div class="row page-titles">
+            <div class="col-md-5 align-self-center">
+              <h3 class="text-themecolor">banner</h3>
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                  <a href="javascript:void(0)">Home</a>
+                </li>
+                <li class="breadcrumb-item active">Add Banner</li>
+              </ol>
+            </div>
+          </div>
+
+          <form
+            action="/admin/banner"
+            role="form"
+            method="post"
+            enctype="multipart/form-data"
+            id="addBanner"  onsubmit="return submitform(event)"
+          >
+          <div id="error"></div>
+            <div class="form-group">
+              <label for="exampleFormControlFile1">Name</label>
+              <br>
+              <input
+                type="text"
+             
+                name="Name"
+                class="form-control-file"
+                id="Name"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="exampleFormControlFile1">main image</label>
+              <input
+                type="file"
+                required
+                name="mainImage"
+                class="form-control-file"
+                id="exampleFormControlFile1"
+              />
+            </div>
+            <div>
+              <button type="submit" class="btn btn-primary">add</button>
+            </div>
+          </form>
+
+          <footer class="footer">
+            © 2023 eshopsport by
+            <a href="/views/adminPages/adminHome.ejs">eshopsport.com</a>
+          </footer>
+        </div>
+      </div>
+    </div>
+
+    <script src="/assets/node_modules/jquery/jquery.min.js"></script>
+    <!-- Bootstrap popper Core JavaScript -->
+    <script src="/assets/node_modules/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <script src="/assets/node_modules/raphael/raphael-min.js"></script>
+    <script src="/assets/node_modules/morrisjs/morris.min.js"></script>
+    <!--c3 JavaScript -->
+    <script src="/assets/node_modules/d3/d3.min.js"></script>
+    <script src="/assets/node_modules/c3-master/c3.min.js"></script>
+    <script>
+        const form = document.querySelector("#addBanner");
+        const Name = form.querySelector("#Name");
+        const errorElement = document.querySelector("#error");
+         function hideErrorMessage() {
+           errorElement.innerHTML = "";
+         }
+         function showErrorMessage(message) {
+           errorElement.innerHTML = `<div class="alert alert-danger border border-warning w-80 d-flex justify-content-center fw-bold py-2 mx-4" role="alert" >${message}</div>`;
+           setTimeout(() => {
+             errorElement.innerHTML = `<div></div>`;
+           }, 5000);
+         }
+         function submitform(data){
+           var startsWithSpace = /^\s/;
+           var isNegativeNumber = /^-\d/;
+           if (Name.value.match(startsWithSpace)) {
+             showErrorMessage("space is not allowed");
+             return false;
+             
+           }else if(Name.value.match(isNegativeNumber)){
+             showErrorMessage("negative sign is not allowed");
+             return false;
+           }else if(Name.value==""){
+             showErrorMessage("Banner name is null");
+             return false;
+           }else if (Name.value==0) {
+             showErrorMessage("zero is not allowed");
+             return false;
+           } else {
+       hideErrorMessage();
+           return true;
+     }
+   
+         }
+   
+     </script>
+  </body>
+</html>

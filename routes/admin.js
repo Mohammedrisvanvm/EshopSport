@@ -1,5 +1,6 @@
 import Express, { Router } from "express";
 import {
+  addBanner,
   adminlogout,
   banner,
   changestatus,
@@ -53,6 +54,8 @@ router.post("/editproduct/:id", multiupload, postEditProduct);
 router.get("/couponManagement",ifadmin, couponManagement);
 router.post("/couponManagement", postCouponManagement);
 router.get("/banner",ifadmin, banner);
+router.get("/addbanner",ifadmin, addBanner);
+
 router.post("/banner",multiuploadcaro,postBanner);
 router.get('/ordermanagement',ifadmin,ordermanagement)
 router.get('/salesReport',ifadmin,salesReport)
