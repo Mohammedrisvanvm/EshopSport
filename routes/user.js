@@ -9,6 +9,7 @@ import {
   deletefromcart,
   deletefromwishlist,
   editaddress,
+  editProfile,
   forgottenPassword,
   getcheckout,
   getforget3,
@@ -75,6 +76,7 @@ router.get("/productpage/:id", productPage);
 router.get("/wishlist", ifuser, wishlist);
 router.get("/cart", ifuser, cart);
 router.get("/profile", ifuser, userprofile);
+router.post("/editProfile",ifuser,editProfile)
 router.get("/shop", shop);
 router.get("/jersey", jersey);
 router.get("/shorts", shorts);

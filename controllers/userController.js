@@ -480,6 +480,11 @@ export async function userprofile(req, res) {
     console.log(error);
   }
 }
+export function editProfile(req, res) {
+  const{}=req.body
+  res.redirect("/profile");
+}
+
 export function contactus(req, res) {
   res.render("contactus", { ifuser });
 }
