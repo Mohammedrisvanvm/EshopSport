@@ -480,8 +480,12 @@ export async function userprofile(req, res) {
     console.log(error);
   }
 }
-export function editProfile(req, res) {
-  const{}=req.body
+export async function editProfile(req, res) {
+  const{Name,Email,Phone,Mobile}=req.body
+  if (Name&&Email&&Phone&&Mobile) {
+    await users.findByIdAndUpdate({_id:req.session.user._id},{$addToSet:{}})
+    
+  }
   res.redirect("/profile");
 }
 
