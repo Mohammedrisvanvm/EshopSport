@@ -32,7 +32,7 @@
       rel="stylesheet"
     />
   </head>
-  <body class=" gradient-custom-2">
+  <body class="gradient-custom-2">
     <header>
       <div class="container-fluid">
         <!-- Navbar -->
@@ -140,305 +140,358 @@
         </nav>
       </div>
     </header>
-    <style>body{
-      margin-top:20px;
-      color: #1a202c;
-      text-align: left;
-      background-color: #e2e8f0;    
-  }
-  .main-body {
-      padding: 15px;
-  }
-  .card {
-      box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
-  }
-  
-  .card {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      min-width: 0;
-      word-wrap: break-word;
-      background-color: #fff;
-      background-clip: border-box;
-      border: 0 solid rgba(0,0,0,.125);
-      border-radius: .25rem;
-  }
-  
-  .card-body {
-      flex: 1 1 auto;
-      min-height: 1px;
-      padding: 1rem;
-  }
-  
-  .gutters-sm {
-      margin-right: -8px;
-      margin-left: -8px;
-  }
-  
-  .gutters-sm>.col, .gutters-sm>[class*=col-] {
-      padding-right: 8px;
-      padding-left: 8px;
-  }
-  .mb-3, .my-3 {
-      margin-bottom: 1rem!important;
-  }
-  
-  .bg-gray-300 {
-      background-color: #e2e8f0;
-  }
-  .h-100 {
-      height: 100%!important;
-  }
-  .shadow-none {
-      box-shadow: none!important;
-  }</style>
+    <style>
+      body {
+        margin-top: 20px;
+        color: #1a202c;
+        text-align: left;
+        background-color: #e2e8f0;
+      }
+      .main-body {
+        padding: 15px;
+      }
+      .card {
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
+          0 1px 2px 0 rgba(0, 0, 0, 0.06);
+      }
+
+      .card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 0 solid rgba(0, 0, 0, 0.125);
+        border-radius: 0.25rem;
+      }
+
+      .card-body {
+        flex: 1 1 auto;
+        min-height: 1px;
+        padding: 1rem;
+      }
+
+      .gutters-sm {
+        margin-right: -8px;
+        margin-left: -8px;
+      }
+
+      .gutters-sm > .col,
+      .gutters-sm > [class*="col-"] {
+        padding-right: 8px;
+        padding-left: 8px;
+      }
+      .mb-3,
+      .my-3 {
+        margin-bottom: 1rem !important;
+      }
+
+      .bg-gray-300 {
+        background-color: #e2e8f0;
+      }
+      .h-100 {
+        height: 100% !important;
+      }
+      .shadow-none {
+        box-shadow: none !important;
+      }
+    </style>
 
     <section class="h-100">
       <div class="container">
         <div class="main-body">
-        
-              <!-- Breadcrumb -->
-              <nav aria-label="breadcrumb" class="main-breadcrumb">
-                <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                  <li class="breadcrumb-item"><a href="javascript:void(0)">User</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">User Profile</li>
-                </ol>
-              </nav>
-              <!-- /Breadcrumb -->
-        
-              <div class="row gutters-sm">
-                <div class="col-md-4 mb-3">
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="d-flex flex-column align-items-center text-center">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
-                        <div class="mt-3">
-                          <h4><%-userinfo.name %></h4>
-                          <p class="text-secondary mb-1"><%-userinfo.email %></p>
-                        </div>
-                      </div>
+          <!-- Breadcrumb -->
+          <nav aria-label="breadcrumb" class="main-breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+              <li class="breadcrumb-item">
+                <a href="javascript:void(0)">User</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                User Profile
+              </li>
+            </ol>
+          </nav>
+          <!-- /Breadcrumb -->
+
+          <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+              <div class="card">
+                <div class="card-body">
+                  <div
+                    class="d-flex flex-column align-items-center text-center"
+                  >
+                    <img
+                      src="https://bootdey.com/img/Content/avatar/avatar7.png"
+                      alt="Admin"
+                      class="rounded-circle"
+                      width="150"
+                    />
+                    <div class="mt-3">
+                      <h4><%-userinfo.name %></h4>
+                      <p class="text-secondary mb-1"><%-userinfo.email %></p>
                     </div>
                   </div>
-                  <div class="card mt-3">
-                    <ul class="list-group list-group-flush">
-                      <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                        <h6 class="mb-0">wallet</h6>
-                        <span class="text-success">Rs.<%-userinfo.wallet %></span>
-                      </li>
-                      <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                        <h6 class="mb-0">Cart</h6>
-                        <a href="/cart"><span class="text-success ">Get Cart</span></a>                      </li>
-                      <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                        <h6 class="mb-0">Wishlist</h6>
-                        <a href="/wishlist"><span class="text-success ">Get Wishlist</span></a>                      </li>
-                      <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                        <h6 class="mb-0">Orders</h6>
-                        <a href="/orders"><span class="text-success ">Get Orders</span></a>
-                      </li>
-                      <!-- <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                </div>
+              </div>
+              <div class="card mt-3">
+                <ul class="list-group list-group-flush">
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center flex-wrap"
+                  >
+                    <h6 class="mb-0">wallet</h6>
+                    <span class="text-success">Rs.<%-userinfo.wallet %></span>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center flex-wrap"
+                  >
+                    <h6 class="mb-0">Cart</h6>
+                    <a href="/cart"
+                      ><span class="text-success">Get Cart</span></a
+                    >
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center flex-wrap"
+                  >
+                    <h6 class="mb-0">Wishlist</h6>
+                    <a href="/wishlist"
+                      ><span class="text-success">Get Wishlist</span></a
+                    >
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center flex-wrap"
+                  >
+                    <h6 class="mb-0">Orders</h6>
+                    <a href="/orders"
+                      ><span class="text-success">Get Orders</span></a
+                    >
+                  </li>
+                  <!-- <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                         <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-facebook mr-2 icon-inline text-primary"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>Facebook</h6>
                         <span class="text-secondary">bootdey</span>
                       </li> -->
-                    </ul>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-8" id="OG">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Full Name</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      <%-userinfo.name %>
+                    </div>
+                  </div>
+                  <hr />
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Email</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      <%-userinfo.email %>
+                    </div>
+                  </div>
+                  <hr />
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Phone</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      <%-userinfo.phone %>
+                    </div>
+                  </div>
+                  <hr />
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Mobile</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      <%-userinfo.mobile %>
+                    </div>
+                  </div>
+                  <hr />
+
+                  <hr />
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <button class="btn btn-info" onclick="editProfile()">
+                        edit
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-primary justify-content-end"
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal"
+                      >
+                        Add Address
+                      </button>
+                    </div>
                   </div>
                 </div>
-                <div class="col-md-8" id="OG">
-                  <div class="card mb-3">
+              </div>
+              <h5>Manage Address</h5>
+              <div class="row gutters-sm">
+                <div class="col-sm-6 mb-3">
+                  <div class="card h-100">
                     <div class="card-body">
                       <div class="row">
+                        <% userinfo.address.forEach((i,index)=> { %>
                         <div class="col-sm-3">
-                          <h6 class="mb-0">Full Name</h6>
+                          <h6 class="mb-0">Address <%-index+1 %></h6>
                         </div>
+
                         <div class="col-sm-9 text-secondary">
-                          <%-userinfo.name %>
-                        </div>
-                      </div>
-                      <hr>
-                      <div class="row">
-                        <div class="col-sm-3">
-                          <h6 class="mb-0">Email</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                          <%-userinfo.email %>
-                        </div>
-                      </div>
-                      <hr>
-                      <div class="row">
-                        <div class="col-sm-3">
-                          <h6 class="mb-0">Phone</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                          <%-userinfo.phone %>
-                        </div>
-                      </div>
-                      <hr>
-                      <div class="row">
-                        <div class="col-sm-3">
-                          <h6 class="mb-0">Mobile</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                          <%-userinfo.mobile %>
-                        </div>
-                      </div>
-                      <hr>
-                      <div class="row">
-                        <div class="col-sm-3">
-                          <h6 class="mb-0">Address</h6>
-                        </div>
-                        <% userinfo.address.forEach((i)=> { %>
-                         
-                       
-                        <div class="col-sm-9 text-secondary">
-                          <%= i.address %><br />
-              <%= i.country %><br />
-              <%= i.state %><br />
-            
+                          HouseName: <%= i.HouseName %><br />
+                          phone: <%= i.phonenumber %><br />
+                          place: <%= i.Place %><br />
+                          District: <%= i.District %><br />
+                          state: <%= i.state %><br />
+                          pincode: <%= i.pincode %><br />
                         </div>
                         <% }) %>
                       </div>
-                      <hr>
-                      <div class="row">
-                        <div class="col-sm-12">
-                          <button class="btn btn-info " onclick="editProfile()">edit</button>
-                          <!-- <a class="btn btn-info " target="__blank" >Edit</a> -->
-                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h6 class="d-flex align-items-center mb-3">
+                        <i class="material-icons text-info mr-2">assignment</i
+                        >Project Status
+                      </h6>
+                      <small>Web Design</small>
+                      <div class="progress mb-3" style="height: 5px">
+                        <div
+                          class="progress-bar bg-primary"
+                          role="progressbar"
+                          style="width: 80%"
+                          aria-valuenow="80"
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                        ></div>
+                      </div>
+                      <small>Website Markup</small>
+                      <div class="progress mb-3" style="height: 5px">
+                        <div
+                          class="progress-bar bg-primary"
+                          role="progressbar"
+                          style="width: 72%"
+                          aria-valuenow="72"
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                        ></div>
+                      </div>
+                      <small>One Page</small>
+                      <div class="progress mb-3" style="height: 5px">
+                        <div
+                          class="progress-bar bg-primary"
+                          role="progressbar"
+                          style="width: 89%"
+                          aria-valuenow="89"
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                        ></div>
+                      </div>
+                      <small>Mobile Template</small>
+                      <div class="progress mb-3" style="height: 5px">
+                        <div
+                          class="progress-bar bg-primary"
+                          role="progressbar"
+                          style="width: 55%"
+                          aria-valuenow="55"
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                        ></div>
+                      </div>
+                      <small>Backend API</small>
+                      <div class="progress mb-3" style="height: 5px">
+                        <div
+                          class="progress-bar bg-primary"
+                          role="progressbar"
+                          style="width: 66%"
+                          aria-valuenow="66"
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                        ></div>
                       </div>
                     </div>
                   </div>
-    
-                  <div class="row gutters-sm">
-                    <div class="col-sm-6 mb-3">
-                      <div class="card h-100">
-                        <div class="card-body">
-                          <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Project Status</h6>
-                          <small>Web Design</small>
-                          <div class="progress mb-3" style="height: 5px">
-                            <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                          <small>Website Markup</small>
-                          <div class="progress mb-3" style="height: 5px">
-                            <div class="progress-bar bg-primary" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                          <small>One Page</small>
-                          <div class="progress mb-3" style="height: 5px">
-                            <div class="progress-bar bg-primary" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                          <small>Mobile Template</small>
-                          <div class="progress mb-3" style="height: 5px">
-                            <div class="progress-bar bg-primary" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                          <small>Backend API</small>
-                          <div class="progress mb-3" style="height: 5px">
-                            <div class="progress-bar bg-primary" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 mb-3">
-                      <div class="card h-100">
-                        <div class="card-body">
-                          <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Project Status</h6>
-                          <small>Web Design</small>
-                          <div class="progress mb-3" style="height: 5px">
-                            <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                          <small>Website Markup</small>
-                          <div class="progress mb-3" style="height: 5px">
-                            <div class="progress-bar bg-primary" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                          <small>One Page</small>
-                          <div class="progress mb-3" style="height: 5px">
-                            <div class="progress-bar bg-primary" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                          <small>Mobile Template</small>
-                          <div class="progress mb-3" style="height: 5px">
-                            <div class="progress-bar bg-primary" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                          <small>Backend API</small>
-                          <div class="progress mb-3" style="height: 5px">
-                            <div class="progress-bar bg-primary" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-    
-    
-    
                 </div>
               </div>
-    
             </div>
+          </div>
         </div>
+      </div>
     </section>
     <footer
-    class="text-center text-white mt-4"
-    style="background-color: #607d8b"
-  >
-    <hr class="text-dark" />
-
-    <div class="container" style="height: 50px">
-      <!-- Section: Social media -->
-      <section class="mb-3">
-        <!-- Facebook -->
-        <a
-          class="btn-link btn-floating btn-lg text-white"
-          href="#!"
-          role="button"
-          data-mdb-ripple-color="dark"
-          ><i class="fab fa-facebook-f"></i
-        ></a>
-
-        <!-- Twitter -->
-        <a
-          class="btn-link btn-floating btn-lg text-white"
-          href="#!"
-          role="button"
-          data-mdb-ripple-color="dark"
-          ><i class="fab fa-twitter"></i
-        ></a>
-
-        <!-- Google -->
-        <a
-          class="btn-link btn-floating btn-lg text-white"
-          href="#!"
-          role="button"
-          data-mdb-ripple-color="dark"
-          ><i class="fab fa-google"></i
-        ></a>
-
-        <!-- Instagram -->
-        <a
-          class="btn-link btn-floating btn-lg text-white"
-          href="#!"
-          role="button"
-          data-mdb-ripple-color="dark"
-          ><i class="fab fa-instagram"></i
-        ></a>
-
-        <!-- YouTube -->
-        <a
-          class="btn-link btn-floating btn-lg text-white"
-          href="#!"
-          role="button"
-          data-mdb-ripple-color="dark"
-          ><i class="fab fa-youtube"></i
-        ></a>
-      </section>
-   
-    </div>
-
-    <div
-      class="text-center p-3"
-      style="background-color: rgba(0, 0, 0, 0.2); color: #e0e0e0"
+      class="text-center text-white mt-4"
+      style="background-color: #607d8b"
     >
-      © 2022 Copyright:
-      <a class="text-white" href="https://mdbootstrap.com/">eshopsport.com</a>
-    </div>
+      <hr class="text-dark" />
 
-  </footer>
+      <div class="container" style="height: 50px">
+        <!-- Section: Social media -->
+        <section class="mb-3">
+          <!-- Facebook -->
+          <a
+            class="btn-link btn-floating btn-lg text-white"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-facebook-f"></i
+          ></a>
+
+          <!-- Twitter -->
+          <a
+            class="btn-link btn-floating btn-lg text-white"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-twitter"></i
+          ></a>
+
+          <!-- Google -->
+          <a
+            class="btn-link btn-floating btn-lg text-white"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-google"></i
+          ></a>
+
+          <!-- Instagram -->
+          <a
+            class="btn-link btn-floating btn-lg text-white"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-instagram"></i
+          ></a>
+
+          <!-- YouTube -->
+          <a
+            class="btn-link btn-floating btn-lg text-white"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-youtube"></i
+          ></a>
+        </section>
+      </div>
+
+      <div
+        class="text-center p-3"
+        style="background-color: rgba(0, 0, 0, 0.2); color: #e0e0e0"
+      >
+        © 2022 Copyright:
+        <a class="text-white" href="https://mdbootstrap.com/">eshopsport.com</a>
+      </div>
+    </footer>
 
     <!-- Modal -->
 
@@ -473,28 +526,19 @@
                 class="needs-validation"
                 action="/addressprofile"
                 method="post"
+                role="form"
+                id="addAddress"
+                onsubmit="return submitform(event)"
               >
+                <div id="error"></div>
                 <div class="mb-3">
-                  <label for="firstName" class="form-label">First name</label>
+                  <label for="address" class="form-label">House Name</label>
                   <input
                     type="text"
                     class="form-control"
-                    name="firstName"
-                    id="firstName"
-                    placeholder=""
-                    value=""
-                    required
-                  />
-                </div>
-                <div class="mb-3">
-                  <label for="lastName" class="form-label">Last name</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="lastName"
-                    id="lastName"
-                    placeholder=""
-                    value=""
+                    id="HouseName"
+                    name="HouseName"
+                    placeholder="1234 Main St"
                     required
                   />
                 </div>
@@ -507,41 +551,30 @@
                     minlength="10"
                     maxlength="10"
                     name="phonenumber"
-                    id="username"
+                    id="phonenumber"
                     placeholder="Phone Number"
                     required
                   />
                 </div>
                 <div class="mb-3">
-                  <label for="email" class="form-label"
-                    >Email <span class="text-muted">(Optional)</span></label
-                  >
-                  <input
-                    type="email"
-                    class="form-control"
-                    name="Email"
-                    id="email"
-                    placeholder="you@example.com"
-                  />
-                </div>
-                <div class="mb-3">
-                  <label for="address" class="form-label">Address</label>
+                  <label for="country" class="form-label">place</label>
                   <input
                     type="text"
                     class="form-control"
-                    id="address"
-                    name="address"
-                    placeholder="1234 Main St"
+                    name="Place"
+                    placeholder="Place"
+                    id="place"
                     required
                   />
                 </div>
                 <div class="mb-3">
-                  <label for="country" class="form-label">Country</label>
+                  <label for="state" class="form-label">District</label>
                   <input
                     type="text"
                     class="form-control"
-                    name="country"
-                    placeholder="Country"
+                    name="District"
+                    placeholder="District"
+                    id="District"
                     required
                   />
                 </div>
@@ -551,6 +584,7 @@
                     type="text"
                     class="form-control"
                     name="state"
+                    id="state"
                     placeholder="State"
                     required
                   />
@@ -593,8 +627,7 @@
         document.getElementById("deletefromaddress" + data).innerHTML = "";
       }
       function editProfile() {
-       
-        document.getElementById('OG').innerHTML=`
+        document.getElementById("OG").innerHTML = `
         <div class="col-lg-8">
 					<div class="card">
             <form action="/editProfile" method="post">
@@ -640,8 +673,75 @@
 							</div>
 						</div>
           </form>
-					</div>`
-        
+					</div>`;
+      }
+    </script>
+    <script>
+            const form = document.querySelector("#addAddress");
+           const HouseName = form.querySelector("#HouseName");
+           const phonenumber = form.querySelector("#phonenumber");
+           const place = form.querySelector("#place");
+           const District= form.querySelector("#District");
+           const state = form.querySelector("#state");
+           const pincode = form.querySelector("#zip");
+
+           const errorElement = document.querySelector("#error");
+           function hideErrorMessage() {
+             errorElement.innerHTML = "";
+           }
+           function showErrorMessage(message) {
+             errorElement.innerHTML = `<div class="alert alert-danger border border-warning w-80 d-flex justify-content-center fw-bold py-2 mx-4" role="alert" >${message}</div>`;
+             setTimeout(() => {
+               errorElement.innerHTML = `<div></div>`;
+             }, 5000);
+           }
+
+
+
+
+
+
+
+
+
+           function submitform(data){
+             var startsWithSpace = /^\s/;
+             var isNegativeNumber = /^-\d/;
+             var numberRegex = /\d/;
+            var specialCharRegex = /[@#$!%*?&]/
+
+             if ( HouseName.value.match(startsWithSpace)||phonenumber.value.match(startsWithSpace)||place.value.match(startsWithSpace)||District.value.match(startsWithSpace)||state.value.match(startsWithSpace)||pincode.value.match(startsWithSpace)) {
+               showErrorMessage("space is not allowed");
+                     return false;
+
+             } else if (HouseName.value.match(isNegativeNumber)||phonenumber.value.match(isNegativeNumber)||place.value.match(isNegativeNumber)||District.value.match(isNegativeNumber)||state.value.match(isNegativeNumber)||pincode.value.match(isNegativeNumber)) {
+
+                showErrorMessage("negative number is not allowed");
+                     return false;
+             } else if (HouseName.value==0||phonenumber.value==0||place.value==0||District.value==0||state.value==0||pincode.value==0) {
+
+            showErrorMessage("0 is not allowed");
+                return false;
+            }
+            else if (HouseName.value.match(specialCharRegex)||phonenumber.value.match(specialCharRegex)||place.value.match(specialCharRegex)||District.value.match(specialCharRegex)||state.value.match(specialCharRegex)||pincode.value.match(specialCharRegex)) {
+
+            showErrorMessage("special character is not allowed");
+                 return false;
+            }
+           else if (HouseName.value.match(numberRegex)||place.value.match(numberRegex)||District.value.match(numberRegex)||state.value.match(numberRegex)) {
+
+            showErrorMessage("number is not allowed");
+                 return false;
+            }
+             else if (MRP.value<price.value){
+      showErrorMessage("price is not allow morethan MRP");
+          return false;
+      }
+
+       else {
+         hideErrorMessage();
+             return true;
+       }
       }
     </script>
   </body>

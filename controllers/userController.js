@@ -10,7 +10,7 @@ import { orderModel } from "../models/orderSchema.js";
 import { ifuser } from "../middleware/middleware.js";
 import { bannerModel } from "../models/bannerSchema.js";
 import { createId } from "../helpers/createId.js";
-import Razorpay from "razorpay"
+import Razorpay from "razorpay";
 
 let passworderr = null;
 let emailerr = null;
@@ -25,8 +25,8 @@ let otp = otpGenerator.generate(6, {
   specialChars: false,
 });
 var instance = new Razorpay({
- key_id: process.env.KEY_ID,
- key_secret: process.env.KEY_SECRET,
+  key_id: process.env.KEY_ID,
+  key_secret: process.env.KEY_SECRET,
 });
 export async function guestpage(req, res) {
   try {
@@ -52,7 +52,7 @@ export async function guestpage(req, res) {
       ])
       .exec();
 
-    let banner = await bannerModel.find({list:true});
+    let banner = await bannerModel.find({ list: true });
 
     res.render("guest", { jerseyinfo, shortsinfo, socksinfo, banner, ifuser });
   } catch (error) {
@@ -444,7 +444,7 @@ export async function cart(req, res) {
         productsdetails = productsdetails.map((item) => {
           return { ...item, cartQuantity: cartQuantity[item._id] };
         });
-      
+
         let sum = 0;
         for (const i of productsdetails) {
           i.productTotal = i.cartQuantity * i.price;
@@ -498,7 +498,6 @@ export async function editProfile(req, res) {
     res.status(400).send("All fields are required");
   }
 }
-
 
 export function contactus(req, res) {
   res.render("contactus", { ifuser });
@@ -555,7 +554,7 @@ export async function getcheckout(req, res) {
       count,
       coupons,
       quantityerr,
-      addressError
+      addressError,
     });
     addressError = null;
     quantityerr = null;
@@ -592,7 +591,7 @@ export async function postcheckout(req, res) {
         { _id: req.session.user._id },
         { wallet: 1, _id: 0 }
       );
-    
+
       wallet = walletprice.wallet;
     }
     await users.updateOne(
@@ -614,7 +613,7 @@ export async function postcheckout(req, res) {
 
       product.productTotal = product.cartQuantity * product.price;
       sum += product.productTotal;
-    req.session.quantity=product.cartQuantity
+      req.session.quantity = product.cartQuantity;
     }
 
     const total = sum - promo - wallet;
@@ -630,12 +629,11 @@ export async function postcheckout(req, res) {
         { address: { $elemMatch: { _id: address } } }
       )
       .lean();
-      console.log("2341");
+    console.log("2341");
     if (!address) {
       console.log("666");
       res.redirect("/checkout");
       addressError = "create address ";
-      
     }
 
     const deliveryAddress = address.address[0];
@@ -655,44 +653,36 @@ export async function postcheckout(req, res) {
     req.session.order = order;
     req.session.productsdetails = productsdetails;
 
-
- 
     if (req.body.paymentType == "Cash On Delivery") {
       for (const product of productsdetails) {
-       
-      await products.updateOne(
-        { _id: product._id },
-        { $inc: { quantity: -product.cartQuantity } }
-      );
+        await products.updateOne(
+          { _id: product._id },
+          { $inc: { quantity: -product.cartQuantity } }
+        );
       }
       await orderModel.create(order);
       res.redirect("/orderConfirmationPage");
     } else {
       res.render("paymentTemp");
     }
-
   } catch (error) {
     console.log(error);
-   
-    
   }
 }
 
 export async function getUserPayment(req, res) {
   console.log("2344444", req.session.order, "23444444444");
   try {
-   
-    let amount =Number(req.session.order[0].amountPayable * 100) 
-   
+    let amount = Number(req.session.order[0].amountPayable * 100);
+
     let receiptId = Math.floor(Math.random() * 100000) + Date.now();
     let options = {
       amount: amount, // amount in the smallest currency unit
       currency: "INR",
       receipt: receiptId,
     };
-    
-    instance.orders.create(options, function (err, order) {
 
+    instance.orders.create(options, function (err, order) {
       res.json({ success: true, key: process.env.KEY_ID, order });
     });
   } catch (error) {
@@ -703,31 +693,33 @@ export async function getUserPayment(req, res) {
 }
 export async function onlineorderconfirm(req, res) {
   try {
-   
-    const paymentDocument = await instance.payments.fetch(req.body.razorpay_payment_id);
+    const paymentDocument = await instance.payments.fetch(
+      req.body.razorpay_payment_id
+    );
     console.log(paymentDocument);
 
     if (paymentDocument.status === "captured") {
       const order = req.session.order;
-      const productsdetails =req.session.productsdetails
+      const productsdetails = req.session.productsdetails;
       await orderModel.create(order);
-      let orderup= await orderModel.aggregate([{$sort:{_id:-1}},{$limit:1}])
+      let orderup = await orderModel.aggregate([
+        { $sort: { _id: -1 } },
+        { $limit: 1 },
+      ]);
       for (const product of productsdetails) {
-       
         await products.updateOne(
           { _id: product._id },
           { $inc: { quantity: -product.cartQuantity } }
         );
-        }
+      }
       const updateResult = await orderModel.updateOne(
         { _id: orderup[0]._id },
-        { $set: { paid: true, orderId: paymentDocument.id } },
-      
+        { $set: { paid: true, orderId: paymentDocument.id } }
       );
       console.log(updateResult);
 
       res.redirect("/orderconfirmationpage");
-    }else{
+    } else {
       res.redirect("/checkout");
     }
   } catch (error) {
@@ -739,13 +731,13 @@ export function addresspage(req, res) {
   res.render("address", { ifuser });
 }
 export async function postaddressprofile(req, res) {
+  console.log(req.body);
   try {
     const {
-      firstName,
-      lastName,
+      HouseName,
       phonenumber,
-      address,
-      country,
+      Place,
+      District,
       state,
       pincode,
     } = req.body;
@@ -753,15 +745,14 @@ export async function postaddressprofile(req, res) {
     const user = await users.findOne({ _id: req.session.user._id });
 
     if (
-      firstName == "" ||
-      lastName == "" ||
+      HouseName == "" ||
       phonenumber == "" ||
-      address == "" ||
-      country == "" ||
+      Place == "" ||
+      District == "" ||
       state == "" ||
       pincode == ""
     ) {
-      res.redirect("/checkout");
+      res.redirect("/profile");
     } else {
       await users.updateOne(
         { _id: req.session.user._id },
@@ -769,11 +760,10 @@ export async function postaddressprofile(req, res) {
           $push: {
             address: {
               _id: uniqid(),
-              firstName,
-              lastName,
+              HouseName,
               phonenumber,
-              address,
-              country,
+              Place,
+              District,
               state,
               pincode,
             },
@@ -796,11 +786,10 @@ export async function postaddressprofile(req, res) {
 export async function postaddresspage(req, res) {
   try {
     const {
-      firstName,
-      lastName,
+      HouseName,
       phonenumber,
-      address,
-      country,
+      Place,
+      District,
       state,
       pincode,
     } = req.body;
@@ -809,11 +798,10 @@ export async function postaddresspage(req, res) {
     console.log(user);
 
     if (
-      firstName == "" ||
-      lastName == "" ||
+      HouseName == "" ||
       phonenumber == "" ||
-      address == "" ||
-      country == "" ||
+      Place == "" ||
+      District == "" ||
       state == "" ||
       pincode == ""
     ) {
@@ -826,11 +814,10 @@ export async function postaddresspage(req, res) {
             $push: {
               address: {
                 _id: uniqid(),
-                firstName,
-                lastName,
+                HouseName,
                 phonenumber,
-                address,
-                country,
+                Place,
+                District,
                 state,
                 pincode,
               },
@@ -869,7 +856,7 @@ export function payment(req, res) {
   res.render("address");
 }
 export async function orderconfirmationpage(req, res) {
-  req.session.order=null
+  req.session.order = null;
   const orderDetails = await orderModel.find().sort({ _id: -1 }).limit(1);
 
   res.render("orderconfirmationpage", {
@@ -1051,62 +1038,49 @@ export async function promoCode(req, res) {
       });
       console.log(code);
       let todayDate = new Date();
-let expiryDate = new Date(code.expiry);
+      let expiryDate = new Date(code.expiry);
 
-
-
-     
       if (code) {
         if (expiryDate.getTime() < todayDate.getTime()) {
           console.log("Expiry date has passed.");
           res.json({ success: true, exp: false });
-        }
-    
-      else{
-        
-    
-     
-        if (code.minamount <= req.query.price) {
-          console.log("233");
-        
-          res.json({ success: true, code: code.discount ,exp:true});
         } else {
-          console.log(1111);
-        
-          res.json({ success: false });
+          if (code.minamount <= req.query.price) {
+            console.log("233");
+
+            res.json({ success: true, code: code.discount, exp: true });
+          } else {
+            console.log(1111);
+
+            res.json({ success: false });
+          }
         }
+      } else {
+        console.log("0000000");
+        res.json({ success: false });
       }
-    } else {
-      console.log(
-        '0000000'
-      );
-      res.json({ success: false });
     }
-  }
   } catch (error) {
     console.log(error);
   }
 }
 export async function wallet(req, res) {
-
   try {
-    if (req.query.price == 0 ||req.query.price == "" ) {
-      res.json({ success: true});
-   
+    if (req.query.price == 0 || req.query.price == "") {
+      res.json({ success: true });
     } else {
-    
       let user = await users.findOne({
         _id: req.session.user._id,
       });
- 
+
       if (user) {
         let wallet = 0;
         if (user.wallet >= req.query.price) {
           wallet = user.wallet - req.query.price;
           console.log(wallet);
-          let tp=0
-       
-          res.json({ success: true, wallet: wallet,tp});
+          let tp = 0;
+
+          res.json({ success: true, wallet: wallet, tp });
         } else {
           let tp = 0;
           tp = req.query.price - user.wallet;
@@ -1120,7 +1094,6 @@ export async function wallet(req, res) {
     console.log(error);
   }
 }
-
 
 export async function productReturn(req, res) {
   try {
