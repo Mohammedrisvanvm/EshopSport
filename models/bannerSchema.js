@@ -1,8 +1,16 @@
 import mongoose from "mongoose";
-const bannerSchema=new mongoose.Schema({
-    mainImage: {
-        type: Array,
-        required: true,
-      }
-})
+const bannerSchema = new mongoose.Schema({
+  Name: {
+    type: String,
+    required: true,
+  },
+  list: {
+    type: Boolean,
+    default: false,
+  },
+  mainImage: {
+    type: Array,
+    required: true,
+  },
+});
 export const bannerimage = new mongoose.model("banner", bannerSchema);
