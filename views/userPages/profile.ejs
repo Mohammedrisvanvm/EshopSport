@@ -344,14 +344,14 @@
                         <div class="">
                           <button
                             class="btn"
-                            onclick="editAddress('<%= i.id %>','<%= i.name %>','<%= i.mobile %>','<%= i.address %>','<%= i.city %>','<%= i.state %>','<%= i.pinCode %>')"
+                            onclick="editAddress('<%= i._id %>','<%= i.name %>','<%= i.mobile %>','<%= i.address %>','<%= i.city %>','<%= i.state %>','<%= i.pinCode %>')"
                           >
                             <i class="fa-solid fa-pen-to-square"></i>
                           </button>
                           <button
                             
                             class="btn"
-                            onclick="return confirm(`Do you really want to remove this address ?`),deletefromaddress(`<%= i.id %>`)"
+                            onclick="return confirm(`Do you really want to remove this address ?`),deletefromaddress(`<%= i._id %>`)"
                           >
                             <i class="fa-solid fa-trash"></i>
                           </button>
@@ -567,9 +567,14 @@
     <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
     <script>
       function deletefromaddress(data) {
-        axios.get("/deletefromaddress/" + data);
-        console.log(data);
-        document.getElementById("delete" + data).innerHTML = "";
+        axios.get(`/deletefromaddress?id=${data}`).then((result)=>{
+
+          console.log(result);
+          if (result.data.success) {
+            window.location.reload()
+          }
+        
+        })
       }
       function editProfile() {
         document.getElementById("OG").innerHTML = `

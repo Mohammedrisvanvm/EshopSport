@@ -104,7 +104,7 @@ router.get("/deletefromwishlist/:data", ifuser, deletefromwishlist);
 router.get("/addtocart/:data", ifuser, addtocart);
 router.get("/deletefromcart", ifuser, deletefromcart);
 router.get("/incdec", ifuser, incdec);
-router.get("/deletefromaddress/:data", ifuser, deletefromaddress);
+router.get("/deletefromaddress", ifuser, deletefromaddress);
 router.get("/promoCode", ifuser, promoCode);
 router.get("/wallet", ifuser, wallet);
 router.get("/productReturn", productReturn);

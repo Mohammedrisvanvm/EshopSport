@@ -1017,11 +1017,16 @@ export async function incdec(req, res) {
   } catch (error) {}
 }
 export async function deletefromaddress(req, res) {
+  console.log(req.query);
   try {
     await users.updateOne(
       { _id: req.session.user._id },
-      { $pull: { address: { _id: req.params.data } } }
-    );
+      { $pull: { address: { _id: req.query.id } } }
+    ).then((result)=>{
+
+      console.log(result)})
+
+    res.json({success:true})
   } catch (error) {
     console.log(error);
   }
