@@ -390,9 +390,138 @@
                 </td>
                 <td><%- i.expiry.toLocaleDateString() %></td>
                 <td class="d-flex">
-                  <a href="/admin/editcoupon/<%-i._id %>">
-                    <i class="ri-pencil-line mx-2 fs-4 text-dark"></i></a
-                  >
+                  <button
+        type="button"
+        class="btn border-0"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal<%-i._id %>"
+     
+      >
+      <i class="ri-pencil-line mx-2 fs-4 text-dark"></i>
+      </button>
+      <!-- modal2 -->
+      <div
+            class="modal fade"
+            id="exampleModal<%-i._id %>"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">
+                    edit coupon
+                  </h1>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <div class="d-flex justify-content-center">
+                    <form
+                      class="needs-validation"
+                      action="/admin/couponedit"
+                      method="post"
+                      novalidate=""
+                    >
+                      <div class="row">
+                        <div class="col-md-6 mb-3">
+                          <label for="firstName">coupon name</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            name="name"
+                            id="firstName"
+                            placeholder="coupon name"
+                           value="<%-i.name %>" 
+                            required
+                          />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                          <label for="lastName">code</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            name="couponCode"
+                         
+                            placeholder="coupon code"
+                            value="<%-i.couponCode %>" 
+                            required
+                          />
+                        </div>
+
+                        <div class="mb-3">
+                          <label for="email">Minimum amount of purchase </label>
+                          <input
+                            type="email"
+                            class="form-control"
+                            name="minamount"
+                            value="<%-i.minamount %>" 
+                            placeholder="minimum amount"
+                          />
+                        </div>
+                        <div class="mb-3">
+                          <label for="address">discount</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            name="discount"
+                            
+                            value="<%-i.discount %>" 
+                            required
+                          />
+                        </div>
+                        <div class="mb-3">
+                          <label for="address2">Max Discount Amount </label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            name="maxdiscount"
+                      
+                            value="<%-i.maxdiscount %>" 
+                          />
+                        </div>
+                        <div class="mb-3">
+                          <label for="country">expiry date</label>
+                          <input
+                           
+                            class="form-control text-danger"
+                            name="expiry"
+                            disabled
+                           
+                            value="<%-i.expiry.toLocaleDateString() %>" 
+                          />
+                        </div>
+
+                        <div class="mb-3">
+                          <label for="country">update expiry date</label>
+                          <input
+                            type="date"
+                            class="form-control"
+                            name="expiry"
+                            placeholder="<%-i.expiry.toLocaleDateString()%>"
+                            required
+                            value="<%-i.expiry.toLocaleDateString() %>" 
+                          />
+                        </div>
+                      </div>
+
+                      <div class="d-flex justify-content-center my-5">
+                        <button class="btn btn-primary" type="submit">
+                          edit Coupon
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+                  
                     <i
                       class="ri-delete-bin-6-fill fs-4 mx-3 text-danger"
                       onclick="return confirm('are you sure you want to delete?'),deletecoupon(`<%-i._id %>`)"
@@ -411,6 +540,16 @@
         </footer>
       </div>
     </div>
+
+
+    <div class="container-fluid">
+      
+
+
+
+
+
+
     <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
     <script>
       function list(data) {
