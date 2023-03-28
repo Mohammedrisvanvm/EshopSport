@@ -424,7 +424,7 @@
                   <div class="d-flex justify-content-center">
                     <form
                       class="needs-validation"
-                      action="/admin/couponedit"
+                      action="/admin/editcoupon?id=<%-i._id %>"
                       method="post"
                       novalidate=""
                     >
@@ -493,7 +493,7 @@
                             name="expiry"
                             disabled
                            
-                            value="<%-i.expiry.toLocaleDateString() %>" 
+                            placeholder="<%-i.expiry.toLocaleDateString()%>"
                           />
                         </div>
 

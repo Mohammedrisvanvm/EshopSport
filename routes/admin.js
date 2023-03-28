@@ -9,6 +9,7 @@ import {
   deletecoupon,
   deleteFromProductEdit,
   editcategory,
+  editcoupon,
   getaddcategories,
   getaddProduct,
   getAdminPage,
@@ -73,6 +74,7 @@ router.get("/changestatus",ifadmin,changestatus );
 router.get("/listcoupon/:id",ifadmin,listCoupon );
 router.get("/listBanner",ifadmin,listBanner );
 router.get("/deletecoupon/:id",deletecoupon)
+router.post("/editcoupon",editcoupon)
 router.get('/salesReportData',salesReportData)
 router.get("/deletebanner",deleteBanner)
 

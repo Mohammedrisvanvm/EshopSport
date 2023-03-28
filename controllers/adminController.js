@@ -7,6 +7,7 @@ import { users } from "../models/userSchema.js";
 
 import { bannerModel } from "../models/bannerSchema.js";
 import { orderModel } from "../models/orderSchema.js";
+import { name } from "ejs";
 
 let emailerr = null;
 let producterr = null;
@@ -606,11 +607,33 @@ export async function changestatus(req, res) {
   }
 }
 export async function deletecoupon(req, res) {
-  console.log(req.params.id);
+ 
   await coupon
     .findByIdAndDelete({ _id: req.params.id })
     .then((result) => console.log(result));
   res.json({ success: true });
+}
+export async function editcoupon(req, res) {
+ 
+  try {
+    const { name, couponCode, minamount, discount, maxdiscount, expiry } =
+    req.body;
+  await coupon.findByIdAndUpdate({_id:req.query.id}, {
+    $set: {
+      name: name,
+      couponCode: couponCode,
+      minamount: minamount,
+      discount: discount,
+      maxdiscount:maxdiscount,
+      expiry:expiry
+    },
+  }).then((result)=>console.log(result));
+
+  res.redirect("back");
+  } catch (error) {
+    console.log(error);
+  }
+
 }
 export async function salesReportData(req, res) {
   console.log(req.query);
