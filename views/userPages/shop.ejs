@@ -204,6 +204,8 @@
                     </label>
                   </li>
                   <li><hr class="dropdown-divider" /></li>
+                  <li> <a href='/shop' class="btn">clear filter</a>
+                  </li>
                 </ul>
               </form>
               
@@ -281,13 +283,14 @@
             </div>
           </div>
         </div>
-        <div class="flex-c-m flex-w w-full p-t-38 text-cent">
+        <div class="flex-c-m flex-w w-full p-t-38 text-center">
           <% pagination.forEach(function(page, index) { %>
+            <a href='/shop?sort=<%-sort %>&filter=<%-filter%>&search=<%-search %>&page=<%-index+1 %>'>
           <span
             onclick="filterPage('page', '<%= index + 1 %>')"
-            class="flex-c-m how-pagination1 trans-04 m-all-7"
+            class="flex-c-m how-pagination1 trans-04 m-all-7 "
             ><%= index + 1 %></span
-          >
+          ></a>
           <% }); %>
         </div>
       </section>

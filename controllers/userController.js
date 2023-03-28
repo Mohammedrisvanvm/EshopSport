@@ -66,7 +66,7 @@ console.log(req.query);
   try {
     let productinfo;
     let pipeline = [];
-let sort=req.query.sort??1
+let sort=req.query.sort??0
     if (req.query.sort) {
       pipeline.push({ $sort: { price: parseInt(req.query.sort) } });
     }
@@ -82,8 +82,10 @@ let sort=req.query.sort??1
   
     } else {
       pipeline.push({ $match: { list: true } });
+      console.log(pipeline);
       productinfo = await products.aggregate(pipeline);
     }
+    console.log(pipeline);
 
     // pagination
     const page = req.query.page ? parseInt(req.query.page) : 1;
@@ -106,7 +108,7 @@ let sort=req.query.sort??1
     pipeline.push({ $skip: skip }, { $limit: limit });
     productinfo = await products.aggregate(pipeline);
 
-console.log();
+
     res.render("shop", { productinfo, ifuser, pagination,sort,filter,search });
   } catch (error) {
     console.log(error);
@@ -114,79 +116,6 @@ console.log();
   }
 }
 
-// export async function shop(req, res) {
- 
-//     try {
-//       // Filtering
-//       const queryObj = { ...req.query };
-//       console.log(req.query);
-//       const excludeFields = ["page", "sort", "", "fields", "search"];
-//       excludeFields.forEach((el) => delete queryObj[el]);
-
-//       let queryStr = JSON.stringify(queryObj);
-
-//       queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
-
-//       let query = products.find({ ...JSON.parse(queryStr), unlist: false }).lean();
-//       // Searching
-//       if (req.query.search) {
-
-//         const searchRegex = new RegExp(req.query.search, "i");
-//         query = query.find({ $or: [{ name: searchRegex }, { description: searchRegex }] });
-//       }
-
-//       // Sorting
-//       if (req.query.sort) {
-//         const sortBy = req.query.sort.split(",").join(" ");
-//         query = query.sort(sortBy);
-//       } else {
-//         query = query.sort("-createdAt");
-//       }
-
-//       // limiting the fields
-//       if (filter) {
-//         //       pipeline.push({ $match: { category: filter } });
-//         //    }
-//       } else {
-//         query = query.select("-__v");
-//       }
-
-//       // pagination
-//       const page = req.query.page;
-//       const limit = 4;
-//       const skip = (page - 1) * limit;
-//       query = query.skip(skip).limit(limit);
-
-//       const productCount = await products.countDocuments({ list: true });
-//       const totalPage = Math.ceil(productCount / limit);
-//       let pagination = [];
-
-//       for (let i = 1; i <= totalPage; i++) {
-//         pagination.push(i);
-//       }
-
-//       if (req.query.page) {
-//         if (skip >= productCount) throw new Error("This Page does not exists");
-//       }
-//       let productinfo=""
-// if(query){
-//   console.log("1222222");
-//    productinfo= await query.lean();
-// }else{
-//   console.log("000000000000000");
-//   productinfo= await products.find().lean();
-// }
-
-//      let category1 = await categories.find({ list: true }).lean();
-//      console.log(productinfo)
-
-//       res.render("shop", { productinfo, category1, pagination ,ifuser});
-//     } catch (error) {
-//       res.status(404);
-//       throw new Error(error);
-//     }
-  
-// }
 
 export async function jersey(req, res) {
   try {
