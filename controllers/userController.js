@@ -1028,15 +1028,19 @@ export async function wallet(req, res) {
         let wallet = 0;
         if (user.wallet >= req.query.price) {
           wallet = user.wallet - req.query.price;
+          req.session.wallet=req.query.price - user.wallet
           console.log(wallet);
           let tp = 0;
 
           res.json({ success: true, wallet: wallet, tp });
         } else {
           let tp = 0;
+          req.session.wallet=user.wallet
           tp = req.query.price - user.wallet;
           res.json({ success: true, wallet: wallet, tp: tp });
         }
+        
+        console.log(req.session.wallet);
       } else {
         res.json({ success: false });
       }
