@@ -262,9 +262,12 @@
             <h5 class="mt-5">Your Address</h5>
             <% userinfo.address.forEach((i) => { %>
             <div class="d-flex radio border" id="deletefromaddress<%= i._id %>">
-              <%= i.address %><br />
-              <%= i.country %><br />
+              <%= i.HouseName %><br />
+              <%= i.phonenumber %> <br>
+              <%= i.Place %> <br>
+              <%= i.District %><br />
               <%= i.state %><br />
+              <%= i.pincode %>
               <div class="form-check">
                 <input
                   class="form-check-input"
@@ -591,10 +594,14 @@
       }
 
       function deletefromaddress(data) {
-        axios.get("/deletefromaddress/" + data);
+        axios.get(`/deletefromaddress?id=${data}`).then((result)=>{
         console.log(data);
+        if (result.data.success) {
         document.getElementById("deletefromaddress" + data).innerHTML = "";
       }
+        
+      })
+    }
     </script>
       <script>
         const form = document.querySelector("#addAddress");
