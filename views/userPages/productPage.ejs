@@ -209,12 +209,17 @@
                 </span>
                 <span>Rs.<%-productinfo.price %></span>
               </h3>
+            
               <div class="ratings d-flex flex-row align-items-center">
                 <div class="d-flex flex-row">
                   <i class="bx bxs-star"></i> <i class="bx bxs-star"></i>
                   <i class="bx bxs-star"></i> <i class="bx bxs-star"></i>
                   <i class="bx bx-star"></i>
                 </div>
+                <% if (productinfo.quantity==0) { %>
+                  <h2 class="text-danger m-5">Out Of Stock</h2>
+                 <% } else { %>
+                 
                 <div class="mt-2 pr-3 content">
                   <% if (productinfo.quantity<5) { %>
                     <span class="text-danger">only <%-productinfo.quantity%> is left</span>
@@ -248,6 +253,7 @@
                 <div class="inputs"><input type="text" name="" /></div>
                 <i class="bx bx-share-alt share"></i>
               </div> -->
+              <% } %>
             </div>
           </div>
         </div>
