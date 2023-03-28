@@ -11,6 +11,7 @@ import { ifuser } from "../middleware/middleware.js";
 import { bannerModel } from "../models/bannerSchema.js";
 import { createId } from "../helpers/createId.js";
 import Razorpay from "razorpay";
+import { categories } from "../models/categorySchema.js";
 
 let passworderr = null;
 let emailerr = null;
@@ -58,25 +59,27 @@ export async function guestpage(req, res) {
   } catch (error) {
     console.log(error);
   }
-}
+ }
 export async function shop(req, res) {
-  const { sort, filter } = req.query;
-
+ 
+console.log(req.query);
   try {
     let productinfo;
     let pipeline = [];
-
-    if (sort) {
-      pipeline.push({ $sort: { price: parseInt(sort) } });
+let sort=req.query.sort??1
+    if (req.query.sort) {
+      pipeline.push({ $sort: { price: parseInt(req.query.sort) } });
     }
-
-    if (filter) {
-      pipeline.push({ $match: { category: filter } });
+    let filter=req.query.filter??""
+    if (req.query.filter) {
+      pipeline.push({ $match: { category:req.query.filter } });
     }
-
-    if (req.session.searchdata) {
-      productinfo = req.session.searchdata;
-      req.session.searchdata = null;
+    let search=req.query.search??""
+    if (req.query.search) {
+      pipeline.push({ $match: { productName: RegExp(req.query.search, "i") } });
+      
+      
+  
     } else {
       pipeline.push({ $match: { list: true } });
       productinfo = await products.aggregate(pipeline);
@@ -98,84 +101,92 @@ export async function shop(req, res) {
       pagination.push(i);
     }
 
-    if (page > totalPage || page < 1) {
-      throw new Error("This Page does not exists");
-    }
+   
 
     pipeline.push({ $skip: skip }, { $limit: limit });
     productinfo = await products.aggregate(pipeline);
 
-    res.render("shop", { productinfo, ifuser, pagination });
+console.log();
+    res.render("shop", { productinfo, ifuser, pagination,sort,filter,search });
   } catch (error) {
     console.log(error);
     res.status(500).send("Error fetching product data.");
   }
 }
 
-export async function pp(req, res) {
-  const shopPage = asyncHandler(async (req, res) => {
-    try {
-      // // Filtering
-      // const queryObj = { ...req.query };
-      // const excludeFields = ["page", "sort", "limit", "fields", "search"];
-      // excludeFields.forEach((el) => delete queryObj[el]);
+// export async function shop(req, res) {
+ 
+//     try {
+//       // Filtering
+//       const queryObj = { ...req.query };
+//       console.log(req.query);
+//       const excludeFields = ["page", "sort", "", "fields", "search"];
+//       excludeFields.forEach((el) => delete queryObj[el]);
 
-      // let queryStr = JSON.stringify(queryObj);
+//       let queryStr = JSON.stringify(queryObj);
 
-      // queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
+//       queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
 
-      // let query = Product.find({ ...JSON.parse(queryStr), unlist: false }).lean();
-      // // Searching
-      // if (req.query.search) {
+//       let query = products.find({ ...JSON.parse(queryStr), unlist: false }).lean();
+//       // Searching
+//       if (req.query.search) {
 
-      //   const searchRegex = new RegExp(req.query.search, "i");
-      //   query = query.find({ $or: [{ name: searchRegex }, { description: searchRegex }] });
-      // }
+//         const searchRegex = new RegExp(req.query.search, "i");
+//         query = query.find({ $or: [{ name: searchRegex }, { description: searchRegex }] });
+//       }
 
-      // // Sorting
-      // if (req.query.sort) {
-      //   const sortBy = req.query.sort.split(",").join(" ");
-      //   query = query.sort(sortBy);
-      // } else {
-      //   query = query.sort("-createdAt");
-      // }
+//       // Sorting
+//       if (req.query.sort) {
+//         const sortBy = req.query.sort.split(",").join(" ");
+//         query = query.sort(sortBy);
+//       } else {
+//         query = query.sort("-createdAt");
+//       }
 
-      // // limiting the fields
-      // if (req.query.fields) {
-      //   const fields = req.query.fields.split(",").join(" ");
-      //   query = query.select(fields);
-      // } else {
-      //   query = query.select("-__v");
-      // }
+//       // limiting the fields
+//       if (filter) {
+//         //       pipeline.push({ $match: { category: filter } });
+//         //    }
+//       } else {
+//         query = query.select("-__v");
+//       }
 
-      // pagination
-      const page = req.query.page;
-      const limit = 4;
-      const skip = (page - 1) * limit;
-      query = query.skip(skip).limit(limit);
+//       // pagination
+//       const page = req.query.page;
+//       const limit = 4;
+//       const skip = (page - 1) * limit;
+//       query = query.skip(skip).limit(limit);
 
-      const productCount = await products.countDocuments({ list: true });
-      const totalPage = Math.ceil(productCount / limit);
-      let pagination = [];
+//       const productCount = await products.countDocuments({ list: true });
+//       const totalPage = Math.ceil(productCount / limit);
+//       let pagination = [];
 
-      for (let i = 1; i <= totalPage; i++) {
-        pagination.push(i);
-      }
+//       for (let i = 1; i <= totalPage; i++) {
+//         pagination.push(i);
+//       }
 
-      if (req.query.page) {
-        if (skip >= productCount) throw new Error("This Page does not exists");
-      }
+//       if (req.query.page) {
+//         if (skip >= productCount) throw new Error("This Page does not exists");
+//       }
+//       let productinfo=""
+// if(query){
+//   console.log("1222222");
+//    productinfo= await query.lean();
+// }else{
+//   console.log("000000000000000");
+//   productinfo= await products.find().lean();
+// }
 
-      const products = await query.lean();
-      const category = await category.find({ list: true }).lean();
+//      let category1 = await categories.find({ list: true }).lean();
+//      console.log(productinfo)
 
-      res.render("shopPage", { products, category, pagination });
-    } catch (error) {
-      res.status(404);
-      throw new Error("not found");
-    }
-  });
-}
+//       res.render("shop", { productinfo, category1, pagination ,ifuser});
+//     } catch (error) {
+//       res.status(404);
+//       throw new Error(error);
+//     }
+  
+// }
 
 export async function jersey(req, res) {
   try {
