@@ -146,24 +146,48 @@
         <div class="row g-0">
           <div class="col-md-6 border-end">
             <div class="d-flex flex-column justify-content-center">
-              <div class="show" href="/image/productImage/<%-productinfo.mainImage[0].filename %>" style="z-index: 999;">
-                <img src="/image/productImage/<%-productinfo.mainImage[0].filename %>" id="show-img">
+              <div
+                class="show"
+                href="/image/productImage/<%-productinfo.mainImage[0].filename %>"
+                style="z-index: 999"
+              >
+                <img
+                  src="/image/productImage/<%-productinfo.mainImage[0].filename %>"
+                  id="show-img"
+                />
               </div>
               <div class="small-img">
-                <img src="images/next-icon.png" class="icon-left" alt="" id="prev-img">
-                 <div class="small-container">
+                <img
+                  src="images/next-icon.png"
+                  class="icon-left"
+                  alt=""
+                  id="prev-img"
+                />
+                <div class="small-container">
                   <div id="small-img-roll">
-                    <img src="/image/productImage/<%-productinfo.mainImage[0].filename %>" class="show-small-img" alt="">
-<%productinfo.subImages.forEach((i) => { %>
- 
+                    <img
+                      src="/image/productImage/<%-productinfo.mainImage[0].filename %>"
+                      class="show-small-img"
+                      alt=""
+                    />
+                    <%productinfo.subImages.forEach((i) => { %>
 
-                    <img src="/image/productImage/<%-i.filename %>" class="show-small-img" alt="">
-                    
+                    <img
+                      src="/image/productImage/<%-i.filename %>"
+                      class="show-small-img"
+                      alt=""
+                    />
+
                     <% }) %>
                   </div>
-                 </div>
-                <img src="images/next-icon.png" class="icon-right" alt="" id="next-img">
-               </div>
+                </div>
+                <img
+                  src="images/next-icon.png"
+                  class="icon-right"
+                  alt=""
+                  id="next-img"
+                />
+              </div>
             </div>
           </div>
           <div class="col-md-6">
@@ -318,9 +342,11 @@
         <a class="text-white" href="https://mdbootstrap.com/">eshopsport.com</a>
       </div>
     </footer>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-    integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT"
-    crossorigin="anonymous"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT"
+      crossorigin="anonymous"
+    ></script>
     <script src="/js/zoomimage.js"></script>
     <script src="/js/zoommain.js"></script>
     <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
