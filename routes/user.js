@@ -8,7 +8,7 @@ import {
   deletefromaddress,
   deletefromcart,
   deletefromwishlist,
-  editaddress,
+  editAddress,
   editProfile,
   forgottenPassword,
   getcheckout,
@@ -88,7 +88,7 @@ router.get("/address", ifuser, addresspage);
 router.post("/address", postaddresspage);
 router.post("/addressprofile", postaddressprofile);
 router.get("/orderconfirmationpage", orderconfirmationpage);
-router.get("/editprofile/:data", ifuser, editaddress);
+router.post("/editAddress", ifuser, editAddress);
 router.get("/trash", ifuser, payment);
 router.get("/orders", orderDetails);
 router.get("/order/orderdetails", ifuser, uniqueorder);

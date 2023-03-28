@@ -344,7 +344,7 @@
                         <div class="">
                           <button
                             class="btn"
-                            onclick="editAddress('<%= i._id %>','<%= i.name %>','<%= i.mobile %>','<%= i.address %>','<%= i.city %>','<%= i.state %>','<%= i.pinCode %>')"
+                            onclick="editAddress('<%= i._id %>','<%= i.HouseName %>','<%= i.District%>','<%= i.phonenumber %>','<%= i.Place %>','<%= i.state %>','<%= i.pincode %>')"
                           >
                             <i class="fa-solid fa-pen-to-square"></i>
                           </button>
@@ -575,6 +575,72 @@
           }
         
         })
+      }
+      function editAddress(id,HouseName,District,phonenumber,place,state,pincode) {
+        console.log(id,HouseName,District,phonenumber,place,state,pincode);
+        document.getElementById("OG").innerHTML = `
+        <div class="col-lg-8">
+					<div class="card">
+            <form action="/editAddress?id=${id}" method="post">
+						<div class="card-body">
+							<div class="row mb-3">
+								<div class="col-sm-3">
+									<h6 class="mb-0">House name</h6>
+								</div>
+								<div class="col-sm-9 text-secondary">
+									<input type="text" name="HouseName" class="form-control" value='${HouseName}''>
+								</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-sm-3">
+									<h6 class="mb-0">Email</h6>
+								</div>
+								<div class="col-sm-9 text-secondary">
+									<input type="text" name="phonenumber" min=10 class="form-control" value="${phonenumber}">
+								</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-sm-3">
+									<h6 class="mb-0">Place</h6>
+								</div>
+								<div class="col-sm-9 text-secondary">
+									<input type="text"name="place" class="form-control" value="${place}">
+								</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-sm-3">
+									<h6 class="mb-0">District</h6>
+								</div>
+								<div class="col-sm-9 text-secondary">
+									<input type="text" name="District" class="form-control" value="${District}">
+								</div>
+							</div>
+              <div class="row mb-3">
+								<div class="col-sm-3">
+									<h6 class="mb-0">State</h6>
+								</div>
+								<div class="col-sm-9 text-secondary">
+									<input type="text" name="state" class="form-control" value="${state}">
+								</div>
+							</div>
+              <div class="row mb-3">
+								<div class="col-sm-3">
+									<h6 class="mb-0">pincode</h6>
+								</div>
+								<div class="col-sm-9 text-secondary">
+									<input type="text" name="pincode" class="form-control" value="${pincode}">
+								</div>
+							</div>
+						
+							<div class="row">
+								<div class="col-sm-3"></div>
+								<div class="col-sm-9 text-secondary">
+									<input type="submit" class="btn btn-primary px-4" value="Save Changes">
+								</div>
+							</div>
+						</div>
+          </form>
+					</div>`;
       }
       function editProfile() {
         document.getElementById("OG").innerHTML = `

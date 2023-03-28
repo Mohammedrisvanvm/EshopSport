@@ -795,7 +795,7 @@ export async function postaddresspage(req, res) {
     } = req.body;
 
     const user = await users.findOne({ _id: req.session.user._id });
-    console.log(user);
+
 
     if (
       HouseName == "" ||
@@ -839,19 +839,31 @@ export async function postaddresspage(req, res) {
     console.log(error);
   }
 }
-export async function editaddress(req, res) {
+export async function editAddress(req, res) {
   try {
-    const useraddress = await users
-      .findOne({ _id: req.session.user._id })
-      .select("address")
-      .elemMatch("address", { _id: req.params.data })
-      .exec();
-
-    res.render("editprofile", { i: useraddress, ifuser });
+    console.log(req.body);
+    const { HouseName, phonenumber, place, District, state, pincode } = req.body;
+    await users.updateOne(
+      { _id: req.session.user._id, address: { $elemMatch: { _id:req.query.id } } },
+      {
+        $set: {
+          "address.$.HouseName": HouseName,
+          "address.$.phonenumber": phonenumber,
+          "address.$.Place": place,
+          "address.$.District": District,
+          "address.$.state": state,
+          "address.$.pincode": pincode,
+        },
+      }
+    );
+    
+    res.redirect("back")
   } catch (error) {
     console.log(error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 }
+
 export function payment(req, res) {
   res.render("address");
 }
