@@ -625,9 +625,14 @@ export async function editcoupon(req, res) {
       minamount: minamount,
       discount: discount,
       maxdiscount:maxdiscount,
-      expiry:expiry
+      
     },
-  }).then((result)=>console.log(result));
+  })
+  if (expiry) {
+    await coupon.updateOne({_id:req.query.id}, {$set: {
+      expiry: expiry}})
+    
+  }
 
   res.redirect("back");
   } catch (error) {
