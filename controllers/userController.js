@@ -327,7 +327,7 @@ export async function postforget3(req, res) {
 export async function productPage(req, res) {
   try {
     const productinfo = await products.findById(req.params.id).lean();
-
+console.log(productinfo);
     res.render("productPage", { productinfo, ifuser });
   } catch (error) {
     console.log(error);
@@ -827,14 +827,8 @@ export async function orderDetails(req, res) {
 
 export async function newp(req, res) {
   try {
-    let productinfo = await products.find({ list: true });
-    if (req.session.searchdata) {
-      productinfo = req.session.searchdata;
-      res.render("new", { productinfo, ifuser });
-      req.session.searchdata = null;
-    } else {
-      res.render("new", { ifuser, productinfo });
-    }
+      res.render("new", { ifuser });
+   
   } catch (error) {
     res.send(error);
   }

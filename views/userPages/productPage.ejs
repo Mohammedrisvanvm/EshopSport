@@ -30,13 +30,14 @@
       href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css"
       rel="stylesheet"
     />
+    <link rel="stylesheet" type="text/css" href="/css/zoomstyle.css" />
   </head>
   <body>
     <header>
       <div class="container-fluid">
         <!-- Navbar -->
         <nav
-          class="navbar  navbar-expand-lg navbar-dark mt-1 mb-5 shadow p-2"
+          class="navbar navbar-expand-lg navbar-dark mt-1 mb-5 shadow p-2"
           style="background-color: #607d8b"
         >
           <!-- Container wrapper -->
@@ -145,33 +146,24 @@
         <div class="row g-0">
           <div class="col-md-6 border-end">
             <div class="d-flex flex-column justify-content-center">
-              <div class="main_image">
-                <img
-                  src="/image/productImage/<%-productinfo.mainImage[0].filename %>"
-                  id="main_product_image"
-                  width="350"
-                />
+              <div class="show" href="/image/productImage/<%-productinfo.mainImage[0].filename %>" style="z-index: 999;">
+                <img src="/image/productImage/<%-productinfo.mainImage[0].filename %>" id="show-img">
               </div>
-              <div class="thumbnail_images">
-                <ul>
-                  <li>
-                    <img
-                      onclick="changeImage(this)"
-                      src="/image/productImage/<%-productinfo.mainImage[0].filename %>"
-                      width="70"
-                    />
-                  </li>
-                  <% productinfo.subImages.forEach(i => { %>
-                  <li>
-                    <img
-                      onclick="changeImage(this)"
-                      src="/image/productImage/<%-i.filename %>"
-                      width="70"
-                    />
-                  </li>
-                  <% }) %>
-                </ul>
-              </div>
+              <div class="small-img">
+                <img src="images/next-icon.png" class="icon-left" alt="" id="prev-img">
+                 <div class="small-container">
+                  <div id="small-img-roll">
+                    <img src="/image/productImage/<%-productinfo.mainImage[0].filename %>" class="show-small-img" alt="">
+<%productinfo.subImages.forEach((i) => { %>
+ 
+
+                    <img src="/image/productImage/<%-i.filename %>" class="show-small-img" alt="">
+                    
+                    <% }) %>
+                  </div>
+                 </div>
+                <img src="images/next-icon.png" class="icon-right" alt="" id="next-img">
+               </div>
             </div>
           </div>
           <div class="col-md-6">
@@ -202,14 +194,14 @@
               <div class="mt-2 pr-3 content">
                 <p><%-productinfo.description %></p>
               </div>
-             
+
               <h3>
                 <span class="me-1">
                   <del class="text-danger">Rs.<%-productinfo.MRP %></del>
                 </span>
                 <span>Rs.<%-productinfo.price %></span>
               </h3>
-            
+
               <div class="ratings d-flex flex-row align-items-center">
                 <div class="d-flex flex-row">
                   <i class="bx bxs-star"></i> <i class="bx bxs-star"></i>
@@ -217,12 +209,14 @@
                   <i class="bx bx-star"></i>
                 </div>
                 <% if (productinfo.quantity==0) { %>
-                  <h2 class="text-danger m-5">Out Of Stock</h2>
-                 <% } else { %>
-                 
+                <h2 class="text-danger m-5">Out Of Stock</h2>
+                <% } else { %>
+
                 <div class="mt-2 pr-3 content">
                   <% if (productinfo.quantity<5) { %>
-                    <span class="text-danger">only <%-productinfo.quantity%> is left</span>
+                  <span class="text-danger"
+                    >only <%-productinfo.quantity%> is left</span
+                  >
                   <% } %>
                 </div>
                 <!-- <span>441 reviews</span> -->
@@ -261,71 +255,74 @@
     </div>
 
     <footer
-    class="text-center text-white mt-4"
-    style="background-color: #607d8b"
-  >
-    <hr class="text-dark" />
-
-    <div class="container" style="height: 50px">
-      <!-- Section: Social media -->
-      <section class="mb-3">
-        <!-- Facebook -->
-        <a
-          class="btn-link btn-floating btn-lg text-white"
-          href="#!"
-          role="button"
-          data-mdb-ripple-color="dark"
-          ><i class="fab fa-facebook-f"></i
-        ></a>
-
-        <!-- Twitter -->
-        <a
-          class="btn-link btn-floating btn-lg text-white"
-          href="#!"
-          role="button"
-          data-mdb-ripple-color="dark"
-          ><i class="fab fa-twitter"></i
-        ></a>
-
-        <!-- Google -->
-        <a
-          class="btn-link btn-floating btn-lg text-white"
-          href="#!"
-          role="button"
-          data-mdb-ripple-color="dark"
-          ><i class="fab fa-google"></i
-        ></a>
-
-        <!-- Instagram -->
-        <a
-          class="btn-link btn-floating btn-lg text-white"
-          href="#!"
-          role="button"
-          data-mdb-ripple-color="dark"
-          ><i class="fab fa-instagram"></i
-        ></a>
-
-        <!-- YouTube -->
-        <a
-          class="btn-link btn-floating btn-lg text-white"
-          href="#!"
-          role="button"
-          data-mdb-ripple-color="dark"
-          ><i class="fab fa-youtube"></i
-        ></a>
-      </section>
-   
-    </div>
-
-    <div
-      class="text-center p-3"
-      style="background-color: rgba(0, 0, 0, 0.2); color: #e0e0e0"
+      class="text-center text-white mt-4"
+      style="background-color: #607d8b"
     >
-      © 2022 Copyright:
-      <a class="text-white" href="https://mdbootstrap.com/">eshopsport.com</a>
-    </div>
+      <hr class="text-dark" />
 
-  </footer>
+      <div class="container" style="height: 50px">
+        <!-- Section: Social media -->
+        <section class="mb-3">
+          <!-- Facebook -->
+          <a
+            class="btn-link btn-floating btn-lg text-white"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-facebook-f"></i
+          ></a>
+
+          <!-- Twitter -->
+          <a
+            class="btn-link btn-floating btn-lg text-white"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-twitter"></i
+          ></a>
+
+          <!-- Google -->
+          <a
+            class="btn-link btn-floating btn-lg text-white"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-google"></i
+          ></a>
+
+          <!-- Instagram -->
+          <a
+            class="btn-link btn-floating btn-lg text-white"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-instagram"></i
+          ></a>
+
+          <!-- YouTube -->
+          <a
+            class="btn-link btn-floating btn-lg text-white"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-youtube"></i
+          ></a>
+        </section>
+      </div>
+
+      <div
+        class="text-center p-3"
+        style="background-color: rgba(0, 0, 0, 0.2); color: #e0e0e0"
+      >
+        © 2022 Copyright:
+        <a class="text-white" href="https://mdbootstrap.com/">eshopsport.com</a>
+      </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT"
+    crossorigin="anonymous"></script>
+    <script src="/js/zoomimage.js"></script>
+    <script src="/js/zoommain.js"></script>
     <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
     <script>
       function changeImage(element) {
@@ -333,8 +330,7 @@
         main_prodcut_image.src = element.src;
       }
       function addToCart(data) {
-        axios.get("/addtocart/"+data)
-        
+        axios.get("/addtocart/" + data);
       }
 
       function addtowishlist(data) {
@@ -351,9 +347,7 @@
         console.log(data, "111111111111");
         axios.get("/deletefromwishlist/" + data).then((result) => {
           if (result.data.success) {
-            let btn = (document.getElementById(
-              "heart"
-            ).innerHTML = `<button
+            let btn = (document.getElementById("heart").innerHTML = `<button
                   style="
                     border-radius: 25px;
                     border: 0;
@@ -378,8 +372,6 @@
         offset: { vertical: 0, horizontal: 10 },
         scale: 0.5,
       };
-    
-
 
       var img = document.getElementById("image-zoom");
       new ImageZoom(img, options);
