@@ -526,18 +526,22 @@ export async function postcheckout(req, res) {
       promo = code.discount;
     }
     let wallet = 0;
-    if (req.body.wallet) {
-      const walletprice = await users.findOne(
+    if (req.session.wallet) {
+      console.log(req.session.wallet);
+      // const walletprice = await users.findOne(
+      //   { _id: req.session.user._id },
+      //   { wallet: 1, _id: 0 }
+      // );
+      await users.updateOne(
         { _id: req.session.user._id },
-        { wallet: 1, _id: 0 }
+        { $inc: { wallet: -Number(req.session.wallet) } }
       );
-
-      wallet = walletprice.wallet;
+      wallet = Number(req.session.wallet);
+      req.session.wallet=0
     }
-    await users.updateOne(
-      { _id: req.session.user._id },
-      { $inc: { wallet: -wallet } }
-    );
+   
+
+   
 
     let sum = 0;
     for (const product of productsdetails) {
@@ -1028,19 +1032,20 @@ export async function wallet(req, res) {
         let wallet = 0;
         if (user.wallet >= req.query.price) {
           wallet = user.wallet - req.query.price;
-          req.session.wallet=req.query.price - user.wallet
-          console.log(wallet);
+          req.session.wallet= req.query.price
+        
           let tp = 0;
 
           res.json({ success: true, wallet: wallet, tp });
         } else {
           let tp = 0;
-          req.session.wallet=user.wallet
           tp = req.query.price - user.wallet;
+          req.session.wallet=user.wallet
+
           res.json({ success: true, wallet: wallet, tp: tp });
         }
         
-        console.log(req.session.wallet);
+        console.log( req.session.price);
       } else {
         res.json({ success: false });
       }
