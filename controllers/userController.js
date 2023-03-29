@@ -525,19 +525,16 @@ export async function postcheckout(req, res) {
       const code = await coupon.findOne({ couponCode: req.body.promo });
       promo = code.discount;
     }
+    let paymentType=req.body.paymentType
+
     let wallet = 0;
     if (req.session.wallet) {
-      console.log(req.session.wallet);
-      // const walletprice = await users.findOne(
-      //   { _id: req.session.user._id },
-      //   { wallet: 1, _id: 0 }
-      // );
-      await users.updateOne(
-        { _id: req.session.user._id },
-        { $inc: { wallet: -Number(req.session.wallet) } }
-      );
+      
+      
+      
       wallet = Number(req.session.wallet);
-      req.session.wallet=0
+  
+       paymentType=req.body.paymentType+"& Wallet"
     }
    
 
@@ -565,6 +562,7 @@ export async function postcheckout(req, res) {
       ...product,
       total,
       payableAmount: total,
+      
     }));
 
     address = await users
@@ -591,7 +589,7 @@ export async function postcheckout(req, res) {
       coupon: product.coupon,
       wallet: product.wallet,
       amountPayable: product.payableAmount,
-      paymentType: req.body.paymentType,
+      paymentType: paymentType,
       orderId: ordercount + 1,
     }));
     req.session.order = order;
@@ -604,6 +602,12 @@ export async function postcheckout(req, res) {
           { $inc: { quantity: -product.cartQuantity } }
         );
       }
+      await users.updateOne(
+        { _id: req.session.user._id },
+        { $inc: { wallet: -Number(req.session.wallet) } }
+      );
+      req.session.wallet=0
+
       await orderModel.create(order);
       res.redirect("/orderConfirmationPage");
     } else {
@@ -660,7 +664,11 @@ export async function onlineorderconfirm(req, res) {
         { _id: orderup[0]._id },
         { $set: { paid: true, orderId: paymentDocument.id } }
       );
-      console.log(updateResult);
+     await users.updateOne(
+        { _id: req.session.user._id },
+        { $inc: { wallet: -Number(req.session.wallet) } }
+      );
+      req.session.wallet=0
 
       res.redirect("/orderconfirmationpage");
     } else {
