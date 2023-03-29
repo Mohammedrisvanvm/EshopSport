@@ -33,12 +33,12 @@ export async function getAdminPage(req, res) {
       monthlyDataArray.map((item) => {
         monthlyDataObject[item._id] = item.revenue;
       });
-      console.log(monthlyDataArray, monthlyDataObject);
+     
       let monthlyData = [];
       for (let i = 1; i <= 12; i++) {
         monthlyData[i - 1] = monthlyDataObject[i] ?? 0;
       }
-      console.log(monthlyData);
+ 
       res.render("index", { monthlyData });
     } else {
       res.render("adminLogin", { error: emailerr });
@@ -46,7 +46,7 @@ export async function getAdminPage(req, res) {
       emailerr = null;
     }
   } catch (error) {
-    console.log(error);
+    res.status(500).send("Error fetching product data.");;
   }
 }
 
@@ -73,7 +73,7 @@ export async function postAdminPage(req, res) {
       }
     }
   } catch (error) {
-    console.log(error);
+    res.status(500).send("Error fetching product data.");;
   }
 }
 
@@ -83,7 +83,7 @@ export async function getuserManagement(req, res) {
 
     res.render("userManagement", { userinfo });
   } catch (error) {
-    console.log(error);
+    res.status(500).send("Error fetching product data.");;
   }
 }
 
@@ -93,19 +93,19 @@ export async function getProductManagement(req, res) {
     res.render("ProductManagement", { producterr, productinfo });
     producterr = null;
   } catch (error) {
-    console.log(err);
+    res.status(500).send("Error fetching product data.");;
   }
 }
 export async function getaddProduct(req, res) {
   try {
     const categoryinfo = await categories.find();
-    console.log(categoryinfo);
+   
     res.render("addproduct", { producterr, imageerr, categoryinfo });
 
     producterr = null;
     imageerr = null;
   } catch (error) {
-    console.log(error);
+    res.status(500).send("Error fetching product data.");
     res.redirect("/admin/addproduct");
   }
 }
@@ -149,7 +149,7 @@ export function postaddProduct(req, res) {
       }
     } catch (err) {
       imageerr = "not a image";
-      console.log(err);
+      res.status(500).send("Error fetching product data.")
       res.redirect("/admin/addproduct");
     }
   });
@@ -159,7 +159,7 @@ export async function getgategoriesManagemenet(req, res) {
     const categoryinfo = await categories.find();
     res.render("categoriesManagement", { categoryinfo });
   } catch (error) {
-    console.log(error);
+    res.status(500).send("Error fetching product data.");;
   }
 }
 export async function getaddcategories(req, res) {
@@ -168,7 +168,7 @@ export async function getaddcategories(req, res) {
 }
 
 export async function postaddcategories(req, res) {
-  console.log(req.body);
+  
   try {
     const { Category, subCategory } = req.body;
 
@@ -201,7 +201,7 @@ export async function postaddcategories(req, res) {
     categorieserr = "already exits";
     res.redirect("/admin/addcategories");
   } catch (error) {
-    console.log(error);
+    res.status(500).send("Error fetching product data.");;
     res.redirect("/admin/addcategories");
   }
 }
@@ -212,7 +212,7 @@ export async function editcategory(req, res) {
 
     res.render("editcategory", { categoryinfo });
   } catch (error) {
-    res.send(error);
+     res.status(500).send("Error fetching product data.");
   }
 }
 export async function posteditcategory(req, res) {
@@ -233,7 +233,7 @@ export async function posteditcategory(req, res) {
       res.redirect(304, "/admin/editcategory");
     }
   } catch (error) {
-    res.send(error);
+     res.status(500).send("Error fetching product data.");
   }
 }
 
@@ -243,7 +243,7 @@ export async function getEditProduct(req, res) {
     const productinfo = await products.findById(req.params.id);
     res.render("productedit", { categoryinfo, imageerr, productinfo });
   } catch (error) {
-    console.log(error);
+    res.status(500).send("Error fetching product data.");;
     imageerr = "not a image";
   }
 }
@@ -301,7 +301,7 @@ export async function couponManagement(req, res) {
     res.render("couponManagement", { couponinfo, couponErr });
     couponErr = null;
   } catch (error) {
-    console.log(error);
+    res.status(500).send("Error fetching product data.");;
   }
 }
 export async function postCouponManagement(req, res) {
@@ -324,7 +324,7 @@ export async function postCouponManagement(req, res) {
       res.redirect("/admin/couponManagement");
     }
   } catch (error) {
-    console.log(error);
+    res.status(500).send("Error fetching product data.");;
   }
 }
 export async function banner(req, res) {
@@ -345,7 +345,7 @@ export async function postBanner(req, res) {
 
     res.redirect("/admin/banner");
   } catch (error) {
-    console.log(error);
+    res.status(500).send("Error fetching product data.");;
 
     res.redirect("/admin/banner");
   }
@@ -382,7 +382,7 @@ export async function salesReport(req, res) {
 }
 
 export function adminlogout(req, res) {
-  console.log("adminlogout");
+ 
   delete req.session.admin;
   res.redirect("/admin");
 }
@@ -409,7 +409,7 @@ export function unlistcategory(req, res) {
         res.json({ success: true });
       }
     } catch (error) {
-      console.log(error);
+      res.status(500).send("Error fetching product data.");;
       res.send("Failed to unlist category.");
     }
   });
@@ -433,7 +433,7 @@ export function unlistproduct(req, res) {
         res.json({ success: true });
       }
     } catch (error) {
-      console.log(error);
+      res.status(500).send("Error fetching product data.");;
       res.send("Failed to unlist category.");
     }
   });
@@ -464,7 +464,7 @@ export async function userban(req, res) {
       res.json({ success: false });
     }
   } catch (error) {
-    res.send(error);
+     res.status(500).send("Error fetching product data.");
   }
 }
 export async function deleteFromProductEdit(req, res) {
@@ -477,33 +477,33 @@ export async function deleteFromProductEdit(req, res) {
         },
         { $pull: { subImages: { filename: req.query.data } } }
       )
-      .then((result) => {
-        console.log(result);
-      });
+     
     res.json({ success: true });
-  } catch (error) {}
+  } catch (error) {
+    res.status(500).send("Error fetching product data.");;
+  }
 }
 export async function deleteBanner(req, res) {
-  console.log(req.query);
+
   const { pId, data } = req.query;
   try {
     const productinfo = await bannerModel
       .deleteOne({
         _id: pId,
       })
-      .then((result) => {
-        console.log(result);
-      });
+     
     res.json({ success: true });
-  } catch (error) {}
+  } catch (error) {
+    res.status(500).send("Error fetching product data.");;
+  }
 }
 export async function listBanner(req, res) {
-  console.log(req.query);
+  
   try {
     const bannerinfo = await bannerModel.findById({
       _id: req.query.id,
     });
-    console.log(bannerinfo);
+   
 
     if (bannerinfo.list == false) {
       await bannerModel.updateOne(
@@ -525,7 +525,7 @@ export async function listBanner(req, res) {
       res.json({ success: false });
     }
   } catch (error) {
-    res.send(error);
+     res.status(500).send("Error fetching product data.");
   }
 }
 export async function listCoupon(req, res) {
@@ -554,7 +554,7 @@ export async function listCoupon(req, res) {
       res.json({ success: false });
     }
   } catch (error) {
-    res.send(error);
+     res.status(500).send("Error fetching product data.");
   }
 }
 
@@ -599,18 +599,16 @@ export async function changestatus(req, res) {
       );
 
       res.json({ status: "delivered" });
-    } else {
-      console.log("not matched");
-    }
+    } 
   } catch (error) {
-    res.send(error);
+     res.status(500).send("Error fetching product data.");
   }
 }
 export async function deletecoupon(req, res) {
  
   await coupon
     .findByIdAndDelete({ _id: req.params.id })
-    .then((result) => console.log(result));
+    
   res.json({ success: true });
 }
 export async function editcoupon(req, res) {
@@ -636,12 +634,12 @@ export async function editcoupon(req, res) {
 
   res.redirect("back");
   } catch (error) {
-    console.log(error);
+    res.status(500).send("Error fetching product data.");;
   }
 
 }
 export async function salesReportData(req, res) {
-  console.log(req.query);
+try {
   const { startDate, endDate } = req.query;
 
   let datedata = await orderModel
@@ -649,4 +647,8 @@ export async function salesReportData(req, res) {
     .lean();
 
   res.json({ success: true, orderinfo: datedata });
+
+} catch (error) {
+  res.status(500).send("Error fetching product data.");
+}
 }
