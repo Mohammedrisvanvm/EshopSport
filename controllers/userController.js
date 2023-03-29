@@ -444,7 +444,7 @@ export function contactus(req, res) {
 }
 
 export async function getcheckout(req, res) {
-  console.log("wqe");
+
   try {
     const cartQuantity = {};
     const userinfo = await users.findOne({ _id: req.session.user._id });
@@ -477,16 +477,11 @@ export async function getcheckout(req, res) {
       return count;
     });
 
-    //address
+  
 
-    const coupon1 = await coupon.findOne({ list: false });
-
-    if (coupon1) {
-      await coupon.findByIdAndUpdate(coupon1._id, { $set: { list: true } });
-    }
-
-    let coupons = await coupon.find({ list: "true" });
-
+    
+    let coupons = await coupon.find({ list: "true",expiry:{$gt: new Date().getTime()} });
+console.log(coupons);
     res.render("checkout", {
       productsdetails,
       ifuser,
@@ -999,27 +994,26 @@ export async function promoCode(req, res) {
         couponCode: req.query.data,
         list: true,
       });
-      console.log(code);
+   
       let todayDate = new Date();
       let expiryDate = new Date(code.expiry);
 
       if (code) {
         if (expiryDate.getTime() < todayDate.getTime()) {
-          console.log("Expiry date has passed.");
+       
           res.json({ success: true, exp: false });
         } else {
           if (code.minamount <= req.query.price) {
-            console.log("233");
+         
 
             res.json({ success: true, code: code.discount, exp: true });
           } else {
-            console.log(1111);
-
+        
             res.json({ success: false });
           }
         }
       } else {
-        console.log("0000000");
+       
         res.json({ success: false });
       }
     }
