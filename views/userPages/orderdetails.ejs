@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>order confirmation</title>
+    <title>order details</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -190,7 +190,7 @@
                           <span class="d-block text-muted"
                             >Shiping Address</span
                           >
-                          <span><%-orderDetails.address.address %></span>
+                          <span><%-orderDetails.address.HouseName %> <%-orderDetails.address.District %> <%-orderDetails.address.state %></span>
                         </div>
                       </td>
                     </tr>
@@ -242,14 +242,14 @@
 
                       <td width="60%">
                         <span class="font-weight-bold"
-                          ><%-orderDetails.product[0].productName %></span>
+                          >ProductName : <%-orderDetails.product[0].productName %></span>
                         <div class="product-qty">
                           <span class="d-block"
-                            >Quantity:<%-orderDetails.product[0].cartQuantity
+                            >Quantity : <%-orderDetails.product[0].cartQuantity
                             %></span>
-                          <span>Color:Dark</span>
-                          <br />
-                          <span>price:<%-orderDetails.product[0].price %></span>
+                          
+                          
+                          <span> price : <%-orderDetails.product[0].price %></span>
                         </div>
                       </td>
                       <td width="20%">
