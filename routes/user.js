@@ -41,7 +41,6 @@ import {
   shorts,
   signupresendOTP,
   socks,
-  sort,
   uniqueorder,
   userGetLogin,
   userGetSignup,
@@ -110,7 +109,7 @@ router.get("/wallet", ifuser, wallet);
 router.get("/productReturn", productReturn);
 router.get("/cancelProduct", productCancel);
 router.post("/search", search);
-router.get('/sort',sort)
+
 router.post('/verifyPayment',getUserPayment)
 
 export default router;

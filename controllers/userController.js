@@ -57,12 +57,12 @@ export async function guestpage(req, res) {
 
     res.render("guest", { jerseyinfo, shortsinfo, socksinfo, banner, ifuser });
   } catch (error) {
-    console.log(error);
+     res.status(500).send("Error fetching product data.");
   }
  }
 export async function shop(req, res) {
  
-console.log(req.query);
+
   try {
     let productinfo;
     let pipeline = [];
@@ -82,10 +82,10 @@ let sort=req.query.sort??0
   
     } else {
       pipeline.push({ $match: { list: true } });
-      console.log(pipeline);
+     
       productinfo = await products.aggregate(pipeline);
     }
-    console.log(pipeline);
+  
 
     // pagination
     const page = req.query.page ? parseInt(req.query.page) : 1;
@@ -111,7 +111,7 @@ let sort=req.query.sort??0
 
     res.render("shop", { productinfo, ifuser, pagination,sort,filter,search });
   } catch (error) {
-    console.log(error);
+   
     res.status(500).send("Error fetching product data.");
   }
 }
@@ -123,7 +123,7 @@ export async function jersey(req, res) {
 
     res.render("jersey", { productinfo, ifuser });
   } catch (error) {
-    res.send(error);
+     res.status(500).send("Error fetching product data.");;
   }
 }
 export async function shorts(req, res) {
@@ -132,7 +132,7 @@ export async function shorts(req, res) {
 
     res.render("shorts", { productinfo, ifuser });
   } catch (error) {
-    res.send(error);
+     res.status(500).send("Error fetching product data.");;
   }
 }
 export async function socks(req, res) {
@@ -141,7 +141,7 @@ export async function socks(req, res) {
 
     res.render("socks", { productinfo, ifuser });
   } catch (error) {
-    res.send(error);
+     res.status(500).send("Error fetching product data.");
   }
 }
 
@@ -153,7 +153,7 @@ export function userGetLogin(req, res) {
     } else {
       res.redirect("/");
     }
-  } catch (error) {}
+  } catch (error) { res.status(500).send("Error fetching product data.");}
 }
 
 export async function userPostLogin(req, res) {
@@ -161,7 +161,7 @@ export async function userPostLogin(req, res) {
     const { email, password } = req.body;
 
     const userinfo = await users.findOne({ email });
-    console.log(userinfo);
+  
 
     if (!userinfo) {
       emailerr = "not found email";
@@ -175,7 +175,7 @@ export async function userPostLogin(req, res) {
           req.session.user = userinfo;
 
           res.redirect("/");
-          console.log("postlogin");
+        
         } else {
           emailerr = "password error";
           res.redirect("/login");
@@ -183,7 +183,7 @@ export async function userPostLogin(req, res) {
       });
     }
   } catch (error) {
-    console.log(error);
+     res.status(500).send("Error fetching product data.");;
   }
 }
 export function userGetSignup(req, res) {
@@ -192,7 +192,7 @@ export function userGetSignup(req, res) {
   emailerr = null;
 }
 export async function userPostSignup(req, res) {
-  console.log(otp);
+
   try {
     const { password, conpassword, email } = req.body;
     if (password == conpassword) {
@@ -215,7 +215,7 @@ export async function userPostSignup(req, res) {
       res.redirect("/signup");
     }
   } catch (error) {
-    console.log(error);
+     res.status(500).send("Error fetching product data.");;
   }
 }
 export function getsignUpOtp(req, res) {
@@ -259,14 +259,14 @@ export async function postForgottenPassword(req, res) {
       res.redirect("/otp");
     } else {
       sentOTP(email, otp);
-      console.log(otp);
+    
       req.session.email = email;
       req.session.otp = otp;
       loginvalue = req.body;
       res.redirect("/otpValidate");
     }
   } catch (error) {
-    console.log(error);
+     res.status(500).send("Error fetching product data.");;
   }
 }
 export function resendOTP(req, res) {
@@ -275,7 +275,7 @@ export function resendOTP(req, res) {
     specialChars: false,
   });
 
-  console.log(req.session.email);
+
   sentOTP(req.session.email, otp);
   req.session.email = req.session.email;
   req.session.otp = otp;
@@ -283,7 +283,7 @@ export function resendOTP(req, res) {
   res.redirect("/otpValidate");
 }
 export function getOtpValidate(req, res) {
-  console.log(req.body);
+
 
   res.render("otpValidation", { otperr });
   otperr = null;
@@ -318,7 +318,7 @@ export async function postforget3(req, res) {
       res.redirect("/forget3");
     }
   } catch (error) {
-    console.log(error);
+     res.status(500).send("Error fetching product data.");;
   }
 }
 
@@ -327,10 +327,10 @@ export async function postforget3(req, res) {
 export async function productPage(req, res) {
   try {
     const productinfo = await products.findById(req.params.id).lean();
-console.log(productinfo);
+
     res.render("productPage", { productinfo, ifuser });
   } catch (error) {
-    console.log(error);
+     res.status(500).send("Error fetching product data.");;
   }
 }
 
@@ -348,7 +348,7 @@ export async function wishlist(req, res) {
 
     res.render("wishlist", { productsdetails, ifuser });
   } catch (error) {
-    console.log(error);
+     res.status(500).send("Error fetching product data.");;
   }
 }
 
@@ -398,11 +398,11 @@ export async function cart(req, res) {
           count,
         });
       } catch (error) {
-        console.log(error);
+         res.status(500).send("Error fetching product data.");;
       }
     }
   } catch (error) {
-    console.log(error);
+     res.status(500).send("Error fetching product data.");;
   }
 }
 
@@ -416,7 +416,7 @@ export async function userprofile(req, res) {
 
     res.render("profile", { userinfo, useraddress, ifuser });
   } catch (error) {
-    console.log(error);
+     res.status(500).send("Error fetching product data.");;
   }
 }
 export async function editProfile(req, res) {
@@ -431,7 +431,7 @@ export async function editProfile(req, res) {
       });
       res.redirect("/profile");
     } catch (error) {
-      console.log(error);
+   
       res.status(500).send("An error occurred while updating the user profile");
     }
   } else {
@@ -481,7 +481,7 @@ export async function getcheckout(req, res) {
 
     
     let coupons = await coupon.find({ list: "true",expiry:{$gt: new Date().getTime()} });
-console.log(coupons);
+
     res.render("checkout", {
       productsdetails,
       ifuser,
@@ -494,11 +494,11 @@ console.log(coupons);
     addressError = null;
     quantityerr = null;
   } catch (error) {
-    console.log(error);
+     res.status(500).send("Error fetching product data.");;
   }
 }
 export async function postcheckout(req, res) {
-  console.log(req.body);
+
   try {
     let { totalAmount, address } = req.body;
 
@@ -538,9 +538,9 @@ export async function postcheckout(req, res) {
     let sum = 0;
     for (const product of productsdetails) {
       if (product.quantity < cartQuantity[product._id]) {
-        console.log("1111");
+       
         res.redirect("/checkout");
-        console.log("1111");
+        quantityerr='out of stock'
         return;
       }
       product.cartQuantity = cartQuantity[product._id];
@@ -566,9 +566,9 @@ export async function postcheckout(req, res) {
         { address: { $elemMatch: { _id: address } } }
       )
       .lean();
-    console.log("2341");
+ 
     if (!address) {
-      console.log("666");
+  
       res.redirect("/checkout");
       addressError = "create address ";
     }
@@ -609,12 +609,12 @@ export async function postcheckout(req, res) {
       res.render("paymentTemp");
     }
   } catch (error) {
-    console.log(error);
+     res.status(500).send("Error fetching product data.");;
   }
 }
 
 export async function getUserPayment(req, res) {
-  console.log("2344444", req.session.order, "23444444444");
+ 
   try {
     let amount = Number(req.session.order[0].amountPayable * 100);
 
@@ -639,8 +639,7 @@ export async function onlineorderconfirm(req, res) {
     const paymentDocument = await instance.payments.fetch(
       req.body.razorpay_payment_id
     );
-    console.log(paymentDocument);
-
+  
     if (paymentDocument.status === "captured") {
       const order = req.session.order;
       const productsdetails = req.session.productsdetails;
@@ -670,7 +669,7 @@ export async function onlineorderconfirm(req, res) {
       res.redirect("/checkout");
     }
   } catch (error) {
-    console.log(error);
+     res.status(500).send("Error fetching product data.");;
   }
 }
 
@@ -678,7 +677,7 @@ export function addresspage(req, res) {
   res.render("address", { ifuser });
 }
 export async function postaddressprofile(req, res) {
-  console.log(req.body);
+
   try {
     const {
       HouseName,
@@ -726,7 +725,7 @@ export async function postaddressprofile(req, res) {
       res.redirect("/profile");
     }
   } catch (error) {
-    console.log(error);
+     res.status(500).send("Error fetching product data.");
   }
 }
 
@@ -754,7 +753,7 @@ export async function postaddresspage(req, res) {
     ) {
       res.redirect("/checkout");
     } else {
-      users
+      await users
         .updateOne(
           { _id: req.session.user._id },
           {
@@ -771,9 +770,7 @@ export async function postaddresspage(req, res) {
             },
           }
         )
-        .then((result) => {
-          console.log(result);
-        });
+        
 
       const useraddress = await users.findOne(
         { _id: req.session.user._id },
@@ -783,12 +780,12 @@ export async function postaddresspage(req, res) {
       res.redirect("/checkout");
     }
   } catch (error) {
-    console.log(error);
+     res.status(500).send("Error fetching product data.");
   }
 }
 export async function editAddress(req, res) {
   try {
-    console.log(req.body);
+    
     const { HouseName, phonenumber, place, District, state, pincode } = req.body;
     await users.updateOne(
       { _id: req.session.user._id, address: { $elemMatch: { _id:req.query.id } } },
@@ -806,7 +803,7 @@ export async function editAddress(req, res) {
     
     res.redirect("back")
   } catch (error) {
-    console.log(error);
+     res.status(500).send("Error fetching product data.");;
     res.status(500).json({ message: 'Internal server error' });
   }
 }
@@ -837,14 +834,14 @@ export async function newp(req, res) {
       res.render("new", { ifuser });
    
   } catch (error) {
-    res.send(error);
+     res.status(500).send("Error fetching product data.");;
   }
 }
 
 //orderpage
 
 export function userlogout(req, res) {
-  console.log("userlogout");
+
   delete req.session.user;
   res.redirect("/");
 }
@@ -860,19 +857,19 @@ export async function addtowishlist(req, res) {
 
     res.json({ success: true });
   } catch (error) {
-    console.log(error);
+     res.status(500).send("Error fetching product data.");;
   }
 }
 
 export async function deletefromwishlist(req, res) {
-  console.log(req.params);
+
   try {
     await users.updateOne(
       { _id: req.session.user._id },
       { $pull: { wishlist: { product_id: req.params.data } } }
     );
   } catch (error) {
-    console.log(error);
+     res.status(500).send("Error fetching product data.");
   }
 }
 export async function addtocart(req, res) {
@@ -907,7 +904,7 @@ export async function addtocart(req, res) {
         res.send("not worked");
       }
     } catch (error) {
-      console.log(error);
+       res.status(500).send("Error fetching product data.");
     }
   }
 }
@@ -924,14 +921,14 @@ export async function deletefromcart(req, res) {
       { _id: req.session.user._id },
       { cart: 1, _id: 0 }
     );
-    console.log(use);
+  
     if (use.cart.length <= 0) {
       res.json({ reload: true });
     } else {
       res.json({ reload: true });
     }
   } catch (error) {
-    console.log(error);
+     res.status(500).send("Error fetching product data.");
   }
 }
 
@@ -970,22 +967,20 @@ export async function incdec(req, res) {
   } catch (error) {}
 }
 export async function deletefromaddress(req, res) {
-  console.log(req.query);
+  
   try {
     await users.updateOne(
       { _id: req.session.user._id },
       { $pull: { address: { _id: req.query.id } } }
-    ).then((result)=>{
-
-      console.log(result)})
+    )
 
     res.json({success:true})
   } catch (error) {
-    console.log(error);
+     res.status(500).send("Error fetching product data.");;
   }
 }
 export async function promoCode(req, res) {
-  console.log(req.query);
+   res.status(500).send("Error fetching product data.");
   try {
     if (!req.query.data) {
       res.json({ success: false });
@@ -1018,7 +1013,7 @@ export async function promoCode(req, res) {
       }
     }
   } catch (error) {
-    console.log(error);
+     res.status(500).send("Error fetching product data.");;
   }
 }
 export async function wallet(req, res) {
@@ -1047,13 +1042,13 @@ export async function wallet(req, res) {
           res.json({ success: true, wallet: wallet, tp: tp });
         }
         
-        console.log( req.session.price);
+      
       } else {
         res.json({ success: false });
       }
     }
   } catch (error) {
-    console.log(error);
+     res.status(500).send("Error fetching product data.");
   }
 }
 
@@ -1083,7 +1078,7 @@ export async function productReturn(req, res) {
 
     res.json({ success: true });
   } catch (error) {
-    res.send(error);
+     res.status(500).send("Error fetching product data.");;
   }
 }
 export async function productCancel(req, res) {
@@ -1112,30 +1107,27 @@ export async function productCancel(req, res) {
 
     res.json({ success: true });
   } catch (error) {
-    res.send(error);
+     res.status(500).send("Error fetching product data.");;
   }
 }
 
 //axios function end
 export async function uniqueorder(req, res) {
   const user = await users.findOne({ _id: req.session.user });
-  console.log(user.name);
+
   const orderDetails = await orderModel.findOne({ _id: req.query.data });
-  console.log(orderDetails);
+
 
   res.render("orderdetails", { ifuser, orderDetails, user });
 }
 
 export async function search(req, res) {
-  console.log(req.body);
+
   let searchdata = await products.find({
     productName: RegExp(req.body.search, "i"),
   });
-  console.log(searchdata);
+ 
   req.session.searchdata = searchdata;
   res.redirect("/shop");
 }
 
-export async function sort(req, res) {
-  console.log(req.query);
-}
