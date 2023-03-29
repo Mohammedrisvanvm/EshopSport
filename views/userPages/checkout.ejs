@@ -310,11 +310,11 @@
                   class="form-check-input"
                   type="radio"
                   name="paymentType"
-                  id="credit"
+                  id="Online"
                   value="online payment"
                   required
                 />
-                <label class="form-check-label" for="credit">Online Payment</label>
+                <label class="form-check-label" for="Online">Online Payment</label>
               </div>
               <div class="form-check">
                 <input
@@ -597,6 +597,10 @@
                 result.data.tp;
 
               walletInput.disabled = true;
+              if (result.data.tp==0) {
+                document.getElementById('Online').disabled=true
+
+              }
             })
             .catch((error) => {
               console.log(error);
