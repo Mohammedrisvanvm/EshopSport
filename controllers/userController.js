@@ -461,6 +461,7 @@ export async function userprofile(req, res) {
   }
 }
 export async function editProfile(req, res) {
+  let ifuser=req.session.user
   const { Name, Email, Phone, Mobile } = req.body;
   if (Name && Email && Phone && Mobile) {
     try {
@@ -482,6 +483,7 @@ export async function editProfile(req, res) {
 
 
 export async function getcheckout(req, res) {
+  let ifuser=req.session.user
   try {
     const cartQuantity = {};
     const userinfo = await users.findOne({ _id: req.session.user._id });
@@ -535,6 +537,7 @@ export async function getcheckout(req, res) {
   }
 }
 export async function postcheckout(req, res) {
+  let ifuser=req.session.user
   try {
     let { totalAmount, address } = req.body;
 
@@ -641,6 +644,7 @@ export async function postcheckout(req, res) {
 }
 
 export async function getUserPayment(req, res) {
+  
   try {
     let amount = Number(req.session.order[0].amountPayable * 100);
 
@@ -1109,6 +1113,7 @@ export async function productCancel(req, res) {
 
 //axios function end
 export async function uniqueorder(req, res) {
+  let ifuser=req.session.user
   const user = await users.findOne({ _id: req.session.user });
 
   const orderDetails = await orderModel.findOne({ _id: req.query.data });

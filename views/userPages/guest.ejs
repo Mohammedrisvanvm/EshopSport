@@ -14,9 +14,7 @@
       href="https://getbootstrap.com/docs/4.0/examples/carousel/"
     />
 
-    <!-- Bootstrap core CSS -->
-    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet" />
-
+  
     <!-- Custom styles for this template -->
     <link href="/css/usercss.css" rel="stylesheet" />
     <link
@@ -50,8 +48,8 @@
       <div class="container-fluid">
         <!-- Navbar -->
         <nav
-          class="navbar fixed-top navbar-expand-lg navbar-dark mt-1 mb-5 shadow p-2"
-          style="background-color: #607d8b"
+          class="navbar fixed-top navbar-expand-lg navbar-dark mt-1 mb-5 shadow p-2" 
+          style="background-color: #607d8b "
         >
           <!-- Container wrapper -->
           <div class="container-fluid">
@@ -134,7 +132,7 @@
                     <% } else { %>
 
                     <a href="/login">
-                      <button class="btn btn-dark d-flex">
+                      <button class="btn btn-light d-flex btn-sm">
                         <h5 class="mx-2">LOGIN</h5>
                         <i class="ri-login-box-line fs-5"></i></button
                     ></a>
@@ -150,7 +148,7 @@
       </div>
     </header>
 
-    <main role="main">
+    <main role="main" class="mt-4">
       <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
           <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -160,7 +158,7 @@
         <div class="carousel-inner">
           <div class="carousel-item active">
             <img
-              class="third-slide object-fit-fill border rounded"
+              class="third-slide object-fit-fill border-0 rounded"
               src="/image/carousel image/<%-banner[0].mainImage[0].filename %>"
               style=" background-color: white;"
               alt="Third slide"
@@ -179,54 +177,10 @@
               </div>
             </div>
           </div>
-          <div class="carousel-item">
-            <img
-              class="third-slide w-50"
-              src="/image/carousel image/<%-banner[0].mainImage.filename %>"
-
-              alt="Third slide"
-            />
-            <div class="container">
-              <div class="carousel-caption">
-                <h1>Another example headline.</h1>
-                <p>
-                  Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-                  Donec id elit non mi porta gravida at eget metus. Nullam id
-                  dolor id nibh ultricies vehicula ut id elit.
-                </p>
-                <p>
-                  <a class="btn btn-lg btn-primary" href="#" role="button"
-                    >Learn more</a
-                  >
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img
-              class="third-slide"
-              src="/image/carousel image/<%-banner[0].mainImage.filename %>"
-
-              alt="Third slide"
-            />
-            <div class="container">
-              <div class="carousel-caption text-right">
-                <h1>One more for good measure.</h1>
-                <p>
-                  Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-                  Donec id elit non mi porta gravida at eget metus. Nullam id
-                  dolor id nibh ultricies vehicula ut id elit.
-                </p>
-                <p>
-                  <a class="btn btn-lg btn-primary" href="#" role="button"
-                    >Browse gallery</a
-                  >
-                </p>
-              </div>
-            </div>
-          </div>
+       
+        
         </div>
-        <a
+        <!-- <a
           class="carousel-control-prev"
           href="#myCarousel"
           role="button"
@@ -243,7 +197,7 @@
         >
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="sr-only">Next</span>
-        </a>
+        </a> -->
       </div>
 
       <section>
