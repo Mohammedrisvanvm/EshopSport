@@ -20,7 +20,7 @@
       href="https://www.wrappixel.com/templates/adminwrap-lite/"
     />
     <!-- Favicon icon -->
-  
+
     <link
       rel="icon"
       type="image/png"
@@ -56,427 +56,367 @@
       rel="stylesheet"
       integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
       crossorigin="anonymous"
-    /> <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css"
+    />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    </head>
+  </head>
   <style>
     /* Small devices (landscape phones, 576px and up) */
-@media (min-width: 576px) {
-  .page-wrapper {
-    padding: 0 15px;
-  }
-}
+    @media (min-width: 576px) {
+      .page-wrapper {
+        padding: 0 15px;
+      }
+    }
 
-/* Medium devices (tablets, 768px and up) */
-@media (min-width: 768px) {
-  .page-wrapper {
-    padding: 0 30px;
-  }
-}
+    /* Medium devices (tablets, 768px and up) */
+    @media (min-width: 768px) {
+      .page-wrapper {
+        padding: 0 30px;
+      }
+    }
 
-/* Large devices (desktops, 992px and up) */
-@media (min-width: 992px) {
-  .page-wrapper {
-    padding: 0 45px;
-  }
-}
+    /* Large devices (desktops, 992px and up) */
+    @media (min-width: 992px) {
+      .page-wrapper {
+        padding: 0 45px;
+      }
+    }
 
-/* Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
-  .page-wrapper {
-    padding: 0 60px;
-  }
-}
+    /* Extra large devices (large desktops, 1200px and up) */
+    @media (min-width: 1200px) {
+      .page-wrapper {
+        padding: 0 60px;
+      }
+    }
 
-/* Navbar */
-.navbar {
-  padding: 10px;
-  background-color: #f5f5f5;
-}
+    /* Navbar */
+    .navbar {
+      padding: 10px;
+      background-color: #f5f5f5;
+    }
 
-/* Sales Report section */
-section {
-  padding: 20px;
-}
+    /* Sales Report section */
+    section {
+      padding: 20px;
+    }
 
-/* Input group */
-.input-group {
-  margin-bottom: 20px;
-}
+    /* Input group */
+    .input-group {
+      margin-bottom: 20px;
+    }
 
-/* Table */
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
+    /* Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
 
-th, td {
-  padding: 8px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-}
+    th,
+    td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
 
-th {
-  background-color: #f2f2f2;
-  font-weight: bold;
-  text-transform: uppercase;
-}
+    th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
 
-/* Footer */
-.footer {
-  text-align: center;
-  padding: 20px;
-  background-color: #f5f5f5;
-}
-h1 {
-  font-size: 2.5rem;
-  margin-top: 2.5rem;
-  margin-bottom: 2.5rem;
-}
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-top: 2.5rem;
+      margin-bottom: 2.5rem;
+    }
 
-h4 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-}
+    h4 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
 
-h5 {
-  font-size: 1rem;
-  margin-top: 1rem;
-}
+    h5 {
+      font-size: 1rem;
+      margin-top: 1rem;
+    }
 
-.btn {
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-}
-a{
-  text-decoration: none;
-}
-
-
+    .btn {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+    }
+    a {
+      text-decoration: none;
+    }
   </style>
 
   <body class="">
-    <div id="main-wrapper">
-      <header class="topbar">
-        <nav class="navbar top-navbar navbar-expand-md navbar-light">
-          <div class="navbar-header">
-            <a class="navbar-brand">
-              <!-- Logo icon --><b>
-                <img
-                  src="/assets/images/logo-icon.png"
-                  alt="homepage"
-                  class="dark-logo"
-                />
-                <!-- Light Logo icon -->
-                <img
-                  src="/assets/images/logo-light-icon.png"
-                  alt="homepage"
-                  class="light-logo"
-                />
-              </b>
-              <span>
-                <img
-                  src="../assets/images/logo-text.png"
-                  alt="homepage"
-                  class="dark-logo" />
-                <!-- Light Logo text -->
-                <img
-                  src="../assets/images/logo-light-text.png"
-                  class="light-logo"
-                  alt="homepage"
-              /></span>
-            </a>
-          </div>
-          <div class="navbar-collapse">
-            <ul class="navbar-nav me-auto">
-              <li class="nav-item">
-                <a
-                  class="nav-link nav-toggler hidden-md-up waves-effect waves-dark"
-                  href="javascript:void(0)"
-                  ><i class="fa fa-bars"></i
-                ></a>
-              </li>
-              <li class="nav-item hidden-xs-down search-box">
-                <a
-                  class="nav-link hidden-sm-down waves-effect waves-dark"
-                  href="javascript:void(0)"
-                  ><i class="fa fa-search"></i
-                ></a>
-                <form class="app-search">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Search & enter"
-                  />
-                  <a class="srh-btn"><i class="fa fa-times"></i></a>
-                </form>
-              </li>
-            </ul>
-            <ul class="navbar-nav my-lg-0">
-              <li class="nav-item dropdown u-pro">
-                <a
-                  class="nav-link dropdown-toggle waves-effect waves-dark profile-pic"
-                  href="#"
-                  id="navbarDropdown"
-                  data-bs-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                  ><img
-                    src="../assets/images/users/1.jpg"
-                    alt="user"
-                    class=""
-                  />
-                  <span class="hidden-md-down">Mohammed Risvan &nbsp;</span>
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li>
-                    <a class="dropdown-item" href="/admin/logout"
-                      ><button class="btn btn-dark">logout</button></a
-                    >
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </div>
+    <aside class="left-sidebar">
+      <div class="scroll-sidebar">
+        <nav class="sidebar-nav">
+          <ul id="sidebarnav">
+            <li>
+              <a
+                class="waves-effect waves-dark"
+                href="/admin"
+                aria-expanded="false"
+                ><i class="fa fa-home"></i
+                ><span class="hide-menu">Dashboard</span></a
+              >
+            </li>
+            <li>
+              <a
+                class="waves-effect waves-dark"
+                href="/admin/userManagement"
+                aria-expanded="false"
+                ><i class="fa fa-users"></i
+                ><span class="hide-menu">user management</span></a
+              >
+            </li>
+            <li>
+              <a
+                class="waves-effect waves-dark"
+                href="/admin/categoriesManagement"
+                aria-expanded="false"
+                ><i class="fa fa-list"></i
+                ><span class="hide-menu">categories</span></a
+              >
+            </li>
+            <li>
+              <a
+                class="waves-effect waves-dark"
+                href="/admin/productManagement"
+                aria-expanded="false"
+                ><i class="fa fa-shopping-cart"></i
+                ><span class="hide-menu">Product</span></a
+              >
+            </li>
+            <li>
+              <a
+                class="waves-effect waves-dark"
+                href="/admin/banner"
+                aria-expanded="false"
+              >
+                <i class="fa fa-bookmark-o"></i
+                ><span class="hide-menu">banner</span></a
+              >
+            </li>
+            <li>
+              <a
+                class="waves-effect waves-dark"
+                href="/admin/couponManagement"
+                aria-expanded="false"
+                ><i class="ri-coupon-3-fill"></i
+                ><span class="hide-menu">coupon </span></a
+              >
+            </li>
+            <li>
+              <a
+                class="waves-effect waves-dark"
+                href="/admin/orderManagement"
+                aria-expanded="false"
+                ><i class="ri-list-unordered"></i
+                ><span class="hide-menu">order Management</span></a
+              >
+            </li>
+            <li>
+              <a
+                class="waves-effect waves-dark"
+                href="/admin/salesReport"
+                aria-expanded="false"
+                ><i class="ri-file-chart-line"></i
+                ><span class="hide-menu">sales report</span></a
+              >
+            </li>
+            <li>
+              <a href="/admin/logout"
+                ><button class="btn btn-light">
+                  logout<i class="ri-logout-circle-line fs-5"></i></button
+              ></a>
+            </li>
+          </ul>
         </nav>
-      </header>
+        <!-- End Sidebar navigation -->
+      </div>
+      <!-- End Sidebar scroll-->
+    </aside>
 
-      <aside class="left-sidebar">
-        <div class="scroll-sidebar">
-          <nav class="sidebar-nav ">
-            <ul id="sidebarnav">
-              <li>
-                <a
-                  class="waves-effect waves-dark"
-                  href="/admin"
-                  aria-expanded="false"
-                  ><i class="fa fa-home"></i
-                  ><span class="hide-menu">Dashboard</span></a
-                >
-              </li>
-              <li>
-                <a
-                  class="waves-effect waves-dark"
-                  href="/admin/userManagement"
-                  aria-expanded="false"
-                  ><i class="fa fa-users"></i
-                  ><span class="hide-menu">user management</span></a
-                >
-              </li>
-              <li>
-                <a
-                  class="waves-effect waves-dark"
-                  href="/admin/categoriesManagement"
-                  aria-expanded="false"
-                  ><i class="fa fa-list"></i
-                  ><span class="hide-menu">categories</span></a
-                >
-              </li>
-              <li>
-                <a
-                  class="waves-effect waves-dark"
-                  href="/admin/productManagement"
-                  aria-expanded="false"
-                  ><i class="fa fa-shopping-cart"></i
-                  ><span class="hide-menu">Product</span></a
-                >
-              </li>
-              <li>
-                <a
-                  class="waves-effect waves-dark"
-                  href="/admin/banner"
-                  aria-expanded="false"
-                >
-                  <i class="fa fa-bookmark-o"></i
-                  ><span class="hide-menu">banner</span></a
-                >
-              </li>
-              <li>
-                <a
-                  class="waves-effect waves-dark"
-                  href="/admin/couponManagement"
-                  aria-expanded="false"
-                  ><i class="ri-coupon-3-fill"></i
-                  ><span class="hide-menu">coupon </span></a
-                >
-              </li>
-              <li>
-                <a
-                  class="waves-effect waves-dark"
-                  href="/admin/orderManagement"
-                  aria-expanded="false"
-                  ><i class="ri-list-unordered"></i
-                  ><span class="hide-menu">order Management</span></a
-                >
-              </li>
-              <li>
-                <a
-                  class="waves-effect waves-dark"
-                  href="/admin/salesReport"
-                  aria-expanded="false"
-                  ><i class="ri-file-chart-line"></i
-                  ><span class="hide-menu">sales report</span></a
-                >
-              </li>
-            </ul>
-          </nav>
-          <!-- End Sidebar navigation -->
-        </div>
-        <!-- End Sidebar scroll-->
-      </aside>
+    <div class="page-wrapper">
+      <div class="container-fluid bg-white fw-bold">
+        <section>
+          <div style="margin-top: 50px" class="d-flex justify-content-center">
+            <h1 class="my-5 justify-content-center">Sales Report</h1>
+          </div>
+          <% if (!result[0]) { %> <% } else { %>
 
-      <div class="page-wrapper">
-        <div class="container-fluid bg-white fw-bold">
-          <section>
-            <div style="margin-top: 50px" class="d-flex justify-content-center">
-              <h1 class="my-5 justify-content-center">Sales Report</h1>
-            </div>
-            <% if (!result[0]) { %>
-       
-              <% } else { %>
-                 
-            <div class="container">
-              <div class="row justify-content-between">
-                <div class="col-lg-3 border" >
-                  <h4 class="d-flex justify-content-center mb-4">
-                    Sales Count
-                  </h4>
-                  <div class="mb-4">
-                 
-                
-                    <h5 class="d-flex justify-content-center mt-4"><%- result[0].count %></h5>
-                  </div>
+          <div class="container">
+            <div class="row justify-content-between">
+              <div class="col-lg-3 border">
+                <h4 class="d-flex justify-content-center mb-4">Sales Count</h4>
+                <div class="mb-4">
+                  <h5 class="d-flex justify-content-center mt-4">
+                    <%- result[0].count %>
+                  </h5>
                 </div>
-                <div class="col-lg-3 border" >
-                  <h4 class="d-flex justify-content-center mb-4">Revenue</h4>
-                  <div class="mb-4">
-                    <h5 class="d-flex justify-content-center mt-4">₹ <%- result[0].revenue %></h5>
-                  </div>
+              </div>
+              <div class="col-lg-3 border">
+                <h4 class="d-flex justify-content-center mb-4">Revenue</h4>
+                <div class="mb-4">
+                  <h5 class="d-flex justify-content-center mt-4">
+                    ₹ <%- result[0].revenue %>
+                  </h5>
                 </div>
-                <div class="col-lg-3 border">
-                  <h4 class="d-flex justify-content-center mb-4">Customers</h4>
-                  <div class="mb-4">
-                    <h5 class="d-flex justify-content-center mt-4"><%- result[0].usersCount %></h5>
-                  </div>
+              </div>
+              <div class="col-lg-3 border">
+                <h4 class="d-flex justify-content-center mb-4">Customers</h4>
+                <div class="mb-4">
+                  <h5 class="d-flex justify-content-center mt-4">
+                    <%- result[0].usersCount %>
+                  </h5>
                 </div>
               </div>
             </div>
-            <% } %>
-          </section>
-          <div class="input-group">
-            <form  method="get">
-              <label class="text-danger" id="message"></label><br>
-                From: <input class="form-control" type="date" id="start" name="start"> To: <input id="end"
-                    class="form-control" type="date" name="end">
-                <button type="button" onclick="getReport()" class="btn btn-sm btn-dark rounded mt-4 mb-2">Filter</button>
-                <div id="error"></div>
-            </form>
-
+          </div>
+          <% } %>
+        </section>
+        <div class="input-group">
+          <form method="get">
+            <label class="text-danger" id="message"></label><br />
+            From:
+            <input class="form-control" type="date" id="start" name="start" />
+            To: <input id="end" class="form-control" type="date" name="end" />
+            <button
+              type="button"
+              onclick="getReport()"
+              class="btn btn-sm btn-dark rounded mt-4 mb-2"
+            >
+              Filter
+            </button>
+            <div id="error"></div>
+          </form>
         </div>
-        <div class="d-flex justify-content-end" style="margin-right: 5rem;">
-          <button onclick=" downloadPdf()" class="btn btn-sm btn-dark rounded">Download as PDF</button>
-          <button onclick=" downloadExcel()" class="ms-3 btn btn-sm btn-dark rounded">Download as
-              Excel</button>
-      </div>
-      <h3 class="text-dark mt-4">Orders</h3>
-      <div class="card mt-3" style="margin-right: 2rem;">
+        <div class="d-flex justify-content-end" style="margin-right: 5rem">
+          <button onclick=" downloadPdf()" class="btn btn-sm btn-dark rounded">
+            Download as PDF
+          </button>
+          <button
+            onclick=" downloadExcel()"
+            class="ms-3 btn btn-sm btn-dark rounded"
+          >
+            Download as Excel
+          </button>
+        </div>
+        <h3 class="text-dark mt-4">Orders</h3>
+        <div class="card mt-3" style="margin-right: 2rem">
           <div class="card-body pt-2">
-              <div style="overflow: scroll;" id="salesChart">
-                <% if (!orderinfo[0]) { %>
-        
-                  <% } else { %>
-                   
-                    <table class="display" id="myTable">
-                    
-                  <thead>
-                      <tr>
-                          <th scope="col">Id</th>
-                          <th scope="col">UserId</th>
-                          <th scope="col">Product</th>
-                          <th scope="col">Order Date</th>
-                          <th scope="col">Price</th>
-                          <th scope="col">Quantity</th>
-                          <th scope="col">Amount Payable</th>
-                          <th scope="col">Status</th>
-                          <th scope="col">Payment Status</th>
+            <div style="overflow: scroll" id="salesChart">
+              <% if (!orderinfo[0]) { %> <% } else { %>
 
-                      </tr>
-                  </thead>
-                  
-               
-                  <tbody id="tableBody">
-                    <% orderinfo.forEach((i,index) => { %>
-                 
-                      
-                
-                      <tr>
-                        <td><%- index + 1 %></td>
-                        <td><%- i.userId %></td>
-                        <td><%- i.product[0].productName %></td>
-                        <td><%- i.createdAt.toLocaleDateString() %></td>
-                        <td><%- i.product[0].price %></td>
-                        <td><%- i.quantity %></td>
-                        <td><%- i.amountPayable %></td>
-                        <td>
-                          <% switch (i.orderStatus) {
-                            case 'pending':
-                              %><span class="text-warning"><%= i.orderStatus %></span><%
-                              break;
-                            case 'shipped':
-                              %><span class="text-primary"><%= i.orderStatus %></span><%
-                              break;
-                            case 'out for delivery':
-                              %><span class="text-warning"><%= i.orderStatus %></span><%
-                              break;
-                            case 'delivered':
-                              %><span class="text-success"><%= i.orderStatus %></span><%
-                              break;
-                            default:
-                              %><span class="text-danger"><%= i.orderStatus %></span><%
-                          } %>
-                        </td>
-                        <td><%= i.paid ? 'paid' : 'not paid' %></td>
-                      </tr>
-                      
-                         
-                      <% }) %>
-                  </tbody>
+              <table class="display" id="myTable">
+                <thead>
+                  <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">UserId</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Order Date</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Amount Payable</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Payment Status</th>
+                  </tr>
+                </thead>
+
+                <tbody id="tableBody">
+                  <% orderinfo.forEach((i,index) => { %>
+
+                  <tr>
+                    <td><%- index + 1 %></td>
+                    <td><%- i.userId %></td>
+                    <td><%- i.product[0].productName %></td>
+                    <td><%- i.createdAt.toLocaleDateString() %></td>
+                    <td><%- i.product[0].price %></td>
+                    <td><%- i.quantity %></td>
+                    <td><%- i.amountPayable %></td>
+                    <td>
+                      <% switch (i.orderStatus) { case 'pending': %><span
+                        class="text-warning"
+                        ><%= i.orderStatus %></span
+                      ><% break; case 'shipped': %><span class="text-primary"
+                        ><%= i.orderStatus %></span
+                      ><% break; case 'out for delivery': %><span
+                        class="text-warning"
+                        ><%= i.orderStatus %></span
+                      ><% break; case 'delivered': %><span class="text-success"
+                        ><%= i.orderStatus %></span
+                      ><% break; default: %><span class="text-danger"
+                        ><%= i.orderStatus %></span
+                      ><% } %>
+                    </td>
+                    <td><%= i.paid ? 'paid' : 'not paid' %></td>
+                  </tr>
+
+                  <% }) %>
+                </tbody>
               </table>
               <% } %>
-              </div>
+            </div>
           </div>
-      </div>
-          <footer class="footer">
-            © 2023 eshop sport by
-            <a href="#">eshop sport.com</a>
-          </footer>
         </div>
+        <footer class="footer">
+          © 2023 eshop sport by
+          <a href="#">eshop sport.com</a>
+        </footer>
       </div>
     </div>
 
-   <script>$(document).ready( function () {
-    $('#myTable').DataTable();
-} );</script>
+    <script>
+      $(document).ready(function () {
+        $("#myTable").DataTable();
+      });
+    </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
     <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.1/xlsx.full.min.js"></script>
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.1/xlsx.full.min.js"
+    ></script>
     <script>
       async function getReport() {
-  const start = document.getElementById('start').value;
-  const end = document.getElementById('end').value;
-  if (start && end && start < end) {
-    try {
-      const response = await axios.get(`/admin/salesReportData?startDate=${start}&endDate=${end}`);
-      const {orderinfo} = response.data;
-      const salesChart = document.getElementById('salesChart');
-      if (!orderinfo.length) {
-        salesChart.innerHTML = '<p>No orders found</p>';
-      } else {
-        const tableBody = orderinfo.map((order, index) => {
-          const { userId, product, createdAt, quantity, amountPayable, orderStatus, paid } = order;
-          return `
+        const start = document.getElementById("start").value;
+        const end = document.getElementById("end").value;
+        if (start && end && start < end) {
+          try {
+            const response = await axios.get(
+              `/admin/salesReportData?startDate=${start}&endDate=${end}`
+            );
+            const { orderinfo } = response.data;
+            const salesChart = document.getElementById("salesChart");
+            if (!orderinfo.length) {
+              salesChart.innerHTML = "<p>No orders found</p>";
+            } else {
+              const tableBody = orderinfo
+                .map((order, index) => {
+                  const {
+                    userId,
+                    product,
+                    createdAt,
+                    quantity,
+                    amountPayable,
+                    orderStatus,
+                    paid,
+                  } = order;
+                  return `
             <tr>
               <td>${index + 1}</td>
               <td>${userId}</td>
@@ -485,12 +425,15 @@ a{
               <td>${product[0].price}</td>
               <td>${quantity}</td>
               <td>${amountPayable}</td>
-              <td><span class="text-${orderStatus === 'delivered' ? 'success' : 'warning'}">${orderStatus}</span></td>
-              <td>${paid ? 'paid' : 'not paid'}</td>
+              <td><span class="text-${
+                orderStatus === "delivered" ? "success" : "warning"
+              }">${orderStatus}</span></td>
+              <td>${paid ? "paid" : "not paid"}</td>
             </tr>
           `;
-        }).join('');
-        salesChart.innerHTML = `
+                })
+                .join("");
+              salesChart.innerHTML = `
           <div style="overflow: scroll;">
             <table class="display" id="myTable">
               <thead>
@@ -512,77 +455,97 @@ a{
             </table>
           </div>
         `;
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
-        else{
-          let error = document.getElementById('error');
-error.textContent = 'enter valid Date';
-error.className = 'text-danger';
+            }
+          } catch (error) {
+            console.error(error);
+          }
+        } else {
+          let error = document.getElementById("error");
+          error.textContent = "enter valid Date";
+          error.className = "text-danger";
 
-setTimeout(() => {
-  error.textContent = '';
-  error.className = '';
-}, 3000);
+          setTimeout(() => {
+            error.textContent = "";
+            error.className = "";
+          }, 3000);
         }
+      }
 
-        
-}
-
-      
       let totalRevenue = `${`<%-result[0].revenue%>`}`;
-let totalOrders = `${`<%-result[0].count%>`}`;
-let Customers = `${`<%-result[0].usersCount%>`}`;
+      let totalOrders = `${`<%-result[0].count%>`}`;
+      let Customers = `${`<%-result[0].usersCount%>`}`;
 
+      console.log(`Total revenue: ${totalRevenue}`);
+      console.log(`Total orders: ${totalOrders}`);
+      console.log(`Customers: ${Customers}`);
 
-console.log(`Total revenue: ${totalRevenue}`);
-console.log(`Total orders: ${totalOrders}`);
-console.log(`Customers: ${Customers}`);
+      let orders = [];
+      ("<% orderinfo.forEach(function(i) { %>");
+      orders.push([
+        "<%= i.userId %>",
+        "<%= i.product[0].productName  %>",
+        "<%= i.createdAt.toLocaleDateString() %>",
+        "<%= i.product[0].price %>",
+        "<%= i.quantity %>",
+        "<%=  i.amountPayable %>",
+        "<%= i.orderStatus %>",
+        "<%= i.paymentType %>",
+      ]);
+      (" <% }) %>");
 
-let orders = [];
-    '<% orderinfo.forEach(function(i) { %>'
-        orders.push(['<%= i.userId %>','<%= i.product[0].productName  %>','<%= i.createdAt.toLocaleDateString() %>','<%= i.product[0].price %>','<%= i.quantity %>','<%=  i.amountPayable %>','<%= i.orderStatus %>','<%= i.paymentType %>']);
-   ' <% }) %>'
-  
+      const { jsPDF } = window.jspdf;
+      function downloadPdf() {
+        const doc = new jsPDF();
+        doc.text(15, 20, "eshopsport Sales Report");
+        doc.autoTable({
+          head: [["Type", "Details"]],
+          body: [
+            ["Total Sales", totalOrders],
+            ["Total Revenue", totalRevenue],
+            ["Total Customers", Customers],
+          ],
+          startY: 40,
+        });
+        doc.text(15, doc.lastAutoTable.finalY + 20, "order info");
+        doc.autoTable({
+          head: [
+            [
+              "userId",
+              "Product",
+              "Order Date",
+              "Price",
+              "Quantity",
+              " Amount payable",
+              "Status",
+              "Payment Status",
+            ],
+          ],
+          body: orders,
+          startY: doc.lastAutoTable.finalY + 30,
+        });
+        doc.save("sales-report.pdf");
+      }
+      function downloadExcel() {
+        let orders = [];
+        ("<% orderinfo.forEach(function(i) { %>");
+        orders.push([
+          "<%= i.userId %>",
+          "<%= i.product[0].productName  %>",
+          "<%= i.createdAt.toLocaleDateString() %>",
+          "<%= i.product[0].price %>",
+          "<%= i.quantity %>",
+          "<%=  i.amountPayable %>",
+          "<%= i.orderStatus %>",
+          "<%= i.paymentType %>",
+        ]);
+        (" <% }) %>");
 
-                const { jsPDF } = window.jspdf;
-                function downloadPdf() {
-                  
-                    const doc = new jsPDF();
-                    doc.text(15, 20, "eshopsport Sales Report");
-                    doc.autoTable({
-                        head: [['Type', 'Details']],
-                        body: [
-                            ['Total Sales', totalOrders],
-                            ['Total Revenue', totalRevenue],
-                            ['Total Customers', Customers],
-                        ],
-                        startY: 40
-                    })
-                    doc.text(15, doc.lastAutoTable.finalY + 20, "order info");
-                    doc.autoTable({
-                        head: [['userId','Product', 'Order Date','Price', 'Quantity', ' Amount payable', "Status","Payment Status"]],
-                        body: orders,
-                        startY: doc.lastAutoTable.finalY + 30
-                    })
-                    doc.save('sales-report.pdf');
-                }
-                function downloadExcel() {
-                  let orders = [];
-    '<% orderinfo.forEach(function(i) { %>'
-        orders.push(['<%= i.userId %>','<%= i.product[0].productName  %>','<%= i.createdAt.toLocaleDateString() %>','<%= i.product[0].price %>','<%= i.quantity %>','<%=  i.amountPayable %>','<%= i.orderStatus %>','<%= i.paymentType %>']);
-   ' <% }) %>'
+        var sheet1 = XLSX.utils.json_to_sheet(orders);
+        var wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, sheet1, "Sales Report");
 
-                    var sheet1 = XLSX.utils.json_to_sheet(orders);
-                    var wb = XLSX.utils.book_new();
-                    XLSX.utils.book_append_sheet(wb, sheet1, "Sales Report");
-
-
-                    XLSX.writeFile(wb, 'sales-report.xlsx');
-                }
-
+        XLSX.writeFile(wb, "sales-report.xlsx");
+      }
     </script>
 
     <script src="/assets/node_modules/jquery/jquery.min.js"></script>
@@ -594,7 +557,7 @@ let orders = [];
     <!--c3 JavaScript -->
     <script src="/assets/node_modules/d3/d3.min.js"></script>
     <script src="/assets/node_modules/c3-master/c3.min.js"></script>
-    
+
     <!-- Chart JS -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
@@ -603,9 +566,9 @@ let orders = [];
     ></script>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
     <script>
-      $(document).ready( function () {
-    $('#myTable').DataTable();
-} );
+      $(document).ready(function () {
+        $("#myTable").DataTable();
+      });
     </script>
   </body>
 </html>

@@ -16,298 +16,217 @@
     <meta name="robots" content="noindex,nofollow" />
     <title>dashboard</title>
     <link
-    rel="canonical"
-    href="https://www.wrappixel.com/templates/adminwrap-lite/"
-  />
-  <!-- Favicon icon -->
-  <link
-    rel="icon"
-    type="image/png"
-    sizes="16x16"
-    href="/assets/images/favicon.png"
-  />
-  <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    rel="stylesheet"
-  />
-  <!-- Bootstrap Core CSS -->
-  <link
-    href="/assets/node_modules/bootstrap/css/bootstrap.min.css"
-    rel="stylesheet"
-  />
-  <link
-    href="/assets/node_modules/perfect-scrollbar/css/perfect-scrollbar.css"
-    rel="stylesheet"
-  />
-  <!-- This page CSS -->
-  <!-- chartist CSS -->
-  <link href="/assets/node_modules/morrisjs/morris.css" rel="stylesheet" />
-  <!--c3 CSS -->
-  <link href="/assets/node_modules/c3-master/c3.min.css" rel="stylesheet" />
-  <!-- Custom CSS -->
-  <link href="/css/style.css" rel="stylesheet" />
-  <!-- Dashboard 1 Page CSS -->
-  <link href="/css/pages/dashboard1.css" rel="stylesheet" />
-  <!-- You can change the theme colors from here -->
-  <link href="/css/colors/default.css" id="theme" rel="stylesheet" />
-  <link
-  href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css"
-  rel="stylesheet"
-/>
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-   </head>
+      rel="canonical"
+      href="https://www.wrappixel.com/templates/adminwrap-lite/"
+    />
+    <!-- Favicon icon -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/assets/images/favicon.png"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap Core CSS -->
+    <link
+      href="/assets/node_modules/bootstrap/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="/assets/node_modules/perfect-scrollbar/css/perfect-scrollbar.css"
+      rel="stylesheet"
+    />
+    <!-- This page CSS -->
+    <!-- chartist CSS -->
+    <link href="/assets/node_modules/morrisjs/morris.css" rel="stylesheet" />
+    <!--c3 CSS -->
+    <link href="/assets/node_modules/c3-master/c3.min.css" rel="stylesheet" />
+    <!-- Custom CSS -->
+    <link href="/css/style.css" rel="stylesheet" />
+    <!-- Dashboard 1 Page CSS -->
+    <link href="/css/pages/dashboard1.css" rel="stylesheet" />
+    <!-- You can change the theme colors from here -->
+    <link href="/css/colors/default.css" id="theme" rel="stylesheet" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
 
   <body class="fix-header fix-sidebar card-no-border">
-  <div id="main-wrapper">
-      <header class="topbar">
-        <nav class="navbar top-navbar navbar-expand-md navbar-light">
-          <div class="navbar-header">
-            <a class="navbar-brand" href="index.ejs">
-                <img
-                  src="/assets/images/logo-icon.png"
-                  alt="homepage"
-                  class="dark-logo"
-                />
-                <!-- Light Logo icon -->
-                <img
-                  src="/assets/images/logo-light-icon.png"
-                  alt="homepage"
-                  class="light-logo"
-                />
-              </b>
-        <span>
-                <!-- dark Logo text -->
-                <img
-                  src="../assets/images/logo-text.png"
-                  alt="homepage"
-                  class="dark-logo" />
-                <!-- Light Logo text -->
-                <img
-                  src="../assets/images/logo-light-text.png"
-                  class="light-logo"
-                  alt="homepage"
-              /></span>
-            </a>
-          </div>
-         <div class="navbar-collapse">
-            <ul class="navbar-nav me-auto">
-              <li class="nav-item">
-                <a
-                  class="nav-link nav-toggler hidden-md-up waves-effect waves-dark"
-                  href="javascript:void(0)"
-                  ><i class="fa fa-bars"></i
-                ></a>
-              </li>
-               <li class="nav-item hidden-xs-down search-box">
-                <a
-                  class="nav-link hidden-sm-down waves-effect waves-dark"
-                  href="javascript:void(0)"
-                  ><i class="fa fa-search"></i
-                ></a>
-                <form class="app-search">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Search & enter"
-                  />
-                  <a class="srh-btn"><i class="fa fa-times"></i></a>
-                </form>
-              </li>
-            </ul>
-            <ul class="navbar-nav my-lg-0">
-             <li class="nav-item dropdown u-pro">
-                <a
-                  class="nav-link dropdown-toggle waves-effect waves-dark profile-pic"
-                  href="#"
-                  id="navbarDropdown"
-                  data-bs-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                  ><img
-                    src="../assets/images/users/1.jpg"
-                    alt="user"
-                    class=""
-                  />
-                  <span class="hidden-md-down">Mohammed Risvan &nbsp;</span>
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li>
-                    <a class="dropdown-item" href="/admin/logout"
-                      ><button class="btn btn-dark">logout</button></a
-                    >
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </div>
+    <aside class="left-sidebar">
+      <!-- Sidebar scroll-->
+      <div class="scroll-sidebar">
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav">
+          <ul id="sidebarnav">
+            <li>
+              <a
+                class="waves-effect waves-dark"
+                href="/admin"
+                aria-expanded="false"
+                ><i class="fa fa-home"></i
+                ><span class="hide-menu">Dashboard</span></a
+              >
+            </li>
+            <li>
+              <a
+                class="waves-effect waves-dark"
+                href="/admin/userManagement"
+                aria-expanded="false"
+                ><i class="fa fa-users"></i
+                ><span class="hide-menu">user management</span></a
+              >
+            </li>
+            <li>
+              <a
+                class="waves-effect waves-dark"
+                href="/admin/categoriesManagement"
+                aria-expanded="false"
+                ><i class="fa fa-list"></i
+                ><span class="hide-menu">categories</span></a
+              >
+            </li>
+            <li>
+              <a
+                class="waves-effect waves-dark"
+                href="/admin/productManagement"
+                aria-expanded="false"
+                ><i class="fa fa-shopping-cart"></i
+                ><span class="hide-menu">Product</span></a
+              >
+            </li>
+            <li>
+              <a
+                class="waves-effect waves-dark"
+                href="/admin/banner"
+                aria-expanded="false"
+              >
+                <i class="fa fa-bookmark-o"></i
+                ><span class="hide-menu">banner</span></a
+              >
+            </li>
+            <li>
+              <a
+                class="waves-effect waves-dark"
+                href="/admin/couponManagement"
+                aria-expanded="false"
+                ><i class="ri-coupon-3-fill"></i
+                ><span class="hide-menu">coupon </span></a
+              >
+            </li>
+            <li>
+              <a
+                class="waves-effect waves-dark"
+                href="/admin/orderManagement"
+                aria-expanded="false"
+                ><i class="ri-list-unordered"></i
+                ><span class="hide-menu">order Management</span></a
+              >
+            </li>
+            <li>
+              <a
+                class="waves-effect waves-dark"
+                href="/admin/salesReport"
+                aria-expanded="false"
+                ><i class="ri-file-chart-line"></i
+                ><span class="hide-menu">sales report</span></a
+              >
+            </li>
+            <li>
+              <a href="/admin/logout"
+                ><button class="btn btn-light">
+                  logout<i class="ri-logout-circle-line fs-5"></i></button
+              ></a>
+            </li>
+          </ul>
         </nav>
-      </header>
-
-      <aside class="left-sidebar">
-        <!-- Sidebar scroll-->
-        <div class="scroll-sidebar">
-          <!-- Sidebar navigation-->
-          <nav class="sidebar-nav">
-            <ul id="sidebarnav">
-              <li>
-                <a
-                  class="waves-effect waves-dark"
-                  href="/admin"
-                  aria-expanded="false"
-                  ><i class="fa fa-home"></i
-                  ><span class="hide-menu">Dashboard</span></a
-                >
+        <!-- End Sidebar navigation -->
+      </div>
+      <!-- End Sidebar scroll-->
+    </aside>
+    <div class="page-wrapper">
+      <div class="container-fluid">
+        <div class="row page-titles">
+          <div class="col-md-5 align-self-center">
+            <h3 class="text-themecolor">banner</h3>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a href="javascript:void(0)">Home</a>
               </li>
-              <li>
-                <a
-                  class="waves-effect waves-dark"
-                  href="/admin/userManagement"
-                  aria-expanded="false"
-                  ><i class="fa fa-users"></i
-                  ><span class="hide-menu">user management</span></a
-                >
-              </li>
-              <li>
-                <a
-                  class="waves-effect waves-dark"
-                  href="/admin/categoriesManagement"
-                  aria-expanded="false"
-                  ><i class="fa fa-list"></i
-                  ><span class="hide-menu">categories</span></a
-                >
-              </li>
-              <li>
-                <a
-                  class="waves-effect waves-dark"
-                  href="/admin/productManagement"
-                  aria-expanded="false"
-                  ><i class="fa fa-shopping-cart"></i
-                  ><span class="hide-menu">Product</span></a
-                >
-              </li>
-              <li>
-                <a
-                  class="waves-effect waves-dark"
-                  href="/admin/banner"
-                  aria-expanded="false"
-                >
-                <i class="fa fa-bookmark-o "></i
-                  ><span class="hide-menu">banner</span></a
-                >
-              </li>
-              <li>
-                <a
-                  class="waves-effect waves-dark"
-                  href="/admin/couponManagement"
-                  aria-expanded="false"
-                  ><i class="ri-coupon-3-fill"></i><span class="hide-menu">coupon </span></a
-                >
-              </li>
-              <li>
-                <a
-                  class="waves-effect waves-dark"
-                  href="/admin/orderManagement"
-                  aria-expanded="false"
-                  ><i class="ri-list-unordered"></i><span class="hide-menu">order Management</span></a
-                >
-              </li>
-              <li>
-                <a
-                  class="waves-effect waves-dark"
-                  href="/admin/salesReport"
-                  aria-expanded="false"
-                  ><i class="ri-file-chart-line"></i><span class="hide-menu">sales report</span></a
-                >
-              </li>
-            </ul>
-          </nav>
-          <!-- End Sidebar navigation -->
-        </div>
-        <!-- End Sidebar scroll-->
-      </aside>
-      <div class="page-wrapper">
-        <div class="container-fluid">
-          <div class="row page-titles">
-            <div class="col-md-5 align-self-center">
-              <h3 class="text-themecolor">banner</h3>
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                  <a href="javascript:void(0)">Home</a>
-                </li>
-                <li class="breadcrumb-item active">banner</li>
-              </ol>
-            </div>
+              <li class="breadcrumb-item active">banner</li>
+            </ol>
           </div>
-          <div> <a href="/admin/addbanner"><button class="btn btn-info text-white">add banner</button> </a></div>
-       
-          <section>
-            <table class="display" id="myTable" >
-              <thead>
-                <tr>
-                  <th scope="col">number</th>
-                  <th scope="col">name</th>
-                  <th scope="col">mainImage</th>
-                  <th scope="col">list</th>
-                  
-                  <th scope="col">delete</th>
-                
-                </tr>
-              </thead>
-              <tbody>
-                <% banner.forEach((bannerItem, index) => { %>
-                  <tr id="Doc<%- bannerItem._id %>">
-                    <td><%- index + 1 %></td>
-                    <td><%- bannerItem.Name %></td>
-                    <td>
-                      <img
-                        src="/image/carousel image/<%- bannerItem.mainImage[0].filename %>"
-                        width="40"
-                        height="26"
-                      />
-                    </td>
-                    <td>
-                      <button
-                        class="btn btn-success btn-sm"
-                        id="listbtn<%-bannerItem._id %>"
-                        onclick="list(`<%-bannerItem._id %>`)"
-                        value="<%-bannerItem.list %>"
-                      >
-                        <%-bannerItem.list %>
-                      </button>
-                    </td>
-                                        <td>
-                      <button
-                        type="button"
-                        class="btn btn-primary btn-sm me-1 mb-2"
-                        data-mdb-toggle="tooltip"
-                        title="Remove item"
-                        onclick="return confirm('are you sure you want to delete?'),deleteBanner('<%- bannerItem.filename %>','<%- bannerItem._id %>')"
-                      >
-                        <i class="fas fa-trash"></i>
-                      </button>
-                    </td>
-                  </tr>
-                <% }); %>
-              </tbody>
-              
-              </table>
-
-
-          </section>
-    
-          
-
-          
-
-         
-
-          <footer class="footer">
-            © 2023 eshopsport by
-            <a href="/views/adminPages/adminHome.ejs">eshopsport.com</a>
-          </footer>
         </div>
+        <div>
+          <a href="/admin/addbanner"
+            ><button class="btn btn-info text-white">add banner</button>
+          </a>
+        </div>
+
+        <section>
+          <table class="display" id="myTable">
+            <thead>
+              <tr>
+                <th scope="col">number</th>
+                <th scope="col">name</th>
+                <th scope="col">mainImage</th>
+                <th scope="col">list</th>
+
+                <th scope="col">delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% banner.forEach((bannerItem, index) => { %>
+              <tr id="Doc<%- bannerItem._id %>">
+                <td><%- index + 1 %></td>
+                <td><%- bannerItem.Name %></td>
+                <td>
+                  <img
+                    src="/image/carousel image/<%- bannerItem.mainImage[0].filename %>"
+                    width="40"
+                    height="26"
+                  />
+                </td>
+                <td>
+                  <button
+                    class="btn btn-success btn-sm"
+                    id="listbtn<%-bannerItem._id %>"
+                    onclick="list(`<%-bannerItem._id %>`)"
+                    value="<%-bannerItem.list %>"
+                  >
+                    <%-bannerItem.list %>
+                  </button>
+                </td>
+                <td>
+                  <button
+                    type="button"
+                    class="btn btn-primary btn-sm me-1 mb-2"
+                    data-mdb-toggle="tooltip"
+                    title="Remove item"
+                    onclick="return confirm('are you sure you want to delete?'),deleteBanner('<%- bannerItem.filename %>','<%- bannerItem._id %>')"
+                  >
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+              <% }); %>
+            </tbody>
+          </table>
+        </section>
+
+        <footer class="footer">
+          © 2023 eshopsport by
+          <a href="/views/adminPages/adminHome.ejs">eshopsport.com</a>
+        </footer>
       </div>
     </div>
 
@@ -315,48 +234,42 @@
     <!-- Bootstrap popper Core JavaScript -->
     <script src="/assets/node_modules/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- slimscrollbar scrollbar JavaScript -->
-   
+
     <script src="/assets/node_modules/raphael/raphael-min.js"></script>
     <script src="/assets/node_modules/morrisjs/morris.min.js"></script>
     <!--c3 JavaScript -->
     <script src="/assets/node_modules/d3/d3.min.js"></script>
     <script src="/assets/node_modules/c3-master/c3.min.js"></script>
- 
 
     <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
-<script>
-    function deleteBanner(data,pId) {
-        console.log('22222',data,pId);
-        axios.get(`/admin/deleteBanner?data=${data}&pId=${pId}`).then((result)=>{
-          if(result.data.success){
-window.location.reload()
-          }
-        })
+    <script>
+      function deleteBanner(data, pId) {
+        console.log("22222", data, pId);
+        axios
+          .get(`/admin/deleteBanner?data=${data}&pId=${pId}`)
+          .then((result) => {
+            if (result.data.success) {
+              window.location.reload();
+            }
+          });
       }
-        function list(data) {
-          console.log(1);
+      function list(data) {
+        console.log(1);
         let value = document.getElementById("listbtn" + data);
-        axios.get(`/admin/listBanner?id=${data}` ).then((response) => {
-        
+        axios.get(`/admin/listBanner?id=${data}`).then((response) => {
           if (response.data.success == true) {
-            value.textContent ="true";
-    
+            value.textContent = "true";
           } else {
-            value.textContent ="false";
-           
+            value.textContent = "false";
           }
         });
       }
-       
-        
-      
-</script>
-<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
-<script>
-  $(document).ready( function () {
-$('#myTable').DataTable();
-} );
-</script>
-
+    </script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#myTable").DataTable();
+      });
+    </script>
   </body>
 </html>

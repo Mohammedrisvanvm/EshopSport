@@ -53,533 +53,442 @@
     <!-- You can change the theme colors from here -->
     <link href="/css/colors/default.css" id="theme" rel="stylesheet" />
     <link
-    href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css"
-    rel="stylesheet"
-  />
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+      href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </head>
 
   <body class="fix-header fix-sidebar card-no-border">
-    <div id="main-wrapper">
-      <header class="topbar">
-        <nav class="navbar top-navbar navbar-expand-md navbar-light">
-          <div class="navbar-header">
-            <a class="navbar-brand" href="index.ejs">
-              <!-- Logo icon --><b>
-                <img
-                  src="/assets/images/logo-icon.png"
-                  alt="homepage"
-                  class="dark-logo"
-                />
-                <!-- Light Logo icon -->
-                <img
-                  src="/assets/images/logo-light-icon.png"
-                  alt="homepage"
-                  class="light-logo"
-                />
-              </b>
-              <span>
-                <img
-                  src="../assets/images/logo-text.png"
-                  alt="homepage"
-                  class="dark-logo" />
-                <!-- Light Logo text -->
-                <img
-                  src="../assets/images/logo-light-text.png"
-                  class="light-logo"
-                  alt="homepage"
-              /></span>
-            </a>
-          </div>
-          <div class="navbar-collapse">
-            <ul class="navbar-nav me-auto">
-              <li class="nav-item">
-                <a
-                  class="nav-link nav-toggler hidden-md-up waves-effect waves-dark"
-                  href="javascript:void(0)"
-                  ><i class="fa fa-bars"></i
-                ></a>
-              </li>
-              <li class="nav-item hidden-xs-down search-box">
-                <a
-                  class="nav-link hidden-sm-down waves-effect waves-dark"
-                  href="javascript:void(0)"
-                  ><i class="fa fa-search"></i
-                ></a>
-                <form class="app-search">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Search & enter"
-                  />
-                  <a class="srh-btn"><i class="fa fa-times"></i></a>
-                </form>
-              </li>
-            </ul>
-            <ul class="navbar-nav my-lg-0">
-              <li class="nav-item dropdown u-pro">
-                <a
-                  class="nav-link dropdown-toggle waves-effect waves-dark profile-pic"
-                  href="#"
-                  id="navbarDropdown"
-                  data-bs-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                  ><img
-                    src="../assets/images/users/1.jpg"
-                    alt="user"
-                    class=""
-                  />
-                  <span class="hidden-md-down">Mohammed Risvan &nbsp;</span>
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li>
-                    <a class="dropdown-item" href="/admin/logout"
-                      ><button class="btn btn-dark">logout</button></a
-                    >
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </div>
+    <aside class="left-sidebar">
+      <!-- Sidebar scroll-->
+      <div class="scroll-sidebar">
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav">
+          <ul id="sidebarnav">
+            <li>
+              <a
+                class="waves-effect waves-dark"
+                href="/admin"
+                aria-expanded="false"
+                ><i class="fa fa-home"></i
+                ><span class="hide-menu">Dashboard</span></a
+              >
+            </li>
+            <li>
+              <a
+                class="waves-effect waves-dark"
+                href="/admin/userManagement"
+                aria-expanded="false"
+                ><i class="fa fa-users"></i
+                ><span class="hide-menu">user management</span></a
+              >
+            </li>
+            <li>
+              <a
+                class="waves-effect waves-dark"
+                href="/admin/categoriesManagement"
+                aria-expanded="false"
+                ><i class="fa fa-list"></i
+                ><span class="hide-menu">categories</span></a
+              >
+            </li>
+            <li>
+              <a
+                class="waves-effect waves-dark"
+                href="/admin/productManagement"
+                aria-expanded="false"
+                ><i class="fa fa-shopping-cart"></i
+                ><span class="hide-menu">Product</span></a
+              >
+            </li>
+            <li>
+              <a
+                class="waves-effect waves-dark"
+                href="/admin/banner"
+                aria-expanded="false"
+              >
+                <i class="fa fa-bookmark-o"></i
+                ><span class="hide-menu">banner</span></a
+              >
+            </li>
+            <li>
+              <a
+                class="waves-effect waves-dark"
+                href="/admin/couponManagement"
+                aria-expanded="false"
+                ><i class="ri-coupon-3-fill"></i
+                ><span class="hide-menu">coupon </span></a
+              >
+            </li>
+            <li>
+              <a
+                class="waves-effect waves-dark"
+                href="/admin/orderManagement"
+                aria-expanded="false"
+                ><i class="ri-list-unordered"></i
+                ><span class="hide-menu">order Management</span></a
+              >
+            </li>
+            <li>
+              <a
+                class="waves-effect waves-dark"
+                href="/admin/salesReport"
+                aria-expanded="false"
+                ><i class="ri-file-chart-line"></i
+                ><span class="hide-menu">sales report</span></a
+              >
+            </li>
+            <li>
+              <a href="/admin/logout"
+                ><button class="btn btn-light">
+                  logout<i class="ri-logout-circle-line fs-5"></i></button
+              ></a>
+            </li>
+          </ul>
         </nav>
-      </header>
-
-      <aside class="left-sidebar">
-        <!-- Sidebar scroll-->
-        <div class="scroll-sidebar">
-          <!-- Sidebar navigation-->
-          <nav class="sidebar-nav">
-            <ul id="sidebarnav">
-              <li>
-                <a
-                  class="waves-effect waves-dark"
-                  href="/admin"
-                  aria-expanded="false"
-                  ><i class="fa fa-home"></i
-                  ><span class="hide-menu">Dashboard</span></a
-                >
-              </li>
-              <li>
-                <a
-                  class="waves-effect waves-dark"
-                  href="/admin/userManagement"
-                  aria-expanded="false"
-                  ><i class="fa fa-users"></i
-                  ><span class="hide-menu">user management</span></a
-                >
-              </li>
-              <li>
-                <a
-                  class="waves-effect waves-dark"
-                  href="/admin/categoriesManagement"
-                  aria-expanded="false"
-                  ><i class="fa fa-list"></i
-                  ><span class="hide-menu">categories</span></a
-                >
-              </li>
-              <li>
-                <a
-                  class="waves-effect waves-dark"
-                  href="/admin/productManagement"
-                  aria-expanded="false"
-                  ><i class="fa fa-shopping-cart"></i
-                  ><span class="hide-menu">Product</span></a
-                >
-              </li>
-              <li>
-                <a
-                  class="waves-effect waves-dark"
-                  href="/admin/banner"
-                  aria-expanded="false"
-                >
-                <i class="fa fa-bookmark-o "></i
-                  ><span class="hide-menu">banner</span></a
-                >
-              </li>
-              <li>
-                <a
-                  class="waves-effect waves-dark"
-                  href="/admin/couponManagement"
-                  aria-expanded="false"
-                  ><i class="ri-coupon-3-fill"></i><span class="hide-menu">coupon </span></a
-                >
-              </li>
-              <li>
-                <a
-                  class="waves-effect waves-dark"
-                  href="/admin/orderManagement"
-                  aria-expanded="false"
-                  ><i class="ri-list-unordered"></i><span class="hide-menu">order Management</span></a
-                >
-              </li>
-              <li>
-                <a
-                  class="waves-effect waves-dark"
-                  href="/admin/salesReport"
-                  aria-expanded="false"
-                  ><i class="ri-file-chart-line"></i><span class="hide-menu">sales report</span></a
-                >
-              </li>
-            </ul>
-          </nav>
-          <!-- End Sidebar navigation -->
-        </div>
-        <!-- End Sidebar scroll-->
-      </aside>
-
-      <div class="page-wrapper">
-        <div class="container-fluid">
-          <button
-            type="button"
-            class="btn btn-primary"
-            data-bs-toggle="modal"
-            data-bs-target="#exampleModal"
-          >
-            add coupon
-          </button>
-          <label for="" class="text-danger"><%-couponErr %></label>
-
-          <!-- Modal -->
-          <div
-            class="modal fade"
-            id="exampleModal"
-            tabindex="-1"
-            aria-labelledby="exampleModalLabel"
-            aria-hidden="true"
-          >
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="exampleModalLabel">
-                    add coupon
-                  </h1>
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
-                </div>
-                <div class="modal-body">
-                  <div class="d-flex justify-content-center">
-                    <form
-                      class="needs-validation"
-                      action="/admin/couponManagement"
-                      method="post"
-                      novalidate=""
-                    >
-                      <div class="row">
-                        <div class="col-md-6 mb-3">
-                          <label for="firstName">coupon name</label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            name="name"
-                            id="firstName"
-                            placeholder="coupon name"
-                            required
-                          />
-                        </div>
-                        <div class="col-md-6 mb-3">
-                          <label for="lastName">code</label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            name="couponCode"
-                            id="lastName"
-                            placeholder="coupon code"
-                            value=""
-                            required
-                          />
-                        </div>
-
-                        <div class="mb-3">
-                          <label for="email">Minimum amount of purchase </label>
-                          <input
-                            type="email"
-                            class="form-control"
-                            name="minamount"
-                            id=""
-                            placeholder="minimum amount"
-                          />
-                        </div>
-                        <div class="mb-3">
-                          <label for="address">discount</label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            name="discount"
-                            placeholder="dicount"
-                            required=""
-                          />
-                        </div>
-                        <div class="mb-3">
-                          <label for="address2">Max Discount Amount </label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            name="maxdiscount"
-                            placeholder="maxdiscount"
-                          />
-                        </div>
-
-                        <div class="mb-3">
-                          <label for="country">expiry date</label>
-                          <input
-                            type="date"
-                            class="form-control"
-                            name="expiry"
-                            placeholder="dd-mm-yyyy"
-                            required
-                          />
-                        </div>
-                      </div>
-
-                      <div class="d-flex justify-content-center my-5">
-                        <button class="btn btn-primary" type="submit">
-                          add Coupon
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <section>
-          <table id="myTable" class="display">
-            <thead>
-              <tr>
-                <th scope="col">number</th>
-                <th scope="col">name</th>
-                <th scope="col">coupon code</th>
-                <th scope="col">minamount</th>
-                <th scope="col">discount</th>
-                <th scope="col">maxdiscount</th>
-
-                <th scope="col">list</th>
-                <th scope="col">expiry</th>
-                <th scope="col">edit/delete</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% couponinfo.forEach((i,index) => { %>
-                
-              <tr id="coupon<%-i._id %>">
-                <td scope="row"><%- index+1 %></td>
-                <td><%-i.name %></td>
-                <td><%- i.couponCode %></td>
-                <td><%- i.minamount %></td>
-                <td><%- i.discount %></td>
-                <td><%-i.maxdiscount %></td>
-
-                <td>
-                  <button
-                    class="btn btn-success btn-sm"
-                    id="listbtn<%-i._id %>"
-                    onclick="list(`<%-i._id %>`)"
-                    value="    <%-i.list %>"
-                  >
-                    <%-i.list %>
-                  </button>
-                </td>
-                <td><%- i.expiry.toLocaleDateString() %></td>
-                <td class="d-flex">
-                  <button
-        type="button"
-        class="btn border-0"
-        data-bs-toggle="modal"
-        data-bs-target="#exampleModal<%-i._id %>"
-     
-      >
-      <i class="ri-pencil-line mx-2 fs-4 text-dark"></i>
-      </button>
-      <!-- modal2 -->
-      <div
-            class="modal fade"
-            id="exampleModal<%-i._id %>"
-            tabindex="-1"
-            aria-labelledby="exampleModalLabel"
-            aria-hidden="true"
-          >
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="exampleModalLabel">
-                    edit coupon
-                  </h1>
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
-                </div>
-                <div class="modal-body">
-                  <div class="d-flex justify-content-center">
-                    <form
-                      class="needs-validation"
-                      action="/admin/editcoupon?id=<%-i._id %>"
-                      method="post"
-                      novalidate=""
-                    >
-                      <div class="row">
-                        <div class="col-md-6 mb-3">
-                          <label for="firstName">coupon name</label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            name="name"
-                            id="firstName"
-                            placeholder="coupon name"
-                           value="<%-i.name %>" 
-                            required
-                          />
-                        </div>
-                        <div class="col-md-6 mb-3">
-                          <label for="lastName">code</label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            name="couponCode"
-                         
-                            placeholder="coupon code"
-                            value="<%-i.couponCode %>" 
-                            required
-                          />
-                        </div>
-
-                        <div class="mb-3">
-                          <label for="email">Minimum amount of purchase </label>
-                          <input
-                            type="email"
-                            class="form-control"
-                            name="minamount"
-                            value="<%-i.minamount %>" 
-                            placeholder="minimum amount"
-                          />
-                        </div>
-                        <div class="mb-3">
-                          <label for="address">discount</label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            name="discount"
-                            
-                            value="<%-i.discount %>" 
-                            required
-                          />
-                        </div>
-                        <div class="mb-3">
-                          <label for="address2">Max Discount Amount </label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            name="maxdiscount"
-                      
-                            value="<%-i.maxdiscount %>" 
-                          />
-                        </div>
-                        <div class="mb-3">
-                          <label for="country">expiry date</label>
-                          <input
-                           
-                            class="form-control text-danger"
-                            name="expiry"
-                            disabled
-                           
-                            placeholder="<%-i.expiry.toLocaleDateString()%>"
-                          />
-                        </div>
-
-                        <div class="mb-3">
-                          <label for="country">update expiry date</label>
-                          <input
-                            type="date"
-                            class="form-control"
-                            name="expiry"
-                            id="mydate"
-                            min="{{ today | date('Y-m-d') }}"
-                            placeholder="<%-i.expiry.toLocaleDateString()%>"
-                            required
-                            value="<%-i.expiry.toLocaleDateString() %>" 
-                          />
-                        </div>
-                      </div>
-
-                      <div class="d-flex justify-content-center my-5">
-                        <button class="btn btn-primary" type="submit">
-                          edit Coupon
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-                  
-                    <i
-                      class="ri-delete-bin-6-fill fs-4 mx-3 text-danger"
-                      onclick="return confirm('are you sure you want to delete?'),deletecoupon(`<%-i._id %>`)"
-                    ></i
-                  >
-                </td>
-              </tr>
-              <% }) %>
-            </tbody>
-          </table>
-        </section>
-
-        <footer class="footer">
-          © 2023 eshopsport by
-          <a href="/views/adminPages/adminHome.ejs">eshopsport.com</a>
-        </footer>
+        <!-- End Sidebar navigation -->
       </div>
+      <!-- End Sidebar scroll-->
+    </aside>
+
+    <div class="page-wrapper">
+      <div class="container-fluid">
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+        >
+          add coupon
+        </button>
+        <label for="" class="text-danger"><%-couponErr %></label>
+
+        <!-- Modal -->
+        <div
+          class="modal fade"
+          id="exampleModal"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                  add coupon
+                </h1>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div class="d-flex justify-content-center">
+                  <form
+                    class="needs-validation"
+                    action="/admin/couponManagement"
+                    method="post"
+                    novalidate=""
+                  >
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <label for="firstName">coupon name</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="name"
+                          id="firstName"
+                          placeholder="coupon name"
+                          required
+                        />
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <label for="lastName">code</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="couponCode"
+                          id="lastName"
+                          placeholder="coupon code"
+                          value=""
+                          required
+                        />
+                      </div>
+
+                      <div class="mb-3">
+                        <label for="email">Minimum amount of purchase </label>
+                        <input
+                          type="email"
+                          class="form-control"
+                          name="minamount"
+                          id=""
+                          placeholder="minimum amount"
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="address">discount</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="discount"
+                          placeholder="dicount"
+                          required=""
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="address2">Max Discount Amount </label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="maxdiscount"
+                          placeholder="maxdiscount"
+                        />
+                      </div>
+
+                      <div class="mb-3">
+                        <label for="country">expiry date</label>
+                        <input
+                          type="date"
+                          class="form-control"
+                          name="expiry"
+                          placeholder="dd-mm-yyyy"
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <div class="d-flex justify-content-center my-5">
+                      <button class="btn btn-primary" type="submit">
+                        add Coupon
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section>
+        <table id="myTable" class="display">
+          <thead>
+            <tr>
+              <th scope="col">number</th>
+              <th scope="col">name</th>
+              <th scope="col">coupon code</th>
+              <th scope="col">minamount</th>
+              <th scope="col">discount</th>
+              <th scope="col">maxdiscount</th>
+
+              <th scope="col">list</th>
+              <th scope="col">expiry</th>
+              <th scope="col">edit/delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% couponinfo.forEach((i,index) => { %>
+
+            <tr id="coupon<%-i._id %>">
+              <td scope="row"><%- index+1 %></td>
+              <td><%-i.name %></td>
+              <td><%- i.couponCode %></td>
+              <td><%- i.minamount %></td>
+              <td><%- i.discount %></td>
+              <td><%-i.maxdiscount %></td>
+
+              <td>
+                <button
+                  class="btn btn-success btn-sm"
+                  id="listbtn<%-i._id %>"
+                  onclick="list(`<%-i._id %>`)"
+                  value="    <%-i.list %>"
+                >
+                  <%-i.list %>
+                </button>
+              </td>
+              <td><%- i.expiry.toLocaleDateString() %></td>
+              <td class="d-flex">
+                <button
+                  type="button"
+                  class="btn border-0"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal<%-i._id %>"
+                >
+                  <i class="ri-pencil-line mx-2 fs-4 text-dark"></i>
+                </button>
+                <!-- modal2 -->
+                <div
+                  class="modal fade"
+                  id="exampleModal<%-i._id %>"
+                  tabindex="-1"
+                  aria-labelledby="exampleModalLabel"
+                  aria-hidden="true"
+                >
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">
+                          edit coupon
+                        </h1>
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="d-flex justify-content-center">
+                          <form
+                            class="needs-validation"
+                            action="/admin/editcoupon?id=<%-i._id %>"
+                            method="post"
+                            novalidate=""
+                          >
+                            <div class="row">
+                              <div class="col-md-6 mb-3">
+                                <label for="firstName">coupon name</label>
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  name="name"
+                                  id="firstName"
+                                  placeholder="coupon name"
+                                  value="<%-i.name %>"
+                                  required
+                                />
+                              </div>
+                              <div class="col-md-6 mb-3">
+                                <label for="lastName">code</label>
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  name="couponCode"
+                                  placeholder="coupon code"
+                                  value="<%-i.couponCode %>"
+                                  required
+                                />
+                              </div>
+
+                              <div class="mb-3">
+                                <label for="email"
+                                  >Minimum amount of purchase
+                                </label>
+                                <input
+                                  type="email"
+                                  class="form-control"
+                                  name="minamount"
+                                  value="<%-i.minamount %>"
+                                  placeholder="minimum amount"
+                                />
+                              </div>
+                              <div class="mb-3">
+                                <label for="address">discount</label>
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  name="discount"
+                                  value="<%-i.discount %>"
+                                  required
+                                />
+                              </div>
+                              <div class="mb-3">
+                                <label for="address2"
+                                  >Max Discount Amount
+                                </label>
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  name="maxdiscount"
+                                  value="<%-i.maxdiscount %>"
+                                />
+                              </div>
+                              <div class="mb-3">
+                                <label for="country">expiry date</label>
+                                <input
+                                  class="form-control text-danger"
+                                  name="expiry"
+                                  disabled
+                                  placeholder="<%-i.expiry.toLocaleDateString()%>"
+                                />
+                              </div>
+
+                              <div class="mb-3">
+                                <label for="country">update expiry date</label>
+                                <input
+                                  type="date"
+                                  class="form-control"
+                                  name="expiry"
+                                  id="mydate"
+                                  min="{{ today | date('Y-m-d') }}"
+                                  placeholder="<%-i.expiry.toLocaleDateString()%>"
+                                  required
+                                  value="<%-i.expiry.toLocaleDateString() %>"
+                                />
+                              </div>
+                            </div>
+
+                            <div class="d-flex justify-content-center my-5">
+                              <button class="btn btn-primary" type="submit">
+                                edit Coupon
+                              </button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <i
+                  class="ri-delete-bin-6-fill fs-4 mx-3 text-danger"
+                  onclick="return confirm('are you sure you want to delete?'),deletecoupon(`<%-i._id %>`)"
+                ></i>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </section>
+
+      <footer class="footer">
+        © 2023 eshopsport by
+        <a href="/views/adminPages/adminHome.ejs">eshopsport.com</a>
+      </footer>
     </div>
-
-
-    <div class="container-fluid">
-      
-
-
-
-
-
 
     <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
     <script>
       function list(data) {
         let value = document.getElementById("listbtn" + data);
         axios.get("/admin/listcoupon/" + data).then((response) => {
-        
           if (response.data.success == true) {
-            value.textContent ="true";
-    
+            value.textContent = "true";
           } else {
-            value.textContent ="false";
-           
+            value.textContent = "false";
           }
         });
       }
-      function deletecoupon(data){
-      
-        axios.get('/admin/deletecoupon/'+data).then((response)=>{console.log(response)
+      function deletecoupon(data) {
+        axios.get("/admin/deletecoupon/" + data).then((response) => {
+          console.log(response);
 
-          let trdata= document.getElementById('coupon'+data)
-        console.log(trdata);
-        trdata.innerHTML=""
-
-        })
+          let trdata = document.getElementById("coupon" + data);
+          console.log(trdata);
+          trdata.innerHTML = "";
+        });
       }
-      const dateInput = document.getElementById('mydate');
-const today = new Date().toISOString().split('T')[0];
-dateInput.setAttribute('min', today);
+      const dateInput = document.getElementById("mydate");
+      const today = new Date().toISOString().split("T")[0];
+      dateInput.setAttribute("min", today);
     </script>
     <script src="/assets/node_modules/jquery/jquery.min.js"></script>
     <!-- Bootstrap popper Core JavaScript -->
@@ -592,9 +501,9 @@ dateInput.setAttribute('min', today);
     <script src="/assets/node_modules/c3-master/c3.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
     <script>
-      $(document).ready( function () {
-    $('#myTable').DataTable();
-} );
+      $(document).ready(function () {
+        $("#myTable").DataTable();
+      });
     </script>
   </body>
 </html>
