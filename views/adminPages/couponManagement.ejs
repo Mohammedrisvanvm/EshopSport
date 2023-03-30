@@ -503,6 +503,8 @@
                             type="date"
                             class="form-control"
                             name="expiry"
+                            id="mydate"
+                            min="{{ today | date('Y-m-d') }}"
                             placeholder="<%-i.expiry.toLocaleDateString()%>"
                             required
                             value="<%-i.expiry.toLocaleDateString() %>" 
@@ -575,6 +577,9 @@
 
         })
       }
+      const dateInput = document.getElementById('mydate');
+const today = new Date().toISOString().split('T')[0];
+dateInput.setAttribute('min', today);
     </script>
     <script src="/assets/node_modules/jquery/jquery.min.js"></script>
     <!-- Bootstrap popper Core JavaScript -->
