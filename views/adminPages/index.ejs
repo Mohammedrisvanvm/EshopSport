@@ -55,10 +55,32 @@
       type="text/javascript"
       src="https://cdn.jsdelivr.net/npm/apexcharts"
     ></script>
+    <style>/* Small screens (up to 576px) */
+      @media (max-width: 576px) {
+        .page-titles {
+          flex-direction: column;
+          text-align: center;
+        }
+      }
+      
+      /* Medium screens (between 576px and 768px) */
+      @media (min-width: 576px) and (max-width: 768px) {
+        .col-md-5 {
+          flex-basis: 50%;
+        }
+      }
+      
+      /* Large screens (above 768px) */
+      @media (min-width: 768px) {
+        .col-md-5 {
+          flex-basis: 40%;
+        }
+      }
+      </style>
   </head>
 
-  <body class="fix-header fix-sidebar card-no-border">
-    <div id="main-wrapper">
+  <body class=>
+    <div >
       <header class="topbar">
         <nav class="navbar top-navbar navbar-expand-md navbar-light">
           <div class="navbar-header">
@@ -142,7 +164,14 @@
           </div>
         </nav>
       </header>
-
+<style>@media screen and (min-width: 1000px) {
+  #sidebarnav {
+    display: block;
+  }
+  .toggle-sidebar {
+    display: none;
+  }
+}</style>
       <aside class="left-sidebar">
         <div class="scroll-sidebar">
           <nav class="sidebar-nav">
@@ -150,7 +179,7 @@
               <li>
                 <a
                   class="waves-effect waves-dark"
-                  href="/admin/dashboard"
+                  href="/admin"
                   aria-expanded="false"
                   ><i class="fa fa-home"></i
                   ><span class="hide-menu">Dashboard</span></a
