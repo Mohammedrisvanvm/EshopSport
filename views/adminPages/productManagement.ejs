@@ -58,7 +58,19 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </head>
 
-  <body class="fix-header fix-sidebar card-no-border">
+  <body>
+    <header>
+      <!-- As a link -->
+      <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <h2 style="margin-left: -10px">
+              <strong>Eshop Sport Admin</strong>
+            </h2>
+          </a>
+        </div>
+      </nav>
+    </header>
     <aside class="left-sidebar">
       <!-- Sidebar scroll-->
       <div class="scroll-sidebar">
@@ -223,12 +235,12 @@
           </tbody>
         </table>
       </section>
-
+    </div>
       <footer class="footer">
         © 2023 eshopsport by
         <a href="/views/adminPages/adminHome.ejs">eshopsport.com</a>
       </footer>
-    </div>
+  
 
     <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
     <script>
