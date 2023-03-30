@@ -4,7 +4,6 @@ import {
   addtocart,
   addtowishlist,
   cart,
-  contactus,
   deletefromaddress,
   deletefromcart,
   deletefromwishlist,
@@ -19,7 +18,6 @@ import {
   guestpage,
   incdec,
   jersey,
-  newp,
   onlineorderconfirm,
   orderconfirmationpage,
   orderDetails,
@@ -80,18 +78,18 @@ router.get("/shop", shop);
 router.get("/jersey", jersey);
 router.get("/shorts", shorts);
 router.get("/socks", socks);
-router.get("/contactus", contactus);
+
 router.get("/checkout", ifuser, getcheckout);
 router.post("/checkout", ifuser, postcheckout);
 router.get("/address", ifuser, addresspage);
 router.post("/address", postaddresspage);
 router.post("/addressprofile", postaddressprofile);
-router.get("/orderconfirmationpage", orderconfirmationpage);
+router.get("/orderconfirmationpage",ifuser, orderconfirmationpage);
 router.post("/editAddress", ifuser, editAddress);
 router.get("/trash", ifuser, payment);
-router.get("/orders", orderDetails);
+router.get("/orders",ifuser, orderDetails);
 router.get("/order/orderdetails", ifuser, uniqueorder);
-router.get("/new", newp);
+
 router.post("/onlineorderconfirm", onlineorderconfirm);
 
 

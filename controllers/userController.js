@@ -7,11 +7,11 @@ import { products } from "../models/productSchema.js";
 import uniqid from "uniqid";
 import { coupon } from "../models/couponSchema.js";
 import { orderModel } from "../models/orderSchema.js";
-import { ifuser } from "../middleware/middleware.js";
+
 import { bannerModel } from "../models/bannerSchema.js";
 import { createId } from "../helpers/createId.js";
 import Razorpay from "razorpay";
-import { categories } from "../models/categorySchema.js";
+
 
 let passworderr = null;
 let emailerr = null;
@@ -20,6 +20,7 @@ let loginvalue = null;
 let otperr = null;
 let addressError = null;
 let quantityerr = null;
+
 
 let otp = otpGenerator.generate(6, {
   upperCaseAlphabets: false,
@@ -52,7 +53,7 @@ export async function guestpage(req, res) {
         { $limit: 4 },
       ])
       .exec();
-
+      let ifuser=req.session.user
     let banner = await bannerModel.find({ list: true });
 
     res.render("guest", { jerseyinfo, shortsinfo, socksinfo, banner, ifuser });
@@ -61,6 +62,7 @@ export async function guestpage(req, res) {
   }
 }
 export async function shop(req, res) {
+  let ifuser=req.session.user
   try {
     let productinfo;
     let pipeline = [];
@@ -114,7 +116,7 @@ export async function shop(req, res) {
 }
 
 export async function jersey(req, res) {
- 
+  let ifuser=req.session.user
   try {
     let search = req.query.search 
 let productinfo
@@ -140,6 +142,7 @@ let productinfo
   }
 }
 export async function shorts(req, res) {
+  let ifuser=req.session.user
   try {
     let search = req.query.search 
     let productinfo
@@ -161,6 +164,7 @@ export async function shorts(req, res) {
   }
 }
 export async function socks(req, res) {
+  let ifuser=req.session.user
   try {
     let search = req.query.search 
     let productinfo
@@ -358,6 +362,7 @@ export async function postforget3(req, res) {
 //product page
 
 export async function productPage(req, res) {
+  let ifuser=req.session.user
   try {
     const productinfo = await products.findById(req.params.id).lean();
 
@@ -368,6 +373,7 @@ export async function productPage(req, res) {
 }
 
 export async function wishlist(req, res) {
+  let ifuser=req.session.user
   try {
     const wishlistdetails = await users.findOne(
       { _id: req.session.user._id },
@@ -386,6 +392,7 @@ export async function wishlist(req, res) {
 }
 
 export async function cart(req, res) {
+  let ifuser=req.session.user
   try {
     if (!req.session.user) {
       res.redirect("/login");
@@ -440,6 +447,7 @@ export async function cart(req, res) {
 }
 
 export async function userprofile(req, res) {
+  let ifuser=req.session.user
   try {
     const userinfo = await users.findOne({ _id: req.session.user._id });
     const useraddress = await users.findOne(
@@ -471,9 +479,7 @@ export async function editProfile(req, res) {
   }
 }
 
-export function contactus(req, res) {
-  res.render("contactus", { ifuser });
-}
+
 
 export async function getcheckout(req, res) {
   try {
@@ -836,13 +842,7 @@ export async function orderDetails(req, res) {
   res.render("order", { ifuser, orderDetails });
 }
 
-export async function newp(req, res) {
-  try {
-    res.render("new", { ifuser });
-  } catch (error) {
-    res.status(500).send("Error fetching product data.");
-  }
-}
+
 
 //orderpage
 
