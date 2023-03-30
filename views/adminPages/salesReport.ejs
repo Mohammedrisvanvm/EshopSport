@@ -330,6 +330,7 @@
             Download as Excel
           </button>
         </div>
+        <section>
         <h3 class="text-dark mt-4">Orders</h3>
         <div class="card mt-3" style="margin-right: 2rem">
           <div class="card-body pt-2">
@@ -387,6 +388,7 @@
             </div>
           </div>
         </div>
+      </section>
       </div>
     </div>
         <footer class="footer">
@@ -496,9 +498,7 @@
       let totalOrders = `${`<%-result[0].count%>`}`;
       let Customers = `${`<%-result[0].usersCount%>`}`;
 
-      console.log(`Total revenue: ${totalRevenue}`);
-      console.log(`Total orders: ${totalOrders}`);
-      console.log(`Customers: ${Customers}`);
+    
 
       let orders = [];
       ("<% orderinfo.forEach(function(i) { %>");

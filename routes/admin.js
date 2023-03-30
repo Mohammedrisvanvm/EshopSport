@@ -33,7 +33,7 @@ import {
   unlistcategory,
   unlistproduct,
   userban,
-} from "../controllers/admincontroller.js";
+} from "../controllers/adminController.js";
 import { ifadmin } from "../middleware/middleware.js";
 import { multiupload, multiuploadcaro } from "../middleware/multer.js";
 

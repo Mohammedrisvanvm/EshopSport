@@ -643,7 +643,7 @@ try {
   const { startDate, endDate } = req.query;
 
   let datedata = await orderModel
-    .find({ createdAt: { $gte: startDate, $lt: endDate } })
+    .find({ createdAt: { $gte: startDate, $lt: endDate } }).sort({_id:-1})
     .lean();
 
   res.json({ success: true, orderinfo: datedata });
