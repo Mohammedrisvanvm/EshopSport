@@ -594,7 +594,7 @@ export async function changestatus(req, res) {
             orderStatus: toChange,
             paid: true,
             deliveredDate: new Date(),
-          },
+          }
         }
       );
 

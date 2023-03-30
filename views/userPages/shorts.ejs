@@ -155,94 +155,55 @@
 
       <div class="container mt-5">
         <!-- Navbar -->
-        <nav
-          class="navbar navbar-expand-lg navbar-dark mt-3 mb-5 shadow p-2"
-          style="background-color: #607d8b"
-        >
-          <!-- Container wrapper -->
-          <div class="container-fluid">
-            <!-- Navbar brand -->
-            <a class="navbar-brand" href="#">categories</a>
+          <!-- Navbar -->
+          <nav
+            class="navbar navbar-expand-lg navbar-dark mt-3 mb-5 shadow p-2"
+            style="background-color: #607d8b"
+          >
+            <!-- Container wrapper -->
+            <div class="container-fluid">
+              <!-- Navbar brand -->
+              
 
-            <!-- Toggle button -->
-            <button
-              class="navbar-toggler"
-              type="button"
-              data-mdb-toggle="collapse"
-              data-mdb-target="#navbarSupportedContent2"
-              aria-controls="navbarSupportedContent2"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <i class="fas fa-bars"></i>
-            </button>
+              <!-- Toggle button -->
+              <button
+                class="navbar-toggler"
+                type="button"
+                data-mdb-toggle="collapse"
+                data-mdb-target="#navbarSupportedContent2"
+                aria-controls="navbarSupportedContent2"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <i class="fas fa-bars"></i>
+              </button>
 
-            <!-- Collapsible wrapper -->
-            <div class="collapse navbar-collapse" id="navbarSupportedContent2">
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <!-- Link -->
-                <li class="nav-item pt-1">
-                    <div class="d-flex">
-                     
-  
-                      <div class="dropdown">
-                        <button
-                          class="btn btn-secondary dropdown-toggle"
-                          type="button"
-                          id="dropdownMenuButton1"
-                          data-bs-toggle="dropdown"
-                          aria-expanded="false"
-                        >
-                          sort
-                        </button>
-                        <ul
-                          class="dropdown-menu"
-                          aria-labelledby="dropdownMenuButton1"
-                        >
-                          <li>
-                            <a class="dropdown-item" href="#">low to high</a>
-                          </li>
-                          <li>
-                            <a class="dropdown-item" href="#">high to low</a>
-                          </li>
-                          <li>
-                            <a class="dropdown-item" href="#">orders</a>
-                          </li>
-                          <li>
-                            <a class="dropdown-item" href="#"
-                              ><button class="btn btn-dark">logout</button></a
-                            >
-                          </li>
-                        </ul>
-                      </div>
-  
-                    
-                    </div>
-                  </li>
-                <li class="nav-item">
-                  <a class="nav-link text-white" href="#">jersey</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link text-white" href="#">shorts</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link text-white" href="#">sheos</a>
-                </li>
-              </ul>
+              <!-- Collapsible wrapper -->
+              <div
+                class="collapse navbar-collapse justify-content-end"
+                id="navbarSupportedContent2"
+              >
+            
 
-              <!-- Search -->
-              <form class="w-auto py-1" style="max-width: 12rem">
-                <input
-                  type="search"
-                  class="form-control rounded-0"
-                  placeholder="Search"
-                  aria-label="Search"
-                />
-              </form>
+                <!-- Search -->
+                <form class="w-auto py-1 d-flex border bg-light" method="get" style="max-width: 12rem">
+                  <input
+                    type="search"
+                    class="form-control border-0 rounded-0"
+                    placeholder="Search"
+                    aria-label="Search"
+                    name="search"
+                  />
+                  <button class="input-group-text text-dark border-0 d-flex" type="submit">
+                    <i class="fas fa-search" id="mdb-5-search-icon"></i>
+                  </button>
+                  
+                </form>
+                <a href='/shorts' class="text-light">clear</a>
+              </div>
             </div>
-          </div>
-          <!-- Container wrapper -->
-        </nav>
+            <!-- Container wrapper -->
+          </nav>
         <!-- Navbar -->
       </div>
       <!-- Products -->

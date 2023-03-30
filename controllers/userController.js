@@ -57,35 +57,29 @@ export async function guestpage(req, res) {
 
     res.render("guest", { jerseyinfo, shortsinfo, socksinfo, banner, ifuser });
   } catch (error) {
-     res.status(500).send("Error fetching product data.");
+    res.status(500).send("Error fetching product data.");
   }
- }
+}
 export async function shop(req, res) {
- 
-
   try {
     let productinfo;
     let pipeline = [];
-let sort=req.query.sort??0
+    let sort = req.query.sort ?? 0;
     if (req.query.sort) {
       pipeline.push({ $sort: { price: parseInt(req.query.sort) } });
     }
-    let filter=req.query.filter??""
+    let filter = req.query.filter ?? "";
     if (req.query.filter) {
-      pipeline.push({ $match: { category:req.query.filter } });
+      pipeline.push({ $match: { category: req.query.filter } });
     }
-    let search=req.query.search??""
+    let search = req.query.search ?? "";
     if (req.query.search) {
       pipeline.push({ $match: { productName: RegExp(req.query.search, "i") } });
-      
-      
-  
     } else {
       pipeline.push({ $match: { list: true } });
-     
+
       productinfo = await products.aggregate(pipeline);
     }
-  
 
     // pagination
     const page = req.query.page ? parseInt(req.query.page) : 1;
@@ -103,45 +97,88 @@ let sort=req.query.sort??0
       pagination.push(i);
     }
 
-   
-
     pipeline.push({ $skip: skip }, { $limit: limit });
     productinfo = await products.aggregate(pipeline);
 
-
-    res.render("shop", { productinfo, ifuser, pagination,sort,filter,search });
+    res.render("shop", {
+      productinfo,
+      ifuser,
+      pagination,
+      sort,
+      filter,
+      search,
+    });
   } catch (error) {
-   
     res.status(500).send("Error fetching product data.");
   }
 }
 
-
 export async function jersey(req, res) {
+ 
   try {
-    const productinfo = await products.find({ category: "jersey", list: true });
+    let search = req.query.search 
+let productinfo
+    if (search) {
+    productinfo = await products.find(
+       {
+            category: "jersey",
+            list: true,
+            productName: RegExp(search, "i"),
+          },
+       
+      )
+    }else{
+ productinfo = await products.find({ category: "jersey", list: true });
+    } 
+  
 
     res.render("jersey", { productinfo, ifuser });
+   
   } catch (error) {
-     res.status(500).send("Error fetching product data.");;
+    res.status(500).send("Error fetching product data.");
+    console.log(error);
   }
 }
 export async function shorts(req, res) {
   try {
-    const productinfo = await products.find({ category: "shorts", list: true });
-
+    let search = req.query.search 
+    let productinfo
+        if (search) {
+        productinfo = await products.find(
+           {
+                category: "shorts",
+                list: true,
+                productName: RegExp(search, "i"),
+              },
+           
+          )
+        }else{
+     productinfo = await products.find({ category: "shorts", list: true });
+        } 
     res.render("shorts", { productinfo, ifuser });
   } catch (error) {
-     res.status(500).send("Error fetching product data.");;
+    res.status(500).send("Error fetching product data.");
   }
 }
 export async function socks(req, res) {
   try {
-    const productinfo = await products.find({ category: "socks", list: true });
-
+    let search = req.query.search 
+    let productinfo
+        if (search) {
+        productinfo = await products.find(
+           {
+                category: "socks",
+                list: true,
+                productName: RegExp(search, "i"),
+              },
+           
+          )
+        }else{
+     productinfo = await products.find({ category: "socks", list: true });
+        } 
     res.render("socks", { productinfo, ifuser });
   } catch (error) {
-     res.status(500).send("Error fetching product data.");
+    res.status(500).send("Error fetching product data.");
   }
 }
 
@@ -153,7 +190,9 @@ export function userGetLogin(req, res) {
     } else {
       res.redirect("/");
     }
-  } catch (error) { res.status(500).send("Error fetching product data.");}
+  } catch (error) {
+    res.status(500).send("Error fetching product data.");
+  }
 }
 
 export async function userPostLogin(req, res) {
@@ -161,7 +200,6 @@ export async function userPostLogin(req, res) {
     const { email, password } = req.body;
 
     const userinfo = await users.findOne({ email });
-  
 
     if (!userinfo) {
       emailerr = "not found email";
@@ -175,7 +213,6 @@ export async function userPostLogin(req, res) {
           req.session.user = userinfo;
 
           res.redirect("/");
-        
         } else {
           emailerr = "password error";
           res.redirect("/login");
@@ -183,7 +220,7 @@ export async function userPostLogin(req, res) {
       });
     }
   } catch (error) {
-     res.status(500).send("Error fetching product data.");;
+    res.status(500).send("Error fetching product data.");
   }
 }
 export function userGetSignup(req, res) {
@@ -192,7 +229,6 @@ export function userGetSignup(req, res) {
   emailerr = null;
 }
 export async function userPostSignup(req, res) {
-
   try {
     const { password, conpassword, email } = req.body;
     if (password == conpassword) {
@@ -215,7 +251,7 @@ export async function userPostSignup(req, res) {
       res.redirect("/signup");
     }
   } catch (error) {
-     res.status(500).send("Error fetching product data.");;
+    res.status(500).send("Error fetching product data.");
   }
 }
 export function getsignUpOtp(req, res) {
@@ -259,14 +295,14 @@ export async function postForgottenPassword(req, res) {
       res.redirect("/otp");
     } else {
       sentOTP(email, otp);
-    
+
       req.session.email = email;
       req.session.otp = otp;
       loginvalue = req.body;
       res.redirect("/otpValidate");
     }
   } catch (error) {
-     res.status(500).send("Error fetching product data.");;
+    res.status(500).send("Error fetching product data.");
   }
 }
 export function resendOTP(req, res) {
@@ -275,7 +311,6 @@ export function resendOTP(req, res) {
     specialChars: false,
   });
 
-
   sentOTP(req.session.email, otp);
   req.session.email = req.session.email;
   req.session.otp = otp;
@@ -283,8 +318,6 @@ export function resendOTP(req, res) {
   res.redirect("/otpValidate");
 }
 export function getOtpValidate(req, res) {
-
-
   res.render("otpValidation", { otperr });
   otperr = null;
 }
@@ -318,7 +351,7 @@ export async function postforget3(req, res) {
       res.redirect("/forget3");
     }
   } catch (error) {
-     res.status(500).send("Error fetching product data.");;
+    res.status(500).send("Error fetching product data.");
   }
 }
 
@@ -330,7 +363,7 @@ export async function productPage(req, res) {
 
     res.render("productPage", { productinfo, ifuser });
   } catch (error) {
-     res.status(500).send("Error fetching product data.");;
+    res.status(500).send("Error fetching product data.");
   }
 }
 
@@ -348,7 +381,7 @@ export async function wishlist(req, res) {
 
     res.render("wishlist", { productsdetails, ifuser });
   } catch (error) {
-     res.status(500).send("Error fetching product data.");;
+    res.status(500).send("Error fetching product data.");
   }
 }
 
@@ -398,11 +431,11 @@ export async function cart(req, res) {
           count,
         });
       } catch (error) {
-         res.status(500).send("Error fetching product data.");;
+        res.status(500).send("Error fetching product data.");
       }
     }
   } catch (error) {
-     res.status(500).send("Error fetching product data.");;
+    res.status(500).send("Error fetching product data.");
   }
 }
 
@@ -416,7 +449,7 @@ export async function userprofile(req, res) {
 
     res.render("profile", { userinfo, useraddress, ifuser });
   } catch (error) {
-     res.status(500).send("Error fetching product data.");;
+    res.status(500).send("Error fetching product data.");
   }
 }
 export async function editProfile(req, res) {
@@ -431,7 +464,6 @@ export async function editProfile(req, res) {
       });
       res.redirect("/profile");
     } catch (error) {
-   
       res.status(500).send("An error occurred while updating the user profile");
     }
   } else {
@@ -444,7 +476,6 @@ export function contactus(req, res) {
 }
 
 export async function getcheckout(req, res) {
-
   try {
     const cartQuantity = {};
     const userinfo = await users.findOne({ _id: req.session.user._id });
@@ -477,10 +508,10 @@ export async function getcheckout(req, res) {
       return count;
     });
 
-  
-
-    
-    let coupons = await coupon.find({ list: "true",expiry:{$gt: new Date().getTime()} });
+    let coupons = await coupon.find({
+      list: "true",
+      expiry: { $gt: new Date().getTime() },
+    });
 
     res.render("checkout", {
       productsdetails,
@@ -494,11 +525,10 @@ export async function getcheckout(req, res) {
     addressError = null;
     quantityerr = null;
   } catch (error) {
-     res.status(500).send("Error fetching product data.");;
+    res.status(500).send("Error fetching product data.");
   }
 }
 export async function postcheckout(req, res) {
-
   try {
     let { totalAmount, address } = req.body;
 
@@ -520,27 +550,20 @@ export async function postcheckout(req, res) {
       const code = await coupon.findOne({ couponCode: req.body.promo });
       promo = code.discount;
     }
-    let paymentType=req.body.paymentType
+    let paymentType = req.body.paymentType;
 
     let wallet = 0;
     if (req.session.wallet) {
-      
-      
-      
       wallet = Number(req.session.wallet);
-  
-       paymentType=req.body.paymentType+"& Wallet"
-    }
-   
 
-   
+      paymentType = req.body.paymentType + "& Wallet";
+    }
 
     let sum = 0;
     for (const product of productsdetails) {
       if (product.quantity < cartQuantity[product._id]) {
-       
         res.redirect("/checkout");
-        quantityerr='out of stock'
+        quantityerr = "out of stock";
         return;
       }
       product.cartQuantity = cartQuantity[product._id];
@@ -557,7 +580,6 @@ export async function postcheckout(req, res) {
       ...product,
       total,
       payableAmount: total,
-      
     }));
 
     address = await users
@@ -566,9 +588,8 @@ export async function postcheckout(req, res) {
         { address: { $elemMatch: { _id: address } } }
       )
       .lean();
- 
+
     if (!address) {
-  
       res.redirect("/checkout");
       addressError = "create address ";
     }
@@ -601,7 +622,7 @@ export async function postcheckout(req, res) {
         { _id: req.session.user._id },
         { $inc: { wallet: -Number(req.session.wallet) } }
       );
-      req.session.wallet=0
+      req.session.wallet = 0;
 
       await orderModel.create(order);
       res.redirect("/orderConfirmationPage");
@@ -609,12 +630,11 @@ export async function postcheckout(req, res) {
       res.render("paymentTemp");
     }
   } catch (error) {
-     res.status(500).send("Error fetching product data.");;
+    res.status(500).send("Error fetching product data.");
   }
 }
 
 export async function getUserPayment(req, res) {
- 
   try {
     let amount = Number(req.session.order[0].amountPayable * 100);
 
@@ -639,7 +659,7 @@ export async function onlineorderconfirm(req, res) {
     const paymentDocument = await instance.payments.fetch(
       req.body.razorpay_payment_id
     );
-  
+
     if (paymentDocument.status === "captured") {
       const order = req.session.order;
       const productsdetails = req.session.productsdetails;
@@ -658,18 +678,18 @@ export async function onlineorderconfirm(req, res) {
         { _id: orderup[0]._id },
         { $set: { paid: true, orderId: paymentDocument.id } }
       );
-     await users.updateOne(
+      await users.updateOne(
         { _id: req.session.user._id },
         { $inc: { wallet: -Number(req.session.wallet) } }
       );
-      req.session.wallet=0
+      req.session.wallet = 0;
 
       res.redirect("/orderconfirmationpage");
     } else {
       res.redirect("/checkout");
     }
   } catch (error) {
-     res.status(500).send("Error fetching product data.");;
+    res.status(500).send("Error fetching product data.");
   }
 }
 
@@ -677,16 +697,9 @@ export function addresspage(req, res) {
   res.render("address", { ifuser });
 }
 export async function postaddressprofile(req, res) {
-
   try {
-    const {
-      HouseName,
-      phonenumber,
-      Place,
-      District,
-      state,
-      pincode,
-    } = req.body;
+    const { HouseName, phonenumber, Place, District, state, pincode } =
+      req.body;
 
     const user = await users.findOne({ _id: req.session.user._id });
 
@@ -725,23 +738,16 @@ export async function postaddressprofile(req, res) {
       res.redirect("/profile");
     }
   } catch (error) {
-     res.status(500).send("Error fetching product data.");
+    res.status(500).send("Error fetching product data.");
   }
 }
 
 export async function postaddresspage(req, res) {
   try {
-    const {
-      HouseName,
-      phonenumber,
-      Place,
-      District,
-      state,
-      pincode,
-    } = req.body;
+    const { HouseName, phonenumber, Place, District, state, pincode } =
+      req.body;
 
     const user = await users.findOne({ _id: req.session.user._id });
-
 
     if (
       HouseName == "" ||
@@ -753,24 +759,22 @@ export async function postaddresspage(req, res) {
     ) {
       res.redirect("/checkout");
     } else {
-      await users
-        .updateOne(
-          { _id: req.session.user._id },
-          {
-            $push: {
-              address: {
-                _id: uniqid(),
-                HouseName,
-                phonenumber,
-                Place,
-                District,
-                state,
-                pincode,
-              },
+      await users.updateOne(
+        { _id: req.session.user._id },
+        {
+          $push: {
+            address: {
+              _id: uniqid(),
+              HouseName,
+              phonenumber,
+              Place,
+              District,
+              state,
+              pincode,
             },
-          }
-        )
-        
+          },
+        }
+      );
 
       const useraddress = await users.findOne(
         { _id: req.session.user._id },
@@ -780,15 +784,18 @@ export async function postaddresspage(req, res) {
       res.redirect("/checkout");
     }
   } catch (error) {
-     res.status(500).send("Error fetching product data.");
+    res.status(500).send("Error fetching product data.");
   }
 }
 export async function editAddress(req, res) {
   try {
-    
-    const { HouseName, phonenumber, place, District, state, pincode } = req.body;
+    const { HouseName, phonenumber, place, District, state, pincode } =
+      req.body;
     await users.updateOne(
-      { _id: req.session.user._id, address: { $elemMatch: { _id:req.query.id } } },
+      {
+        _id: req.session.user._id,
+        address: { $elemMatch: { _id: req.query.id } },
+      },
       {
         $set: {
           "address.$.HouseName": HouseName,
@@ -800,11 +807,11 @@ export async function editAddress(req, res) {
         },
       }
     );
-    
-    res.redirect("back")
+
+    res.redirect("back");
   } catch (error) {
-     res.status(500).send("Error fetching product data.");;
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).send("Error fetching product data.");
+    res.status(500).json({ message: "Internal server error" });
   }
 }
 
@@ -831,17 +838,15 @@ export async function orderDetails(req, res) {
 
 export async function newp(req, res) {
   try {
-      res.render("new", { ifuser });
-   
+    res.render("new", { ifuser });
   } catch (error) {
-     res.status(500).send("Error fetching product data.");;
+    res.status(500).send("Error fetching product data.");
   }
 }
 
 //orderpage
 
 export function userlogout(req, res) {
-
   delete req.session.user;
   res.redirect("/");
 }
@@ -857,19 +862,18 @@ export async function addtowishlist(req, res) {
 
     res.json({ success: true });
   } catch (error) {
-     res.status(500).send("Error fetching product data.");;
+    res.status(500).send("Error fetching product data.");
   }
 }
 
 export async function deletefromwishlist(req, res) {
-
   try {
     await users.updateOne(
       { _id: req.session.user._id },
       { $pull: { wishlist: { product_id: req.params.data } } }
     );
   } catch (error) {
-     res.status(500).send("Error fetching product data.");
+    res.status(500).send("Error fetching product data.");
   }
 }
 export async function addtocart(req, res) {
@@ -904,7 +908,7 @@ export async function addtocart(req, res) {
         res.send("not worked");
       }
     } catch (error) {
-       res.status(500).send("Error fetching product data.");
+      res.status(500).send("Error fetching product data.");
     }
   }
 }
@@ -921,14 +925,14 @@ export async function deletefromcart(req, res) {
       { _id: req.session.user._id },
       { cart: 1, _id: 0 }
     );
-  
+
     if (use.cart.length <= 0) {
       res.json({ reload: true });
     } else {
       res.json({ reload: true });
     }
   } catch (error) {
-     res.status(500).send("Error fetching product data.");
+    res.status(500).send("Error fetching product data.");
   }
 }
 
@@ -967,20 +971,19 @@ export async function incdec(req, res) {
   } catch (error) {}
 }
 export async function deletefromaddress(req, res) {
-  
   try {
     await users.updateOne(
       { _id: req.session.user._id },
       { $pull: { address: { _id: req.query.id } } }
-    )
+    );
 
-    res.json({success:true})
+    res.json({ success: true });
   } catch (error) {
-     res.status(500).send("Error fetching product data.");;
+    res.status(500).send("Error fetching product data.");
   }
 }
 export async function promoCode(req, res) {
-   res.status(500).send("Error fetching product data.");
+  res.status(500).send("Error fetching product data.");
   try {
     if (!req.query.data) {
       res.json({ success: false });
@@ -989,31 +992,26 @@ export async function promoCode(req, res) {
         couponCode: req.query.data,
         list: true,
       });
-   
+
       let todayDate = new Date();
       let expiryDate = new Date(code.expiry);
 
       if (code) {
         if (expiryDate.getTime() < todayDate.getTime()) {
-       
           res.json({ success: true, exp: false });
         } else {
           if (code.minamount <= req.query.price) {
-         
-
             res.json({ success: true, code: code.discount, exp: true });
           } else {
-        
             res.json({ success: false });
           }
         }
       } else {
-       
         res.json({ success: false });
       }
     }
   } catch (error) {
-     res.status(500).send("Error fetching product data.");;
+    res.status(500).send("Error fetching product data.");
   }
 }
 export async function wallet(req, res) {
@@ -1029,26 +1027,24 @@ export async function wallet(req, res) {
         let wallet = 0;
         if (user.wallet >= req.query.price) {
           wallet = user.wallet - req.query.price;
-          req.session.wallet= req.query.price
-        
+          req.session.wallet = req.query.price;
+
           let tp = 0;
 
           res.json({ success: true, wallet: wallet, tp });
         } else {
           let tp = 0;
           tp = req.query.price - user.wallet;
-          req.session.wallet=user.wallet
+          req.session.wallet = user.wallet;
 
           res.json({ success: true, wallet: wallet, tp: tp });
         }
-        
-      
       } else {
         res.json({ success: false });
       }
     }
   } catch (error) {
-     res.status(500).send("Error fetching product data.");
+    res.status(500).send("Error fetching product data.");
   }
 }
 
@@ -1078,7 +1074,7 @@ export async function productReturn(req, res) {
 
     res.json({ success: true });
   } catch (error) {
-     res.status(500).send("Error fetching product data.");;
+    res.status(500).send("Error fetching product data.");
   }
 }
 export async function productCancel(req, res) {
@@ -1107,7 +1103,7 @@ export async function productCancel(req, res) {
 
     res.json({ success: true });
   } catch (error) {
-     res.status(500).send("Error fetching product data.");;
+    res.status(500).send("Error fetching product data.");
   }
 }
 
@@ -1117,17 +1113,14 @@ export async function uniqueorder(req, res) {
 
   const orderDetails = await orderModel.findOne({ _id: req.query.data });
 
-
   res.render("orderdetails", { ifuser, orderDetails, user });
 }
 
 export async function search(req, res) {
-
   let searchdata = await products.find({
     productName: RegExp(req.body.search, "i"),
   });
- 
+
   req.session.searchdata = searchdata;
   res.redirect("/shop");
 }
-

@@ -10,9 +10,6 @@
       href="https://getbootstrap.com/docs/4.0/examples/carousel/"
     />
 
-    <!-- Bootstrap core CSS -->
-    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet" />
-
     <!-- Custom styles for this template -->
     <link href="/css/usercss.css" rel="stylesheet" />
     <link
@@ -152,68 +149,97 @@
 
     <main>
       <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-dark mt-5 mb-5 shadow p-2" style="background-color: #607d8b">
+        <nav
+          class="navbar navbar-expand-lg navbar-dark mt-5 mb-5 shadow p-2"
+          style="background-color: #607d8b"
+        >
           <div class="container-fluid">
             <a class="navbar-brand text-dark" href="#"></a>
-            <button class="navbar-toggler text-dark" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent2" aria-controls="navbarSupportedContent2" aria-expanded="false" aria-label="Toggle navigation">
+            <button
+              class="navbar-toggler text-dark"
+              type="button"
+              data-mdb-toggle="collapse"
+              data-mdb-target="#navbarSupportedContent2"
+              aria-controls="navbarSupportedContent2"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
               <i class="fas fa-bars"></i>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent2">
-              <a class="nav-link dropdown-toggle text-white" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <button
+                class="nav-link dropdown-toggle border bg-light"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
                 filter
-              </a>
-              <form method="GET" >
-               
+              </button>
+              <form method="GET">
                 <ul class="dropdown-menu">
-                  <li>
-                    <input id="mdb-5-search-input" autocomplete="off" type="search" name="search" value="<%-search %>" class="form-control rounded" placeholder="Search" />
-                    <button class="input-group-text border-0 d-flex" type="submit">
+                  <li class="d-flex">
+                    <input
+                      id="mdb-5-search-input"
+                      autocomplete="off"
+                      type="search"
+                      name="search"
+                      value="<%-search %>"
+                      class="form-control rounded"
+                      placeholder="Search"
+                    />
+                    <button
+                      class="input-group-text border-0 d-flex"
+                      type="submit"
+                    >
                       <i class="fas fa-search" id="mdb-5-search-icon"></i>
                     </button>
                   </li>
                   <li>
                     <label class="dropdown-item">
-                      <input type="radio" name="sort" <%= 1 == sort ? 'checked' : '' %> value="1" onchange="this.form.submit()" />
-                      price: low to high
+                      <input type="radio" name="sort" <%= 1 == sort ? 'checked'
+                      : '' %> value="1" onchange="this.form.submit()" /> price:
+                      low to high
                     </label>
                   </li>
-                  
+
                   <li>
                     <label class="dropdown-item">
-                      <input type="radio" name="sort"  <%= -1 == sort ? 'checked' : '' %> value="-1" onchange="this.form.submit()" />
-                      price: high to low
+                      <input type="radio" name="sort" <%= -1 == sort ? 'checked'
+                      : '' %> value="-1" onchange="this.form.submit()" /> price:
+                      high to low
                     </label>
                   </li>
                   <li><hr class="dropdown-divider" /></li>
                   <li>
                     <label class="dropdown-item">
-                      <input type="radio" name="filter" value="jersey"  <%= "jersey"== filter ? 'checked' : '' %> onchange="this.form.submit()" />
-                      category: jersey
+                      <input type="radio" name="filter" value="jersey" <%=
+                      "jersey"== filter ? 'checked' : '' %>
+                      onchange="this.form.submit()" /> category: jersey
                     </label>
                   </li>
                   <li>
                     <label class="dropdown-item">
-                      <input type="radio" name="filter" value="shorts" <%= "shorts" == filter ? 'checked' : '' %> onchange="this.form.submit()" />
-                      category: shorts
+                      <input type="radio" name="filter" value="shorts" <%=
+                      "shorts" == filter ? 'checked' : '' %>
+                      onchange="this.form.submit()" /> category: shorts
                     </label>
                   </li>
                   <li>
                     <label class="dropdown-item">
-                      <input type="radio" name="filter" value="socks" <%= "socks" == filter ? 'checked' : '' %> onchange="this.form.submit()" />
-                      category: socks
+                      <input type="radio" name="filter" value="socks" <%=
+                      "socks" == filter ? 'checked' : '' %>
+                      onchange="this.form.submit()" /> category: socks
                     </label>
                   </li>
                   <li><hr class="dropdown-divider" /></li>
-                  <li> <a href='/shop' class="btn">clear filter</a>
-                  </li>
+                  <li><a href="/shop" class="btn">clear filter</a></li>
                 </ul>
               </form>
-              
             </div>
           </div>
         </nav>
       </div>
-      
+
       <!-- Products -->
 
       <section>
@@ -285,12 +311,15 @@
         </div>
         <div class="flex-c-m flex-w w-full p-t-38 text-center">
           <% pagination.forEach(function(page, index) { %>
-            <a href='/shop?sort=<%-sort %>&filter=<%-filter%>&search=<%-search %>&page=<%-index+1 %>'>
-          <span
-            onclick="filterPage('page', '<%= index + 1 %>')"
-            class="flex-c-m how-pagination1 trans-04 m-all-7 "
-            ><%= index + 1 %></span
-          ></a>
+          <a
+            href="/shop?sort=<%-sort %>&filter=<%-filter%>&search=<%-search %>&page=<%-index+1 %>"
+          >
+            <span
+              onclick="filterPage('page', '<%= index + 1 %>')"
+              class="flex-c-m how-pagination1 trans-04 m-all-7"
+              ><%= index + 1 %></span
+            ></a
+          >
           <% }); %>
         </div>
       </section>
@@ -370,8 +399,7 @@
       }
 
       function filterPage(pageNumber) {
-        axios.get('')
-        
+        axios.get("");
       }
     </script>
 

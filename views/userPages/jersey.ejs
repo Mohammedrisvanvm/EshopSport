@@ -11,7 +11,7 @@
     />
 
     <!-- Bootstrap core CSS -->
-    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet" />
+    
 
     <!-- Custom styles for this template -->
     <link href="/css/usercss.css" rel="stylesheet" />
@@ -98,7 +98,7 @@
                 </li>
                 <li class="nav-item pt-1">
                   <div class="d-flex">
-                    <% if (ifuser) { %>
+                    <% if (ifuser==false) { %>
 
                     <div class="dropdown">
                       <button
@@ -162,7 +162,7 @@
             <!-- Container wrapper -->
             <div class="container-fluid">
               <!-- Navbar brand -->
-              <a class="navbar-brand" href="#">categories</a>
+              <!-- <a class="navbar-brand" href="#">Category:Jersey</a> -->
 
               <!-- Toggle button -->
               <button
@@ -179,34 +179,25 @@
 
               <!-- Collapsible wrapper -->
               <div
-                class="collapse navbar-collapse"
+                class="collapse navbar-collapse justify-content-end"
                 id="navbarSupportedContent2"
               >
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  <!-- Link -->
-                  <li class="nav-item acitve">
-                    <a class="nav-link text-white" href="#">All</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link text-white" href="#">jersey</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link text-white" href="#">shorts</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link text-white" href="#">sheos</a>
-                  </li>
-                </ul>
+            
 
                 <!-- Search -->
-                <form class="w-auto py-1" style="max-width: 12rem">
+                <form class="w-auto py-1 d-flex border bg-light" method="get" style="max-width: 12rem">
                   <input
                     type="search"
-                    class="form-control rounded-0"
+                    class="form-control border-0 rounded-0"
                     placeholder="Search"
                     aria-label="Search"
+                    name="search"
                   />
+                  <button class="input-group-text text-dark border-0 d-flex" type="submit">
+                    <i class="fas fa-search" id="mdb-5-search-icon" ></i>
+                  </button>
                 </form>
+                <a href='/jersey' class="text-light">clear</a>
               </div>
             </div>
             <!-- Container wrapper -->
@@ -220,7 +211,7 @@
         <div class="text-center container">
           <div class="row">
             <div class="row">
-              <% productinfo.forEach(i => { %>
+              <% productinfo.forEach((i) => { %>
               <div class="col-lg-3 col-md-6 mb-4">
                 <div class="card">
                   <div
@@ -358,6 +349,11 @@
       function addtocart(data) {
         axios.get("/addtocart/" + data);
       }
+
+
+
+
+
     </script>
 
     <script

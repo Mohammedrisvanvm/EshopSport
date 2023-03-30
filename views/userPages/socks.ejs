@@ -163,7 +163,7 @@
             <!-- Container wrapper -->
             <div class="container-fluid">
               <!-- Navbar brand -->
-              <a class="navbar-brand" href="#">categories</a>
+              <!-- <a class="navbar-brand" href="#">categories</a> -->
 
               <!-- Toggle button -->
               <button
@@ -180,35 +180,27 @@
 
               <!-- Collapsible wrapper -->
               <div
-                class="collapse navbar-collapse"
-                id="navbarSupportedContent2"
-              >
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  <!-- Link -->
-                  <li class="nav-item acitve">
-                    <a class="nav-link text-white" href="#">All</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link text-white" href="#">jersey</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link text-white" href="#">shorts</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link text-white" href="#">sheos</a>
-                  </li>
-                </ul>
+              class="collapse navbar-collapse justify-content-end"
+              id="navbarSupportedContent2"
+            >
+          
 
-                <!-- Search -->
-                <form class="w-auto py-1" style="max-width: 12rem">
-                  <input
-                    type="search"
-                    class="form-control rounded-0"
-                    placeholder="Search"
-                    aria-label="Search"
-                  />
-                </form>
-              </div>
+              <!-- Search -->
+              <form class="w-auto py-1 d-flex border bg-light" method="get" style="max-width: 12rem">
+                <input
+                  type="search"
+                  class="form-control border-0 rounded-0"
+                  placeholder="Search"
+                  aria-label="Search"
+                  name="search"
+                />
+                <button class="input-group-text text-dark border-0 d-flex" type="submit">
+                  <i class="fas fa-search" id="mdb-5-search-icon"></i>
+                </button>
+                
+              </form>
+              <a href='/socks' class="text-light">clear</a>
+            </div>
             </div>
             <!-- Container wrapper -->
           </nav>
