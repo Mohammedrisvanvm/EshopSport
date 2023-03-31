@@ -446,14 +446,14 @@
                               <div class="mb-3">
                                 <label for="country">update expiry date</label>
                                 <input
-                                  type="date"
-                                  class="form-control"
-                                  name="expiry"
-                                  id="mydate"
-                                  min="{{ today | date('Y-m-d') }}"
-                                  placeholder="<%-i.expiry.toLocaleDateString()%>"
-                                  required
-                                  value="<%-i.expiry.toLocaleDateString() %>"
+                                type="date"
+                                class="form-control"
+                                name="expiry"
+                                id="mydate1"
+                                placeholder="dd-mm-yyyy"
+                                min="{{ today | date('Y-m-d') }}"
+                                required
+                                 
                                 />
                               </div>
                             </div>
@@ -512,8 +512,11 @@
         });
       }
       const dateInput = document.getElementById("mydate");
+      const dateInput1 = document.getElementById("mydate1");
       const today = new Date().toISOString().split("T")[0];
+     
       dateInput.setAttribute("min", today);
+      dateInput1.setAttribute("min", today);
     </script>
     <script src="/assets/node_modules/jquery/jquery.min.js"></script>
     <!-- Bootstrap popper Core JavaScript -->
