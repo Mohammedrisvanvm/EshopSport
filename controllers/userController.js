@@ -835,7 +835,7 @@ export async function orderconfirmationpage(req, res) {
   let ifuser=req.session.user
   const orderDetails = await orderModel.find().sort({ _id: -1 }).limit(1);
 
-  res.render("orderconfirmationpage", {
+  res.render("orderConfirmationPage", {
     ifuser,
     orderDetails,
     user: req.session.user,
