@@ -58,7 +58,7 @@ export async function guestpage(req, res) {
 
     res.render("guest", { jerseyinfo, shortsinfo, socksinfo, banner, ifuser });
   } catch (error) {
-    res.status(500).send("Error fetching product data.");
+    res.status(500).send(error);
   }
 }
 export async function shop(req, res) {
@@ -111,7 +111,7 @@ export async function shop(req, res) {
       search,
     });
   } catch (error) {
-    res.status(500).send("Error fetching product data.");
+    res.status(500).send(error);
   }
 }
 
@@ -137,7 +137,7 @@ let productinfo
     res.render("jersey", { productinfo, ifuser });
    
   } catch (error) {
-    res.status(500).send("Error fetching product data.");
+    res.status(500).send(error);
     console.log(error);
   }
 }
@@ -160,7 +160,7 @@ export async function shorts(req, res) {
         } 
     res.render("shorts", { productinfo, ifuser });
   } catch (error) {
-    res.status(500).send("Error fetching product data.");
+    res.status(500).send(error);
   }
 }
 export async function socks(req, res) {
@@ -182,7 +182,7 @@ export async function socks(req, res) {
         } 
     res.render("socks", { productinfo, ifuser });
   } catch (error) {
-    res.status(500).send("Error fetching product data.");
+    res.status(500).send(error);
   }
 }
 
@@ -195,7 +195,7 @@ export function userGetLogin(req, res) {
       res.redirect("/");
     }
   } catch (error) {
-    res.status(500).send("Error fetching product data.");
+    res.status(500).send(error);
   }
 }
 
@@ -224,7 +224,7 @@ export async function userPostLogin(req, res) {
       });
     }
   } catch (error) {
-    res.status(500).send("Error fetching product data.");
+    res.status(500).send(error);
   }
 }
 export function userGetSignup(req, res) {
@@ -255,7 +255,7 @@ export async function userPostSignup(req, res) {
       res.redirect("/signup");
     }
   } catch (error) {
-    res.status(500).send("Error fetching product data.");
+    res.status(500).send(error);
   }
 }
 export function getsignUpOtp(req, res) {
@@ -306,7 +306,7 @@ export async function postForgottenPassword(req, res) {
       res.redirect("/otpValidate");
     }
   } catch (error) {
-    res.status(500).send("Error fetching product data.");
+    res.status(500).send(error);
   }
 }
 export function resendOTP(req, res) {
@@ -355,7 +355,7 @@ export async function postforget3(req, res) {
       res.redirect("/forget3");
     }
   } catch (error) {
-    res.status(500).send("Error fetching product data.");
+    res.status(500).send(error);
   }
 }
 
@@ -368,7 +368,7 @@ export async function productPage(req, res) {
 
     res.render("productPage", { productinfo, ifuser });
   } catch (error) {
-    res.status(500).send("Error fetching product data.");
+    res.status(500).send(error);
   }
 }
 
@@ -387,7 +387,7 @@ export async function wishlist(req, res) {
 
     res.render("wishlist", { productsdetails, ifuser });
   } catch (error) {
-    res.status(500).send("Error fetching product data.");
+    res.status(500).send(error);
   }
 }
 
@@ -438,11 +438,11 @@ export async function cart(req, res) {
           count,
         });
       } catch (error) {
-        res.status(500).send("Error fetching product data.");
+        res.status(500).send(error);
       }
     }
   } catch (error) {
-    res.status(500).send("Error fetching product data.");
+    res.status(500).send(error);
   }
 }
 
@@ -457,7 +457,7 @@ export async function userprofile(req, res) {
 
     res.render("profile", { userinfo, useraddress, ifuser });
   } catch (error) {
-    res.status(500).send("Error fetching product data.");
+    res.status(500).send(error);
   }
 }
 export async function editProfile(req, res) {
@@ -533,7 +533,7 @@ export async function getcheckout(req, res) {
     addressError = null;
     quantityerr = null;
   } catch (error) {
-    res.status(500).send("Error fetching product data.");
+    res.status(500).send(error);
   }
 }
 export async function postcheckout(req, res) {
@@ -639,7 +639,7 @@ export async function postcheckout(req, res) {
       res.render("paymentTemp");
     }
   } catch (error) {
-    res.status(500).send("Error fetching product data.");
+    res.status(500).send(error);
   }
 }
 
@@ -699,7 +699,7 @@ export async function onlineorderconfirm(req, res) {
       res.redirect("/checkout");
     }
   } catch (error) {
-    res.status(500).send("Error fetching product data.");
+    res.status(500).send(error);
   }
 }
 
@@ -748,7 +748,7 @@ export async function postaddressprofile(req, res) {
       res.redirect("/profile");
     }
   } catch (error) {
-    res.status(500).send("Error fetching product data.");
+    res.status(500).send(error);
   }
 }
 
@@ -794,7 +794,7 @@ export async function postaddresspage(req, res) {
       res.redirect("/checkout");
     }
   } catch (error) {
-    res.status(500).send("Error fetching product data.");
+    res.status(500).send(error);
   }
 }
 export async function editAddress(req, res) {
@@ -820,7 +820,7 @@ export async function editAddress(req, res) {
 
     res.redirect("back");
   } catch (error) {
-    res.status(500).send("Error fetching product data.");
+    res.status(500).send(error);
     res.status(500).json({ message: "Internal server error" });
   }
 }
@@ -866,7 +866,7 @@ export async function addtowishlist(req, res) {
 
     res.json({ success: true });
   } catch (error) {
-    res.status(500).send("Error fetching product data.");
+    res.status(500).send(error);
   }
 }
 
@@ -877,7 +877,7 @@ export async function deletefromwishlist(req, res) {
       { $pull: { wishlist: { product_id: req.params.data } } }
     );
   } catch (error) {
-    res.status(500).send("Error fetching product data.");
+    res.status(500).send(error);
   }
 }
 export async function addtocart(req, res) {
@@ -912,7 +912,7 @@ export async function addtocart(req, res) {
         res.send("not worked");
       }
     } catch (error) {
-      res.status(500).send("Error fetching product data.");
+      res.status(500).send(error);
     }
   }
 }
@@ -936,7 +936,7 @@ export async function deletefromcart(req, res) {
       res.json({ reload: true });
     }
   } catch (error) {
-    res.status(500).send("Error fetching product data.");
+    res.status(500).send(error);
   }
 }
 
@@ -983,11 +983,11 @@ export async function deletefromaddress(req, res) {
 
     res.json({ success: true });
   } catch (error) {
-    res.status(500).send("Error fetching product data.");
+    res.status(500).send(error);
   }
 }
 export async function promoCode(req, res) {
-  res.status(500).send("Error fetching product data.");
+  res.status(500).send(error);
   try {
     if (!req.query.data) {
       res.json({ success: false });
@@ -1015,7 +1015,7 @@ export async function promoCode(req, res) {
       }
     }
   } catch (error) {
-    res.status(500).send("Error fetching product data.");
+    res.status(500).send(error);
   }
 }
 export async function wallet(req, res) {
@@ -1048,7 +1048,7 @@ export async function wallet(req, res) {
       }
     }
   } catch (error) {
-    res.status(500).send("Error fetching product data.");
+    res.status(500).send(error);
   }
 }
 
@@ -1078,7 +1078,7 @@ export async function productReturn(req, res) {
 
     res.json({ success: true });
   } catch (error) {
-    res.status(500).send("Error fetching product data.");
+    res.status(500).send(error);
   }
 }
 export async function productCancel(req, res) {
@@ -1107,7 +1107,7 @@ export async function productCancel(req, res) {
 
     res.json({ success: true });
   } catch (error) {
-    res.status(500).send("Error fetching product data.");
+    res.status(500).send(error);
   }
 }
 

@@ -163,7 +163,7 @@ export async function getgategoriesManagemenet(req, res) {
   }
 }
 export async function getaddcategories(req, res) {
-  res.render("addcategory", { categorieserr });
+  res.render("addCategory", { categorieserr });
   categorieserr = null;
 }
 
@@ -377,7 +377,7 @@ export async function salesReport(req, res) {
       },
     },
   ]);
-
+ 
   res.render("salesReport", { orderinfo, result });
 }
 
