@@ -149,57 +149,56 @@
     </header>
 
     <main role="main" class="mt-4">
+      <style>
+        /* Adjust image size for small screens */
+        @media (max-width: 767px) {
+          .carousel-item img {
+            height: auto;
+            max-width: 100%;
+          }
+          .carousel-item {
+            height: 300px;
+          }
+        }
+      
+        /* Adjust image size for medium screens */
+        @media (min-width: 768px) and (max-width: 991px) {
+          .carousel-item {
+            height: 400px;
+          }
+        }
+      
+        /* Adjust image size for large screens */
+        @media (min-width: 992px) {
+          .carousel-item {
+            height: 500px;
+          }
+        }
+      </style>
+      
       <div id="myCarousel" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-          <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-          <li data-target="#myCarousel" data-slide-to="1"></li>
-          <li data-target="#myCarousel" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img
-              class="third-slide object-fit-fill border-0 rounded"
-              src="/image/carousel image/<%-banner[0].mainImage[0].filename %>"
-              style=" background-color: white;"
-              alt="Third slide"
-            />
-            <div class="container">
-              <div class="carousel-caption text-left">
-                <!-- <h1>Arsenal </h1>
-                <p >
-                  Thailand Quality Arsenal Away Full Sleeve kit 2022-23 Fan edition is now Available with Low Price at Eshop Sport. Shop Any Football kits Direct From Importer in India at Eshop Sport Store.
-                </p> -->
-                <p>
-                  <a class="btn btn-lg btn-light" href="/shop" role="button"
-                    >shop now</a
-                  >
-                </p>
-              </div>
+        <!-- Indicators for the carousel -->
+      
+      
+        <!-- Carousel content -->
+        <div class="carousel-inner" >
+          <div class="carousel-item active" style="background-color: #ffff;">
+            <!-- Carousel slide image -->
+            <img class="d-block w-100 h-100 object-fit-fill border-0 rounded"
+                 src="/image/carousel image/<%-banner[0].mainImage[0].filename %>"
+                 alt="Slide image">
+      
+            <!-- Carousel slide caption -->
+            <div class="carousel-caption text-left">
+              <p>
+                <a class="btn btn-lg btn-light justify-content-center" href="/shop" role="button" style="margin-bottom: 10px;">Shop now</a>
+              </p>
             </div>
+            
           </div>
-       
-        
         </div>
-        <!-- <a
-          class="carousel-control-prev"
-          href="#myCarousel"
-          role="button"
-          data-slide="prev"
-        >
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a
-          class="carousel-control-next"
-          href="#myCarousel"
-          role="button"
-          data-slide="next"
-        >
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-        </a> -->
       </div>
-
+      <hr>
       <section>
         <div class="container marketing">
           <!-- Three columns of text below the carousel -->
