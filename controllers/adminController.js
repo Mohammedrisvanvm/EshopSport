@@ -100,7 +100,7 @@ export async function getaddProduct(req, res) {
   try {
     const categoryinfo = await categories.find();
    
-    res.render("addproduct", { producterr, imageerr, categoryinfo });
+    res.render("addProduct", { producterr, imageerr, categoryinfo });
 
     producterr = null;
     imageerr = null;
@@ -170,9 +170,9 @@ export async function getaddcategories(req, res) {
 export async function postaddcategories(req, res) {
   
   try {
-    const { Category, subCategory } = req.body;
+    const { Category} = req.body;
 
-    if (!Category && !subCategory) {
+    if (!Category) {
       throw new Error("No category or subcategory provided");
     }
 
@@ -186,17 +186,6 @@ export async function postaddcategories(req, res) {
       }
     }
 
-    if (subCategory) {
-      const subCategoryName = subCategory.toLowerCase();
-      const subCategoryInfo = await subCategories.findOne({
-        name: subCategoryName,
-      });
-      if (!subCategoryInfo) {
-        const subCategoriesAdd = new subCategories({ name: subCategoryName });
-        await subCategoriesAdd.save();
-        return res.redirect("/admin/categoriesManagement");
-      }
-    }
 
     categorieserr = "already exits";
     res.redirect("/admin/addcategories");

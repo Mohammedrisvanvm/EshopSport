@@ -66,7 +66,7 @@ export async function shop(req, res) {
   try {
     let productinfo;
     let pipeline = [];
-    let sort = req.query.sort ?? 0;
+    let sort = req.query.sort ?? 1;
     if (req.query.sort) {
       pipeline.push({ $sort: { price: parseInt(req.query.sort) } });
     }
@@ -78,6 +78,7 @@ export async function shop(req, res) {
     if (req.query.search) {
       pipeline.push({ $match: { productName: RegExp(req.query.search, "i") } });
     } else {
+      console.log("234");
       pipeline.push({ $match: { list: true } });
 
       productinfo = await products.aggregate(pipeline);
@@ -101,6 +102,7 @@ export async function shop(req, res) {
 
     pipeline.push({ $skip: skip }, { $limit: limit });
     productinfo = await products.aggregate(pipeline);
+    console.log(productinfo);
 
     res.render("shop", {
       productinfo,
