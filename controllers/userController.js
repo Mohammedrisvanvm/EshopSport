@@ -566,7 +566,7 @@ export async function postcheckout(req, res) {
     let wallet = 0;
     if (req.session.wallet) {
       wallet = Number(req.session.wallet);
-
+      req.session.wallet=null
       paymentType = req.body.paymentType + "& Wallet";
     }
 
@@ -633,12 +633,13 @@ export async function postcheckout(req, res) {
         { _id: req.session.user._id },
         { $inc: { wallet: -Number(req.session.wallet) } }
       );
-      req.session.wallet = 0;
+ 
 
       await orderModel.create(order);
       res.redirect("/orderConfirmationPage");
     } else {
-      res.render("paymentTemp");
+console.log(productsdetails);
+      res.render("paymentTemp",{productsdetails});
     }
   } catch (error) {
     res.status(500).send(error);

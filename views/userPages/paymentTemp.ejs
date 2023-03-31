@@ -61,15 +61,19 @@
 
                     <div class="price-item">
                         <label for="">Total amount</label>
-                        <b>₹6</b>
+                        <b>₹ <%-productsdetails[0].productTotal %></b>
                     </div>
                     <div class="price-item">
                         <label for="">Coupon discount</label>
-                        <b id="couponPrice" class="text-success">₹ 6</b>
+                        <% if (productsdetails[0].coupon) { %>
+                            <b id="couponPrice" class="text-success">₹ <%-productsdetails[0].coupon %></b>
+                    <% } else { %>
+                        <b id="couponPrice" class="text-success">₹ 0</b>
+                        <% } %>
                     </div>
                     <div class="price-item">
                         <label for="">Amount to pay</label>
-                        <b id="amountPayable">₹ 6</b>
+                        <b id="amountPayable">₹ <%-productsdetails[0].payableAmount %></b>
                         <input type="number" form="paymentForm" name="amount" value="6" hidden>
                     </div>
                     <div class="d-flex justify-content-center">
