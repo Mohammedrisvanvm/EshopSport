@@ -140,12 +140,12 @@
     <div class="container mt-5 mb-5">
       <div class="card">
         <div class="row g-0">
-          <div class="col-md-6 border-end">
-            <div class="d-flex flex-column ms-5 ps-5 justify-content-center">
+          <div class="col-md-4 border-end">
+          
               <div
-                class="show"
+                class="show object-fit-cover"
                 href="/image/productImage/<%-productinfo.mainImage[0].filename %>"
-                style="z-index: 999"
+                style="z-index: 999" 
               >
                 <img
                   src="/image/productImage/<%-productinfo.mainImage[0].filename %>"
@@ -184,9 +184,9 @@
                   id="next-img"
                 />
               </div>
-            </div>
+            
           </div>
-          <div class="col-md-6">
+          <div class="col-md-8">
             <div class="p-3 right-side">
               <div class="d-flex justify-content-between align-items-center">
                 <h3><%-productinfo.productName %></h3>
@@ -385,19 +385,6 @@
       }
     </script>
 
-    <script src="https://unpkg.com/js-image-zoom@0.4.1/js-image-zoom.js"></script>
-    <script>
-      var options = {
-        width: 500,
-        height: 550,
-        zoomWidth: 400,
-        offset: { vertical: 0, horizontal: 10 },
-        scale: 0.5,
-      };
-
-      var img = document.getElementById("image-zoom");
-      new ImageZoom(img, options);
-    </script>
     <script src="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script
