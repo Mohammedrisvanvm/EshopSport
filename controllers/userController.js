@@ -832,6 +832,7 @@ export function payment(req, res) {
 }
 export async function orderconfirmationpage(req, res) {
   req.session.order = null;
+  let ifuser=req.session.user
   const orderDetails = await orderModel.find().sort({ _id: -1 }).limit(1);
 
   res.render("orderconfirmationpage", {
@@ -845,7 +846,7 @@ export async function orderDetails(req, res) {
 
   let user = await users.findOne(req.session.user);
 
-  res.render("order", { ifuser, orderDetails });
+  res.render("order", { user, orderDetails });
 }
 
 
