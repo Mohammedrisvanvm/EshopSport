@@ -989,7 +989,7 @@ export async function deletefromaddress(req, res) {
   }
 }
 export async function promoCode(req, res) {
-  res.status(500).send(error);
+ 
   try {
     if (!req.query.data) {
       res.json({ success: false });

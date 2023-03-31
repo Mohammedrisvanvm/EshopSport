@@ -243,7 +243,7 @@
                       <div class="mb-3">
                         <label for="email">Minimum amount of purchase </label>
                         <input
-                          type="email"
+                          type="number"
                           class="form-control"
                           name="minamount"
                           id=""
@@ -253,7 +253,7 @@
                       <div class="mb-3">
                         <label for="address">discount</label>
                         <input
-                          type="text"
+                          type="number"
                           class="form-control"
                           name="discount"
                           placeholder="dicount"
@@ -263,7 +263,7 @@
                       <div class="mb-3">
                         <label for="address2">Max Discount Amount </label>
                         <input
-                          type="text"
+                          type="number"
                           class="form-control"
                           name="maxdiscount"
                           placeholder="maxdiscount"
@@ -276,7 +276,9 @@
                           type="date"
                           class="form-control"
                           name="expiry"
+                          id="mydate"
                           placeholder="dd-mm-yyyy"
+                          min="{{ today | date('Y-m-d') }}"
                           required
                         />
                       </div>
@@ -404,16 +406,18 @@
                                   type="email"
                                   class="form-control"
                                   name="minamount"
+                                  min="1"
                                   value="<%-i.minamount %>"
                                   placeholder="minimum amount"
                                 />
                               </div>
                               <div class="mb-3">
-                                <label for="address">discount</label>
+                                <label for="address">discount (%)</label>
                                 <input
                                   type="text"
                                   class="form-control"
                                   name="discount"
+                                  max="50"
                                   value="<%-i.discount %>"
                                   required
                                 />
