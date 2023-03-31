@@ -842,11 +842,12 @@ export async function orderconfirmationpage(req, res) {
   });
 }
 export async function orderDetails(req, res) {
+  let ifuser=req.session.user
   const orderDetails = await orderModel.find().sort({ _id: -1 });
 
   let user = await users.findOne(req.session.user);
 
-  res.render("order", { user, orderDetails });
+  res.render("order", {ifuser, user, orderDetails });
 }
 
 
