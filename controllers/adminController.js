@@ -90,7 +90,7 @@ export async function getuserManagement(req, res) {
 export async function getProductManagement(req, res) {
   try {
     const productinfo = await products.find().lean();
-    res.render("ProductManagement", { producterr, productinfo });
+    res.render("productManagement", { producterr, productinfo });
     producterr = null;
   } catch (error) {
     res.status(500).send("Error fetching product data.");;
