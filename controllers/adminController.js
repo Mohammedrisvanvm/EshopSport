@@ -294,17 +294,21 @@ export async function couponManagement(req, res) {
   }
 }
 export async function postCouponManagement(req, res) {
-  try {
-    let couponinfo = await coupon.findOne({ couponCode: req.body.couponCode });
-
+  try { 
+    console.log(req.body);
+    const {name,couponCode,minamount,discount,maxdiscount,expiry}=req.body
+    let couponinfo = await coupon.findOne({ couponCode:"couponCode" });
+console.log(couponCode);
     if (!couponinfo) {
+      
+     
       let addcoupon = new coupon({
-        name: req.body.name,
-        couponCode: req.body.couponCode,
-        minamount: req.body.minamount,
-        discount: req.body.discount,
-        maxdiscount: req.body.maxdiscount,
-        expiry: req.body.expiry,
+        name: name,
+        couponCode: couponCode,
+        minamount:minamount,
+        discount:discount,
+        maxdiscount: maxdiscount,
+        expiry: expiry,
       });
       await addcoupon.save();
       res.redirect("/admin/couponManagement");
