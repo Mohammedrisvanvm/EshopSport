@@ -46,7 +46,7 @@ export async function getAdminPage(req, res) {
       emailerr = null;
     }
   } catch (error) {
-    res.status(500).send("Error fetching product data.");;
+   res.status(500).send(error);;
   }
 }
 
@@ -73,7 +73,7 @@ export async function postAdminPage(req, res) {
       }
     }
   } catch (error) {
-    res.status(500).send("Error fetching product data.");;
+   res.status(500).send(error);;
   }
 }
 
@@ -83,7 +83,7 @@ export async function getuserManagement(req, res) {
 
     res.render("userManagement", { userinfo });
   } catch (error) {
-    res.status(500).send("Error fetching product data.");;
+   res.status(500).send(error);;
   }
 }
 
@@ -93,7 +93,7 @@ export async function getProductManagement(req, res) {
     res.render("productManagement", { producterr, productinfo });
     producterr = null;
   } catch (error) {
-    res.status(500).send("Error fetching product data.");;
+   res.status(500).send(error);;
   }
 }
 export async function getaddProduct(req, res) {
@@ -105,7 +105,7 @@ export async function getaddProduct(req, res) {
     producterr = null;
     imageerr = null;
   } catch (error) {
-    res.status(500).send("Error fetching product data.");
+   res.status(500).send(error);
     res.redirect("/admin/addproduct");
   }
 }
@@ -149,7 +149,7 @@ export function postaddProduct(req, res) {
       }
     } catch (err) {
       imageerr = "not a image";
-      res.status(500).send("Error fetching product data.")
+     res.status(500).send(error)
       res.redirect("/admin/addproduct");
     }
   });
@@ -159,7 +159,7 @@ export async function getgategoriesManagemenet(req, res) {
     const categoryinfo = await categories.find();
     res.render("categoriesManagement", { categoryinfo });
   } catch (error) {
-    res.status(500).send("Error fetching product data.");;
+   res.status(500).send(error);;
   }
 }
 export async function getaddcategories(req, res) {
@@ -201,7 +201,7 @@ export async function postaddcategories(req, res) {
     categorieserr = "already exits";
     res.redirect("/admin/addcategories");
   } catch (error) {
-    res.status(500).send("Error fetching product data.");;
+   res.status(500).send(error);;
     res.redirect("/admin/addcategories");
   }
 }
@@ -212,7 +212,7 @@ export async function editcategory(req, res) {
 
     res.render("editcategory", { categoryinfo });
   } catch (error) {
-     res.status(500).send("Error fetching product data.");
+    res.status(500).send(error);
   }
 }
 export async function posteditcategory(req, res) {
@@ -233,7 +233,7 @@ export async function posteditcategory(req, res) {
       res.redirect(304, "/admin/editcategory");
     }
   } catch (error) {
-     res.status(500).send("Error fetching product data.");
+    res.status(500).send(error);
   }
 }
 
@@ -243,7 +243,7 @@ export async function getEditProduct(req, res) {
     const productinfo = await products.findById(req.params.id);
     res.render("productedit", { categoryinfo, imageerr, productinfo });
   } catch (error) {
-    res.status(500).send("Error fetching product data.");;
+   res.status(500).send(error);;
     imageerr = "not a image";
   }
 }
@@ -301,7 +301,7 @@ export async function couponManagement(req, res) {
     res.render("couponManagement", { couponinfo, couponErr });
     couponErr = null;
   } catch (error) {
-    res.status(500).send("Error fetching product data.");;
+   res.status(500).send(error);;
   }
 }
 export async function postCouponManagement(req, res) {
@@ -324,7 +324,7 @@ export async function postCouponManagement(req, res) {
       res.redirect("/admin/couponManagement");
     }
   } catch (error) {
-    res.status(500).send("Error fetching product data.");;
+   res.status(500).send(error);;
   }
 }
 export async function banner(req, res) {
@@ -345,7 +345,7 @@ export async function postBanner(req, res) {
 
     res.redirect("/admin/banner");
   } catch (error) {
-    res.status(500).send("Error fetching product data.");;
+   res.status(500).send(error);;
 
     res.redirect("/admin/banner");
   }
@@ -409,7 +409,7 @@ export function unlistcategory(req, res) {
         res.json({ success: true });
       }
     } catch (error) {
-      res.status(500).send("Error fetching product data.");;
+     res.status(500).send(error);;
       res.send("Failed to unlist category.");
     }
   });
@@ -433,7 +433,7 @@ export function unlistproduct(req, res) {
         res.json({ success: true });
       }
     } catch (error) {
-      res.status(500).send("Error fetching product data.");;
+     res.status(500).send(error);;
       res.send("Failed to unlist category.");
     }
   });
@@ -464,7 +464,7 @@ export async function userban(req, res) {
       res.json({ success: false });
     }
   } catch (error) {
-     res.status(500).send("Error fetching product data.");
+    res.status(500).send(error);
   }
 }
 export async function deleteFromProductEdit(req, res) {
@@ -480,7 +480,7 @@ export async function deleteFromProductEdit(req, res) {
      
     res.json({ success: true });
   } catch (error) {
-    res.status(500).send("Error fetching product data.");;
+   res.status(500).send(error);;
   }
 }
 export async function deleteBanner(req, res) {
@@ -494,7 +494,7 @@ export async function deleteBanner(req, res) {
      
     res.json({ success: true });
   } catch (error) {
-    res.status(500).send("Error fetching product data.");;
+   res.status(500).send(error);;
   }
 }
 export async function listBanner(req, res) {
@@ -525,7 +525,7 @@ export async function listBanner(req, res) {
       res.json({ success: false });
     }
   } catch (error) {
-     res.status(500).send("Error fetching product data.");
+    res.status(500).send(error);
   }
 }
 export async function listCoupon(req, res) {
@@ -554,7 +554,7 @@ export async function listCoupon(req, res) {
       res.json({ success: false });
     }
   } catch (error) {
-     res.status(500).send("Error fetching product data.");
+    res.status(500).send(error);
   }
 }
 
@@ -601,7 +601,7 @@ export async function changestatus(req, res) {
       res.json({ status: "delivered" });
     } 
   } catch (error) {
-     res.status(500).send("Error fetching product data.");
+    res.status(500).send(error);
   }
 }
 export async function deletecoupon(req, res) {
@@ -634,7 +634,7 @@ export async function editcoupon(req, res) {
 
   res.redirect("back");
   } catch (error) {
-    res.status(500).send("Error fetching product data.");;
+   res.status(500).send(error);;
   }
 
 }
@@ -649,6 +649,6 @@ try {
   res.json({ success: true, orderinfo: datedata });
 
 } catch (error) {
-  res.status(500).send("Error fetching product data.");
+ res.status(500).send(error);
 }
 }
