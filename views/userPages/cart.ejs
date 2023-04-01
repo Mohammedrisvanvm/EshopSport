@@ -467,7 +467,7 @@
       function inc(data, cond) {
         document.getElementById("message" + data).textContent = "";
         let quantity = document.getElementById("Qty" + data);
-        if (quantity.value >= 10||quantity.value <1) {
+        if (quantity.value >= 10) {
           document.getElementById("message" + data).textContent =
             "reached limit";
         } else {
