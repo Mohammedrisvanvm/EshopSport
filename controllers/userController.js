@@ -870,7 +870,7 @@ export function userlogout(req, res) {
 //axios function start
 
 export async function addtowishlist(req, res) {
-  
+
   try {
     await users.updateOne(
       { _id: req.session.user._id },
@@ -954,6 +954,7 @@ export async function deletefromcart(req, res) {
 }
 
 export async function incdec(req, res) {
+  console.log(req.query);
   try {
     if (req.query.cond == "inc") {
       let quantity = await products.findOne(
@@ -962,6 +963,7 @@ export async function incdec(req, res) {
       );
 
       if (quantity.quantity > req.query.quantity) {
+        console.log(req.query.quantity,quantity.quantity);
         await users.updateOne(
           {
             _id: req.session.user._id,
@@ -975,15 +977,21 @@ export async function incdec(req, res) {
         res.json({ success: false });
       }
     } else {
-      await users.updateOne(
-        {
-          _id: req.session.user._id,
-          cart: { $elemMatch: { product_id: req.query.data } },
-        },
-        { $inc: { "cart.$.quantity": -1 } }
-      );
-
-      res.json({ success: true });
+      if ( req.query.quantity <= 1) {
+        console.log("3454");
+        res.json({ success: false });
+      }else{
+        await users.updateOne(
+          {
+            _id: req.session.user._id,
+            cart: { $elemMatch: { product_id: req.query.data } },
+          },
+          { $inc: { "cart.$.quantity": -1 } }
+        );
+  
+        res.json({ success: true });
+      }
+      
     }
   } catch (error) {}
 }

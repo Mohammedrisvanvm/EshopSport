@@ -467,6 +467,7 @@
       function inc(data, cond) {
         document.getElementById("message" + data).textContent = "";
         let quantity = document.getElementById("Qty" + data);
+        console.log(quantity.value,"999");
         if (quantity.value >= 10) {
           document.getElementById("message" + data).textContent =
             "reached limit";
@@ -494,14 +495,18 @@
         }
       }
       function dec(data, cond) {
+     
         console.log(cond);
         document.getElementById("message" + data).textContent = "";
         let quantity = document.getElementById("Qty" + data);
+        console.log(quantity.value);
         if (quantity.value <= 1) {
+          console.log("0000000");
           document.getElementById("message" + data).textContent =
             "reached limit";
+          
         } else {
-          axios.get(`/incdec?data=${data}&cond=${cond}`).then((response) => {
+          axios.get(`/incdec?quantity=${quantity.value}&data=${data}&cond=${cond}`).then((response) => {
             console.log(response);
             if (response.data.success) {
               quantity.value = Number(quantity.value) - 1;
