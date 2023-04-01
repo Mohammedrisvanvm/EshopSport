@@ -839,7 +839,7 @@ export async function orderconfirmationpage(req, res) {
   res.render("orderConfirmationPage", {
     ifuser,
     orderDetails,
-    user: req.session.user,
+    user: req.session.user.name,
   });
 }
 export async function orderDetails(req, res) {
