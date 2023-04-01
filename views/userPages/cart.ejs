@@ -467,7 +467,7 @@
       function inc(data, cond) {
         document.getElementById("message" + data).textContent = "";
         let quantity = document.getElementById("Qty" + data);
-        if (quantity.value >= 10) {
+        if (quantity.value >= 10||quantity.value <1) {
           document.getElementById("message" + data).textContent =
             "reached limit";
         } else {
@@ -486,7 +486,7 @@
                 totalprice.textContent =
                   Number(totalprice.textContent) + Number(price.textContent);
               } else {
-                console.log("21321312");
+             
                 document.getElementById("message" + data).textContent =
                   "outofstock";
               }
