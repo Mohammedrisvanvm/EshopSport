@@ -25,6 +25,7 @@ let quantityerr = null;
 let otp = otpGenerator.generate(6, {
   upperCaseAlphabets: false,
   specialChars: false,
+  alphabets: false
 });
 var instance = new Razorpay({
   key_id: process.env.KEY_ID,
