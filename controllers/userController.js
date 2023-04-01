@@ -1062,19 +1062,17 @@ export async function productReturn(req, res) {
     const order = await orderModel.findOne({ _id: req.query.data });
     const productId = req.query.proid;
 
-    // Increase the product quantity by the returned quantity
+  
     await products.updateOne(
       { _id: productId },
       { $inc: { quantity: order.quantity } }
     );
 
-    // Update the order status to "Returned" and mark it as unpaid
     await orderModel.updateOne(
       { _id: req.query.data },
       { $set: { orderStatus: "Returned", paid: false } }
     );
 
-    // Refund the customer's wallet if applicable
     const walletUpdate = { $inc: { wallet: order.amountPayable } };
     if (order.wallet !== 0) {
       walletUpdate.$inc.wallet += order.wallet;
