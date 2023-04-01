@@ -843,14 +843,21 @@ export async function orderconfirmationpage(req, res) {
   });
 }
 export async function orderDetails(req, res) {
+try {
+  
+
   let ifuser=req.session.user
   const orderDetails = await orderModel.find({userId:req.session.user._id}).sort({ _id: -1 });
-
-  let user = await users.findOne(req.session.user.name);
-
+console.log(orderDetails);
+  let user = await users.findOne(req.session.user);
+console.log(user);
   res.render("order", {ifuser, user, orderDetails });
-}
+  
 
+} catch (error) {
+  res.status(500).send(error);
+}
+}
 
 
 //orderpage
