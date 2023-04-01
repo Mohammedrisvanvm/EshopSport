@@ -513,7 +513,9 @@
                     class="form-control"
                     name="District"
                     placeholder="District"
+                 
                     id="District"
+                    minlength="3"
                     required
                   />
                 </div>
@@ -523,6 +525,8 @@
                     type="text"
                     class="form-control"
                     name="state"
+                    minlength="3"
+
                     id="state"
                     placeholder="State"
                     required
@@ -535,6 +539,7 @@
                     class="form-control"
                     name="pincode"
                     id="zip"
+                    pattern="[0-9]{6}"
                     placeholder="Pincode"
                     required
                   />
@@ -575,22 +580,22 @@
         document.getElementById("OG").innerHTML = `
         <div class="col-lg-8">
 					<div class="card">
-            <form action="/editAddress?id=${id}" method="post">
+            <form action="/editAddress?id=${id}" method="post" type="form">
 						<div class="card-body">
 							<div class="row mb-3">
 								<div class="col-sm-3">
 									<h6 class="mb-0">House name</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input type="text" name="HouseName" class="form-control" value='${HouseName}''>
+                  <input type="text" name="HouseName" class="form-control"  minlength="6" value="${HouseName}" required>
 								</div>
 							</div>
 							<div class="row mb-3">
 								<div class="col-sm-3">
-									<h6 class="mb-0">Email</h6>
+									<h6 class="mb-0">Phone Number</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input type="text" name="phonenumber" min=10 class="form-control" value="${phonenumber}">
+									<input type="text" name="phonenumber" pattern="[0-9]{10}" minlength="10" maxlength="10" class="form-control" value="${phonenumber}" required>
 								</div>
 							</div>
 							<div class="row mb-3">
@@ -598,7 +603,7 @@
 									<h6 class="mb-0">Place</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input type="text"name="place" class="form-control" value="${place}">
+									<input type="text"name="place" class="form-control" value="${place}" required>
 								</div>
 							</div>
 							<div class="row mb-3">
@@ -606,7 +611,8 @@
 									<h6 class="mb-0">District</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input type="text" name="District" class="form-control" value="${District}">
+									<input type="text" name="District" 
+                  minlength="3" class="form-control" value="${District}" required>
 								</div>
 							</div>
               <div class="row mb-3">
@@ -614,7 +620,7 @@
 									<h6 class="mb-0">State</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input type="text" name="state" class="form-control" value="${state}">
+									<input type="text" name="state" class="form-control" value="${state}" required>
 								</div>
 							</div>
               <div class="row mb-3">
@@ -622,14 +628,16 @@
 									<h6 class="mb-0">pincode</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input type="text" name="pincode" class="form-control" value="${pincode}">
+									<input type="text" name="pincode" pattern="[0-9]{6}" minlength="6" max="6" class="form-control" value="${pincode}" required>
 								</div>
 							</div>
 						
 							<div class="row">
 								<div class="col-sm-3"></div>
 								<div class="col-sm-9 text-secondary">
-									<input type="submit" class="btn btn-primary px-4" value="Save Changes">
+                  <button class="btn btn-primary" type="submit">
+                    Edit Address
+                  </button>
 								</div>
 							</div>
 						</div>
@@ -647,7 +655,7 @@
 									<h6 class="mb-0">Full Name</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input type="text" name="Name" class="form-control" value="<%-userinfo.name%>">
+									<input type="text" name="Name" class="form-control" value="<%-userinfo.name%>" required>
 								</div>
 							</div>
 							<div class="row mb-3">
@@ -655,7 +663,7 @@
 									<h6 class="mb-0">Email</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input type="text" name="Email"class="form-control" value="<%-userinfo.email%>">
+									<input type="email" class="form-control" value="<%-userinfo.email%>" disabled>
 								</div>
 							</div>
 							<div class="row mb-3">
@@ -663,7 +671,7 @@
 									<h6 class="mb-0">Phone</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input type="text"name="Phone" class="form-control" value="<%-userinfo.phone%>">
+									<input type="text" name="Phone" pattern="[0-9]{10}" class="form-control" value="<%-userinfo.phone%>" required>
 								</div>
 							</div>
 							<div class="row mb-3">
@@ -671,15 +679,16 @@
 									<h6 class="mb-0">Mobile</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input type="text" name="Mobile" class="form-control" value="<%-userinfo.mobile%>">
+									<input type="text" name="Mobile" class="form-control" pattern="[0-9]{10}" value="<%-userinfo.mobile%>" required>
 								</div>
 							</div>
 						
 							<div class="row">
 								<div class="col-sm-3"></div>
 								<div class="col-sm-9 text-secondary">
-									<input type="submit" class="btn btn-primary px-4" value="Save Changes">
-								</div>
+                  <button class="btn btn-primary" type="submit">
+                    edit Profile
+                  </button>								
 							</div>
 						</div>
           </form>
@@ -740,6 +749,16 @@
         ) {
           showErrorMessage("0 is not allowed");
           return false;
+        }else if (
+          HouseName.value.trim().length < 3 ||
+          phonenumber.value.trim().length < 10 ||
+          place.value.trim().length < 3 ||
+          District.value.trim().length < 5 ||
+          state.value.trim().length < 3||
+          pincode.value.trim().length < 6
+        ) {
+          showErrorMessage("value not match the length");
+          return false;
         }
         var fields = [HouseName, place, District, state];
         var numberRegex = /\d/;
@@ -750,7 +769,7 @@
             return false;
           }
         }
-
+        place.value.trim().length < 5
         var specialCharRegex = /[@#$!%*?&]/;
         if (
           HouseName.value.match(specialCharRegex) ||

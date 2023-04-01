@@ -464,12 +464,11 @@ export async function userprofile(req, res) {
 }
 export async function editProfile(req, res) {
   let ifuser=req.session.user
-  const { Name, Email, Phone, Mobile } = req.body;
-  if (Name && Email && Phone && Mobile) {
+  const { Name, Phone, Mobile } = req.body;
+  if (Name && Phone && Mobile) {
     try {
       await users.findByIdAndUpdate(req.session.user._id, {
         name: Name,
-        email: Email,
         phone: Phone,
         mobile: Mobile,
       });
