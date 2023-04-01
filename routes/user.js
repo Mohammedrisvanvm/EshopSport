@@ -96,7 +96,7 @@ router.post("/onlineorderconfirm", onlineorderconfirm);
 
 
 //axios
-router.get("/addtowishlist/:data", ifuser, addtowishlist);
+router.get("/addtowishlist/:data",ifuser, addtowishlist);
 router.get("/deletefromwishlist/:data", ifuser, deletefromwishlist);
 router.get("/addtocart/:data", ifuser, addtocart);
 router.get("/deletefromcart", ifuser, deletefromcart);

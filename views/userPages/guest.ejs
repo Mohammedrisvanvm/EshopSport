@@ -14,7 +14,6 @@
       href="https://getbootstrap.com/docs/4.0/examples/carousel/"
     />
 
-  
     <!-- Custom styles for this template -->
     <link href="/css/usercss.css" rel="stylesheet" />
     <link
@@ -79,8 +78,6 @@
                 <li class="nav-item">
                   <a class="nav-link mx-2" href="/shop"><h5>SHOP NOW</h5></a>
                 </li>
-
-               
               </ul>
 
               <ul class="navbar-nav mb-2 mb-lg-0">
@@ -112,7 +109,6 @@
                         class="dropdown-menu"
                         aria-labelledby="dropdownMenuButton1"
                       >
-                     
                         <li>
                           <a class="dropdown-item" href="/profile">profile</a>
                         </li>
@@ -158,14 +154,14 @@
             height: 300px;
           }
         }
-      
+
         /* Adjust image size for medium screens */
         @media (min-width: 768px) and (max-width: 991px) {
           .carousel-item {
             height: 400px;
           }
         }
-      
+
         /* Adjust image size for large screens */
         @media (min-width: 992px) {
           .carousel-item {
@@ -173,30 +169,36 @@
           }
         }
       </style>
-      
+
       <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <!-- Indicators for the carousel -->
-      
-      
+
         <!-- Carousel content -->
-        <div class="carousel-inner" >
-          <div class="carousel-item active" style="background-color: #ffff;">
+        <div class="carousel-inner">
+          <div class="carousel-item active" style="background-color: #ffff">
             <!-- Carousel slide image -->
-            <img class="d-block w-100 h-100 object-fit-fill border-0 rounded"
-                 src="/image/carousel image/<%-banner[0].mainImage[0].filename %>"
-                 alt="Slide image">
-      
+            <img
+              class="d-block w-100 h-100 object-fit-fill border-0 rounded"
+              src="/image/carousel image/<%-banner[0].mainImage[0].filename %>"
+              alt="Slide image"
+            />
+
             <!-- Carousel slide caption -->
             <div class="carousel-caption text-left">
               <p>
-                <a class="btn btn-lg btn-light justify-content-center" href="/shop" role="button" style="margin-bottom: 10px;">Shop now</a>
+                <a
+                  class="btn btn-lg btn-light justify-content-center"
+                  href="/shop"
+                  role="button"
+                  style="margin-bottom: 10px"
+                  >Shop now</a
+                >
               </p>
             </div>
-            
           </div>
         </div>
       </div>
-      <hr>
+      <hr />
       <section>
         <div class="container marketing">
           <!-- Three columns of text below the carousel -->
@@ -305,9 +307,11 @@
                       <a href="" class="text-reset">
                         <p><%-i.category %></p>
                       </a>
-                      <h6 class="mb-3 price ">
-                        <s class="text-danger ">Rs.<%-i.MRP %></s
-                        ><strong class="ms-2 sale text-dark">Rs.<%-i.price %></strong>
+                      <h6 class="mb-3 price">
+                        <s class="text-danger">Rs.<%-i.MRP %></s
+                        ><strong class="ms-2 sale text-dark"
+                          >Rs.<%-i.price %></strong
+                        >
                       </h6>
                       <div class="d-flex">
                         <button
@@ -319,13 +323,12 @@
                         >
                           <i class="fas fa-heart"></i>
                         </button>
-                        <a href="/cart">
+                        <a href="/productPage/<%-i._id %>">
                           <button
                             type="button"
                             class="btn btn-primary mx-3"
                             title="buy now"
                             data-mdb-toggle="tooltip"
-                            onclick="addtocart(`<%-i._id %>`,`b`)"
                           >
                             buy now
                           </button>
@@ -377,7 +380,9 @@
                       </a>
                       <h6 class="mb-3 price">
                         <s class="text-danger">Rs.<%-i.MRP %></s
-                        ><strong class="ms-2 sale text-dark">Rs.<%-i.price %></strong>
+                        ><strong class="ms-2 sale text-dark"
+                          >Rs.<%-i.price %></strong
+                        >
                       </h6>
                       <div class="d-flex">
                         <button
@@ -389,13 +394,12 @@
                         >
                           <i class="fas fa-heart"></i>
                         </button>
-                        <a href="/cart">
+                        <a href="/productPage/<%-i._id %>">
                           <button
                             type="button"
                             class="btn btn-primary mx-3"
                             title="buy now"
                             data-mdb-toggle="tooltip"
-                            onclick="addtocart(`<%-i._id %>`)"
                           >
                             buy now
                           </button>
@@ -446,9 +450,11 @@
                       </a>
                       <h6 class="mb-3 price">
                         <s class="text-danger">Rs.<%-i.MRP %></s
-                        ><strong class="ms-2 sale text-dark">Rs.<%-i.price %></strong>
+                        ><strong class="ms-2 sale text-dark"
+                          >Rs.<%-i.price %></strong
+                        >
                       </h6>
-                      <div class="d-flex ">
+                      <div class="d-flex">
                         <button
                           type="button"
                           class="btn btn-danger mx-4"
@@ -458,13 +464,13 @@
                         >
                           <i class="fas fa-heart"></i>
                         </button>
-                        <a href="/cart">
+
+                        <a href="/productPage/<%-i._id %>">
                           <button
                             type="button"
                             class="btn btn-primary mx-3"
                             title="buy now"
                             data-mdb-toggle="tooltip"
-                            onclick="addtocart(`<%-i._id %>`)"
                           >
                             buy now
                           </button>
@@ -535,9 +541,8 @@
             ><i class="fab fa-youtube"></i
           ></a>
         </section>
-     
       </div>
- 
+
       <div
         class="text-center p-3"
         style="background-color: rgba(0, 0, 0, 0.2); color: #e0e0e0"
@@ -545,7 +550,6 @@
         © 2022 Copyright:
         <a class="text-white" href="https://mdbootstrap.com/">eshopsport.com</a>
       </div>
-
     </footer>
     <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
     <script>

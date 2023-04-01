@@ -870,6 +870,7 @@ export function userlogout(req, res) {
 //axios function start
 
 export async function addtowishlist(req, res) {
+  
   try {
     await users.updateOne(
       { _id: req.session.user._id },
