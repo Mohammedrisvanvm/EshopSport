@@ -846,7 +846,7 @@ export async function orderDetails(req, res) {
   let ifuser=req.session.user
   const orderDetails = await orderModel.find({userId:req.session.user._id}).sort({ _id: -1 });
 
-  let user = await users.findOne(req.session.user);
+  let user = await users.findOne(req.session.user.name);
 
   res.render("order", {ifuser, user, orderDetails });
 }
