@@ -926,6 +926,7 @@ export async function deletefromwishlist(req, res) {
       { _id: req.session.user._id },
       { $pull: { wishlist: { product_id: req.params.data } } }
     );
+    res.json({success:true})
   } catch (error) {
      res.status(500) 
   console.log(error);
