@@ -375,11 +375,24 @@ export async function postforget3(req, res) {
 //product page
 
 export async function productPage(req, res) {
+  console.log(111111);
   let ifuser=req.session.user
   try {
+    let inCart=null
     const productinfo = await products.findById(req.params.id).lean();
-
-    res.render("productPage", { productinfo, ifuser });
+    if(req.session.user){
+      const user = await users.findOne({
+        _id: req.session.user._id,
+        cart: { $elemMatch: { product_id: req.params.id } }
+      });
+      
+if (user) {
+  inCart=user
+}
+    
+    }
+    console.log(111111);
+    res.render("productPage", { productinfo, ifuser,inCart });
   } catch (error) {
      res.status(500) 
   console.log(error);
@@ -941,11 +954,8 @@ export async function addtocart(req, res) {
           { _id: req.session.user._id },
           { $push: { cart: { product_id: req.params.data, quantity: 1 } } }
         );
-
-        // await products.updateOne(
-        //   { _id: req.params.data },
-        //   { $inc: { quantity: -1 } }
-        // );
+res.json({success:true})
+        
       } else {
         res.send("not worked");
       }

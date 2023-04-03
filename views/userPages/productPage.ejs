@@ -246,19 +246,25 @@
                   </ul>
                 </div>
               </div> -->
-              <div class="buttons d-flex flex-row mt-5 gap-3">
-                <button
-                  class="btn btn-outline-dark"
-                  onclick="buyNow(`<%-productinfo._id %>`)"
-                >
-                  Buy Now
-                </button>
+              <div class="buttons d-flex flex-row mt-5 gap-3" id="successcart">
+            <% if (inCart) { %>
+              <a href="/cart">
+              <button
+              class="btn btn-dark"
+              
+            >
+              Go to cart
+            </button>
+          </a>
+           <% } else { %>
+             
                 <button
                   class="btn btn-dark"
                   onclick="addToCart(`<%-productinfo._id %>`)"
                 >
                   Add to cart
                 </button>
+                <% } %>
               </div>
               <!-- <div class="search-option">
                 <i class="bx bx-search-alt-2 first-search"></i>
@@ -350,23 +356,27 @@
         main_prodcut_image.src = element.src;
       }
       function addToCart(data) {
-        console.log(data);
-        axios.get("/addtocart/" + data);
+        
+        let cart=document.getElementById('successcart')
+      
+        axios.get("/addtocart/" + data).then((result)=>{
+          if (result.data.success) {
+cart.innerHTML=` <a href="/cart">
+              <button
+              class="btn btn-dark"
+              
+            >
+              Go to cart
+            </button>
+          </a>`
+          
+          }
+        })
       }
-      function buyNow(data) {
-        console.log("1111111111");
-        axios
-          .get("/addtocart/" + data)
-          .then((result) => {
-            window.location.href = "/cart";
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      }
+   
 
       function addtowishlist(data) {
-        console.log(data, "111111111111");
+       
         axios.get("/addtowishlist/" + data).then((result) => {
           if (result.data.success) {
             let btn = (document.getElementById(
@@ -376,7 +386,7 @@
         });
       }
       function deletefromwishlist(data) {
-        console.log(data, "111111111111");
+       
         axios.get("/deletefromwishlist/" + data).then((result) => {
           if (result.data.success) {
             let btn = (document.getElementById("heart").innerHTML = `<button
