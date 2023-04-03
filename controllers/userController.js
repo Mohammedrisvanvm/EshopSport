@@ -851,9 +851,7 @@ export async function editAddress(req, res) {
   }
 }
 
-export function payment(req, res) {
-  res.render("address");
-}
+
 export async function orderconfirmationpage(req, res) {
   req.session.order = null;
   let ifuser=req.session.user

@@ -21,7 +21,7 @@ import {
   onlineorderconfirm,
   orderconfirmationpage,
   orderDetails,
-  payment,
+
   postaddresspage,
   postaddressprofile,
   postcheckout,
@@ -86,7 +86,7 @@ router.post("/address", postaddresspage);
 router.post("/addressprofile", postaddressprofile);
 router.get("/orderconfirmationpage",ifuser, orderconfirmationpage);
 router.post("/editAddress", ifuser, editAddress);
-router.get("/trash", ifuser, payment);
+
 router.get("/orders",ifuser, orderDetails);
 router.get("/order/orderdetails", ifuser, uniqueorder);
 
