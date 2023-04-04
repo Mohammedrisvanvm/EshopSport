@@ -620,7 +620,7 @@ export async function postcheckout(req, res) {
     const total = sum - promo - wallet;
     productsdetails = productsdetails.map((product) => ({
       ...product,
-      total,
+      total:sum,
       payableAmount: total,
     }));
 
@@ -723,12 +723,16 @@ export async function onlineorderconfirm(req, res) {
         { _id: orderup[0]._id },
         { $set: { paid: true, orderId: paymentDocument.id } }
       );
+      if(req.session.wallet){
       await users.updateOne(
         { _id: req.session.user._id },
         { $inc: { wallet: -Number(req.session.wallet) } }
       );
-      req.session.wallet = 0;
+      }else{
+        req.session.wallet = 0;
 
+      }
+     
       res.redirect("/orderconfirmationpage");
     } else {
       res.redirect("/checkout");

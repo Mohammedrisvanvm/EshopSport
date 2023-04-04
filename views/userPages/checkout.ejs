@@ -609,7 +609,8 @@
         axios.get(`/deletefromaddress?id=${data}`).then((result)=>{
         console.log(data);
         if (result.data.success) {
-        document.getElementById("deletefromaddress" + data).innerHTML = "";
+          window.location.reload()
+        // document.getElementById("deletefromaddress" + data).innerHTML = "";
       }
         
       })
@@ -657,7 +658,17 @@
 
             showErrorMessage("negative number is not allowed");
                  return false;
-         } else if (HouseName.value==0||phonenumber.value==0||place.value==0||District.value==0||state.value==0||pincode.value==0) {
+         }else if (
+          HouseName.value.trim().length < 3 ||
+          phonenumber.value.trim().length < 10 ||
+          place.value.trim().length < 3 ||
+          District.value.trim().length < 5 ||
+          state.value.trim().length < 3||
+          pincode.value.trim().length < 6
+        ) {
+          showErrorMessage("value not match the length");
+          return false;
+        } else if (HouseName.value==0||phonenumber.value==0||place.value==0||District.value==0||state.value==0||pincode.value==0) {
 
         showErrorMessage("0 is not allowed");
             return false;
