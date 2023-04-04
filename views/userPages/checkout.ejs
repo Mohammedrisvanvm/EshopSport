@@ -449,8 +449,6 @@
                   type="number"
                   class="form-control"
                   pattern="[0-9]{10}"
-                  minlength="10"
-                  maxlength="10"
                   name="phonenumber"
                   id="phonenumber"
                   placeholder="Phone Number"
@@ -496,6 +494,7 @@
                   type="text"
                   class="form-control"
                   name="pincode"
+                  pattern="[0-9]{6}" minlength="6" max="6"
                   id="zip"
                   placeholder="Pincode"
                   required
