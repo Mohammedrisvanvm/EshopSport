@@ -9,7 +9,6 @@ import { coupon } from "../models/couponSchema.js";
 import { orderModel } from "../models/orderSchema.js";
 
 import { bannerModel } from "../models/bannerSchema.js";
-import { createId } from "../helpers/createId.js";
 import Razorpay from "razorpay";
 
 
@@ -996,7 +995,7 @@ export async function deletefromcart(req, res) {
 }
 
 export async function incdec(req, res) {
-  console.log(req.query);
+
   try {
     if (req.query.cond == "inc") {
       let quantity = await products.findOne(
