@@ -11,7 +11,6 @@ import { orderModel } from "../models/orderSchema.js";
 import { bannerModel } from "../models/bannerSchema.js";
 import Razorpay from "razorpay";
 
-
 let passworderr = null;
 let emailerr = null;
 
@@ -20,11 +19,10 @@ let otperr = null;
 let addressError = null;
 let quantityerr = null;
 
-
 let otp = otpGenerator.generate(6, {
   upperCaseAlphabets: false,
   specialChars: false,
-  alphabets: false
+  alphabets: false,
 });
 var instance = new Razorpay({
   key_id: process.env.KEY_ID,
@@ -53,17 +51,17 @@ export async function guestpage(req, res) {
         { $limit: 4 },
       ])
       .exec();
-      let ifuser=req.session.user
+    let ifuser = req.session.user;
     let banner = await bannerModel.find({ list: true });
 
     res.render("guest", { jerseyinfo, shortsinfo, socksinfo, banner, ifuser });
   } catch (error) {
-     res.status(500) 
-  console.log(error);
+    res.status(500);
+    console.log(error);
   }
 }
 export async function shop(req, res) {
-  let ifuser=req.session.user
+  let ifuser = req.session.user;
   try {
     let productinfo;
     let pipeline = [];
@@ -114,82 +112,71 @@ export async function shop(req, res) {
       search,
     });
   } catch (error) {
-     res.status(500) 
-  console.log(error);
+    res.status(500);
+    console.log(error);
   }
 }
 
 export async function jersey(req, res) {
-  let ifuser=req.session.user
+  let ifuser = req.session.user;
   try {
-    let search = req.query.search 
-let productinfo
+    let search = req.query.search;
+    let productinfo;
     if (search) {
-    productinfo = await products.find(
-       {
-            category: "jersey",
-            list: true,
-            productName: RegExp(search, "i"),
-          },
-       
-      )
-    }else{
- productinfo = await products.find({ category: "jersey", list: true });
-    } 
-  
+      productinfo = await products.find({
+        category: "jersey",
+        list: true,
+        productName: RegExp(search, "i"),
+      });
+    } else {
+      productinfo = await products.find({ category: "jersey", list: true });
+    }
 
     res.render("jersey", { productinfo, ifuser });
-   
   } catch (error) {
-     res.status(500) 
-  console.log(error);
+    res.status(500);
+    console.log(error);
     console.log(error);
   }
 }
 export async function shorts(req, res) {
-  let ifuser=req.session.user
+  let ifuser = req.session.user;
   try {
-    let search = req.query.search 
-    let productinfo
-        if (search) {
-        productinfo = await products.find(
-           {
-                category: "shorts",
-                list: true,
-                productName: RegExp(search, "i"),
-              },
-           
-          )
-        }else{
-     productinfo = await products.find({ category: "shorts", list: true });
-        } 
+    let search = req.query.search;
+    let productinfo;
+    if (search) {
+      productinfo = await products.find({
+        category: "shorts",
+        list: true,
+        productName: RegExp(search, "i"),
+      });
+    } else {
+      productinfo = await products.find({ category: "shorts", list: true });
+    }
     res.render("shorts", { productinfo, ifuser });
   } catch (error) {
-     res.status(500) 
-  console.log(error);
+    res.status(500);
+    console.log(error);
   }
 }
 export async function socks(req, res) {
-  let ifuser=req.session.user
+  let ifuser = req.session.user;
   try {
-    let search = req.query.search 
-    let productinfo
-        if (search) {
-        productinfo = await products.find(
-           {
-                category: "socks",
-                list: true,
-                productName: RegExp(search, "i"),
-              },
-           
-          )
-        }else{
-     productinfo = await products.find({ category: "socks", list: true });
-        } 
+    let search = req.query.search;
+    let productinfo;
+    if (search) {
+      productinfo = await products.find({
+        category: "socks",
+        list: true,
+        productName: RegExp(search, "i"),
+      });
+    } else {
+      productinfo = await products.find({ category: "socks", list: true });
+    }
     res.render("socks", { productinfo, ifuser });
   } catch (error) {
-     res.status(500) 
-  console.log(error);
+    res.status(500);
+    console.log(error);
   }
 }
 
@@ -202,8 +189,8 @@ export function userGetLogin(req, res) {
       res.redirect("/");
     }
   } catch (error) {
-     res.status(500) 
-  console.log(error);
+    res.status(500);
+    console.log(error);
   }
 }
 
@@ -232,8 +219,8 @@ export async function userPostLogin(req, res) {
       });
     }
   } catch (error) {
-     res.status(500) 
-  console.log(error);
+    res.status(500);
+    console.log(error);
   }
 }
 export function userGetSignup(req, res) {
@@ -264,8 +251,8 @@ export async function userPostSignup(req, res) {
       res.redirect("/signup");
     }
   } catch (error) {
-     res.status(500) 
-  console.log(error);
+    res.status(500);
+    console.log(error);
   }
 }
 export function getsignUpOtp(req, res) {
@@ -316,8 +303,8 @@ export async function postForgottenPassword(req, res) {
       res.redirect("/otpValidate");
     }
   } catch (error) {
-     res.status(500) 
-  console.log(error);
+    res.status(500);
+    console.log(error);
   }
 }
 export function resendOTP(req, res) {
@@ -366,8 +353,8 @@ export async function postforget3(req, res) {
       res.redirect("/forget3");
     }
   } catch (error) {
-     res.status(500) 
-  console.log(error);
+    res.status(500);
+    console.log(error);
   }
 }
 
@@ -375,31 +362,30 @@ export async function postforget3(req, res) {
 
 export async function productPage(req, res) {
   console.log(111111);
-  let ifuser=req.session.user
+  let ifuser = req.session.user;
   try {
-    let inCart=null
+    let inCart = null;
     const productinfo = await products.findById(req.params.id).lean();
-    if(req.session.user){
+    if (req.session.user) {
       const user = await users.findOne({
         _id: req.session.user._id,
-        cart: { $elemMatch: { product_id: req.params.id } }
+        cart: { $elemMatch: { product_id: req.params.id } },
       });
-      
-if (user) {
-  inCart=user
-}
-    
+
+      if (user) {
+        inCart = user;
+      }
     }
     console.log(111111);
-    res.render("productPage", { productinfo, ifuser,inCart });
+    res.render("productPage", { productinfo, ifuser, inCart });
   } catch (error) {
-     res.status(500) 
-  console.log(error);
+    res.status(500);
+    console.log(error);
   }
 }
 
 export async function wishlist(req, res) {
-  let ifuser=req.session.user
+  let ifuser = req.session.user;
   try {
     const wishlistdetails = await users.findOne(
       { _id: req.session.user._id },
@@ -413,13 +399,13 @@ export async function wishlist(req, res) {
 
     res.render("wishlist", { productsdetails, ifuser });
   } catch (error) {
-     res.status(500) 
-  console.log(error);
+    res.status(500);
+    console.log(error);
   }
 }
 
 export async function cart(req, res) {
-  let ifuser=req.session.user
+  let ifuser = req.session.user;
   try {
     if (!req.session.user) {
       res.redirect("/login");
@@ -465,18 +451,18 @@ export async function cart(req, res) {
           count,
         });
       } catch (error) {
-         res.status(500) 
-  console.log(error);
+        res.status(500);
+        console.log(error);
       }
     }
   } catch (error) {
-     res.status(500) 
-  console.log(error);
+    res.status(500);
+    console.log(error);
   }
 }
 
 export async function userprofile(req, res) {
-  let ifuser=req.session.user
+  let ifuser = req.session.user;
   try {
     const userinfo = await users.findOne({ _id: req.session.user._id });
     const useraddress = await users.findOne(
@@ -486,12 +472,12 @@ export async function userprofile(req, res) {
 
     res.render("profile", { userinfo, useraddress, ifuser });
   } catch (error) {
-     res.status(500) 
-  console.log(error);
+    res.status(500);
+    console.log(error);
   }
 }
 export async function editProfile(req, res) {
-  let ifuser=req.session.user
+  let ifuser = req.session.user;
   const { Name, Phone, Mobile } = req.body;
   if (Name && Phone && Mobile) {
     try {
@@ -502,19 +488,17 @@ export async function editProfile(req, res) {
       });
       res.redirect("/profile");
     } catch (error) {
-      res.status(500)
+      res.status(500);
       console.log("An error occurred while updating the user profile");
     }
   } else {
-    res.status(400)
+    res.status(400);
     console.log("All fields are required");
   }
 }
 
-
-
 export async function getcheckout(req, res) {
-  let ifuser=req.session.user
+  let ifuser = req.session.user;
   try {
     const cartQuantity = {};
     const userinfo = await users.findOne({ _id: req.session.user._id });
@@ -564,14 +548,15 @@ export async function getcheckout(req, res) {
     addressError = null;
     quantityerr = null;
   } catch (error) {
-     res.status(500) 
-  console.log(error);
+    res.status(500);
+    console.log(error);
   }
 }
 export async function postcheckout(req, res) {
-  let ifuser=req.session.user
+  let ifuser = req.session.user;
   try {
     let { totalAmount, address } = req.body;
+    console.log(req.body);
 
     const userinfo = await users.findOne(
       { _id: req.session.user._id },
@@ -596,7 +581,7 @@ export async function postcheckout(req, res) {
     let wallet = 0;
     if (req.session.wallet) {
       wallet = Number(req.session.wallet);
-      req.session.wallet=null
+      req.session.wallet = null;
       paymentType = req.body.paymentType + "& Wallet";
     }
 
@@ -619,10 +604,10 @@ export async function postcheckout(req, res) {
     const total = sum - promo - wallet;
     productsdetails = productsdetails.map((product) => ({
       ...product,
-      total:sum,
+      total: sum,
       payableAmount: total,
     }));
-
+console.log(productsdetails);
     address = await users
       .findOne(
         { _id: req.session.user._id, "address._id": address },
@@ -659,26 +644,27 @@ export async function postcheckout(req, res) {
           { $inc: { quantity: -product.cartQuantity } }
         );
       }
-      await users.updateOne(
-        { _id: req.session.user._id },
-        { $inc: { wallet: -Number(req.session.wallet) } }
-      );
- 
+      if(req.session.wallet){
+
+        await users.updateOne(
+          { _id: req.session.user._id },
+          { $inc: { wallet: -Number(req.session.wallet) } }
+        );
+      }
 
       await orderModel.create(order);
       res.redirect("/orderConfirmationPage");
     } else {
-console.log(productsdetails);
-      res.render("paymentTemp",{productsdetails});
+      console.log(productsdetails);
+      res.render("paymentTemp", { productsdetails });
     }
   } catch (error) {
-     res.status(500) 
-  console.log(error);
+    res.status(500);
+    console.log(error);
   }
 }
 
 export async function getUserPayment(req, res) {
-  
   try {
     let amount = Number(req.session.order[0].amountPayable * 100);
 
@@ -722,23 +708,22 @@ export async function onlineorderconfirm(req, res) {
         { _id: orderup[0]._id },
         { $set: { paid: true, orderId: paymentDocument.id } }
       );
-      if(req.session.wallet){
-      await users.updateOne(
-        { _id: req.session.user._id },
-        { $inc: { wallet: -Number(req.session.wallet) } }
-      );
-      }else{
+      if (req.session.wallet) {
+        await users.updateOne(
+          { _id: req.session.user._id },
+          { $inc: { wallet: -Number(req.session.wallet) } }
+        );
+      } else {
         req.session.wallet = 0;
-
       }
-     
+
       res.redirect("/orderconfirmationpage");
     } else {
       res.redirect("/checkout");
     }
   } catch (error) {
-     res.status(500) 
-  console.log(error);
+    res.status(500);
+    console.log(error);
   }
 }
 
@@ -787,8 +772,8 @@ export async function postaddressprofile(req, res) {
       res.redirect("/profile");
     }
   } catch (error) {
-     res.status(500) 
-  console.log(error);
+    res.status(500);
+    console.log(error);
   }
 }
 
@@ -834,8 +819,8 @@ export async function postaddresspage(req, res) {
       res.redirect("/checkout");
     }
   } catch (error) {
-     res.status(500) 
-  console.log(error);
+    res.status(500);
+    console.log(error);
   }
 }
 export async function editAddress(req, res) {
@@ -861,16 +846,15 @@ export async function editAddress(req, res) {
 
     res.redirect("back");
   } catch (error) {
-     res.status(500) 
-  console.log(error);
+    res.status(500);
+    console.log(error);
     res.status(500).json({ message: "Internal server error" });
   }
 }
 
-
 export async function orderconfirmationpage(req, res) {
   req.session.order = null;
-  let ifuser=req.session.user
+  let ifuser = req.session.user;
   const orderDetails = await orderModel.find().sort({ _id: -1 }).limit(1);
 
   res.render("orderConfirmationPage", {
@@ -880,24 +864,21 @@ export async function orderconfirmationpage(req, res) {
   });
 }
 export async function orderDetails(req, res) {
-try {
-  
+  try {
+    let ifuser = req.session.user;
+    const orderDetails = await orderModel
+      .find({ userId: req.session.user._id })
+      .sort({ _id: -1 });
 
-  let ifuser=req.session.user
-  const orderDetails = await orderModel.find({userId:req.session.user._id}).sort({ _id: -1 });
-
-  let user = await users.findOne(req.session.user);
-  console.log(req.session.user);
-console.log(user);
-  res.render("order", {ifuser, user, orderDetails });
-  
-
-} catch (error) {
-  res.status(500) 
-  console.log(error);
+    let user = await users.findOne(req.session.user);
+    console.log(req.session.user);
+    console.log(user);
+    res.render("order", { ifuser, user, orderDetails });
+  } catch (error) {
+    res.status(500);
+    console.log(error);
+  }
 }
-}
-
 
 //orderpage
 
@@ -909,7 +890,6 @@ export function userlogout(req, res) {
 //axios function start
 
 export async function addtowishlist(req, res) {
-
   try {
     await users.updateOne(
       { _id: req.session.user._id },
@@ -918,8 +898,8 @@ export async function addtowishlist(req, res) {
 
     res.json({ success: true });
   } catch (error) {
-     res.status(500) 
-  console.log(error);
+    res.status(500);
+    console.log(error);
   }
 }
 
@@ -929,10 +909,10 @@ export async function deletefromwishlist(req, res) {
       { _id: req.session.user._id },
       { $pull: { wishlist: { product_id: req.params.data } } }
     );
-    res.json({success:true})
+    res.json({ success: true });
   } catch (error) {
-     res.status(500) 
-  console.log(error);
+    res.status(500);
+    console.log(error);
   }
 }
 export async function addtocart(req, res) {
@@ -958,14 +938,13 @@ export async function addtocart(req, res) {
           { _id: req.session.user._id },
           { $push: { cart: { product_id: req.params.data, quantity: 1 } } }
         );
-res.json({success:true})
-        
+        res.json({ success: true });
       } else {
         res.send("not worked");
       }
     } catch (error) {
-       res.status(500) 
-  console.log(error);
+      res.status(500);
+      console.log(error);
     }
   }
 }
@@ -989,13 +968,12 @@ export async function deletefromcart(req, res) {
       res.json({ reload: true });
     }
   } catch (error) {
-     res.status(500) 
-  console.log(error);
+    res.status(500);
+    console.log(error);
   }
 }
 
 export async function incdec(req, res) {
-
   try {
     if (req.query.cond == "inc") {
       let quantity = await products.findOne(
@@ -1004,7 +982,7 @@ export async function incdec(req, res) {
       );
 
       if (quantity.quantity > req.query.quantity) {
-        console.log(req.query.quantity,quantity.quantity);
+        console.log(req.query.quantity, quantity.quantity);
         await users.updateOne(
           {
             _id: req.session.user._id,
@@ -1018,10 +996,10 @@ export async function incdec(req, res) {
         res.json({ success: false });
       }
     } else {
-      if ( req.query.quantity <= 1) {
+      if (req.query.quantity <= 1) {
         console.log("3454");
         res.json({ success: false });
-      }else{
+      } else {
         await users.updateOne(
           {
             _id: req.session.user._id,
@@ -1029,10 +1007,9 @@ export async function incdec(req, res) {
           },
           { $inc: { "cart.$.quantity": -1 } }
         );
-  
+
         res.json({ success: true });
       }
-      
     }
   } catch (error) {}
 }
@@ -1045,12 +1022,11 @@ export async function deletefromaddress(req, res) {
 
     res.json({ success: true });
   } catch (error) {
-     res.status(500) 
-  console.log(error);
+    res.status(500);
+    console.log(error);
   }
 }
 export async function promoCode(req, res) {
- 
   try {
     if (!req.query.data) {
       res.json({ success: false });
@@ -1078,8 +1054,8 @@ export async function promoCode(req, res) {
       }
     }
   } catch (error) {
-     res.status(500) 
-  console.log(error);
+    res.status(500);
+    console.log(error);
   }
 }
 export async function wallet(req, res) {
@@ -1112,8 +1088,8 @@ export async function wallet(req, res) {
       }
     }
   } catch (error) {
-     res.status(500) 
-  console.log(error);
+    res.status(500);
+    console.log(error);
   }
 }
 
@@ -1122,7 +1098,6 @@ export async function productReturn(req, res) {
     const order = await orderModel.findOne({ _id: req.query.data });
     const productId = req.query.proid;
 
-  
     await products.updateOne(
       { _id: productId },
       { $inc: { quantity: order.quantity } }
@@ -1141,8 +1116,8 @@ export async function productReturn(req, res) {
 
     res.json({ success: true });
   } catch (error) {
-     res.status(500) 
-  console.log(error);
+    res.status(500);
+    console.log(error);
   }
 }
 export async function productCancel(req, res) {
@@ -1171,14 +1146,14 @@ export async function productCancel(req, res) {
 
     res.json({ success: true });
   } catch (error) {
-     res.status(500) 
-  console.log(error);
+    res.status(500);
+    console.log(error);
   }
 }
 
 //axios function end
 export async function uniqueorder(req, res) {
-  let ifuser=req.session.user
+  let ifuser = req.session.user;
   const user = await users.findOne({ _id: req.session.user });
 
   const orderDetails = await orderModel.findOne({ _id: req.query.data });

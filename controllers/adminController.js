@@ -33,12 +33,12 @@ export async function getAdminPage(req, res) {
       monthlyDataArray.map((item) => {
         monthlyDataObject[item._id] = item.revenue;
       });
-     
+
       let monthlyData = [];
       for (let i = 1; i <= 12; i++) {
         monthlyData[i - 1] = monthlyDataObject[i] ?? 0;
       }
- 
+
       res.render("index", { monthlyData });
     } else {
       res.render("adminLogin", { error: emailerr });
@@ -46,7 +46,7 @@ export async function getAdminPage(req, res) {
       emailerr = null;
     }
   } catch (error) {
-   res.status(500).send(error);;
+    res.status(500).send(error);
   }
 }
 
@@ -73,7 +73,7 @@ export async function postAdminPage(req, res) {
       }
     }
   } catch (error) {
-   res.status(500).send(error);;
+    res.status(500).send(error);
   }
 }
 
@@ -83,7 +83,7 @@ export async function getuserManagement(req, res) {
 
     res.render("userManagement", { userinfo });
   } catch (error) {
-   res.status(500).send(error);;
+    res.status(500).send(error);
   }
 }
 
@@ -93,19 +93,19 @@ export async function getProductManagement(req, res) {
     res.render("productManagement", { producterr, productinfo });
     producterr = null;
   } catch (error) {
-   res.status(500).send(error);;
+    res.status(500).send(error);
   }
 }
 export async function getaddProduct(req, res) {
   try {
     const categoryinfo = await categories.find();
-   
+
     res.render("addProduct", { producterr, imageerr, categoryinfo });
 
     producterr = null;
     imageerr = null;
   } catch (error) {
-   res.status(500).send(error);
+    res.status(500).send(error);
     res.redirect("/admin/addproduct");
   }
 }
@@ -149,7 +149,7 @@ export function postaddProduct(req, res) {
       }
     } catch (err) {
       imageerr = "not a image";
-     res.status(500).send(error)
+      res.status(500).send(error);
       res.redirect("/admin/addproduct");
     }
   });
@@ -159,7 +159,7 @@ export async function getgategoriesManagemenet(req, res) {
     const categoryinfo = await categories.find();
     res.render("categoriesManagement", { categoryinfo });
   } catch (error) {
-   res.status(500).send(error);;
+    res.status(500).send(error);
   }
 }
 export async function getaddcategories(req, res) {
@@ -168,30 +168,29 @@ export async function getaddcategories(req, res) {
 }
 
 export async function postaddcategories(req, res) {
-  
   try {
-    const { Category} = req.body;
+    const { CategoryName } = req.body;
+    console.log(req.body);
 
-    if (!Category) {
-      throw new Error("No category or subcategory provided");
+    if (!CategoryName) {
+      categorieserr = "input field is empty";
+      return res.redirect("/admin/addcategories");
     }
+  
 
-    if (Category) {
-      const categoryName = Category.toLowerCase();
-      const categoryInfo = await categories.findOne({ name: categoryName });
-      if (!categoryInfo) {
-        const categoriesAdd = new categories({ name: categoryName });
-        await categoriesAdd.save();
-        return res.redirect("/admin/categoriesManagement");
-      }
+    const Category = CategoryName.toLowerCase();
+    const categoryInfo = await categories.findOne({ name: Category });
+    if (!categoryInfo) {
+      const categoriesAdd = new categories({ name: Category });
+      await categoriesAdd.save();
+   return   res.redirect("/admin/categoriesManagement");
+    } else {
+      categorieserr = "already exits";
+    return  res.redirect("/admin/addcategories");
     }
-
-
-    categorieserr = "already exits";
-    res.redirect("/admin/addcategories");
   } catch (error) {
-   res.status(500).send(error);;
-    res.redirect("/admin/addcategories");
+ return   res.status(500).send(error).redirect("/admin/addcategories");
+    // res.redirect("/admin/addcategories");
   }
 }
 
@@ -232,7 +231,7 @@ export async function getEditProduct(req, res) {
     const productinfo = await products.findById(req.params.id);
     res.render("productedit", { categoryinfo, imageerr, productinfo });
   } catch (error) {
-   res.status(500).send(error);;
+    res.status(500).send(error);
     imageerr = "not a image";
   }
 }
@@ -290,23 +289,22 @@ export async function couponManagement(req, res) {
     res.render("couponManagement", { couponinfo, couponErr });
     couponErr = null;
   } catch (error) {
-   res.status(500).send(error);;
+    res.status(500).send(error);
   }
 }
 export async function postCouponManagement(req, res) {
-  try { 
+  try {
     console.log(req.body);
-    const {name,couponCode,minamount,discount,maxdiscount,expiry}=req.body
-    let couponinfo = await coupon.findOne({ couponCode:"couponCode" });
-console.log(couponCode);
+    const { name, couponCode, minamount, discount, maxdiscount, expiry } =
+      req.body;
+    let couponinfo = await coupon.findOne({ couponCode: "couponCode" });
+    console.log(couponCode);
     if (!couponinfo) {
-      
-     
       let addcoupon = new coupon({
         name: name,
         couponCode: couponCode,
-        minamount:minamount,
-        discount:discount,
+        minamount: minamount,
+        discount: discount,
         maxdiscount: maxdiscount,
         expiry: expiry,
       });
@@ -317,7 +315,7 @@ console.log(couponCode);
       res.redirect("/admin/couponManagement");
     }
   } catch (error) {
-   res.status(500).send(error);;
+    res.status(500).send(error);
   }
 }
 export async function banner(req, res) {
@@ -338,7 +336,7 @@ export async function postBanner(req, res) {
 
     res.redirect("/admin/banner");
   } catch (error) {
-   res.status(500).send(error);;
+    res.status(500).send(error);
 
     res.redirect("/admin/banner");
   }
@@ -370,12 +368,11 @@ export async function salesReport(req, res) {
       },
     },
   ]);
- 
+
   res.render("salesReport", { orderinfo, result });
 }
 
 export function adminlogout(req, res) {
- 
   delete req.session.admin;
   res.redirect("/admin");
 }
@@ -402,7 +399,7 @@ export function unlistcategory(req, res) {
         res.json({ success: true });
       }
     } catch (error) {
-     res.status(500).send(error);;
+      res.status(500).send(error);
       res.send("Failed to unlist category.");
     }
   });
@@ -426,7 +423,7 @@ export function unlistproduct(req, res) {
         res.json({ success: true });
       }
     } catch (error) {
-     res.status(500).send(error);;
+      res.status(500).send(error);
       res.send("Failed to unlist category.");
     }
   });
@@ -463,40 +460,35 @@ export async function userban(req, res) {
 export async function deleteFromProductEdit(req, res) {
   const { pId, data } = req.query;
   try {
-    const productinfo = await products
-      .updateOne(
-        {
-          _id: pId,
-        },
-        { $pull: { subImages: { filename: req.query.data } } }
-      )
-     
+    const productinfo = await products.updateOne(
+      {
+        _id: pId,
+      },
+      { $pull: { subImages: { filename: req.query.data } } }
+    );
+
     res.json({ success: true });
   } catch (error) {
-   res.status(500).send(error);;
+    res.status(500).send(error);
   }
 }
 export async function deleteBanner(req, res) {
-
   const { pId, data } = req.query;
   try {
-    const productinfo = await bannerModel
-      .deleteOne({
-        _id: pId,
-      })
-     
+    const productinfo = await bannerModel.deleteOne({
+      _id: pId,
+    });
+
     res.json({ success: true });
   } catch (error) {
-   res.status(500).send(error);;
+    res.status(500).send(error);
   }
 }
 export async function listBanner(req, res) {
-  
   try {
     const bannerinfo = await bannerModel.findById({
       _id: req.query.id,
     });
-   
 
     if (bannerinfo.list == false) {
       await bannerModel.updateOne(
@@ -587,61 +579,64 @@ export async function changestatus(req, res) {
             orderStatus: toChange,
             paid: true,
             deliveredDate: new Date(),
-          }
+          },
         }
       );
 
       res.json({ status: "delivered" });
-    } 
+    }
   } catch (error) {
     res.status(500).send(error);
   }
 }
 export async function deletecoupon(req, res) {
- 
-  await coupon
-    .findByIdAndDelete({ _id: req.params.id })
-    
+  await coupon.findByIdAndDelete({ _id: req.params.id });
+
   res.json({ success: true });
 }
 export async function editcoupon(req, res) {
- 
   try {
     const { name, couponCode, minamount, discount, maxdiscount, expiry } =
-    req.body;
-  await coupon.findByIdAndUpdate({_id:req.query.id}, {
-    $set: {
-      name: name,
-      couponCode: couponCode,
-      minamount: minamount,
-      discount: discount,
-      maxdiscount:maxdiscount,
-      
-    },
-  })
-  if (expiry) {
-    await coupon.updateOne({_id:req.query.id}, {$set: {
-      expiry: expiry}})
-    
-  }
+      req.body;
+    await coupon.findByIdAndUpdate(
+      { _id: req.query.id },
+      {
+        $set: {
+          name: name,
+          couponCode: couponCode,
+          minamount: minamount,
+          discount: discount,
+          maxdiscount: maxdiscount,
+        },
+      }
+    );
+    if (expiry) {
+      await coupon.updateOne(
+        { _id: req.query.id },
+        {
+          $set: {
+            expiry: expiry,
+          },
+        }
+      );
+    }
 
-  res.redirect("back");
+    res.redirect("back");
   } catch (error) {
-   res.status(500).send(error);;
+    res.status(500).send(error);
   }
-
 }
 export async function salesReportData(req, res) {
-try {
-  const { startDate, endDate } = req.query;
+  try {
+    const { startDate, endDate } = req.query;
 
-  let datedata = await orderModel
-    .find({ createdAt: { $gte: startDate, $lt: endDate } }).sort({_id:-1})
-    .lean();
+    let datedata = await orderModel
+      .find({ createdAt: { $gte: startDate, $lt: endDate } })
+      .sort({ _id: -1 })
+      .lean();
 
-  res.json({ success: true, orderinfo: datedata });
-
-} catch (error) {
- res.status(500).send(error);
-}
+    res.json({ success: true, orderinfo: datedata });
+  } catch (error) {
+    res.status(500).send(error);
+  }
 }

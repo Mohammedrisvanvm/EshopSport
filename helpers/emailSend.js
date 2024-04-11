@@ -1,14 +1,14 @@
 import nodemailer from "nodemailer";
-
+console.log(process.env.SITE_PASSWORD,process.env.SITE_EMAIL);
 const sentOTP = (email, otp) => {
   return new Promise((resolve, reject) => {
     let transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com", // SMTP server address (usually mail.your-domain.com)
-      port: 465, // Port for SMTP (usually 465)
-      secure: true, // Usually true if connecting to port 465
+      host: "smtp.gmail.com",
+      port: 587,
+      secure: false,
       auth: {
-        user: process.env.SITE_EMAIL,
-        pass: process.env.SITE_PASSWORD,
+        user: "risvanrishu0000@gmail.com",
+        pass: "eyckjbqbfsyidhaa",
       },
     });
     var mailOptions = {

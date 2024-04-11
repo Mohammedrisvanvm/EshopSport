@@ -91,6 +91,7 @@
 <script>
 	document.getElementById('rzp-button1').onclick = async function (e) {
 		e.preventDefault();
+        console.log("asd");
 		 await axios.post('/verifyPayment').then((response)=>{
 		
 			if (response.data.success) {
